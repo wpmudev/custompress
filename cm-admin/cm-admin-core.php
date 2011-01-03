@@ -17,12 +17,7 @@ function cm_debug( $param ) {
  */
 function cm_admin_menu() {
 	add_menu_page( __('CustomPress', 'custompress'), __('CustomPress', 'custompress'), 'edit_users', 'cm_main', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Post Types', 'custompress'), __('Post Types', 'custompress'), 'edit_users', 'cm_post_types', 'cm_admin_load_page_templates' );
-	add_submenu_page( 'cm_main', __('Add Post Type', 'custompress'), __('Add Post Type', 'custompress'), 'edit_users', 'cm_add_post_type', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Taxonomies', 'custompress'), __('Taxonomies', 'custompress'), 'edit_users', 'cm_taxonomies', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Add Taxonomy', 'custompress'), __('Add Taxonomy', 'custompress'), 'edit_users', 'cm_add_taxonomy', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Custom Fields', 'custompress'), __('Custom Fields', 'custompress'), 'edit_users', 'cm_custom_fields', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Add Custom Field', 'custompress'), __('Add Custom Field', 'custompress'), 'edit_users', 'cm_add_custom_field', 'cm_admin_load_page_templates' );
+    add_submenu_page( 'cm_main', __('Content Types', 'custompress'), __('Content Types', 'custompress'), 'edit_users', 'cm_content_types', 'cm_admin_load_page_templates' );
 }
 add_action( 'admin_menu', 'cm_admin_menu', 10 );
 
@@ -87,82 +82,16 @@ function cm_admin_load_page_templates() {
 
     // load main template
     if ( $_GET['page'] == 'cm_main' ) {
-        $post_types    = get_site_option( 'cm_custom_post_types' );
-        
         include_once 'pages/cm-admin-main-page.php';
+        $post_types    = get_site_option( 'cm_custom_post_types' );
         cm_admin_main_page( $post_types );
     }
 
-    // load post type templates
-    if ( $_GET['page'] == 'cm_add_post_type' ) {
-        include_once 'pages/cm-admin-add-post-type-page.php';
-        cm_admin_add_post_type_page();
+    // load content type template ( which loads all the content type templates )
+    if ( $_GET['page'] == 'cm_content_types' ) {
+        include_once 'pages/cm-admin-content-types-page.php';
+        cm_admin_content_types_page();
     }
-    if ( $_GET['page'] == 'cm_post_types') {
-        $post_types = get_site_option( 'cm_custom_post_types' );
-        
-        if ( isset( $_GET['cm_edit_post_type'] )) {
-            include_once 'pages/cm-admin-edit-post-type-page.php';
-            cm_admin_edit_post_type_page( $post_types[$_GET['cm_edit_post_type']] );
-        }
-        elseif ( isset( $_GET['cm_delete_post_type'] )) {
-            include_once 'pages/cm-admin-delete-post-type-page.php';
-            cm_admin_delete_post_type_page( $post_types[$_GET['cm_delete_post_type']] );
-        }
-        else {
-            include_once 'pages/cm-admin-post-types-page.php';
-            cm_admin_post_types_page( $post_types );
-        }
-    }
-
-    // load taxonomy templates 
-    if ( $_GET['page'] == 'cm_add_taxonomy') {
-        include_once 'pages/cm-admin-add-taxonomy-page.php';      
-        $post_types = get_post_types('','names');
-        cm_admin_add_taxonomy_page( $post_types );
-    }
-    if ( $_GET['page'] == 'cm_taxonomies' ) {   
-        $taxonomies = get_site_option( 'cm_custom_taxonomies' );
-
-        if ( isset( $_GET['cm_edit_taxonomy'] )) {
-            include_once 'pages/cm-admin-edit-taxonomy-page.php';
-            $post_types = get_post_types('','names');
-            cm_admin_edit_taxonomy_page( $taxonomies[$_GET['cm_edit_taxonomy']], $post_types );
-        }
-        elseif ( isset( $_GET['cm_delete_taxonomy'] )) {
-            include_once 'pages/cm-admin-delete-taxonomy-page.php';
-            cm_admin_delete_taxonomy_page( $taxonomies[$_GET['cm_delete_taxonomy']] );
-        }
-        else {
-            include_once 'pages/cm-admin-taxonomies-page.php';
-            cm_admin_taxonomies_page( $taxonomies, $tmp );
-        }
-    }
-
-    // load custom fields templates
-    if ( $_GET['page'] == 'cm_add_custom_field' ) {
-        include_once 'pages/cm-admin-add-custom-field-page.php';
-        $post_types = get_post_types('','names');
-        cm_admin_add_custom_field_page( $post_types );
-    }
-    if ( $_GET['page'] == 'cm_custom_fields' ) {
-        $custom_fields = get_site_option( 'cm_custom_fields' );
-
-        if ( isset( $_GET['cm_edit_custom_field'] )) {
-            include_once 'pages/cm-admin-edit-custom-field-page.php';
-            $post_types = get_post_types('','names');
-            cm_admin_edit_custom_field_page( $custom_fields[$_GET['cm_edit_custom_field']], $post_types );
-        }
-        elseif ( isset ( $_GET['cm_delete_custom_field'] )) {
-            include_once 'pages/cm-admin-delete-custom-field-page.php';
-            cm_admin_delete_custom_field_page( $custom_fields[$_GET['cm_delete_custom_field']] );
-        }
-        else {
-            include_once 'pages/cm-admin-custom-fields-page.php';
-            cm_admin_custom_fields_page( $custom_fields );
-        }
-    }
-
 }
 
 /**
@@ -178,39 +107,39 @@ function cm_admin_page_redirect() {
 
     // after post type is added redirect back to the post types page
     if ( isset( $_POST['cm_submit_add_post_type'] ) && $cm_redirect )
-        wp_redirect( admin_url( 'admin.php?page=cm_post_types' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=post_type' ));
 
     // after post type is edited/deleted redirect back to the post types page
     if ( isset( $_POST['cm_submit_update_post_type'] ) || isset( $_REQUEST['cm_delete_post_type_secret'] ))
-        wp_redirect( admin_url( 'admin.php?page=cm_post_types' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=post_type' ));
 
     // redirect to add post type page
     if ( isset( $_POST['cm_redirect_add_post_type'] ))
-        wp_redirect( admin_url( 'admin.php?page=cm_add_post_type' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=post_type&cm_add_post_type=true' ));
 
     // after taxonomy is added redirect back to the taxonomies page
     if ( isset( $_POST['cm_submit_add_taxonomy'] ) && $cm_redirect )
-        wp_redirect( admin_url( 'admin.php?page=cm_taxonomies' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=taxonomy' ));
 
     // after taxonomy is edited/deleted redirect back to the taxonomies page
     if ( isset( $_POST['cm_submit_update_taxonomy'] ) || isset( $_REQUEST['cm_delete_taxonomy_secret'] ))
-        wp_redirect( admin_url( 'admin.php?page=cm_taxonomies' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=taxonomy' ));
 
     // redirect to add taxonomy page
     if ( isset( $_POST['cm_redirect_add_taxonomy'] ))
-        wp_redirect( admin_url( 'admin.php?page=cm_add_taxonomy' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=taxonomy&cm_add_taxonomy=true' ));
 
     // after custom field is added redirect to custom fields page
     if ( isset( $_POST['cm_submit_add_custom_field'] ) && $cm_redirect )
-        wp_redirect( admin_url( 'admin.php?page=cm_custom_fields' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=custom_field' ));
 
     // after custom field add/update/deleted redirect back to the custom fields page 
     if ( isset( $_POST['cm_submit_update_custom_field'] ) || isset( $_REQUEST['cm_delete_custom_field_secret'] ))
-        wp_redirect( admin_url( 'admin.php?page=cm_custom_fields' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=custom_field' ));
 
     // redirect to add custom field page
     if ( isset( $_POST['cm_redirect_add_custom_field'] ))
-        wp_redirect( admin_url( 'admin.php?page=cm_add_custom_field' ));
+        wp_redirect( admin_url( 'admin.php?page=cm_content_types&cm_content_type=custom_field&cm_add_custom_field=true' ));
 }
 add_action( 'init', 'cm_admin_page_redirect', 10 );
 

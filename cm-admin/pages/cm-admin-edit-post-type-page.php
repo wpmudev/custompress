@@ -2,9 +2,7 @@
 
 function cm_admin_edit_post_type_page( $args ) { ?>
 
-    <div class="wrap cm-wrap">
-        <div class="icon32" id="icon-edit"><br></div>
-        <h2><?php _e('Edit Post Type', 'custompress'); ?></h2>
+        <h3><?php _e('Edit Post Type', 'custompress'); ?></h3>
         <form action="" method="post" class="cm-post-type">
             <?php wp_nonce_field( 'cm_submit_post_type_verify', 'cm_submit_post_type_secret' ); ?>
             <div class="cm-wrap-left">
@@ -479,6 +477,6 @@ function cm_admin_edit_post_type_page( $args ) { ?>
             <input type="submit" class="button-primary" name="cm_submit_update_post_type" value="Update Post Type">
             <br /><br /><br /><br />
         </form>
-    </div> <?php
+<?php
 }
 ?>
