@@ -6,6 +6,7 @@ Description: CustomPress - Custom Post, Taxonomy and Field Manager.
 Version: 1.0.5
 Author: Ivan Shaovchev (Incsub)
 Author URI: http://ivan.sh
+WDP ID: 
 License: GNU General Public License (Version 2 - GPLv2)
 */
 
@@ -30,13 +31,18 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 /*
  * Enable error repporting if in debug mode
  */
- //error_reporting( E_ALL ^ E_NOTICE );
- //ini_set( 'display_errors', 1 );
+// error_reporting( E_ALL ^ E_NOTICE );
+// ini_set( 'display_errors', 1 );
 
 
 /* Define plugin version */ 
 define ( 'CP_VERSION', '1.0.5' );
 define ( 'CP_DB_VERSION', '1.1' );
+
+/* define the plugin folder url */
+define ( 'CP_PLUGIN_URL', WP_PLUGIN_URL . '/' . str_replace( basename(__FILE__), '', plugin_basename(__FILE__) ));
+/* define the plugin folder dir */
+define ( 'CP_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . str_replace( basename(__FILE__), '', plugin_basename(__FILE__) ));
 
 /* include CustomPress files */
 include_once 'cp-core/cp-core.php';
@@ -93,7 +99,6 @@ function cp_plugin_deactivate() {
     // if $flush_cp_data is true it will delete all plugin data
     if ( $flush_cp_data ) {
         delete_site_option( 'cp_options' );
-        delete_site_option( 'cp_main_settings' );
         delete_site_option( 'ct_custom_post_types' );
         delete_site_option( 'ct_custom_taxonomies' );
         delete_site_option( 'ct_custom_fields' );

@@ -1,10 +1,5 @@
 <?php
 
-/* define the plugin folder url */
-define ( 'CP_PLUGIN_URL', WP_PLUGIN_URL . '/' . str_replace( basename(__DIR__), '', plugin_basename(__DIR__) ));
-/* define the plugin folder dir */
-define ( 'CP_PLUGIN_DIR', WP_PLUGIN_DIR . '/' . str_replace( basename(__DIR__), '', plugin_basename(__DIR__) ));
-
 /**
  * cp_core_admin_menu()
  *
