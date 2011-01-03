@@ -3,7 +3,7 @@
 function cm_admin_main_page( $post_types ) { ?>
     <div class="wrap cm-wrap">
         <div class="icon32" id="icon-options-general"><br></div>
-        <h2><?php _e('CustomPress Settings', 'custommanager'); ?></h2>
+        <h2><?php _e('CustomPress Settings', 'custompress'); ?></h2>
         <?php $settings = get_site_option('cm_main_settings'); ?>
         <form action="" method="post" class="cm-main">
             <?php wp_nonce_field( 'cm_submit_settings_verify', 'cm_submit_settings_secret' ); ?>
@@ -14,7 +14,7 @@ function cm_admin_main_page( $post_types ) { ?>
             <table class="form-table">
                 <tr>
                     <th>
-                        <label for="post_type"><?php _e('Display post types on: ', 'custommanager') ?></label>
+                        <label for="post_type"><?php _e('Display post types on: ', 'custompress') ?></label>
                     </th>
                     <td>
                        <?php $pages = get_pages(); ?>
@@ -26,7 +26,7 @@ function cm_admin_main_page( $post_types ) { ?>
                                 <option value="<?php echo( $page->post_name ); ?>"><?php echo( $page->post_name ); ?></option>
                             <?php endforeach; ?>
                         </select>
-                        <span class="description"><?php _e('Select page on which you want to display custom post types. You can define custom post types for more than one page.', 'custommanager'); ?></span>
+                        <span class="description"><?php _e('Select page on which you want to display custom post types. You can define custom post types for more than one page.', 'custompress'); ?></span>
                         <br /><br />
                         
                         <input type="checkbox" name="post_type[]" value="post" />
@@ -46,7 +46,7 @@ function cm_admin_main_page( $post_types ) { ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                         <br />
-                        <span class="description"><?php _e('Check the custom post types you want to display on the selected page.', 'custommanager'); ?></span>
+                        <span class="description"><?php _e('Check the custom post types you want to display on the selected page.', 'custompress'); ?></span>
                         
                         <div class="cm-embed-codes"></div>
                     </td>
@@ -55,7 +55,7 @@ function cm_admin_main_page( $post_types ) { ?>
             <table class="form-table">
                 <tr>
                     <th>
-                        <label for="post_type"><?php _e('Create theme file for: ', 'custommanager') ?></label>
+                        <label for="post_type"><?php _e('Create theme file for: ', 'custompress') ?></label>
                     </th>
                     <td>
                         <?php if ( !empty( $post_types )): ?>
@@ -65,10 +65,10 @@ function cm_admin_main_page( $post_types ) { ?>
                             <br />
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <span class="description"><strong><?php _e('No custom post types available', 'custommanager'); ?></strong></span>
+                            <span class="description"><strong><?php _e('No custom post types available', 'custompress'); ?></strong></span>
                         <?php endif; ?>
                         <br />
-                        <span class="description"><?php _e('Your active theme folder permissions have to be set to 777 for this option to work. This will create "single-[post_type].php" file inside your theme.This file will be the custom template for your custom post type. You can then edit the file and customize it however you like. After you finish editing you can set your folder permission back to 755.', 'custommanager'); ?></span>
+                        <span class="description"><?php _e('Your active theme folder permissions have to be set to 777 for this option to work. This will create "single-[post_type].php" file inside your theme.This file will be the custom template for your custom post type. You can then edit the file and customize it however you like. After you finish editing you can set your folder permission back to 755.', 'custompress'); ?></span>
 
                         <div class="cm-embed-codes"></div>
                     </td>
@@ -77,12 +77,12 @@ function cm_admin_main_page( $post_types ) { ?>
             <table class="form-table">
                 <tr>
                     <th>
-                        <label for="post_type"><?php _e('Embed your custom taxonomies: ', 'custommanager') ?></label>
+                        <label for="post_type"><?php _e('Embed your custom taxonomies: ', 'custompress') ?></label>
                     </th>
                     <td>
                             <span class="description"><code>[phptag] echo get_the_term_list( $post->ID, '<strong>taxonomy_name</strong>', '<strong>Text before taxonomy: </strong>', ', ', '' ); [/phptag]</code></span>
                         <br />
-                        <span class="description"><?php _e('Replace [phptag] and [/phptag] with their proper php notation. Fill in the taxonomy "taxonomy_name" and "Text before taxonomy:". Place this in your "single-[post_type].php" file ( if you have it created ).', 'custommanager'); ?></span>
+                        <span class="description"><?php _e('Replace [phptag] and [/phptag] with their proper php notation. Fill in the taxonomy "taxonomy_name" and "Text before taxonomy:". Place this in your "single-[post_type].php" file ( if you have it created ).', 'custompress'); ?></span>
 
                         <div class="cm-embed-codes"></div>
                     </td>
