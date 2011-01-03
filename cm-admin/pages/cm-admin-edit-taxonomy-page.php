@@ -314,10 +314,10 @@ function cm_admin_edit_taxonomy_page( $args, $post_types ) { ?>
                    <tr>
                         <th></th>
                         <td>
-                            <input type="radio" name="rewrite" value="1" <?php if ( $args['args']['rewrite'] === '1' ) echo ( 'checked="checked"' ); ?>>
+                            <input type="radio" name="rewrite" value="1" <?php if ( $args['args']['rewrite'] == '1' ) echo ( 'checked="checked"' ); ?>>
                             <span class="description"><strong><?php _e('TRUE', 'custompress'); ?></strong></span>
                             <br />
-                            <input type="radio" name="rewrite" value="0" <?php if ( $args['args']['rewrite'] === '0' ) echo ( 'checked="checked"' ); ?>>
+                            <input type="radio" name="rewrite" value="0" <?php if ( $args['args']['rewrite'] == '0' ) echo ( 'checked="checked"' ); ?>>
                             <span class="description"><strong><?php _e('FALSE', 'custompress'); ?></strong></span>
                             <br />
                             <input type="radio" name="rewrite" value="advanced" <?php if ( isset( $args['args']['rewrite']['slug'] )) echo( 'checked="checked"' ); ?>>
@@ -358,7 +358,6 @@ function cm_admin_edit_taxonomy_page( $args, $post_types ) { ?>
         <br style="clear: left" />
         <input type="submit" class="button-primary" name="cm_submit_update_taxonomy" value="Update Taxonomy">
         <br /><br /><br /><br />
-    </form>
-<?php
+    </form> <?php
 }
 ?>
