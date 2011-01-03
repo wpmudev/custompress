@@ -1,19 +1,19 @@
 <?php
 
 /**
- * cm_display_custom_fields()
+ * ct_admin_ui_display_custom_fields()
  *
- * Renders the custom fields on post type pages
+ * Outputs the custom fields associated with a particular post type.
  */
-function cm_display_custom_fields() {
+function ct_admin_ui_display_custom_fields() {
     global $post;
 
-    $prefix = '_cm_';
-    $custom_fields = get_site_option( 'cm_custom_fields' );
+    $prefix = '_ct_';
+    $custom_fields = get_site_option( 'ct_custom_fields' );
     $output = false; ?>
 
     <div class="form-wrap">
-        <div class="form-field form-required cm-form-field">
+        <div class="form-field form-required ct-form-field">
             <table class="form-table">
 
             <?php foreach ( $custom_fields as $custom_field ): ?>
@@ -118,7 +118,7 @@ function cm_display_custom_fields() {
                                     <label for="<?php echo ( $prefix . $custom_field['field_id'] ); ?>"><?php echo ( $custom_field['field_title'] ); ?></label>
                                 </th>
                                 <td>
-                                    <select name="<?php echo ( $prefix . $custom_field['field_id'] ); ?>[]" id="<?php echo ( $prefix . $custom_field['field_id'] ); ?>" multiple="multiple" class="cm-select-multiple">
+                                    <select name="<?php echo ( $prefix . $custom_field['field_id'] ); ?>[]" id="<?php echo ( $prefix . $custom_field['field_id'] ); ?>" multiple="multiple" class="ct-select-multiple">
                                     <?php if ( get_post_meta( $post->ID, $prefix . $custom_field['field_id'], true )): ?>
                                         <?php foreach ( $custom_field['field_options'] as $key => $field_option ): ?>
                                             <option value="<?php echo ( $field_option ); ?>"
