@@ -18,6 +18,7 @@ function cm_admin_taxonomies_page( $taxonomies ) { ?>
                     <th><?php _e('Taxonomy', 'custompress'); ?></th>
                     <th><?php _e('Name', 'custompress'); ?></th>
                     <th><?php _e('Post Types', 'custompress'); ?></th>
+                    <th><?php _e('Embed Code', 'custompress'); ?></th>
                     <th><?php _e('Public', 'custompress'); ?></th>
                     <th><?php _e('Hierarchical', 'custompress'); ?></th>
                     <th><?php _e('Rewrite', 'custompress'); ?></th>
@@ -28,6 +29,7 @@ function cm_admin_taxonomies_page( $taxonomies ) { ?>
                     <th><?php _e('Taxonomy', 'custompress'); ?></th>
                     <th><?php _e('Name', 'custompress'); ?></th>
                     <th><?php _e('Post Types', 'custompress'); ?></th>
+                    <th><?php _e('Embed Code', 'custompress'); ?></th>
                     <th><?php _e('Public', 'custompress'); ?></th>
                     <th><?php _e('Hierarchical', 'custompress'); ?></th>
                     <th><?php _e('Rewrite', 'custompress'); ?></th>
@@ -57,6 +59,7 @@ function cm_admin_taxonomies_page( $taxonomies ) { ?>
                                 <?php echo( $object_type ); ?>
                             <?php endforeach; ?>
                         </td>
+                        <td><code>&lt;?php echo get_the_term_list( $post->ID, '<?php echo( $taxonomy ); ?>', 'Text before taxonomy: ', ', ', '' ); ?&gt;</code></td>
                         <td class="cm-tf-icons-wrap">
                             <?php if ( $args['args']['public'] === null ): ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'custompress'); ?>" title="<?php _e('Advanced', 'custompress'); ?>" />
