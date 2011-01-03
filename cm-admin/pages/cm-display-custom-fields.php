@@ -1,11 +1,11 @@
 <?php
 
 /**
- * cm_admin_display_custom_fields()
+ * cm_display_custom_fields()
  *
  * Renders the custom fields on post type pages
  */
-function cm_admin_display_custom_fields() {
+function cm_display_custom_fields() {
     global $post;
 
     $prefix = '_cm_';
