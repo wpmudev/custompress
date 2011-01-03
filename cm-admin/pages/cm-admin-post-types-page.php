@@ -3,6 +3,7 @@
 function cm_admin_post_types_page( $post_types ) { ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Post Types', 'custommanager'); ?></h2>
         <?php /** @todo
         <div class="updated below-h2" id="message">
@@ -17,12 +18,12 @@ function cm_admin_post_types_page( $post_types ) { ?>
                     <th><?php _e('Post Type', 'custommanager'); ?></th>
                     <th><?php _e('Name', 'custommanager'); ?></th>
                     <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>
+                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>         
+                    <th><?php _e('Supports', 'custommanager'); ?></th>
+                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
                     <th><?php _e('Public', 'custommanager'); ?></th>
                     <th><?php _e('Hierarchical', 'custommanager'); ?></th>
                     <th><?php _e('Rewrite', 'custommanager'); ?></th>
-                    <th><?php _e('Supports', 'custommanager'); ?></th>
-                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
                 </tr>
             </thead>
             <tfoot>
@@ -30,12 +31,12 @@ function cm_admin_post_types_page( $post_types ) { ?>
                     <th><?php _e('Post Type', 'custommanager'); ?></th>
                     <th><?php _e('Name', 'custommanager'); ?></th>
                     <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>
+                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>           
+                    <th><?php _e('Supports', 'custommanager'); ?></th>
+                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
                     <th><?php _e('Public', 'custommanager'); ?></th>
                     <th><?php _e('Hierarchical', 'custommanager'); ?></th>
                     <th><?php _e('Rewrite', 'custommanager'); ?></th>
-                    <th><?php _e('Supports', 'custommanager'); ?></th>
-                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
                 </tr>
             </tfoot>
             <tbody>
@@ -61,6 +62,12 @@ function cm_admin_post_types_page( $post_types ) { ?>
                         <td>
                             <img src="<?php echo( $args['menu_icon'] ); ?>" alt="<?php if ( empty( $args['menu_icon'] ) ) echo( 'No Icon'); ?>" />
                         </td>
+                        <td class="cm-supports">
+                            <?php foreach ( $args['supports'] as $value ): ?>
+                                <?php echo( $value ); ?>
+                            <?php endforeach; ?>
+                        </td>
+                        <td><?php echo( $args['capability_type'] ); ?></td>
                         <td class="cm-tf-icons-wrap">
                             <?php if ( $args['public'] === null ): ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'custommanager'); ?>" title="<?php _e('Advanced', 'custommanager'); ?>" />
@@ -84,12 +91,6 @@ function cm_admin_post_types_page( $post_types ) { ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
                             <?php endif; ?>
                         </td>
-                        <td class="cm-supports">
-                            <?php foreach ( $args['supports'] as $value ): ?>
-                                <?php echo( $value ); ?>
-                            <?php endforeach; ?>
-                        </td>
-                        <td><?php echo( $args['capability_type'] ); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>

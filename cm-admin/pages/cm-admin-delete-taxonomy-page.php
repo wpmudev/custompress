@@ -4,6 +4,7 @@ function cm_admin_delete_taxonomy_page( $args ) {
     $nonce = wp_create_nonce( 'cm_delete_taxonomy_verify' ); ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Delete Taxonomy', 'custommanager'); ?></h2>
         <?php /** @todo
         <div class="updated below-h2" id="message">

@@ -4,6 +4,7 @@ function cm_admin_delete_post_type_page( $args ) {
     $nonce = wp_create_nonce( 'cm_delete_post_type_verify' ); ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Delete Post Type', 'custommanager'); ?></h2>
         <form name="cm_form_delete_post_type" action="" method="post" class="cm-form-single-btn">
             <input type="hidden" name="cm_delete_post_type_secret" value="<?php echo( $nonce ); ?>" />

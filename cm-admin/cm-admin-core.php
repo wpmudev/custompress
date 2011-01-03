@@ -16,7 +16,7 @@ function cm_debug( $param ) {
  * Register all admin menues
  */
 function cm_admin_menu() {
-	add_menu_page( __('Custom Manager', 'custommanager'), __('Custom Manager', 'custommanager'), 'edit_users', 'cm_main', 'cm_admin_load_page_templates' );
+	add_menu_page( __('CustomPress', 'custommanager'), __('CustomPress', 'custommanager'), 'edit_users', 'cm_main', 'cm_admin_load_page_templates' );
     add_submenu_page( 'cm_main', __('Post Types', 'custommanager'), __('Post Types', 'custommanager'), 'edit_users', 'cm_post_types', 'cm_admin_load_page_templates' );
 	add_submenu_page( 'cm_main', __('Add Post Type', 'custommanager'), __('Add Post Type', 'custommanager'), 'edit_users', 'cm_add_post_type', 'cm_admin_load_page_templates' );
     add_submenu_page( 'cm_main', __('Taxonomies', 'custommanager'), __('Taxonomies', 'custommanager'), 'edit_users', 'cm_taxonomies', 'cm_admin_load_page_templates' );
@@ -85,11 +85,9 @@ function cm_admin_load_page_templates() {
     // load main template
     if ( $_GET['page'] == 'cm_main' ) {
         $post_types    = get_site_option( 'cm_custom_post_types' );
-        $taxonomies    = get_site_option( 'cm_custom_taxonomies' );
-        $custom_fields = get_site_option( 'cm_custom_fields' );
         
         include_once 'pages/cm-admin-main-page.php';
-        cm_admin_main_page( $post_types, $taxonomies, $custom_fields );
+        cm_admin_main_page( $post_types );
     }
 
     // load post type templates
@@ -632,11 +630,13 @@ function cm_save_custom_fields( $post_id ) {
     $prefix = '_cm_';
     $custom_fields = get_site_option( 'cm_custom_fields' );
 
-    foreach ( $custom_fields as $custom_field ) {
-        if ( isset( $_POST[$prefix . $custom_field['field_id']] ))
-            update_post_meta( $post_id, $prefix . $custom_field['field_id'], $_POST[$prefix . $custom_field['field_id']] );
-        else
-            delete_post_meta( $post_id, $prefix . $custom_field['field_id'] );
+    if ( !empty( $custom_fields )) {
+        foreach ( $custom_fields as $custom_field ) {
+            if ( isset( $_POST[$prefix . $custom_field['field_id']] ))
+                update_post_meta( $post_id, $prefix . $custom_field['field_id'], $_POST[$prefix . $custom_field['field_id']] );
+            else
+                delete_post_meta( $post_id, $prefix . $custom_field['field_id'] );
+        }
     }
 }
 add_action( 'save_post', 'cm_save_custom_fields', 1, 1 );

@@ -3,6 +3,7 @@
 function cm_admin_taxonomies_page( $taxonomies ) { ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Taxonomies', 'custommanager'); ?></h2>
         <?php /** @todo
         <div class="updated below-h2" id="message">
@@ -56,7 +57,7 @@ function cm_admin_taxonomies_page( $taxonomies ) { ?>
                                 <?php echo( $object_type ); ?>
                             <?php endforeach; ?>
                         </td>
-                        <td>
+                        <td class="cm-tf-icons-wrap">
                             <?php if ( $args['args']['public'] === null ): ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'custommanager'); ?>" title="<?php _e('Advanced', 'custommanager'); ?>" />
                             <?php elseif ( $args['args']['public'] ): ?>
@@ -65,14 +66,14 @@ function cm_admin_taxonomies_page( $taxonomies ) { ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
                             <?php endif; ?>
                         </td>
-                        <td>
+                        <td class="cm-tf-icons-wrap">
                             <?php if ( $args['args']['hierarchical'] ): ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
                             <?php else: ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
                             <?php endif; ?>
                         </td>
-                        <td>
+                        <td class="cm-tf-icons-wrap">
                             <?php if ( $args['args']['rewrite'] ): ?>
                                 <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
                             <?php else: ?>

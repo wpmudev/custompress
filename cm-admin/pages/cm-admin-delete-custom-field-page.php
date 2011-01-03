@@ -4,6 +4,7 @@ function cm_admin_delete_custom_field_page( $custom_field ) {
     $nonce = wp_create_nonce( 'cm_delete_custom_field_verify' ); ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Delete Custom Field', 'custommanager'); ?></h2>
         <?php /** @todo
         <div class="updated below-h2" id="message">

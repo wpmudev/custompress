@@ -1,8 +1,9 @@
 <?php
 
-function cm_admin_main_page( $post_types, $taxonomies, $custom_fields ) { ?>
+function cm_admin_main_page( $post_types ) { ?>
     <div class="wrap cm-wrap">
-        <h2><?php _e('Custom Manager', 'custommanager'); ?></h2>
+        <div class="icon32" id="icon-options-general"><br></div>
+        <h2><?php _e('CustomPress Settings', 'custommanager'); ?></h2>
         <?php $settings = get_site_option('cm_main_settings'); ?>
         <form action="" method="post" class="cm-main">
             <?php wp_nonce_field( 'cm_submit_settings_verify', 'cm_submit_settings_secret' ); ?>

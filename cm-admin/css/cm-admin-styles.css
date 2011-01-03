@@ -90,3 +90,9 @@
 .cm_ct_edit {
     display: inline-block !important;
 }
+.cm_field_description {
+    width: 95%;
+}
+.cm-tf-icons-wrap {
+    width: 10%;
+}

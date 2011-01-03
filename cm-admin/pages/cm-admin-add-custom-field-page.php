@@ -3,6 +3,7 @@
 function cm_admin_add_custom_field_page( $post_types ) { ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Add Custom Field', 'custommanager'); ?></h2>
         <form action="" method="post" class="cm-custom-fields">
             <?php wp_nonce_field( 'cm_submit_custom_field_verify', 'cm_submit_custom_field_secret' ); ?>
@@ -73,7 +74,7 @@ function cm_admin_add_custom_field_page( $post_types ) { ?>
                                 <label for="field_description"><?php _e('Field Description', 'custommanager') ?></label>
                             </th>
                             <td>
-                                <textarea name="field_description" cols="52" rows="3" ><?php echo( $_POST['field_description'] ); ?></textarea>
+                                <textarea class="cm_field_description" name="field_description" rows="3" ><?php echo( $_POST['field_description'] ); ?></textarea>
                                 <span class="description"><?php _e('Description for the custom field.', 'custommanager'); ?></span>
                             </td>
                         </tr>
@@ -91,9 +92,11 @@ function cm_admin_add_custom_field_page( $post_types ) { ?>
                             </th>
                             <td>
                                 <select name="object_type[]" multiple="multiple" class="cm-object-type">
-                                    <?php foreach( $post_types as $post_type ): ?>
-                                        <option value="<?php echo ( $post_type ); ?>" <?php foreach ( $_POST['object_type'] as $post_value ) { if ( $post_value == $post_type ) echo( 'selected="selected"' ); } ?>><?php echo ( $post_type ); ?></option>
-                                    <?php endforeach; ?>
+                                    <?php if ( !empty( $post_types )): ?>
+                                        <?php foreach( $post_types as $post_type ): ?>
+                                            <option value="<?php echo ( $post_type ); ?>" <?php foreach ( $_POST['object_type'] as $post_value ) { if ( $post_value == $post_type ) echo( 'selected="selected"' ); } ?>><?php echo ( $post_type ); ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </select>
                                 <br />
                                 <span class="description"><?php _e('Select one or more post types to add this custom field to.', 'custommanager'); ?></span>
