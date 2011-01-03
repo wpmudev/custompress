@@ -4,7 +4,7 @@ Donate link:
 Tags: post types, taxonomies, custom fields
 Requires at least: 3.0.1
 Tested up to: 3.0.1
-Stable tag: 1.0.5
+Stable tag: 1.0.7
 
 CustomPress is a custom post, taxonomie and field manager.
 
@@ -38,6 +38,12 @@ WordPress internal API for the custom's which gives you absolute control over th
 == Frequently Asked Questions ==
 
 == Changelog ==
+
+= 1.0.7 =
+* Bug fixes.
+
+= 1.0.6 =
+* Bug fixes.
 
 = 1.0.5 =
 * Bug fixes.
