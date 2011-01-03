@@ -17,6 +17,7 @@ function cm_debug( $param ) {
  */
 function cm_admin_menu() {
 	add_menu_page( __('CustomPress', 'custompress'), __('CustomPress', 'custompress'), 'edit_users', 'cm_main', 'cm_admin_load_page_templates' );
+    add_submenu_page( 'cm_main', __('Settings', 'custompress'), __('Settings', 'custompress'), 'edit_users', 'cm_main', 'cm_admin_load_page_templates' );
     add_submenu_page( 'cm_main', __('Content Types', 'custompress'), __('Content Types', 'custompress'), 'edit_users', 'cm_content_types', 'cm_admin_load_page_templates' );
 }
 add_action( 'admin_menu', 'cm_admin_menu', 10 );
