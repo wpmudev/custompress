@@ -93,8 +93,10 @@ add_action( 'init', 'cp_process_update_settings' );
 function cp_display_custom_post_types( $query ) {
     $settings = get_site_option('cp_main_settings');
 
-	if ( is_home() && !in_array( 'default', $settings['home']['post_type'] ) && false == $query->query_vars['suppress_filters'] )
-		$query->set( 'post_type', $settings['home']['post_type'] );
+    if ( is_array( $settings['home']['post_type'] )) {
+        if ( is_home() && !in_array( 'default', $settings['home']['post_type'] ) && false == $query->query_vars['suppress_filters'] )
+            $query->set( 'post_type', $settings['home']['post_type'] );
+    }
 
 	return $query;
 
