@@ -2,9 +2,7 @@
 
 function cm_admin_add_post_type_page() { ?>
 
-    <div class="wrap cm-wrap">
-        <div class="icon32" id="icon-edit"><br></div>
-        <h2><?php _e('Add Post Type', 'custompress'); ?></h2>
+        <h3><?php _e('Add Post Type', 'custompress'); ?></h3>
         <form action="" method="post" class="cm-post-type">
             <?php wp_nonce_field( 'cm_submit_post_type_verify', 'cm_submit_post_type_secret' ); ?>
             <input type="hidden" name="cm-admin-add-post-type-page" value="" />
@@ -481,6 +479,6 @@ function cm_admin_add_post_type_page() { ?>
             <input type="submit" class="button-primary" name="cm_submit_add_post_type" value="Add Post Type">
             <br /><br /><br /><br />
         </form>
-    </div> <?php
+<?php
 }
 ?>

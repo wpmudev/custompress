@@ -96,3 +96,7 @@
 .cm-tf-icons-wrap {
     width: 7%;
 }
+.cm-content-types h2 {
+    border-bottom:1px solid #CCCCCC;
+    padding-bottom:0 ;
+}
