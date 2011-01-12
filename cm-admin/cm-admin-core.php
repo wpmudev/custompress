@@ -39,6 +39,9 @@ function cm_admin_hook() {
 
 	add_action( 'admin_print_styles-' .  $hook, 'cm_admin_styles' );
     add_action( 'admin_print_scripts-' . $hook, 'cm_admin_scripts' );
+
+    if ( $_GET['page'] == 'cm_main' )
+        add_action( 'admin_head-' . $hook, 'cm_ajax_actions');
 }
 add_action( 'admin_init', 'cm_admin_hook', 10 );
 
@@ -658,7 +661,7 @@ function cm_process_update_settings() {
         return;
     
     $args = array(
-        'page'      => $_POST['page'],
+        'page'      => 'home',
         'post_type' => $_POST['post_type']
     );
     
@@ -676,25 +679,30 @@ function cm_process_update_settings() {
 add_action( 'init', 'cm_process_update_settings' );
 
 /**
+ * @todo Resolve bug with query_posts resetings the is_home() function.
  * cm_get_posts()
  *
  * @param object $query
  * @return object $query
  */
 function cm_get_posts() {
-    global $post;
+    //@todo
+    //global $post;
     $settings = get_site_option('cm_main_settings');
 
-    wp_reset_query();
+    //@todo
+    //wp_reset_query();
     
-    if ( is_home() )
+    if ( is_home() && !in_array( 'default', $settings['home']['post_type'] ))
         query_posts( array( 'post_type' => $settings['home']['post_type'] ));
-    elseif ( $settings[$post->post_name]['page'] == $post->post_name )
-        query_posts( array( 'post_type' => $settings[$post->post_name]['post_type'] ));
+    //@todo
+    //elseif ( $settings[$post->post_name]['page'] == $post->post_name )
+    //    query_posts( array( 'post_type' => $settings[$post->post_name]['post_type'] ));
 }
 add_action( 'template_redirect', 'cm_get_posts', 10 );
 
 /**
+ *
  * cm_ajax_actions()
  *
  * Make AJAX POST request for getting the post type info associated with
@@ -705,15 +713,17 @@ function cm_ajax_actions() { ?>
         jQuery(document).ready(function($) {
             // bind event to function
             $(window).bind('load', cm_ajax_post_process_request);
-            $('#cm-select-page').bind('change', cm_ajax_post_process_request)
+            //$('#cm-select-page').bind('change', cm_ajax_post_process_request)
 
             function cm_ajax_post_process_request() {
                 // clear attributes 
-                $('.cm-main input[name="post_type[]"]').attr( 'checked', false );
-                // assign variables 
+                //$('.cm-main input[name="post_type[]"]').attr( 'checked', false );
+                // assign variables
                 var data = {
                     action: 'cm_get_post_types',
-                    cm_ajax_page_name: $('#cm-select-page option:selected').val()
+                    cm_ajax_page_name: 'home'
+                    //@todo
+                    //cm_ajax_page_name: $('#cm-select-page option:selected').val()
                 };
                 // make the post request and process the response
                 $.post(ajaxurl, data, function(response) {
@@ -725,7 +735,6 @@ function cm_ajax_actions() { ?>
         });
     </script> <?php
 }
-add_action('admin_head', 'cm_ajax_actions');
 
 /**
  * cm_ajax_action_callback()
