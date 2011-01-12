@@ -353,11 +353,13 @@ function cm_admin_register_post_types() {
     
     $post_types = get_site_option( 'cm_custom_post_types' );
 
-    foreach ( $post_types as $post_type => $args ) 
-        register_post_type( $post_type, $args );
+    if ( !empty( $post_types )) {
+        foreach ( $post_types as $post_type => $args )
+            register_post_type( $post_type, $args );
 
-    // flush the rewrite rules
-    cm_flush_rewrite_rules();
+        // flush the rewrite rules
+        cm_flush_rewrite_rules();
+    }
 }
 add_action( 'init', 'cm_admin_register_post_types', 2 );
 
@@ -497,8 +499,10 @@ function cm_admin_register_taxonomies() {
 
     $taxonomies = get_site_option( 'cm_custom_taxonomies' );
 
-    foreach ( $taxonomies as $taxonomy => $args )
-        register_taxonomy( $taxonomy, $args['object_type'], $args['args'] );
+    if ( !empty( $taxonomies )) {
+        foreach ( $taxonomies as $taxonomy => $args )
+            register_taxonomy( $taxonomy, $args['object_type'], $args['args'] );
+    }
 }
 add_action('init', 'cm_admin_register_taxonomies', 1 );
 
@@ -560,11 +564,11 @@ function cm_admin_process_add_update_custom_field_requests() {
         unset( $args['field_options'] );
 
     if ( !get_site_option( 'cm_custom_fields' )) {
-        $new_custom_fields = array ( $field_id => $args );
+        $new_custom_fields = array( $field_id => $args );
     }
     else {
         $old_custom_fields = get_site_option( 'cm_custom_fields' );
-        $new_custom_fields = array_merge( $old_custom_fields, array ( $field_id => $args ));
+        $new_custom_fields = array_merge( $old_custom_fields, array( $field_id => $args ));
     }
 
     update_site_option('cm_custom_fields', $new_custom_fields );
@@ -594,30 +598,32 @@ function cm_admin_delete_custom_fields() {
 add_action( 'init', 'cm_admin_delete_custom_fields', 0 );
 
 /**
- * cm_admin_create_custom_fields()
+ * cm_create_custom_fields()
  *
  * Create the custom fields 
  */
-function cm_admin_create_custom_fields() {
-    include_once 'pages/cm-admin-display-custom-fields.php';
+function cm_create_custom_fields() {
+    include_once 'pages/cm-display-custom-fields.php';
     
     $custom_fields = get_site_option( 'cm_custom_fields' );
 
-    foreach ( $custom_fields as $custom_field ) {
-        foreach ( $custom_field['object_type'] as $object_type )
-            add_meta_box( 'cm-custom-fields', 'Custom Fields', 'cm_admin_display_custom_fields', $object_type, 'normal', 'high' );
+    if ( !empty( $custom_fields )) {
+        foreach ( $custom_fields as $custom_field ) {
+            foreach ( $custom_field['object_type'] as $object_type )
+                add_meta_box( 'cm-custom-fields', 'Custom Fields', 'cm_display_custom_fields', $object_type, 'normal', 'high' );
+        }
     }
 }
-add_action( 'admin_menu', 'cm_admin_create_custom_fields', 2 );
+add_action( 'admin_menu', 'cm_create_custom_fields', 2 );
 
 /**
- * cm_admin_save_custom_fields()
+ * cm_save_custom_fields()
  *
  * Save custom fields data
  *
  * @param int $post_id The post id of the post being edited
  */
-function cm_admin_save_custom_fields( $post_id ) {
+function cm_save_custom_fields( $post_id ) {
 
     // prevent autosave from deleting the custom fields
     if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE )
@@ -633,41 +639,135 @@ function cm_admin_save_custom_fields( $post_id ) {
             delete_post_meta( $post_id, $prefix . $custom_field['field_id'] );
     }
 }
-add_action( 'save_post', 'cm_admin_save_custom_fields', 1, 1 );
+add_action( 'save_post', 'cm_save_custom_fields', 1, 1 );
 
 /**
- * cm_check_user_register()
- *
- * Check whether new users are registered, since we need to flush the rewrite
- * rules for them, and upadte the rewrite options
+ * cm_admin_process_update_settings()
+ * 
+ * Saves the main plugin settings
  */
-function cm_check_user_register() {
-    cm_set_flush_rewrite_rules( true );
+
+function cm_process_update_settings() {
+
+    // check whether form is submited 
+    if ( !isset( $_POST['cm_submit_settings'] ))
+        return;
+
+    // verify wp_nonce
+    if ( !wp_verify_nonce( $_POST['cm_submit_settings_secret'], 'cm_submit_settings_verify' ))
+        return;
+    
+    $args = array(
+        'page'      => $_POST['page'],
+        'post_type' => $_POST['post_type']
+    );
+    
+    cm_create_post_type_files( $_POST['post_type_file'] );
+
+    if ( !get_site_option( 'cm_main_settings' )) {
+        $new_settings = array( $args['page'] => $args );
+    } else {
+        $old_settings = get_site_option( 'cm_main_settings' );
+        $new_settings = array_merge( $old_settings, array( $args['page'] => $args ));
+    }
+    
+    update_site_option('cm_main_settings', $new_settings );
 }
-add_action( 'user_register', 'cm_check_user_register' );
+add_action( 'init', 'cm_process_update_settings' );
 
 /**
- * cm_set_flush_rewrite_rules()
+ * cm_get_posts()
  *
- * Set the flush rewrite rules and write then in db for later reference
- *
- * @param bool $bool 
+ * @param object $query
+ * @return object $query
  */
-function cm_set_flush_rewrite_rules( $bool ) {
-    // set the flush rewrite rules
-    update_site_option( 'cm_flush_rewrite_rules', $bool );
+function cm_get_posts() {
+    global $post;
+    $settings = get_site_option('cm_main_settings');
+
+    wp_reset_query();
+    
+    if ( is_home() )
+        query_posts( array( 'post_type' => $settings['home']['post_type'] ));
+    elseif ( $settings[$post->post_name]['page'] == $post->post_name )
+        query_posts( array( 'post_type' => $settings[$post->post_name]['post_type'] ));
 }
+add_action( 'template_redirect', 'cm_get_posts', 10 );
 
 /**
- * cm_flush_rewrite_rules()
+ * cm_ajax_actions()
  *
- * Flush rewrite rules based on db options check
+ * Make AJAX POST request for getting the post type info associated with
+ * a particular page 
  */
-function cm_flush_rewrite_rules() {
-    // flush rewrite rules
-    if ( get_site_option('cm_flush_rewrite_rules')) {
-        flush_rewrite_rules();
-        cm_set_flush_rewrite_rules( false );
+function cm_ajax_actions() { ?>
+    <script type="text/javascript" >
+        jQuery(document).ready(function($) {
+            // bind event to function
+            $(window).bind('load', cm_ajax_post_process_request);
+            $('#cm-select-page').bind('change', cm_ajax_post_process_request)
+
+            function cm_ajax_post_process_request() {
+                // clear attributes 
+                $('.cm-main input[name="post_type[]"]').attr( 'checked', false );
+                // assign variables 
+                var data = {
+                    action: 'cm_get_post_types',
+                    cm_ajax_page_name: $('#cm-select-page option:selected').val()
+                };
+                // make the post request and process the response
+                $.post(ajaxurl, data, function(response) {
+                    $.each(response, function(i,item) {
+                        $('.cm-main input[name="post_type[]"][value="' + item + '"]').attr( 'checked', true );
+                    });
+                });
+            }
+        });
+    </script> <?php
+}
+add_action('admin_head', 'cm_ajax_actions');
+
+/**
+ * cm_ajax_action_callback()
+ *
+ * 
+ */
+function cm_ajax_action_callback() {
+
+	$page_name = $_POST['cm_ajax_page_name'];
+    $settings  = get_site_option('cm_main_settings');
+
+    // json encode the response
+    $response = json_encode( $settings[$page_name]['post_type'] );
+    //$settings[$page_name]['page'] => $settings[$page_name]['post_type']
+
+	// response output
+	header( "Content-Type: application/json" );
+    
+	echo $response;
+	die();
+}
+add_action('wp_ajax_cm_get_post_types', 'cm_ajax_action_callback');
+
+/**
+ * cm_create_post_type_files()
+ *
+ * Create a copy of the single.php file with the post type name added
+ *
+ * @param string $post_type
+ */
+function cm_create_post_type_files( $post_type ) {
+    $file = TEMPLATEPATH . '/single.php';
+
+    if ( !empty( $post_type )) {
+        foreach ( $post_type as $post_type ) {
+            $newfile = TEMPLATEPATH . '/single-' .  $post_type . '.php';
+
+            if ( !file_exists( $newfile )) {
+                if ( !copy( $file, $newfile ))
+                    echo "failed to copy $file...\n";
+            }
+        }
     }
 }
 
@@ -717,6 +817,42 @@ function cm_validate_field( $field, $value ) {
 function cm_invalid_field_action() {
     echo( 'form-invalid' );
 }
+
+/**
+ * cm_set_flush_rewrite_rules()
+ *
+ * Set the flush rewrite rules and write then in db for later reference
+ *
+ * @param bool $bool
+ */
+function cm_set_flush_rewrite_rules( $bool ) {
+    // set the flush rewrite rules
+    update_site_option( 'cm_flush_rewrite_rules', $bool );
+}
+
+/**
+ * cm_flush_rewrite_rules()
+ *
+ * Flush rewrite rules based on db options check
+ */
+function cm_flush_rewrite_rules() {
+    // flush rewrite rules
+    if ( get_site_option('cm_flush_rewrite_rules')) {
+        flush_rewrite_rules();
+        cm_set_flush_rewrite_rules( false );
+    }
+}
+
+/**
+ * cm_check_user_register()
+ *
+ * Check whether new users are registered, since we need to flush the rewrite
+ * rules for them, and upadte the rewrite options
+ */
+function cm_check_user_register() {
+    cm_set_flush_rewrite_rules( true );
+}
+add_action( 'user_register', 'cm_check_user_register' );
 
 /**
  * cm_init()

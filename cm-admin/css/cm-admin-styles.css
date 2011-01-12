@@ -52,6 +52,9 @@
     padding-bottom: 5px;
     border-collapse: inherit;
 }
+.cm-post-type h3, .cm-taxonomy h3, .cm-custom-fields h3 {
+    font-size: 1em;
+}
 .cm-edit-row td {
     padding-top: 8px;
     padding-bottom: 8px;

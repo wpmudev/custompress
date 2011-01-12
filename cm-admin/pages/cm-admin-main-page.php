@@ -2,248 +2,95 @@
 
 function cm_admin_main_page( $post_types, $taxonomies, $custom_fields ) { ?>
     <div class="wrap cm-wrap">
-        <h2><?php _e('Post Types', 'custommanager'); ?></h2>
-        <?php /** @todo
-        <div class="updated below-h2" id="message">
-            <p><a href=""></a></p>
-        </div> */ ?>
-        <form name="cm_form_redirect_add_post_type" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_post_type" value="<?php _e('Add Post Type', 'custommanager'); ?>" />
-        </form>
-        <table class="widefat">
-            <thead>
+        <h2><?php _e('Custom Manager', 'custommanager'); ?></h2>
+        <?php $settings = get_site_option('cm_main_settings'); ?>
+        <form action="" method="post" class="cm-main">
+            <?php wp_nonce_field( 'cm_submit_settings_verify', 'cm_submit_settings_secret' ); ?>
+            <?php /** @todo
+            <div class="updated below-h2" id="message">
+                <p><a href=""></a></p>
+            </div> */ ?>
+            <table class="form-table">
                 <tr>
-                    <th><?php _e('Post Type', 'custommanager'); ?></th>
-                    <th><?php _e('Name', 'custommanager'); ?></th>
-                    <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>
-                    <th><?php _e('Public', 'custommanager'); ?></th>
-                    <th><?php _e('Hierarchical', 'custommanager'); ?></th>
-                    <th><?php _e('Rewrite', 'custommanager'); ?></th>
-                    <th><?php _e('Supports', 'custommanager'); ?></th>
-                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
+                    <th>
+                        <label for="post_type"><?php _e('Display post types on: ', 'custommanager') ?></label>
+                    </th>
+                    <td>
+                       <?php $pages = get_pages(); ?>
+
+                       <span>Page: </span>
+                       <select name="page" id="cm-select-page">
+                           <option value="home" selected="selected">home</option>
+                            <?php foreach ( $pages as $page ): ?>
+                                <option value="<?php echo( $page->post_name ); ?>"><?php echo( $page->post_name ); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <span class="description"><?php _e('Select page on which you want to display custom post types. You can define custom post types for more than one page.', 'custommanager'); ?></span>
+                        <br /><br />
+                        
+                        <input type="checkbox" name="post_type[]" value="post" />
+                        <span class="description"><strong>post</strong></span>
+                        <br />
+                        <input type="checkbox" name="post_type[]" value="page" />
+                        <span class="description"><strong>page</strong></span>
+                        <br />
+                        <input type="checkbox" name="post_type[]" value="attachment" />
+                        <span class="description"><strong>attachment</strong></span>
+                        <br />
+                        <?php if ( !empty( $post_types )): ?>
+                            <?php foreach ( $post_types as $post_type => $args ): ?>
+                            <input type="checkbox" name="post_type[]" value="<?php echo( $post_type ); ?>" />
+                            <span class="description"><strong><?php echo( $post_type ); ?></strong></span>
+                            <br />
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <br />
+                        <span class="description"><?php _e('Check the custom post types you want to display on the selected page.', 'custommanager'); ?></span>
+                        
+                        <div class="cm-embed-codes"></div>
+                    </td>
                 </tr>
-            </thead>
-            <tfoot>
+            </table>
+            <table class="form-table">
                 <tr>
-                    <th><?php _e('Post Type', 'custommanager'); ?></th>
-                    <th><?php _e('Name', 'custommanager'); ?></th>
-                    <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>
-                    <th><?php _e('Public', 'custommanager'); ?></th>
-                    <th><?php _e('Hierarchical', 'custommanager'); ?></th>
-                    <th><?php _e('Rewrite', 'custommanager'); ?></th>
-                    <th><?php _e('Supports', 'custommanager'); ?></th>
-                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
+                    <th>
+                        <label for="post_type"><?php _e('Create theme file for: ', 'custommanager') ?></label>
+                    </th>
+                    <td>
+                        <?php if ( !empty( $post_types )): ?>
+                            <?php foreach ( $post_types as $post_type => $args ): ?>
+                            <input type="checkbox" name="post_type_file[]" value="<?php echo( $post_type ); ?>" <?php if ( file_exists( TEMPLATEPATH . '/single-' .  $post_type . '.php' )) echo( 'checked="checked" disabled="disabled"' ); ?> />
+                            <span class="description"><strong><?php echo( $post_type ); ?></strong></span>
+                            <br />
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <span class="description"><strong><?php _e('No custom post types available', 'custommanager'); ?></strong></span>
+                        <?php endif; ?>
+                        <br />
+                        <span class="description"><?php _e('Your active theme folder permissions have to be set to 777 for this option to work. This will create "single-[post_type].php" file inside your theme.This file will be the custom template for your custom post type. You can then edit the file and customize it however you like. After you finish editing you can set your folder permission back to 755.', 'custommanager'); ?></span>
+
+                        <div class="cm-embed-codes"></div>
+                    </td>
                 </tr>
-            </tfoot>
-            <tbody>
-                <?php $pt_i = 0; foreach ( $post_types as $post_type => $pt_args ): ?>
-                <?php $class = ( $pt_i % 2) ? 'cm-edit-row alternate' : 'cm-edit-row'; $pt_i++; ?>
-                <tr class="<?php echo ( $class ); ?>">
-                    <td>
-                        <strong>
-                            <a href="<?php echo( admin_url( 'admin.php?page=cm_post_types&cm_edit_post_type=' . $post_type ) ); ?>"><?php echo( $post_type ); ?></a>
-                        </strong>
-                        <div class="row-actions">
-                            <span class="edit">
-                                <a title="<?php _e('Edit this post type', 'custommanager'); ?>" href="<?php echo( admin_url( 'admin.php?page=cm_post_types&cm_edit_post_type=' . $post_type ) ); ?>"><?php _e('Edit', 'custommanager'); ?></a> |
-                            </span>
-                            <span class="trash">
-                                <a class="submitdelete" href="<?php echo( admin_url( 'admin.php?page=cm_post_types&cm_delete_post_type=' . $post_type ) ); ?>"><?php _e('Delete', 'custommanager'); ?></a>
-                            </span>
-                        </div>
-                    </td>
-                    <td><?php echo( $pt_args['labels']['name'] ); ?></td>
-                    <td><?php echo( $pt_args['description'] ); ?></td>
-                    <td>
-                        <img src="<?php echo( $pt_args['menu_icon'] ); ?>" alt="<?php if ( empty( $pt_args['menu_icon'] ) ) echo( 'No Icon'); ?>" />
-                    </td>
-                    <td>
-                        <?php if ( $pt_args['public'] === null ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'custommanager'); ?>" title="<?php _e('Advanced', 'custommanager'); ?>" />
-                        <?php elseif ( $pt_args['public'] ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
-                        <?php else: ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ( $pt_args['hierarchical'] ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
-                        <?php else: ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ( $pt_args['rewrite'] ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
-                        <?php else: ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
-                        <?php endif; ?>
-                    </td>
-                    <td class="cm-supports">
-                        <?php foreach ( $pt_args['supports'] as $pt_value ): ?>
-                            <?php echo( $pt_value ); ?>
-                        <?php endforeach; ?>
-                    </td>
-                    <td><?php echo( $pt_args['capability_type'] ); ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <form name="cm_form_redirect_add_post_type" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_post_type" value="<?php _e('Add Post Type', 'custommanager'); ?>" />
-        </form>
-        
-        <h2><?php _e('Taxonomies', 'custommanager'); ?></h2>
-        <?php /** @todo
-        <div class="updated below-h2" id="message">
-            <p><a href=""></a></p>
-        </div> */ ?>
-        <form name="cm_form_redirect_add_taxonomy" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_taxonomy" value="<?php _e('Add Taxonomy', 'custommanager'); ?>" />
-        </form>
-        <table class="widefat">
-            <thead>
+            </table>
+            <table class="form-table">
                 <tr>
-                    <th><?php _e('Taxonomy', 'custommanager'); ?></th>
-                    <th><?php _e('Name', 'custommanager'); ?></th>
-                    <th><?php _e('Post Types', 'custommanager'); ?></th>
-                    <th><?php _e('Public', 'custommanager'); ?></th>
-                    <th><?php _e('Hierarchical', 'custommanager'); ?></th>
-                    <th><?php _e('Rewrite', 'custommanager'); ?></th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th><?php _e('Taxonomy', 'custommanager'); ?></th>
-                    <th><?php _e('Name', 'custommanager'); ?></th>
-                    <th><?php _e('Post Types', 'custommanager'); ?></th>
-                    <th><?php _e('Public', 'custommanager'); ?></th>
-                    <th><?php _e('Hierarchical', 'custommanager'); ?></th>
-                    <th><?php _e('Rewrite', 'custommanager'); ?></th>
-                </tr>
-            </tfoot>
-            <tbody>
-                <?php $tx_i = 0; foreach ( $taxonomies as $taxonomy => $tx_args ): ?>
-                <?php $class = ( $tx_i % 2) ? 'cm-edit-row alternate' : 'cm-edit-row'; $tx_i++; ?>
-                <tr class="<?php echo ( $class ); ?>">
+                    <th>
+                        <label for="post_type"><?php _e('Embed your custom taxonomies: ', 'custommanager') ?></label>
+                    </th>
                     <td>
-                        <strong>
-                            <a href="<?php echo( admin_url( 'admin.php?page=cm_taxonomies&cm_edit_taxonomy=' . $taxonomy ) ); ?>"><?php echo( $taxonomy ); ?></a>
-                        </strong>
-                        <div class="row-actions">
-                            <span class="edit">
-                                <a title="<?php _e('Edit this taxonomy', 'custommanager'); ?>" href="<?php echo( admin_url( 'admin.php?page=cm_taxonomies&cm_edit_taxonomy=' . $taxonomy ) ); ?>"><?php _e('Edit', 'custommanager'); ?></a> |
-                            </span>
-                            <span class="trash">
-                                <a class="submitdelete" href="<?php echo( admin_url( 'admin.php?page=cm_taxonomies&cm_delete_taxonomy=' . $taxonomy ) ); ?>"><?php _e('Delete', 'custommanager'); ?></a>
-                            </span>
-                        </div>
-                    </td>
-                    <td><?php echo( $tx_args['args']['labels']['name'] ); ?></td>
-                    <td>
-                        <?php foreach( $tx_args['object_type'] as $tx_object_type ): ?>
-                            <?php echo( $tx_object_type ); ?>
-                        <?php endforeach; ?>
-                    </td>
-                    <td>
-                        <?php if ( $tx_args['args']['public'] === null ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'custommanager'); ?>" title="<?php _e('Advanced', 'custommanager'); ?>" />
-                        <?php elseif ( $tx_args['args']['public'] ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
-                        <?php else: ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ( $tx_args['args']['hierarchical'] ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
-                        <?php else: ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
-                        <?php endif; ?>
-                    </td>
-                    <td>
-                        <?php if ( $tx_args['args']['rewrite'] ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
-                        <?php else: ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
-                        <?php endif; ?>
+                            <span class="description"><code>[phptag] echo get_the_term_list( $post->ID, '<strong>taxonomy_name</strong>', '<strong>Text before taxonomy: </strong>', ', ', '' ); [/phptag]</code></span>
+                        <br />
+                        <span class="description"><?php _e('Replace [phptag] and [/phptag] with their proper php notation. Fill in the taxonomy "taxonomy_name" and "Text before taxonomy:". Place this in your "single-[post_type].php" file ( if you have it created ).', 'custommanager'); ?></span>
+
+                        <div class="cm-embed-codes"></div>
                     </td>
                 </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <form name="cm_form_redirect_add_taxonomy" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_taxonomy" value="<?php _e('Add Taxonomy', 'custommanager'); ?>" />
+            </table>
+            <input type="submit" class="button-primary" name="cm_submit_settings" value="Save Changes">
         </form>
 
-        <h2><?php _e('Custom Fields', 'custommanager'); ?></h2>
-        <?php /** @todo
-        <div class="updated below-h2" id="message">
-            <p><a href=""></a></p>
-        </div> */ ?>
-        <form name="cm_form_redirect_add_custom_field" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_custom_field" value="Add Custom Field" />
-        </form>
-        <table class="widefat">
-            <thead>
-                <tr>
-                    <th><?php _e('Custom Field', 'custommanager'); ?></th>
-                    <th><?php _e('Field Type', 'custommanager'); ?></th>
-                    <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Post Types', 'custommanager'); ?></th>
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                    <th><?php _e('Custom Field', 'custommanager'); ?></th>
-                    <th><?php _e('Field Type', 'custommanager'); ?></th>
-                    <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Post Types', 'custommanager'); ?></th>
-                </tr>
-            </tfoot>
-            <tbody>
-                <?php $i = 0; foreach ( $custom_fields as $custom_field ): ?>
-                <?php $class = ( $i % 2) ? 'cm-edit-row alternate' : 'cm-edit-row'; $i++; ?>
-                <tr class="<?php echo ( $class ); ?>">
-                    <td>
-                        <strong>
-                            <a href="<?php echo( admin_url( 'admin.php?page=cm_custom_fields&cm_edit_custom_field=' . $custom_field['field_id'] )); ?>"><?php echo( $custom_field['field_title'] ); ?></a>
-                        </strong>
-                        <div class="row-actions">
-                            <span class="edit">
-                                <a title="<?php _e('Edit this custom field', 'custommanager'); ?>" href="<?php echo( admin_url( 'admin.php?page=cm_custom_fields&cm_edit_custom_field=' . $custom_field['field_id'] ) ); ?>">Edit</a> |
-                            </span>
-                            <span class="trash">
-                                <a class="submitdelete" href="<?php echo( admin_url( 'admin.php?page=cm_custom_fields&cm_delete_custom_field=' . $custom_field['field_id'] ) ); ?>">Delete</a>
-                            </span>
-                        </div>
-                    </td>
-                    <td><?php echo( $custom_field['field_type'] ); ?></td>
-                    <td><?php echo( $custom_field['field_description'] ); ?></td>
-                    <td>
-                        <?php foreach( $custom_field['object_type'] as $object_type ): ?>
-                            <?php echo( $object_type ); ?>
-                        <?php endforeach; ?>
-                    </td>
-                    <?php /** @todo implement required fields
-                    <td>
-                        <?php if ( $custom_field['required'] ): ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
-                        <?php else: ?>
-                            <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
-                        <?php endif; ?>
-                    </td>
-                    */ ?>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <form name="cm_form_redirect_add_custom_field" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_custom_field" value="Add Custom Field" />
-        </form>
+  
     </div> <?php
 }
 
