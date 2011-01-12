@@ -203,4 +203,16 @@ function cp_debug( $param ) {
     echo '</pre>';
 }
 
+function cp_roles() {
+    global $wp_roles;
+    if ( $wp_roles ) {
+        $wp_roles->add_cap( 'administrator', 'manage_terms' );
+        $wp_roles->add_cap( 'administrator', 'manage_categories' );
+        $wp_roles->add_cap( 'administrator', 'edit_terms' );
+        $wp_roles->add_cap( 'administrator', 'delete_terms' );
+        $wp_roles->add_cap( 'administrator', 'assign_terms' );
+    }
+}
+//add_action( 'init', 'cp_roles', 20 );
+
 ?>
