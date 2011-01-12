@@ -33,9 +33,11 @@ function cm_admin_edit_taxonomy_page( $args, $post_types ) { ?>
                             </th>
                             <td>
                                 <select name="object_type[]" multiple="multiple" class="cm-object-type">
-                                    <?php foreach( $post_types as $post_type ): ?>
-                                        <option value="<?php echo ( $post_type ); ?>" <?php if ( is_object_in_taxonomy( $post_type, $_GET['cm_edit_taxonomy'] )) echo ( 'selected="selected"'); ?>><?php echo ( $post_type ); ?></option>
-                                    <?php endforeach; ?>
+                                    <?php if ( !empty( $post_types )): ?>
+                                        <?php foreach( $post_types as $post_type ): ?>
+                                            <option value="<?php echo ( $post_type ); ?>" <?php if ( is_object_in_taxonomy( $post_type, $_GET['cm_edit_taxonomy'] )) echo ( 'selected="selected"'); ?>><?php echo ( $post_type ); ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </select>
                                 <span class="description"><?php _e('Select one or more post types to add this taxonomy to', 'custommanager'); ?></span>
                             </td>

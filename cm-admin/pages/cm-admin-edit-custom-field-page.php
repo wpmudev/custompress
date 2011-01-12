@@ -99,9 +99,11 @@ function cm_admin_edit_custom_field_page( $custom_field, $post_types ) { ?>
                             </th>
                             <td>
                                 <select name="object_type[]" multiple="multiple" class="cm-object-type">
-                                    <?php foreach( $post_types as $post_type ): ?>
-                                        <option value="<?php echo ( $post_type ); ?>" <?php foreach ( $custom_field['object_type'] as $key => $object_type ) { if ( $object_type == $post_type ) echo( 'selected="selected"' ); } ?>><?php echo ( $post_type ); ?></option>
-                                    <?php endforeach; ?>
+                                    <?php if ( !empty( $post_types )): ?>
+                                        <?php foreach( $post_types as $post_type ): ?>
+                                            <option value="<?php echo ( $post_type ); ?>" <?php foreach ( $custom_field['object_type'] as $key => $object_type ) { if ( $object_type == $post_type ) echo( 'selected="selected"' ); } ?>><?php echo ( $post_type ); ?></option>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
                                 </select>
                                 <br />
                                 <span class="description"><?php _e('Select one or more post types to add this custom field to.', 'custommanager'); ?></span>
