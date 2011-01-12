@@ -1,35 +1,30 @@
 
-/* Custom Manager Admin Styles
+/* Content Types Admin Styles
 *******************************************************************************/
 
-/*
-.toplevel_page_cm_main .wp-submenu .wp-first-item {
-    display: none !important;
-}*/
-
-.cm-wrap input[type="text"] {
+.ct-wrap input[type="text"] {
     margin: 0 !important;
     width: 200px;
 }
-.cm-wrap select {
+.ct-wrap select {
     height: auto !important;
 }
-.cm-wrap-left {
+.ct-wrap-left {
     width: 48%;
     float: left;
     margin-right: 20px;
 }
-.cm-wrap-left .description {
+.ct-wrap-left .description {
     display: block;
 }
-.cm-wrap-left .supports .description {
+.ct-wrap-left .supports .description {
     display:  inline;
 }
-.cm-wrap-right {
+.ct-wrap-right {
     width: 48%;
     float: left;
 }
-.cm-table-wrap {
+.ct-table-wrap {
     -moz-border-radius:6px 6px 6px 6px;
     border-style:solid;
     border-width:1px;
@@ -39,7 +34,7 @@
     border-color:#DFDFDF;
     margin:0 0 20px 0;
 }
-.cm-toggle {
+.ct-toggle {
     padding:7px 9px;
     background:url("../images/gray-grad.png") repeat-x left top #DFDFDF;
     cursor: pointer;
@@ -52,51 +47,54 @@
     padding-bottom: 5px;
     border-collapse: inherit;
 }
-.cm-post-type h3, .cm-taxonomy h3, .cm-custom-fields h3 {
+.ct-post-type h3, .ct-taxonomy h3, .ct-custom-fields h3 {
     font-size: 1em;
 }
-.cm-edit-row td {
+.ct-edit-row td {
     padding-top: 8px;
     padding-bottom: 8px;
 }
-.cm-arrow {
+.ct-arrow {
     background: url("../images/menu-bits.gif") no-repeat left -109px;
     float:right;
     height:28px;
     width:23px
 }
-.cm-arrow:hover {
+.ct-arrow:hover {
     background: url('../images/menu-bits.gif') no-repeat left -206px;
 }
-.cm-form-single-btn {
+.ct-form-single-btn {
     padding: 10px 0;
 }
-.cm-clear {
+.ct-clear {
     clear: left;
 }
-.cm-required {
+.ct-required {
      color: #666;
      font-style: italic;
 }
-.cm-tf-icons {
+.ct-tf-icons {
     padding: 10px 0 0 10px;
 }
-.cm-object-type {
+.ct-object-type {
     width: 200px;
 }
-.cm-field-type-options {
+.ct-field-type-options {
     display: none;
 }
-.cm_ct_edit {
+.ct-capability-type-edit {
     display: inline-block !important;
 }
-.cm_field_description {
+.ct-field-description {
     width: 95%;
 }
-.cm-tf-icons-wrap {
+.ct-tf-icons-wrap {
     width: 7%;
 }
-.cm-content-types h2 {
+.ct-content-types h2 {
     border-bottom:1px solid #CCCCCC;
     padding-bottom:0 ;
+}
+.ct-embed-code {
+    max-width: 400px;
 }

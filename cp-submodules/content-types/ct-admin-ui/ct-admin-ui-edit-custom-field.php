@@ -1,33 +1,43 @@
 <?php
 
-function cm_admin_edit_custom_field_page( $custom_field, $post_types ) { ?>
+/**
+ * ct_admin_ui_edit_custom_field()
+ *
+ * Outputs "Edit Custom Field" admin page.
+ *
+ * @param array $custom_field The custom field that is about to be updated
+ * with all of its settings.
+ * @param array $post_types All available post types that can be associated
+ * with the current custom field.
+ */
+function ct_admin_ui_edit_custom_field( $custom_field, $post_types ) { ?>
 
-    <h3><?php _e('Edit Custom Field', 'custompress'); ?></h3>
-    <form action="" method="post" class="cm-custom-fields">
-        <?php wp_nonce_field( 'cm_submit_custom_field_verify', 'cm_submit_custom_field_secret' ); ?>
-        <div class="cm-wrap-left">
-            <div class="cm-table-wrap">
-                <div class="cm-arrow"><br></div>
-                <h3 class="cm-toggle"><?php _e('Field Title', 'custompress') ?></h3>
+    <h3><?php _e('Edit Custom Field', 'content_types'); ?></h3>
+    <form action="" method="post" class="ct-custom-fields">
+        <?php wp_nonce_field( 'ct_submit_custom_field_verify', 'ct_submit_custom_field_secret' ); ?>
+        <div class="ct-wrap-left">
+            <div class="ct-table-wrap">
+                <div class="ct-arrow"><br></div>
+                <h3 class="ct-toggle"><?php _e('Field Title', 'content_types') ?></h3>
                 <table class="form-table">
                     <tr>
                         <th>
-                            <label for="field_title"><?php _e('Field Title', 'custompress') ?> <span class="cm-required">( <?php _e('required', 'custompress'); ?> )</span></label>
+                            <label for="field_title"><?php _e('Field Title', 'content_types') ?> <span class="ct-required">( <?php _e('required', 'content_types'); ?> )</span></label>
                         </th>
                         <td>
                             <input type="text" name="field_title" value="<?php echo ( $custom_field['field_title'] ); ?>">
-                            <span class="description"><?php _e('The title of the custom field.', 'custompress'); ?></span>
+                            <span class="description"><?php _e('The title of the custom field.', 'content_types'); ?></span>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="cm-table-wrap">
-                <div class="cm-arrow"><br></div>
-                <h3 class="cm-toggle"><?php _e('Field Type', 'custompress') ?></h3>
+            <div class="ct-table-wrap">
+                <div class="ct-arrow"><br></div>
+                <h3 class="ct-toggle"><?php _e('Field Type', 'content_types') ?></h3>
                 <table class="form-table">
                     <tr>
                         <th>
-                            <label for="field_type"><?php _e('Field Type', 'custompress') ?> <span class="cm-required">( <?php _e('required', 'custompress'); ?> )</span></label>
+                            <label for="field_type"><?php _e('Field Type', 'content_types') ?> <span class="ct-required">( <?php _e('required', 'content_types'); ?> )</span></label>
                         </th>
                         <td>
                             <select name="field_type">
@@ -38,65 +48,67 @@ function cm_admin_edit_custom_field_page( $custom_field, $post_types ) { ?>
                                 <option value="selectbox" <?php if ( $custom_field['field_type'] == 'selectbox' ) echo ( 'selected="selected"' ); ?>>Drop Down Select Box</option>
                                 <option value="multiselectbox" <?php if ( $custom_field['field_type'] == 'multiselectbox' ) echo ( 'selected="selected"' ); ?>>Multi Select Box</option>
                             </select>
-                            <span class="description"><?php _e('Select one or more post types to add this custom field to.', 'custompress'); ?></span>
-                            <div class="cm-field-type-options">
-                                <h4><?php _e('Fill in the options for this field', 'custompress'); ?>:</h4>
+                            <span class="description"><?php _e('Select one or more post types to add this custom field to.', 'content_types'); ?></span>
+                            <div class="ct-field-type-options">
+                                <h4><?php _e('Fill in the options for this field', 'content_types'); ?>:</h4>
                                 <p>
-                                    <?php _e('Order By', 'custompress'); ?> :
+                                    <?php _e('Order By', 'content_types'); ?> :
                                     <select name="field_sort_order">
-                                        <option value="default"><?php _e('Order Entered', 'custompress'); ?></option>
-                                        <option value="asc"><?php _e('Name - Ascending', 'custompress'); ?></option>
-                                        <option value="desc"><?php _e('Name - Descending', 'custompress'); ?></option>
+                                        <option value="default"><?php _e('Order Entered', 'content_types'); ?></option>
+                                        <?php /** @todo introduce the additional order options
+                                        <option value="asc"><?php _e('Name - Ascending', 'content_types'); ?></option>
+                                        <option value="desc"><?php _e('Name - Descending', 'content_types'); ?></option>
+                                        */ ?>
                                     </select
                                 </p>
 
                                 <?php foreach ( $custom_field['field_options'] as $key => $field_option ): ?>
                                     <p>
-                                        <?php _e('Option', 'custompress'); ?> <?php echo( $key ); ?>:
+                                        <?php _e('Option', 'content_types'); ?> <?php echo( $key ); ?>:
                                         <input type="text" name="field_options[<?php echo( $key ); ?>]" value="<?php echo( $field_option ); ?>" />
                                         <input type="radio" value="<?php echo( $key ); ?>" name="field_default_option" <?php if ( $custom_field['field_default_option'] == $key ) echo ( 'checked="checked"' ); ?> />
-                                        <?php _e('Default Value', 'custompress'); ?>
+                                        <?php _e('Default Value', 'content_types'); ?>
                                         <?php if ( $key != 1 ): ?>
-                                            <a href="#" class="cm-field-delete-option">[x]</a>
+                                            <a href="#" class="ct-field-delete-option">[x]</a>
                                         <?php endif; ?>
                                     </p>
                                 <?php endforeach; ?>
 
-                                <div class="cm-field-additional-options"></div>
+                                <div class="ct-field-additional-options"></div>
                                 <input type="hidden" value="<?php echo( count( $custom_field['field_options'] )); ?>" name="track_number">
-                                <p><a href="#" class="cm-field-add-option"><?php _e('Add another option', 'custompress'); ?></a></p>
+                                <p><a href="#" class="ct-field-add-option"><?php _e('Add another option', 'content_types'); ?></a></p>
                             </div>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="cm-table-wrap">
-                <div class="cm-arrow"><br></div>
-                <h3 class="cm-toggle"><?php _e('Field Description', 'custompress') ?></h3>
+            <div class="ct-table-wrap">
+                <div class="ct-arrow"><br></div>
+                <h3 class="ct-toggle"><?php _e('Field Description', 'content_types') ?></h3>
                 <table class="form-table">
                     <tr>
                         <th>
-                            <label for="field_description"><?php _e('Field Description', 'custompress') ?></label>
+                            <label for="field_description"><?php _e('Field Description', 'content_types') ?></label>
                         </th>
                         <td>
                             <textarea name="field_description" cols="52" rows="3" ><?php echo( $custom_field['field_description'] ); ?></textarea>
-                            <span class="description"><?php _e('Description for the custom field.', 'custompress'); ?></span>
+                            <span class="description"><?php _e('Description for the custom field.', 'content_types'); ?></span>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-        <div class="cm-wrap-right">
-            <div class="cm-table-wrap">
-                <div class="cm-arrow"><br></div>
-                <h3 class="cm-toggle"><?php _e('Post Type', 'custompress') ?></h3>
+        <div class="ct-wrap-right">
+            <div class="ct-table-wrap">
+                <div class="ct-arrow"><br></div>
+                <h3 class="ct-toggle"><?php _e('Post Type', 'content_types') ?></h3>
                 <table class="form-table">
                     <tr>
                         <th>
-                            <label for="object_type"><?php _e('Post Type', 'custompress') ?> <span class="cm-required">( <?php _e('required', 'custompress'); ?> )</span></label>
+                            <label for="object_type"><?php _e('Post Type', 'content_types') ?> <span class="ct-required">( <?php _e('required', 'content_types'); ?> )</span></label>
                         </th>
                         <td>
-                            <select name="object_type[]" multiple="multiple" class="cm-object-type">
+                            <select name="object_type[]" multiple="multiple" class="ct-object-type">
                                 <?php if ( !empty( $post_types )): ?>
                                     <?php foreach( $post_types as $post_type ): ?>
                                         <option value="<?php echo ( $post_type ); ?>" <?php foreach ( $custom_field['object_type'] as $key => $object_type ) { if ( $object_type == $post_type ) echo( 'selected="selected"' ); } ?>><?php echo ( $post_type ); ?></option>
@@ -104,32 +116,32 @@ function cm_admin_edit_custom_field_page( $custom_field, $post_types ) { ?>
                                 <?php endif; ?>
                             </select>
                             <br />
-                            <span class="description"><?php _e('Select one or more post types to add this custom field to.', 'custompress'); ?></span>
+                            <span class="description"><?php _e('Select one or more post types to add this custom field to.', 'content_types'); ?></span>
                         </td>
                     </tr>
                 </table>
             </div>
             <?php /** @todo implement required fields
-            <div class="cm-table-wrap">
-                <div class="cm-arrow"><br></div>
-                <h3 class="cm-toggle"><?php _e('Required Field', 'custompress') ?></h3>
+            <div class="ct-table-wrap">
+                <div class="ct-arrow"><br></div>
+                <h3 class="ct-toggle"><?php _e('Required Field', 'content_types') ?></h3>
                 <table class="form-table">
                     <tr>
                         <th>
-                            <label for="required"><?php _e('Required Field', 'custompress') ?></label>
+                            <label for="required"><?php _e('Required Field', 'content_types') ?></label>
                         </th>
                         <td>
-                            <span class="description"><?php _e('Should this field be required.', 'custompress'); ?></span>
+                            <span class="description"><?php _e('Should this field be required.', 'content_types'); ?></span>
                         </td>
                     </tr>
                     <tr>
                         <th></th>
                         <td>
                             <input type="radio" name="required" value="1">
-                            <span class="description"><strong><?php _e('TRUE', 'custompress'); ?></strong></span>
+                            <span class="description"><strong><?php _e('TRUE', 'content_types'); ?></strong></span>
                             <br />
                             <input type="radio" name="required" value="0" checked="checked">
-                            <span class="description"><strong><?php _e('FALSE', 'custompress'); ?></strong></span>
+                            <span class="description"><strong><?php _e('FALSE', 'content_types'); ?></strong></span>
                         </td>
                     </tr>
                 </table>
@@ -137,7 +149,7 @@ function cm_admin_edit_custom_field_page( $custom_field, $post_types ) { ?>
             */ ?>
         </div>
         <br style="clear: left" />
-        <input type="submit" class="button-primary" name="cm_submit_update_custom_field" value="Update Custom Field">
+        <input type="submit" class="button-primary" name="ct_submit_update_custom_field" value="Update Custom Field">
         <br /><br /><br /><br />
     </form> <?php
 }

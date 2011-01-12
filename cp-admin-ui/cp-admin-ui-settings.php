@@ -1,12 +1,21 @@
 <?php
 
-function cm_admin_main_page( $post_types ) { ?>
-    <div class="wrap cm-wrap">
+/**
+ * cp_admin_ui_settings()
+ *
+ * Outputs "CustomPress Settings" admin page.
+ *
+ * @param array/false $post_types All available post types which
+ * can be associated with the taxonomy that is about to be added.
+ */
+function cp_admin_ui_settings( $post_types ) { ?>
+
+    <div class="wrap cp-wrap">
         <div class="icon32" id="icon-options-general"><br></div>
         <h2><?php _e('CustomPress Settings', 'custompress'); ?></h2>
-        <?php $settings = get_site_option('cm_main_settings'); ?>
-        <form action="" method="post" class="cm-main">
-            <?php wp_nonce_field( 'cm_submit_settings_verify', 'cm_submit_settings_secret' ); ?>
+        <?php $settings = get_site_option('cp_main_settings'); ?>
+        <form action="" method="post" class="cp-main">
+            <?php wp_nonce_field( 'cp_submit_settings_verify', 'cp_submit_settings_secret' ); ?>
             <?php /** @todo
             <div class="updated below-h2" id="message">
                 <p><a href=""></a></p>
@@ -19,7 +28,7 @@ function cm_admin_main_page( $post_types ) { ?>
                     <td>
                         <?php /** @todo Resolve bug with query_posts resetings the is_home() function.
                         <span>Page: </span>
-                        <select name="page" id="cm-select-page">
+                        <select name="page" id="cp-select-page">
                            <option value="home" selected="selected">home</option>
                         </select>
                         <span class="description"><?php _e('Select page on which you want to display custom post types. You can define custom post types for more than one page.', 'custompress'); ?></span>
@@ -46,9 +55,7 @@ function cm_admin_main_page( $post_types ) { ?>
                         <br /><br />
                         <input type="checkbox" name="post_type[]" value="default" />
                         <span class="description"><strong>default</strong></span><br /><br />
-                        <span class="description"><?php _e('If "default" is checked the "Home" page will display the default post types.', 'custompress'); ?></span>
-                        
-                        <div class="cm-embed-codes"></div>
+                        <span class="description"><?php _e('If "default" is checked the "Home" page will display the default post types.', 'custompress'); ?></span>                        
                     </td>
                 </tr>
             </table>
@@ -71,16 +78,10 @@ function cm_admin_main_page( $post_types ) { ?>
                         <span class="description"><?php _e('This will create "single-[post_type].php" file inside your theme. This file will be the custom template for your custom post type. You can then edit the file and customize it however you like.', 'custompress'); ?></span><br />
                         <span class="description"><?php _e('In some cases you may not want to do that. For example if you don\'t have a template for your custom post type the default "single.php" will be used.', 'custompress'); ?></span><br />
                         <span class="description"><?php _e('Your active theme folder permissions have to be set to 777 for this option to work. After the file is created you can set your active theme folder permission back to 755.', 'custompress'); ?></span>
-
-                        <div class="cm-embed-codes"></div>
                     </td>
                 </tr>
             </table>
-            <input type="submit" class="button-primary" name="cm_submit_settings" value="Save Changes">
-        </form>
-
-  
+            <input type="submit" class="button-primary" name="cp_submit_settings" value="Save Changes">
+        </form>  
     </div> <?php
-}
-
-?>
+} ?>
