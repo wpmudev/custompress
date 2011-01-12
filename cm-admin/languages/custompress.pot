@@ -1,0 +1,1114 @@
+
+# LANGUAGE (LOCALE) translation for CustomPress.
+# Copyright 2010 Incsub, (http://incsub.com)
+# This file is distributed under the same license as the CustomPress package.
+# Author: Ivan Shaovchev <ivan.shaovchev@gmail.com>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: CustomPress v1.0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-10-21 08:31+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Ivan Shaovchev <ivan.shaovchev@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: /custompress/cm-admin/cm-admin-core.php:19
+msgid "CustomPress"
+msgstr ""
+
+#: /custompress/cm-admin/cm-admin-core.php:20
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:21
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:29
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:23
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:20
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:30
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:7
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:22
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:32
+msgid "Post Types"
+msgstr ""
+
+#: /custompress/cm-admin/cm-admin-core.php:21
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:7
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:13
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:100
+msgid "Add Post Type"
+msgstr ""
+
+#: /custompress/cm-admin/cm-admin-core.php:22
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:7
+msgid "Taxonomies"
+msgstr ""
+
+#: /custompress/cm-admin/cm-admin-core.php:23
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:7
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:13
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:89
+msgid "Add Taxonomy"
+msgstr ""
+
+#: /custompress/cm-admin/cm-admin-core.php:24
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:61
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:7
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:60
+msgid "Custom Fields"
+msgstr ""
+
+#: /custompress/cm-admin/cm-admin-core.php:25
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:7
+msgid "Add Custom Field"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:14
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:13
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:17
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:28
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:20
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:30
+msgid "Taxonomy"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:17
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:98
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:17
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:91
+msgid "required"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:22
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:21
+msgid "The system name of the taxonomy. Alphanumeric characters and underscores only. Min 2 letters. Once added the taxonomy system name cannot be changed."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:29
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:33
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:14
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:94
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:98
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:28
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:16
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:29
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:13
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:17
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:31
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:87
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:91
+msgid "Post Type"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:45
+msgid "Select one or more post types to add this taxonomy to."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:52
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:95
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:49
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:93
+msgid "Labels"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:56
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:99
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:53
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:17
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:30
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:97
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:19
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:29
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:19
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:21
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:31
+msgid "Name"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:60
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:57
+msgid "General name for the taxonomy, usually plural."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:65
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:108
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:62
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:106
+msgid "Singular Name"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:69
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:66
+msgid "Name for one object of this taxonomy. Defaults to value of name."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:74
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:126
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:71
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:124
+msgid "Add New Item"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:78
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:75
+msgid "The add new item text. Default is \"Add New Tag\" or \"Add New Category\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:83
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:80
+msgid "New Item Name"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:87
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:84
+msgid "The new item name text. Default is \"New Tag Name\" or \"New Category Name\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:92
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:135
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:89
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:133
+msgid "Edit Item"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:96
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:93
+msgid "The edit item text. Default is \"Edit Tag\" or \"Edit Category\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:101
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:98
+msgid "Update Item"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:105
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:102
+msgid "The update item text. Default is \"Update Tag\" or \"Update Category\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:110
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:162
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:107
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:160
+msgid "Search Items"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:114
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:111
+msgid "The search items text. Default is \"Search Tags\" or \"Search Categories\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:119
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:116
+msgid "Popular Items"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:123
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:120
+msgid "The popular items text. Default is \"Popular Tags\" or null."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:128
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:125
+msgid "All Items"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:132
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:129
+msgid "The all items text. Default is \"All Tags\" or \"All Categories\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:137
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:134
+msgid "Parent Item"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:141
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:138
+msgid "The parent item text. This string is not used on non-hierarchical taxonomies such as post tags. Default is null or \"Parent Category\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:146
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:189
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:143
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:187
+msgid "Parent Item Colon"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:150
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:147
+msgid "The same as parent_item, but with colon : in the end null, \"Parent Category:\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:155
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:152
+msgid "Add Or Remove Items"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:159
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:156
+msgid "The add or remove items text is used in the meta box when JavaScript is disabled. This string isn't used on hierarchical taxonomies. Default is \"Add or remove tags\" or null."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:164
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:161
+msgid "Separate Items With Commas"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:168
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:165
+msgid "The separate item with commas text used in the taxonomy meta box. This string isn't used on hierarchical taxonomies. Default is \"Separate tags with commas\", or null."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:173
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:170
+msgid "Choose From Most Used"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:177
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:174
+msgid "The choose from most used text used in the taxonomy meta box. This string isn't used on hierarchical taxonomies. Default is \"Choose from the most used tags\" or null."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:186
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:190
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:247
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:251
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:183
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:187
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:20
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:33
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:245
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:249
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:21
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:31
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:24
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:37
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:23
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:33
+msgid "Public"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:193
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:190
+msgid "Should this taxonomy be exposed in the admin UI."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:200
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:227
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:251
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:275
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:299
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:323
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:354
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:261
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:296
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:320
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:344
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:368
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:392
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:416
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:447
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:471
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:197
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:224
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:248
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:272
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:296
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:320
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:351
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:259
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:294
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:318
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:342
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:366
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:390
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:414
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:445
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:469
+msgid "TRUE"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:203
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:230
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:254
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:278
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:302
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:326
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:357
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:268
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:299
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:323
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:347
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:371
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:395
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:419
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:450
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:474
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:200
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:227
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:251
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:275
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:299
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:323
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:354
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:266
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:297
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:321
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:345
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:369
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:393
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:417
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:448
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:472
+msgid "FALSE"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:206
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:275
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:203
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:273
+msgid "ADVANCED"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:213
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:217
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:282
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:286
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:210
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:214
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:280
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:284
+msgid "Show UI"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:220
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:217
+msgid "Whether to generate a default UI for managing this taxonomy."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:237
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:241
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:234
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:238
+msgid "Show Tagcloud"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:244
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:241
+msgid "Whether to show a tag cloud in the admin UI for this taxonomy."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:261
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:306
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:258
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:304
+msgid "Show In Nav Menus "
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:265
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:310
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:262
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:308
+msgid "Show In Nav Menus"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:268
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:265
+msgid "Whether to make this taxonomy available for selection in navigation menus."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:285
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:289
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:378
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:382
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:282
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:286
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:21
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:34
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:376
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:380
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:22
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:25
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:38
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:24
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:34
+msgid "Hierarchical"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:292
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:385
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:289
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:383
+msgid "Whether the post type is hierarchical. Allows Parent to be specified."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:309
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:313
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:402
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:406
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:306
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:310
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:22
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:35
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:400
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:404
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:23
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:33
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:26
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:39
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:25
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:35
+msgid "Rewrite"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:316
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:313
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:407
+msgid "Rewrite permalinks with this format."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:329
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:422
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:326
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:420
+msgid "CUSTOM SLUG"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:333
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:426
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:330
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:424
+msgid "Prepend posts with this slug."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:340
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:344
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:433
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:437
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:337
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:341
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:431
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:435
+msgid "Query var"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-taxonomy-page.php:347
+msgid "False to prevent queries. Default will use the taxonomy system name as query var."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:22
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:21
+msgid "The new post type system name ( max. 20 characters ). Alphanumeric characters and underscores only. Min 2 letters. Once added the post type system name cannot be changed."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:29
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:33
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:23
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:36
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:28
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:22
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:35
+msgid "Supports"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:36
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:35
+msgid "An alias for calling add_post_type_support() directly."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:43
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:42
+msgid "Title"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:46
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:45
+msgid "Editor"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:46
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:45
+msgid "Content"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:49
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:48
+msgid "Author"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:52
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:51
+msgid "Thumbnail"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:52
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:51
+msgid "Featured Image - current theme must also support post-thumbnails."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:55
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:54
+msgid "Excerpt"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:58
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:57
+msgid "Trackbacks"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:64
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:63
+msgid "Comments"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:64
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:63
+msgid "Also will see comment count balloon on edit screen."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:67
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:66
+msgid "Revisions"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:67
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:66
+msgid "Will store revisions."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:70
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:69
+msgid "Page Attributes"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:70
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:69
+msgid "Template and menu order - Hierarchical must be true!"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:77
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:81
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:24
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:37
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:76
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:80
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:23
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:36
+msgid "Capability Type"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:86
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:85
+msgid "EDIT"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:86
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:85
+msgid "advanced"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:87
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:86
+msgid "The post type to use for checking read, edit, and delete capabilities. Default: \"post\"."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:103
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:101
+msgid "General name for the post type, usually plural."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:112
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:110
+msgid "Name for one object of this post type. Defaults to value of name."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:117
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:115
+msgid "Add New"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:121
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:119
+msgid "The add new text. The default is Add New for both hierarchical and non-hierarchical types."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:130
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:128
+msgid "The add new item text. Default is Add New Post/Add New Page."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:139
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:137
+msgid "The edit item text. Default is Edit Post/Edit Page."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:144
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:142
+msgid "New Item"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:148
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:146
+msgid "The new item text. Default is New Post/New Page."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:153
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:151
+msgid "View Item"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:157
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:155
+msgid "The view item text. Default is View Post/View Page."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:166
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:164
+msgid "The search items text. Default is Search Posts/Search Pages."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:171
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:169
+msgid "Not Found"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:175
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:173
+msgid "The not found text. Default is No posts found/No pages found."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:180
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:178
+msgid "Not Found In Trash"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:184
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:182
+msgid "The not found in trash text. Default is No posts found in Trash/No pages found in Trash."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:193
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:191
+msgid "The parent text. This string isn't used on non-hierarchical types. In hierarchical ones the default is Parent Page"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:200
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:204
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:20
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:28
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:22
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:31
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:31
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:198
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:202
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:20
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:33
+msgid "Description"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:208
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:206
+msgid "A short descriptive summary of what the post type is."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:215
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:219
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:213
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:217
+msgid "Menu Position"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:223
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:221
+msgid "5 - below Posts; 10 - below Media; 20 - below Pages; 60 - below first separator; 100 - below second separator"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:230
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:234
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:19
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:228
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:232
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:21
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:34
+msgid "Menu Icon"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:238
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:236
+msgid "The url to the icon to be used for this menu."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:254
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:252
+msgid "Meta argument used to define default values for publicly_queriable, show_ui, show_in_nav_menus and exclude_from_search."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:262
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:260
+msgid "Display a user-interface for this \"post_type\""
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:263
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:261
+msgid "Show \"post_type\" for selection in navigation menus"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:264
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:262
+msgid "\"post_type\" queries can be performed from the front-end"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:265
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:272
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:263
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:270
+msgid "Exclude posts with this post type from search results"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:269
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:267
+msgid "Don not display a user-interface for this \"post_type\""
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:270
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:268
+msgid "Hide \"post_type\" for selection in navigation menus"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:271
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:269
+msgid "\"post_type\" queries cannot be performed from the front-end"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:275
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:273
+msgid "You can set each component manualy."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:289
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:287
+msgid "Whether to generate a default UI for managing this post type. Note that built-in post types, such as post and page, are intentionally set to false."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:296
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:294
+msgid "Display a user-interface (admin panel) for this post type."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:299
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:297
+msgid "Do not display a user-interface for this post type."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:313
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:311
+msgid "Whether post_type is available for selection in navigation menus."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:330
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:334
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:328
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:332
+msgid "Publicly Queryable"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:337
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:335
+msgid "Whether post_type queries can be performed from the front end."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:354
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:358
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:352
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:356
+msgid "Exclude From Search"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:361
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:359
+msgid "Whether to exclude posts with this post type from search results."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:409
+msgid "Rewrite permalinks with this format. If TRUE, the post type system name will be used for the rewrite slug. "
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:440
+msgid "Can queries be performed on this post_type."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:457
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:461
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:455
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:459
+msgid "Can Export"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-add-post-type-page.php:464
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:462
+msgid "Can this post_type be exported."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:18
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:26
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:20
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:29
+msgid "Custom Field"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:19
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:27
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:28
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:32
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:28
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:32
+msgid "Field Type"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-custom-fields-page.php:43
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:44
+msgid "Edit this custom field"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:7
+msgid "Edit Custom Field"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:13
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:17
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:13
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:17
+msgid "Field Title"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:21
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:21
+msgid "The title of the custom field."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:43
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:109
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:43
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:102
+msgid "Select one or more post types to add this custom field to."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:45
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:45
+msgid "Fill in the options for this field"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:47
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:46
+msgid "Order By"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:49
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:48
+msgid "Order Entered"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:50
+msgid "Name - Ascending"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:51
+msgid "Name - Descending"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:57
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:55
+msgid "Option"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:60
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:58
+msgid "Default Value"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:69
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:62
+msgid "Add another option"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:77
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:81
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:70
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:74
+msgid "Field Description"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-custom-field-page.php:85
+#: /custompress/cm-admin/pages/cm-admin-add-custom-field-page.php:78
+msgid "Description for the custom field."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:8
+msgid "Delete Custom Field"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:15
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:47
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:70
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:11
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:51
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:94
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:15
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:49
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:87
+msgid "Delete Permanently"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:21
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:30
+msgid "Type"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:24
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:33
+msgid "Required"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:44
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:48
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:47
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:53
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:46
+msgid "Edit"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:60
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:64
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:71
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:78
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:64
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:71
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:78
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:75
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:82
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:89
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:63
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:70
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:77
+msgid "True"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-custom-field-page.php:62
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:66
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:73
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:80
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:66
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:73
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:80
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:77
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:84
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:91
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:65
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:72
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:79
+msgid "False"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:7
+msgid "Edit Taxonomy"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:42
+msgid "Select one or more post types to add this taxonomy to"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-taxonomy-page.php:344
+msgid "False to prevent queries, or string to customize query var. Default will use $taxonomy as query var."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:8
+msgid "Delete Post Type"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:48
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:53
+msgid "Edit this post type"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-post-type-page.php:62
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:62
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:73
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:61
+msgid "Advanced"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:7
+msgid "Edit Post Type"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-edit-post-type-page.php:438
+msgid "Name of the query var to use for this post type."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:6
+msgid "CustomPress Settings"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:17
+msgid "Display post types on: "
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:29
+msgid "Select page on which you want to display custom post types. You can define custom post types for more than one page."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:49
+msgid "Check the custom post types you want to display on the selected page."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:58
+msgid "Create theme file for: "
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:68
+msgid "No custom post types available"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:71
+msgid "Your active theme folder permissions have to be set to 777 for this option to work. This will create \"single-[post_type].php\" file inside your theme.This file will be the custom template for your custom post type. You can then edit the file and customize it however you like. After you finish editing you can set your folder permission back to 755."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:80
+msgid "Embed your custom taxonomies: "
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-main-page.php:85
+msgid "Replace [phptag] and [/phptag] with their proper php notation. Fill in the taxonomy \"taxonomy_name\" and \"Text before taxonomy:\". Place this in your \"single-[post_type].php\" file ( if you have it created )."
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:47
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:46
+msgid "Edit this taxonomy"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-taxonomies-page.php:50
+#: /custompress/cm-admin/pages/cm-admin-post-types-page.php:56
+msgid "Delete"
+msgstr ""
+
+#: /custompress/cm-admin/pages/cm-admin-delete-taxonomy-page.php:8
+msgid "Delete Taxonomy"
+msgstr ""
+

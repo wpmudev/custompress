@@ -1,7 +1,7 @@
 <?php
 
 /* define the plugin folder url */
-define ( 'CM_PLUGIN_URL', WP_PLUGIN_URL . '/' . str_replace( basename( __FILE__), '', plugin_basename(__FILE__) ));
+define ( 'CM_PLUGIN_URL', WP_PLUGIN_URL . '/' . str_replace( basename(__FILE__), '', plugin_basename(__FILE__) ));
 
 /* tmp debug func */
 function cm_debug( $param ) {

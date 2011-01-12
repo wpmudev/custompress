@@ -41,6 +41,17 @@ define ( 'CM_DB_VERSION', '1.0' );
 include_once 'cm-admin/cm-admin-core.php';
 
 /**
+ * cm_load_plugin_textdomain()
+ *
+ * Loads "custompress-[xx_XX].mo" language file from the languages directory
+ */
+function cm_load_plugin_textdomain() {
+    $plugin_dir = basename( dirname(__FILE__) ) . '/cm-admin/languages';
+    load_plugin_textdomain( 'custompress', null, $plugin_dir );
+}
+add_action( 'init', 'cm_load_plugin_textdomain', 0 );
+
+/**
  * cm_loaded()
  *
  * Allow dependent plugins and core actions to attach themselves in a safe way.
