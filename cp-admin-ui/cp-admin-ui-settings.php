@@ -67,7 +67,7 @@ function cp_admin_ui_settings( $post_types ) { ?>
                     <td>
                         <?php if ( !empty( $post_types )): ?>
                             <?php foreach ( $post_types as $post_type => $args ): ?>
-                            <input type="checkbox" name="post_type_file[]" value="<?php echo( $post_type ); ?>" <?php if ( file_exists( TEMPLATEPATH . '/single-' .  $post_type . '.php' )) echo( 'checked="checked" disabled="disabled"' ); ?> />
+                        <input type="checkbox" name="post_type_file[]" value="<?php echo( $post_type ); ?>" <?php if ( file_exists( TEMPLATEPATH . '/single-' .  strtolower( $post_type ) . '.php' )) echo( 'checked="checked" disabled="disabled"' ); ?> />
                             <span class="description"><strong><?php echo( $post_type ); ?></strong></span>
                             <br />
                             <?php endforeach; ?>

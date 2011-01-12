@@ -176,7 +176,7 @@ function cp_create_post_type_files( $post_type ) {
 
     if ( !empty( $post_type )) {
         foreach ( $post_type as $post_type ) {
-            $newfile = TEMPLATEPATH . '/single-' .  $post_type . '.php';
+            $newfile = TEMPLATEPATH . '/single-' .  strtolower( $post_type ) . '.php';
 
             if ( !file_exists( $newfile )) {
                 if ( !copy( $file, $newfile ))
