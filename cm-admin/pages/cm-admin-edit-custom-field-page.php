@@ -3,6 +3,7 @@
 function cm_admin_edit_custom_field_page( $custom_field, $post_types ) { ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Edit Custom Field', 'custommanager'); ?></h2>
         <form action="" method="post" class="cm-custom-fields">
             <?php wp_nonce_field( 'cm_submit_custom_field_verify', 'cm_submit_custom_field_secret' ); ?>

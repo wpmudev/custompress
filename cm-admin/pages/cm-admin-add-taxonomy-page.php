@@ -3,6 +3,7 @@
 function cm_admin_add_taxonomy_page( $post_types ) { ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Add Taxonomy', 'custommanager'); ?></h2>
         <form action="" method="post" class="cm-taxonomy">
             <?php wp_nonce_field( 'cm_submit_taxonomy_verify', 'cm_submit_taxonomy_secret' ); ?>
@@ -32,11 +33,15 @@ function cm_admin_add_taxonomy_page( $post_types ) { ?>
                                 <label for="object_type"><?php _e('Post Type', 'custommanager') ?> (<span class="cm-required"> required </span>)</label>
                             </th>
                             <td>
+                                
                                 <select name="object_type[]" multiple="multiple" class="cm-object-type">
+                                <?php if ( !empty( $post_types )): ?>
                                     <?php foreach( $post_types as $post_type ): ?>
                                         <option value="<?php echo ( $post_type ); ?>" <?php foreach ( $_POST['object_type'] as $post_value ) { if ( $post_value == $post_type ) echo( 'selected="selected"' ); } ?>><?php echo( $post_type ); ?></option>
                                     <?php endforeach; ?>
+                                <?php endif; ?>
                                 </select>
+                                
                                 <span class="description"><?php _e('Select one or more post types to add this taxonomy to.', 'custommanager'); ?></span>
                             </td>
                         </tr>

@@ -3,6 +3,7 @@
 function cm_admin_custom_fields_page( $custom_fields ) { ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Custom Fields', 'custommanager'); ?></h2>
         <?php /** @todo
         <div class="updated below-h2" id="message">

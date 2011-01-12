@@ -3,6 +3,7 @@
 function cm_admin_add_post_type_page() { ?>
 
     <div class="wrap cm-wrap">
+        <div class="icon32" id="icon-edit"><br></div>
         <h2><?php _e('Add Post Type', 'custommanager'); ?></h2>
         <form action="" method="post" class="cm-post-type">
             <?php wp_nonce_field( 'cm_submit_post_type_verify', 'cm_submit_post_type_secret' ); ?>
@@ -203,7 +204,7 @@ function cm_admin_add_post_type_page() { ?>
                                 <label for="description"><?php _e('Description', 'custommanager') ?></label>
                             </th>
                             <td>
-                                <textarea name="description" cols="52" rows="3"><?php echo( $_POST['description'] ); ?></textarea>
+                                <textarea class="cm_field_description" name="description" rows="3"><?php echo( $_POST['description'] ); ?></textarea>
                                 <span class="description"><?php _e('A short descriptive summary of what the post type is.', 'custommanager'); ?></span>
                             </td>
                         </tr>
@@ -258,17 +259,17 @@ function cm_admin_add_post_type_page() { ?>
                             <td>
                                 <input type="radio" name="public" value="1"  <?php if ( $_POST['public'] === '1' ) echo( 'checked="checked"' ); elseif ( $_POST['public'] === null ) echo( 'checked="checked"' ); ?>>
                                 <span class="description"><strong><?php _e('TRUE', 'custommanager'); ?></strong><br />
-                                <?php _e('Display a user-interface for this "post_type"', 'custommanager');?><br />( show_ui = TRUE )<br /><br />
-                                <?php _e('Show "post_type" for selection in navigation menus', 'custommanager'); ?><br />( show_in_nav_menus = TRUE )<br /><br />
-                                <?php _e('"post_type" queries can be performed from the front-end', 'custommanager'); ?><br />( publicly_queryable = TRUE )<br /><br />
-                                <?php _e('Exclude posts with this post type from search results', 'custommanager'); ?><br /> ( exclude_from_search = FALSE )</span>
+                                <?php _e('Display a user-interface for this "post_type"', 'custommanager');?><br /><code>( show_ui = TRUE )</code><br /><br />
+                                <?php _e('Show "post_type" for selection in navigation menus', 'custommanager'); ?><br /><code>( show_in_nav_menus = TRUE )</code><br /><br />
+                                <?php _e('"post_type" queries can be performed from the front-end', 'custommanager'); ?><br /><code>( publicly_queryable = TRUE )</code><br /><br />
+                                <?php _e('Exclude posts with this post type from search results', 'custommanager'); ?><br /> <code>( exclude_from_search = FALSE )</code></span>
                                 <br /><br />
                                 <input type="radio" name="public" value="0" <?php if ( $_POST['public'] === '0' ) echo( 'checked="checked"' ); ?>>
                                 <span class="description"><strong><?php _e('FALSE', 'custommanager'); ?></strong><br />
-                                <?php _e('Don not display a user-interface for this "post_type"', 'custommanager');?><br />( show_ui = FALSE )<br /><br />
-                                <?php _e('Hide "post_type" for selection in navigation menus', 'custommanager'); ?><br />( show_in_nav_menus = FALSE )<br /><br />
-                                <?php _e('"post_type" queries cannot be performed from the front-end', 'custommanager'); ?><br />( publicly_queryable = FALSE )<br /><br />
-                                <?php _e('Exclude posts with this post type from search results', 'custommanager'); ?><br /> ( exclude_from_search = TRUE )</span>
+                                <?php _e('Don not display a user-interface for this "post_type"', 'custommanager');?><br /><code>( show_ui = FALSE )</code><br /><br />
+                                <?php _e('Hide "post_type" for selection in navigation menus', 'custommanager'); ?><br /><code>( show_in_nav_menus = FALSE )</code><br /><br />
+                                <?php _e('"post_type" queries cannot be performed from the front-end', 'custommanager'); ?><br /><code>( publicly_queryable = FALSE )</code><br /><br />
+                                <?php _e('Exclude posts with this post type from search results', 'custommanager'); ?><br /> <code>( exclude_from_search = TRUE )</code></span>
                                 <br /><br />
                                 <input type="radio" name="public" value="advanced" <?php if ( $_POST['public'] == 'advanced' ) echo( 'checked="checked"' ); ?>>
                                 <span class="description"><strong><?php _e('ADVANCED', 'custommanager'); ?></strong> - <?php _e('You can set each component manualy.', 'custommanager'); ?></span>
