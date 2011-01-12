@@ -19,6 +19,7 @@ function cm_admin_custom_fields_page( $custom_fields ) { ?>
                     <th><?php _e('Field Type', 'custompress'); ?></th>
                     <th><?php _e('Description', 'custompress'); ?></th>
                     <th><?php _e('Post Types', 'custompress'); ?></th>
+                    <th><?php _e('Embed Code', 'custompress'); ?></th>
                 </tr>
             </thead>
             <tfoot>
@@ -27,6 +28,7 @@ function cm_admin_custom_fields_page( $custom_fields ) { ?>
                     <th><?php _e('Field Type', 'custompress'); ?></th>
                     <th><?php _e('Description', 'custompress'); ?></th>
                     <th><?php _e('Post Types', 'custompress'); ?></th>
+                    <th><?php _e('Embed Code', 'custompress'); ?></th>
                 </tr>
             </tfoot>
             <tbody>
@@ -63,6 +65,11 @@ function cm_admin_custom_fields_page( $custom_fields ) { ?>
                             <?php endif; ?>
                         </td>
                         */ ?>
+                        <?php if ( $custom_field['field_type'] == 'text'|| $custom_field['field_type'] == 'textarea' ):  ?>
+                            <td><code>&lt;?php echo get_post_meta( $post->ID, '_cm_<?php echo( $custom_field['field_id'] ); ?>', true ); ?&gt;</code></td>
+                        <?php else: ?>
+                            <td><code>&lt;?php foreach( get_post_meta( $post->ID, '_cm_<?php echo( $custom_field['field_id'] ); ?>', true ) as $value ) { echo $value . ', '; } ?&gt;</code></td>
+                        <?php endif; ?>
                     </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
