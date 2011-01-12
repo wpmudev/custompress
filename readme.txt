@@ -32,8 +32,8 @@ WordPress internal API for the custom's which gives you absolute control over th
 == Installation ==
 
 1. Extract the plugin archive file.
-1. Upload `custompress` folder to the `/wp-content/plugins/` directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress
+2. Upload `custompress` folder to the `/wp-content/plugins/` directory.
+3. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
 
@@ -66,6 +66,8 @@ with the "v1.0.2" release.
 == Guides ==
 
 = Basic workflow =
+
+This guide assumes you are using the latest version of the plugin.
 
 1.   Add a custom "Post Type":
 1.1. Go to: CustomPress -> Content Types -> Post Types -> Add Post Type
