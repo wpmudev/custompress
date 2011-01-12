@@ -4,39 +4,39 @@ function cm_admin_post_types_page( $post_types ) { ?>
 
     <div class="wrap cm-wrap">
         <div class="icon32" id="icon-edit"><br></div>
-        <h2><?php _e('Post Types', 'custommanager'); ?></h2>
+        <h2><?php _e('Post Types', 'custompress'); ?></h2>
         <?php /** @todo
         <div class="updated below-h2" id="message">
             <p><a href=""></a></p>
         </div> */ ?>
         <form name="cm_form_redirect_add_post_type" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_post_type" value="<?php _e('Add Post Type', 'custommanager'); ?>" />
+            <input type="submit" class="button-secondary" name="cm_redirect_add_post_type" value="<?php _e('Add Post Type', 'custompress'); ?>" />
         </form>
         <table class="widefat">
             <thead>
                 <tr>
-                    <th><?php _e('Post Type', 'custommanager'); ?></th>
-                    <th><?php _e('Name', 'custommanager'); ?></th>
-                    <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>         
-                    <th><?php _e('Supports', 'custommanager'); ?></th>
-                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
-                    <th><?php _e('Public', 'custommanager'); ?></th>
-                    <th><?php _e('Hierarchical', 'custommanager'); ?></th>
-                    <th><?php _e('Rewrite', 'custommanager'); ?></th>
+                    <th><?php _e('Post Type', 'custompress'); ?></th>
+                    <th><?php _e('Name', 'custompress'); ?></th>
+                    <th><?php _e('Description', 'custompress'); ?></th>
+                    <th><?php _e('Menu Icon', 'custompress'); ?></th>
+                    <th><?php _e('Supports', 'custompress'); ?></th>
+                    <th><?php _e('Capability Type', 'custompress'); ?></th>
+                    <th><?php _e('Public', 'custompress'); ?></th>
+                    <th><?php _e('Hierarchical', 'custompress'); ?></th>
+                    <th><?php _e('Rewrite', 'custompress'); ?></th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th><?php _e('Post Type', 'custommanager'); ?></th>
-                    <th><?php _e('Name', 'custommanager'); ?></th>
-                    <th><?php _e('Description', 'custommanager'); ?></th>
-                    <th><?php _e('Menu Icon', 'custommanager'); ?></th>           
-                    <th><?php _e('Supports', 'custommanager'); ?></th>
-                    <th><?php _e('Capability Type', 'custommanager'); ?></th>
-                    <th><?php _e('Public', 'custommanager'); ?></th>
-                    <th><?php _e('Hierarchical', 'custommanager'); ?></th>
-                    <th><?php _e('Rewrite', 'custommanager'); ?></th>
+                    <th><?php _e('Post Type', 'custompress'); ?></th>
+                    <th><?php _e('Name', 'custompress'); ?></th>
+                    <th><?php _e('Description', 'custompress'); ?></th>
+                    <th><?php _e('Menu Icon', 'custompress'); ?></th>
+                    <th><?php _e('Supports', 'custompress'); ?></th>
+                    <th><?php _e('Capability Type', 'custompress'); ?></th>
+                    <th><?php _e('Public', 'custompress'); ?></th>
+                    <th><?php _e('Hierarchical', 'custompress'); ?></th>
+                    <th><?php _e('Rewrite', 'custompress'); ?></th>
                 </tr>
             </tfoot>
             <tbody>
@@ -50,10 +50,10 @@ function cm_admin_post_types_page( $post_types ) { ?>
                             </strong>
                             <div class="row-actions">
                                 <span class="edit">
-                                    <a title="<?php _e('Edit this post type', 'custommanager'); ?>" href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&cm_edit_post_type=' . $post_type ) ); ?>"><?php _e('Edit', 'custommanager'); ?></a> |
+                                    <a title="<?php _e('Edit this post type', 'custompress'); ?>" href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&cm_edit_post_type=' . $post_type ) ); ?>"><?php _e('Edit', 'custompress'); ?></a> |
                                 </span>
                                 <span class="trash">
-                                    <a class="submitdelete" href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&cm_delete_post_type=' . $post_type ) ); ?>"><?php _e('Delete', 'custommanager'); ?></a>
+                                    <a class="submitdelete" href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&cm_delete_post_type=' . $post_type ) ); ?>"><?php _e('Delete', 'custompress'); ?></a>
                                 </span>
                             </div>
                         </td>
@@ -70,25 +70,25 @@ function cm_admin_post_types_page( $post_types ) { ?>
                         <td><?php echo( $args['capability_type'] ); ?></td>
                         <td class="cm-tf-icons-wrap">
                             <?php if ( $args['public'] === null ): ?>
-                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'custommanager'); ?>" title="<?php _e('Advanced', 'custommanager'); ?>" />
+                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'custompress'); ?>" title="<?php _e('Advanced', 'custompress'); ?>" />
                             <?php elseif ( $args['public'] ): ?>
-                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
+                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custompress'); ?>" title="<?php _e('True', 'custompress'); ?>" />
                             <?php else: ?>
-                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
+                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custompress'); ?>" title="<?php _e('False', 'custompress'); ?>" />
                             <?php endif; ?>
                         </td>
                         <td class="cm-tf-icons-wrap">
                             <?php if ( $args['hierarchical'] ): ?>
-                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
+                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custompress'); ?>" title="<?php _e('True', 'custompress'); ?>" />
                             <?php else: ?>
-                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
+                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custompress'); ?>" title="<?php _e('False', 'custompress'); ?>" />
                             <?php endif; ?>
                         </td>
                         <td class="cm-tf-icons-wrap">
                             <?php if ( $args['rewrite'] ): ?>
-                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custommanager'); ?>" title="<?php _e('True', 'custommanager'); ?>" />
+                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/true.png' ); ?>" alt="<?php _e('True', 'custompress'); ?>" title="<?php _e('True', 'custompress'); ?>" />
                             <?php else: ?>
-                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custommanager'); ?>" title="<?php _e('False', 'custommanager'); ?>" />
+                                <img class="cm-tf-icons" src="<?php echo ( CM_PLUGIN_URL . '/images/false.png' ); ?>" alt="<?php _e('False', 'custompress'); ?>" title="<?php _e('False', 'custompress'); ?>" />
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -97,7 +97,7 @@ function cm_admin_post_types_page( $post_types ) { ?>
             </tbody>
         </table>
         <form name="cm_form_redirect_add_post_type" action="" method="post" class="cm-form-single-btn">
-            <input type="submit" class="button-secondary" name="cm_redirect_add_post_type" value="<?php _e('Add Post Type', 'custommanager'); ?>" />
+            <input type="submit" class="button-secondary" name="cm_redirect_add_post_type" value="<?php _e('Add Post Type', 'custompress'); ?>" />
         </form>
     </div> <?php
 }

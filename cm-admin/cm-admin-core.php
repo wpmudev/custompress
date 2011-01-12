@@ -16,13 +16,13 @@ function cm_debug( $param ) {
  * Register all admin menues
  */
 function cm_admin_menu() {
-	add_menu_page( __('CustomPress', 'custommanager'), __('CustomPress', 'custommanager'), 'edit_users', 'cm_main', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Post Types', 'custommanager'), __('Post Types', 'custommanager'), 'edit_users', 'cm_post_types', 'cm_admin_load_page_templates' );
-	add_submenu_page( 'cm_main', __('Add Post Type', 'custommanager'), __('Add Post Type', 'custommanager'), 'edit_users', 'cm_add_post_type', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Taxonomies', 'custommanager'), __('Taxonomies', 'custommanager'), 'edit_users', 'cm_taxonomies', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Add Taxonomy', 'custommanager'), __('Add Taxonomy', 'custommanager'), 'edit_users', 'cm_add_taxonomy', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Custom Fields', 'custommanager'), __('Custom Fields', 'custommanager'), 'edit_users', 'cm_custom_fields', 'cm_admin_load_page_templates' );
-    add_submenu_page( 'cm_main', __('Add Custom Field', 'custommanager'), __('Add Custom Field', 'custommanager'), 'edit_users', 'cm_add_custom_field', 'cm_admin_load_page_templates' );
+	add_menu_page( __('CustomPress', 'custompress'), __('CustomPress', 'custompress'), 'edit_users', 'cm_main', 'cm_admin_load_page_templates' );
+    add_submenu_page( 'cm_main', __('Post Types', 'custompress'), __('Post Types', 'custompress'), 'edit_users', 'cm_post_types', 'cm_admin_load_page_templates' );
+	add_submenu_page( 'cm_main', __('Add Post Type', 'custompress'), __('Add Post Type', 'custompress'), 'edit_users', 'cm_add_post_type', 'cm_admin_load_page_templates' );
+    add_submenu_page( 'cm_main', __('Taxonomies', 'custompress'), __('Taxonomies', 'custompress'), 'edit_users', 'cm_taxonomies', 'cm_admin_load_page_templates' );
+    add_submenu_page( 'cm_main', __('Add Taxonomy', 'custompress'), __('Add Taxonomy', 'custompress'), 'edit_users', 'cm_add_taxonomy', 'cm_admin_load_page_templates' );
+    add_submenu_page( 'cm_main', __('Custom Fields', 'custompress'), __('Custom Fields', 'custompress'), 'edit_users', 'cm_custom_fields', 'cm_admin_load_page_templates' );
+    add_submenu_page( 'cm_main', __('Add Custom Field', 'custompress'), __('Add Custom Field', 'custompress'), 'edit_users', 'cm_add_custom_field', 'cm_admin_load_page_templates' );
 }
 add_action( 'admin_menu', 'cm_admin_menu', 10 );
 
