@@ -56,7 +56,7 @@
                 <td><?php echo( $post_type['labels']['name'] ); ?></td>
                 <td><?php echo( $post_type['description'] ); ?></td>
                 <td>
-                    <img src="<?php echo( $post_type['menu_icon'] ); ?>" alt="<?php if ( empty( $post_type['menu_icon'] ) ) echo( 'No Icon'); ?>" />
+                    <img src="<?php if ( isset( $post_type['menu_icon'] ) ) echo $post_type['menu_icon']; ?>" alt="<?php if ( empty( $post_type['menu_icon'] ) ) echo( 'No Icon'); ?>" />
                 </td>
                 <td class="ct-supports">
                     <?php foreach ( $post_type['supports'] as $value ): ?>
