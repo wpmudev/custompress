@@ -29,13 +29,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 */
 
-/*
- * Enable error repporting if in debug mode
- */
-// error_reporting( E_ALL ^ E_NOTICE );
-// ini_set( 'display_errors', 1 );
-
-
 /* Define plugin version */ 
 define ( 'CP_VERSION', '1.0.7' );
 define ( 'CP_DB_VERSION', '1.1' );
