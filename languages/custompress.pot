@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CustomPress v1.0.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-01-19 05:20+0200\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Ivan Shaovchev <ivan.shaovchev@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: /custompress\n"
+
+#: /custompress/core/admin.php:28
+msgid "CustomPress"
+msgstr ""
+
+#: /custompress/core/core.php:252
+msgid "Security check failed!"
+msgstr ""
+
+#: /custompress/core/core.php:298
+msgid "Please install the latest version of <a href=\"http://premium.wpmudev.org/project/update-notifications/\" title=\"Download Now &raquo;\">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href=\"http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/\">More information &raquo;</a>"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:13
+msgid "CustomPress Settings"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:20
+msgid "Allow"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:24
+msgid "Allow per site content types."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:28
+msgid "If you enable this setting, sites on your network will be able to define their own content types. Please note, that these content types are local to each site ( including the root one ) so the already defined network-wide content types will not be available ( unless you uncheck this setting - they are preserved ). If you disable this setting ( default behaviour ) all sites on your network can use the network-wide content types set by you, the Super Admin, but they cannot modify them."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:34
+msgid "Display"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:38
+msgid "Display post types on \"Home\": "
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:58
+msgid "Check the custom post types you want to display on the \"Home\" page."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:62
+msgid "If \"default\" is checked the \"Home\" page will display the default post types."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:68
+msgid "Template Files"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:72
+msgid "Create template file for: "
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:82
+msgid "No custom post types available"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:85
+msgid "This will create \"single-[post_type].php\" file inside your active theme directory. This file will be the custom template for your custom post type. You can then edit and customize it."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:86
+msgid "In some cases you may not want to do that. For example if you don't have a template for your custom post type the default \"single.php\" will be used."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:87
+msgid "Your active theme folder permissions have to be set to 777 for this option to work. After the file is created you can set your active theme directory permissions back to 755."
+msgstr ""
+
+#: /custompress/ui-admin/message.php:3
+msgid "Settings Saved."
+msgstr ""
+
