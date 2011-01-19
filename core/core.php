@@ -224,7 +224,7 @@ class CustomPress_Core {
             foreach ( $post_type as $post_type ) {
                 $newfile = TEMPLATEPATH . '/single-' .  strtolower( $post_type ) . '.php';
                 if ( !file_exists( $newfile )) {
-                    if ( copy( $file, $newfile ) ) {
+                    if ( @copy( $file, $newfile ) ) {
                         chmod( $newfile, 0777 );
                     } else {
                         echo "Failed to copy $file...\n";

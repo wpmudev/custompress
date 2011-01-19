@@ -1,0 +1,42 @@
+=== CustomPress ===
+Author: Ivan Shaovchev (Incsub)
+Author URI: http://ivan.sh
+
+== Changelog ==
+
+= 1.0.8 =
+* Updated for WordPress 3.1
+* New features added
+* Admin GUI improved
+* Bug fixes
+* Code improvements
+
+= 1.0.7 =
+* Bug fixes.
+
+= 1.0.6 =
+* Bug fixes.
+
+= 1.0.5 =
+* Bug fixes.
+
+= 1.0.4 =
+* Bug fixes.
+
+= 1.0.3 =
+* Improved UI.
+* Internal architecture improved.
+* Submodules added.
+* Localization added ( .pot files inside "cp-languages" and "ct-languages" ).
+* Embed codes added.
+* Bug fixes.
+
+= 1.0.2 =
+* Initial release.
+
+== Upgrade Notice ==
+
+= 1.0.3 =
+Due to the fact that the internal architecture of the current version is completly
+different from the previous one, the "v1.0.3" release is NOT backward compatible
+with the "v1.0.2" release.

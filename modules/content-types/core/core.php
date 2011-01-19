@@ -243,8 +243,8 @@ class Content_Types_Core {
                     'show_in_nav_menus'   => ( isset( $_POST['show_in_nav_menus'] ) ) ? (bool) $_POST['show_in_nav_menus'] : NULL,
                     'hierarchical'        => (bool) $_POST['hierarchical'],
                     'rewrite'             => (bool) $_POST['rewrite'],
-                    'query_var'           => (bool) $_POST['query_var'],
-                    'capabilities'        => array ( 'assign_terms' => 'assign_terms' ) /** @todo chek whether default isn't better */
+                    'query_var'           => (bool) $_POST['query_var']
+                //  'capabilities'        => array ( 'assign_terms' => 'assign_terms' ) /** @todo implement advanced capabilities */
                 );
 
                 /* If custom rewrite slug is set use it */
