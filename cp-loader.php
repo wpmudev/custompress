@@ -1,4 +1,5 @@
 <?php
+
 /*
 Plugin Name: CustomPress
 Plugin URI: http://premium.wpmudev.org/project/custompress
@@ -49,7 +50,7 @@ include_once 'cp-core/cp-core.php';
 include_once 'cp-admin-ui/cp-admin-ui-settings.php';
 
 /* include content types submodule */
-include_once 'cp-submodules/content-types/ct-loader.php';
+include_once 'cp-submodules/content-types/loader.php';
 
 /**
  * cp_load_plugin_textdomain()
