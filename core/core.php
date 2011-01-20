@@ -88,7 +88,7 @@ class CustomPress_Core {
      */
     function plugin_deactivate() {
         /* if true all plugin data will be deleted */
-        if ( true ) {
+        if ( false ) {
             delete_option( $this->options_name );
             delete_option( 'ct_custom_post_types' );
             delete_option( 'ct_custom_taxonomies' );
