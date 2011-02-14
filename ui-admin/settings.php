@@ -64,7 +64,7 @@ else
             </tr>
         </table>
 
-        <?php if ( is_multisite() && is_super_admin() ): ?>
+        <?php if ( is_super_admin() ): ?>
         <h3><?php _e( 'Template Files', 'custompress' ); ?></h3>
         <table class="form-table">
             <tr>
