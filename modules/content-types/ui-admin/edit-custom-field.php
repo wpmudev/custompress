@@ -146,7 +146,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
     <br style="clear: left" />
     <p class="submit">
         <?php wp_nonce_field( 'submit_custom_field' ); ?>
-        <input type="submit" class="button-primary" name="submit" value="Add Custom Field">
+        <input type="submit" class="button-primary" name="submit" value="Update Custom Field">
     </p>
     <br /><br /><br /><br />
 </form>
