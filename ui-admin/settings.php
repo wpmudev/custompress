@@ -7,7 +7,10 @@ $keep_network_content_types   = get_site_option('keep_network_content_types');
 if ( is_network_admin() )
     $post_types = get_site_option('ct_custom_post_types');
 else
-    $post_types = get_option('ct_custom_post_types');
+    $post_types = $this->post_types;
+
+if ( $enable_subsite_content_types && $keep_network_content_types )
+	$network_post_types = get_site_option('ct_custom_post_types'); 
 ?>
 
 <div class="wrap">
@@ -62,6 +65,15 @@ else
                             <span class="description"><strong><?php echo $post_type; ?></strong></span>
                             <br />
                         <?php endforeach; ?>
+                    <?php endif; ?>
+					<?php if ( $enable_subsite_content_types && $keep_network_content_types ): ?>
+						<?php if ( !empty( $network_post_types ) ): ?>
+							<?php foreach ( $network_post_types as $post_type => $args ): ?>
+								<input type="checkbox" name="post_type[]" value="<?php echo( $post_type ); ?>" />
+								<span class="description"><strong><?php echo $post_type; ?></strong></span>
+								<br />
+							<?php endforeach; ?>
+						<?php endif; ?>
                     <?php endif; ?>
                     <br />
                     <span class="description"><?php _e('Check the custom post types you want to display on the "Home" page.', $this->text_domain); ?></span>

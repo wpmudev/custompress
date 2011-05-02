@@ -19,18 +19,6 @@ class CustomPress_Core {
     var $text_domain = 'custompress';
     /** @var string $text_domain The text domain for strings localization */
     var $options_name = 'cp_options';
-    /** @var array Avilable Post Types */
-    var $post_types;
-    /** @var array Avilable Taxonomies */
-    var $taxonomies;
-    /** @var array Avilable Custom Fields */
-    var $custom_fields;
-    /** @var array Avilable Custom Fields */
-    var $registered_post_type_names;
-    /** @var boolean Flag whether to flush the rewrite rules or not */
-    var $flush_rewrite_rules = false;
-    /** @var boolean Flag whether the users have the ability to declair post type for their own blogs */
-    var $enable_subsite_content_types = false;
 
     function CustomPress_Core() {
         add_action( 'init', array( &$this, 'load_plugin_textdomain' ), 0 );
@@ -46,48 +34,20 @@ class CustomPress_Core {
     }
 
     /**
-     * Initiate variables
-     *
-     * @return void
-     */
-    function init_vars() {
-        $this->enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
-
-        if ( $this->enable_subsite_content_types == 1 ) {
-            $this->post_types    = get_option( 'ct_custom_post_types' );
-            $this->taxonomies    = get_option( 'ct_custom_taxonomies' );
-            $this->custom_fields = get_option( 'ct_custom_fields' );
-        } else {
-            $this->post_types    = get_site_option( 'ct_custom_post_types' );
-            $this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
-            $this->custom_fields = get_site_option( 'ct_custom_fields' );
-        }
-
-        $this->registered_post_type_names = get_post_types('','names');
-    }
-
-    /**
      * Loads "custompress-[xx_XX].mo" language file from the "languages" directory
      *
      * @return void
      */
     function load_plugin_textdomain() {
-        $plugin_dir = $this->plugin_dir . 'languages';
-        load_plugin_textdomain( 'custompress', null, $plugin_dir );
+        load_plugin_textdomain( $this->text_domain, null, 'custompress/launguages' );
     }
 
     /**
-     * Update plugin versions
+     * Plugin activation. 
      *
      * @return void
      */
-    function plugin_activate() {
-        /* Update plugin versions */
-        $versions = array( 'version' => $this->plugin_version );
-        $options = $this->get_options();
-        $options = ( isset( $options['versions'] ) ) ? array_merge( $options, $versions ) : $versions;
-        update_option( $this->options_name, $options );
-    }
+    function plugin_activate() {}
 
     /**
      * Deactivate plugin. If $this->flush_plugin_data is set to "true"

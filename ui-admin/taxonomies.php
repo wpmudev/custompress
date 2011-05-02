@@ -10,27 +10,27 @@ else
 <?php $this->render_admin('update-message'); ?>
 
 <form action="" method="post" class="ct-form-single-btn">
-    <input type="submit" class="button-secondary" name="redirect_add_taxonomy" value="<?php _e('Add Taxonomy', 'content_types'); ?>" />
+    <input type="submit" class="button-secondary" name="redirect_add_taxonomy" value="<?php _e('Add Taxonomy', $this->text_domain); ?>" />
 </form>
 <table class="widefat">
     <thead>
         <tr>
-            <th><?php _e('Taxonomy', 'content_types'); ?></th>
-            <th><?php _e('Name', 'content_types'); ?></th>
-            <th><?php _e('Post Types', 'content_types'); ?></th>
-            <th><?php _e('Public', 'content_types'); ?></th>
-            <th><?php _e('Hierarchical', 'content_types'); ?></th>
-            <th><?php _e('Rewrite', 'content_types'); ?></th>
+            <th><?php _e('Taxonomy', $this->text_domain); ?></th>
+            <th><?php _e('Name', $this->text_domain); ?></th>
+            <th><?php _e('Post Types', $this->text_domain); ?></th>
+            <th><?php _e('Public', $this->text_domain); ?></th>
+            <th><?php _e('Hierarchical', $this->text_domain); ?></th>
+            <th><?php _e('Rewrite', $this->text_domain); ?></th>
         </tr>
     </thead>
     <tfoot>
         <tr>
-            <th><?php _e('Taxonomy', 'content_types'); ?></th>
-            <th><?php _e('Name', 'content_types'); ?></th>
-            <th><?php _e('Post Types', 'content_types'); ?></th>
-            <th><?php _e('Public', 'content_types'); ?></th>
-            <th><?php _e('Hierarchical', 'content_types'); ?></th>
-            <th><?php _e('Rewrite', 'content_types'); ?></th>
+            <th><?php _e('Taxonomy', $this->text_domain); ?></th>
+            <th><?php _e('Name', $this->text_domain); ?></th>
+            <th><?php _e('Post Types', $this->text_domain); ?></th>
+            <th><?php _e('Public', $this->text_domain); ?></th>
+            <th><?php _e('Hierarchical', $this->text_domain); ?></th>
+            <th><?php _e('Rewrite', $this->text_domain); ?></th>
         </tr>
     </tfoot>
     <tbody>
@@ -44,13 +44,13 @@ else
                     </strong>
                     <div class="row-actions" id="row-actions-<?php echo $name; ?>">
                         <span class="edit">
-                            <a title="<?php _e('Edit this taxonomy', 'content_types'); ?>" href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ) ); ?>"><?php _e('Edit', 'content_types'); ?></a> |
+                            <a title="<?php _e('Edit this taxonomy', $this->text_domain); ?>" href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ) ); ?>"><?php _e('Edit', $this->text_domain); ?></a> |
                         </span>
                         <span>
-                            <a title="<?php _e('Show embed code', 'content_types'); ?>" href="" onclick="javascript:content_types.toggle_embed_code('<?php echo( $name ); ?>'); return false;"><?php _e('Embed Code', 'content_types'); ?></a> |
+                            <a title="<?php _e('Show embed code', $this->text_domain); ?>" href="" onclick="javascript:content_types.toggle_embed_code('<?php echo( $name ); ?>'); return false;"><?php _e('Embed Code', $this->text_domain); ?></a> |
                         </span>
                         <span class="trash">
-                            <a class="submitdelete" href="" onclick="javascript:content_types.toggle_delete('<?php echo( $name ); ?>'); return false;"><?php _e('Delete', 'content_types'); ?></a>
+                            <a class="submitdelete" href="" onclick="javascript:content_types.toggle_delete('<?php echo( $name ); ?>'); return false;"><?php _e('Delete', $this->text_domain); ?></a>
                         </span>
                     </div>
                     <form action="" method="post" id="form-<?php echo( $name ); ?>" class="del-form">
@@ -68,25 +68,25 @@ else
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $taxonomy['args']['public'] === null ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'content_types'); ?>" title="<?php _e('Advanced', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/advanced.png' ); ?>" alt="<?php _e('Advanced', $this->text_domain); ?>" title="<?php _e('Advanced', $this->text_domain); ?>" />
                     <?php elseif ( $taxonomy['args']['public'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', $this->text_domain); ?>" title="<?php _e('True', $this->text_domain); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', $this->text_domain); ?>" title="<?php _e('False', $this->text_domain); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $taxonomy['args']['hierarchical'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', $this->text_domain); ?>" title="<?php _e('True', $this->text_domain); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', $this->text_domain); ?>" title="<?php _e('False', $this->text_domain); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $taxonomy['args']['rewrite'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', $this->text_domain); ?>" title="<?php _e('True', $this->text_domain); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', $this->text_domain); ?>" title="<?php _e('False', $this->text_domain); ?>" />
                     <?php endif; ?>
                 </td>
             </tr>
@@ -104,5 +104,5 @@ else
     </tbody>
 </table>
 <form action="" method="post" class="ct-form-single-btn">
-    <input type="submit" class="button-secondary" name="redirect_add_taxonomy" value="<?php _e('Add Taxonomy', 'content_types'); ?>" />
+    <input type="submit" class="button-secondary" name="redirect_add_taxonomy" value="<?php _e('Add Taxonomy', $this->text_domain); ?>" />
 </form>

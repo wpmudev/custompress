@@ -15,20 +15,20 @@ else
 <table class="widefat">
     <thead>
         <tr>
-            <th><?php _e('Field Name', 'content_types'); ?></th>
-            <th><?php _e('Field ID', 'content_types'); ?></th>
-            <th><?php _e('Field Type', 'content_types'); ?></th>
-            <th><?php _e('Description', 'content_types'); ?></th>
-            <th><?php _e('Post Types', 'content_types'); ?></th>
+            <th><?php _e('Field Name', $this->text_domain); ?></th>
+            <th><?php _e('Field ID', $this->text_domain); ?></th>
+            <th><?php _e('Field Type', $this->text_domain); ?></th>
+            <th><?php _e('Description', $this->text_domain); ?></th>
+            <th><?php _e('Post Types', $this->text_domain); ?></th>
         </tr>
     </thead>
     <tfoot>
         <tr>
-            <th><?php _e('Field Name', 'content_types'); ?></th>
-            <th><?php _e('Field ID', 'content_types'); ?></th>
-            <th><?php _e('Field Type', 'content_types'); ?></th>
-            <th><?php _e('Description', 'content_types'); ?></th>
-            <th><?php _e('Post Types', 'content_types'); ?></th>
+            <th><?php _e('Field Name', $this->text_domain); ?></th>
+            <th><?php _e('Field ID', $this->text_domain); ?></th>
+            <th><?php _e('Field Type', $this->text_domain); ?></th>
+            <th><?php _e('Description', $this->text_domain); ?></th>
+            <th><?php _e('Post Types', $this->text_domain); ?></th>
         </tr>
     </tfoot>
     <tbody>
@@ -42,10 +42,10 @@ else
                     </strong>
                     <div class="row-actions" id="row-actions-<?php echo $custom_field['field_id']; ?>" >
                         <span class="edit">
-                            <a title="<?php _e('Edit this custom field', 'content_types'); ?>" href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] ) ); ?>"><?php _e( 'Edit', $this->text_domain ); ?></a> |
+                            <a title="<?php _e('Edit this custom field', $this->text_domain); ?>" href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] ) ); ?>"><?php _e( 'Edit', $this->text_domain ); ?></a> |
                         </span>
                         <span>
-                            <a title="<?php _e('Show embed code', 'content_types'); ?>" href="#" onclick="javascript:content_types.toggle_embed_code('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e('Embed Code', 'content_types'); ?></a> |
+                            <a title="<?php _e('Show embed code', $this->text_domain); ?>" href="#" onclick="javascript:content_types.toggle_embed_code('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e('Embed Code', $this->text_domain); ?></a> |
                         </span>
                         <span class="trash">
                             <a class="submitdelete" href="#" onclick="javascript:content_types.toggle_delete('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e( 'Delete', $this->text_domain ); ?></a>

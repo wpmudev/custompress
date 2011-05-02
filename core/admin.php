@@ -1,9 +1,23 @@
 <?php
 
 /**
- * CustomPress Core Admin Class
- **/
+ * CustomPress_Core_Admin 
+ * 
+ * @uses CustomPress_Core
+ * @copyright Incsub 2007-2011 {@link http://incsub.com}
+ * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh} 
+ * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
+ */
 class CustomPress_Core_Admin extends CustomPress_Core {
+
+    /** @var array Avilable Post Types */
+    var $post_types;
+    /** @var array Avilable Taxonomies */
+    var $taxonomies;
+    /** @var array Avilable Custom Fields */
+    var $custom_fields;
+    /** @var boolean Flag whether the users have the ability to declair post type for their own blogs */
+    var $enable_subsite_content_types = false;
 
     function CustomPress_Core_Admin() {
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -16,21 +30,51 @@ class CustomPress_Core_Admin extends CustomPress_Core {
     }
 
     /**
+     * Initiate variables
+     *
+     * @return void
+     */
+    function init_vars() {
+        $this->enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
+
+        if ( $this->enable_subsite_content_types ) {
+            $this->post_types    = get_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_option( 'ct_custom_fields' );
+        } else {
+            $this->post_types    = get_site_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_site_option( 'ct_custom_fields' );
+        }
+
+		if ( is_network_admin() ) {
+            $this->post_types    = get_site_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_site_option( 'ct_custom_fields' );
+		}
+    }
+
+    /**
      * Register site admin menues.
 	 *
 	 * @access public
 	 * @return void
      */
     function admin_menu() {
-        $capability = ( $this->enable_subsite_content_types == true ) ? 'activate_plugins' : 'manage_network';
+		$menu_slug = $this->enable_subsite_content_types ? 'ct_content_types' : 'cp_main';
+		$menu_callback = $this->enable_subsite_content_types ? 'handle_content_types_page_requests' : 'handle_settings_page_requests'; 	
 
-        add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), $capability, 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
+        add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), 'activate_plugins', $menu_slug, array( &$this, $menu_callback ) );
 
-        $page_content_types = add_submenu_page( 'ct_content_types' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), $capability, 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
-        $page_settings      = add_submenu_page( 'ct_content_types', __('Settings', $this->text_domain), __('Settings', $this->text_domain), $capability, 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
+		if ( $this->enable_subsite_content_types ) {
+			$page_content_types = add_submenu_page( 'ct_content_types' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), 'activate_plugins', 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
 
-        add_action( 'admin_print_styles-' .  $page_content_types, array( &$this, 'enqueue_styles' ) );
-        add_action( 'admin_print_scripts-' . $page_content_types, array( &$this, 'enqueue_scripts' ) );
+			add_action( 'admin_print_styles-' .  $page_content_types, array( &$this, 'enqueue_styles' ) );
+			add_action( 'admin_print_scripts-' . $page_content_types, array( &$this, 'enqueue_scripts' ) );
+		}
+
+        $page_settings = add_submenu_page( $menu_slug, __('Settings', $this->text_domain), __('Settings', $this->text_domain), 'activate_plugins', 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
+
         add_action( 'admin_print_scripts-' . $page_settings, array( &$this, 'enqueue_settings_scripts' ) );
         add_action( 'admin_head-' . $page_settings, array( &$this, 'ajax_actions' ) );
     }

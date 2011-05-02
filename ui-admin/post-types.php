@@ -10,34 +10,34 @@ else
 <?php $this->render_admin('update-message'); ?>
 
 <form action="" method="post" class="ct-form-single-btn">
-    <input type="submit" class="button-secondary" name="redirect_add_post_type" value="<?php _e('Add Post Type', 'content_types'); ?>" />
+    <input type="submit" class="button-secondary" name="redirect_add_post_type" value="<?php _e('Add Post Type', $this->text_domain); ?>" />
 </form>
 
 <table class="widefat">
     <thead>
         <tr>
-            <th><?php _e('Post Type', 'content_types'); ?></th>
-            <th><?php _e('Name', 'content_types'); ?></th>
-            <th><?php _e('Description', 'content_types'); ?></th>
-            <th><?php _e('Menu Icon', 'content_types'); ?></th>
-            <th><?php _e('Supports', 'content_types'); ?></th>
-            <th><?php _e('Capability Type', 'content_types'); ?></th>
-            <th><?php _e('Public', 'content_types'); ?></th>
-            <th><?php _e('Hierarchical', 'content_types'); ?></th>
-            <th><?php _e('Rewrite', 'content_types'); ?></th>
+            <th><?php _e('Post Type', $this->text_domain); ?></th>
+            <th><?php _e('Name', $this->text_domain); ?></th>
+            <th><?php _e('Description', $this->text_domain); ?></th>
+            <th><?php _e('Menu Icon', $this->text_domain); ?></th>
+            <th><?php _e('Supports', $this->text_domain); ?></th>
+            <th><?php _e('Capability Type', $this->text_domain); ?></th>
+            <th><?php _e('Public', $this->text_domain); ?></th>
+            <th><?php _e('Hierarchical', $this->text_domain); ?></th>
+            <th><?php _e('Rewrite', $this->text_domain); ?></th>
         </tr>
     </thead>
     <tfoot>
         <tr>
-            <th><?php _e('Post Type', 'content_types'); ?></th>
-            <th><?php _e('Name', 'content_types'); ?></th>
-            <th><?php _e('Description', 'content_types'); ?></th>
-            <th><?php _e('Menu Icon', 'content_types'); ?></th>
-            <th><?php _e('Supports', 'content_types'); ?></th>
-            <th><?php _e('Capability Type', 'content_types'); ?></th>
-            <th><?php _e('Public', 'content_types'); ?></th>
-            <th><?php _e('Hierarchical', 'content_types'); ?></th>
-            <th><?php _e('Rewrite', 'content_types'); ?></th>
+            <th><?php _e('Post Type', $this->text_domain); ?></th>
+            <th><?php _e('Name', $this->text_domain); ?></th>
+            <th><?php _e('Description', $this->text_domain); ?></th>
+            <th><?php _e('Menu Icon', $this->text_domain); ?></th>
+            <th><?php _e('Supports', $this->text_domain); ?></th>
+            <th><?php _e('Capability Type', $this->text_domain); ?></th>
+            <th><?php _e('Public', $this->text_domain); ?></th>
+            <th><?php _e('Hierarchical', $this->text_domain); ?></th>
+            <th><?php _e('Rewrite', $this->text_domain); ?></th>
         </tr>
     </tfoot>
     <tbody>
@@ -51,10 +51,10 @@ else
                     </strong>
                     <div class="row-actions" id="row-actions-<?php echo $name; ?>">
                         <span class="edit">
-                            <a title="<?php _e('Edit the post type', 'content_types'); ?>" href="<?php echo self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ); ?>"><?php _e('Edit', 'content_types'); ?></a> |
+                            <a title="<?php _e('Edit the post type', $this->text_domain); ?>" href="<?php echo self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ); ?>"><?php _e('Edit', $this->text_domain); ?></a> |
                         </span>
                         <span class="trash">
-                            <a class="submitdelete" href="#" onclick="javascript:content_types.toggle_delete('<?php echo( $name ); ?>'); return false;"><?php _e('Delete', 'content_types'); ?></a>
+                            <a class="submitdelete" href="#" onclick="javascript:content_types.toggle_delete('<?php echo( $name ); ?>'); return false;"><?php _e('Delete', $this->text_domain); ?></a>
                         </span>
                     </div>
                     <form action="" method="post" id="form-<?php echo( $name ); ?>" class="del-form">
@@ -77,25 +77,25 @@ else
                 <td><?php echo( $post_type['capability_type'] ); ?></td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $post_type['public'] === NULL ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/advanced.png'; ?>" alt="<?php _e('Advanced', 'content_types'); ?>" title="<?php _e('Advanced', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/advanced.png'; ?>" alt="<?php _e('Advanced', $this->text_domain); ?>" title="<?php _e('Advanced', $this->text_domain); ?>" />
                     <?php elseif ( $post_type['public'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', $this->text_domain); ?>" title="<?php _e('True', $this->text_domain); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', $this->text_domain); ?>" title="<?php _e('False', $this->text_domain); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $post_type['hierarchical'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', $this->text_domain); ?>" title="<?php _e('True', $this->text_domain); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', $this->text_domain); ?>" title="<?php _e('False', $this->text_domain); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $post_type['rewrite'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', $this->text_domain); ?>" title="<?php _e('True', $this->text_domain); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', $this->text_domain); ?>" title="<?php _e('False', $this->text_domain); ?>" />
                     <?php endif; ?>
                 </td>
             </tr>
@@ -105,5 +105,5 @@ else
 </table>
 
 <form action="" method="post" class="ct-form-single-btn">
-    <input type="submit" class="button-secondary" name="redirect_add_post_type" value="<?php _e('Add Post Type', 'content_types'); ?>" />
+    <input type="submit" class="button-secondary" name="redirect_add_post_type" value="<?php _e('Add Post Type', $this->text_domain); ?>" />
 </form>

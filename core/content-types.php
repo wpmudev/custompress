@@ -3,13 +3,23 @@
 /**
  * CustomPress_Content_Types 
  * 
- * @uses CustomPress
- * @uses _Core
+ * @uses CustomPress_Core
  * @copyright Incsub 2007-2011 {@link http://incsub.com}
  * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh} 
  * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
  */
 class CustomPress_Content_Types extends CustomPress_Core {
+
+    /** @var array Avilable Post Types */
+    var $post_types;
+    /** @var array Avilable Taxonomies */
+    var $taxonomies;
+    /** @var array Avilable Custom Fields */
+    var $custom_fields;
+    /** @var boolean Flag whether to flush the rewrite rules or not */
+    var $flush_rewrite_rules = false;
+    /** @var boolean Flag whether the users have the ability to declair post type for their own blogs */
+    var $enable_subsite_content_types = false;
 
     /**
       * Constructor
@@ -17,7 +27,6 @@ class CustomPress_Content_Types extends CustomPress_Core {
      * @return void
      */
     function CustomPress_Content_Types() {
-        add_action( 'init', array( &$this, 'load_plugin_textdomain' ), 0 );
         add_action( 'init', array( &$this, 'handle_post_type_requests' ), 0 );
         add_action( 'init', array( &$this, 'register_post_types' ), 2 );
         add_action( 'init', array( &$this, 'handle_taxonomy_requests' ), 0 );
@@ -26,20 +35,27 @@ class CustomPress_Content_Types extends CustomPress_Core {
         add_action( 'admin_menu', array( &$this, 'create_custom_fields' ), 2 );
         add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 1 );
         add_action( 'user_register', array( &$this, 'set_user_registration_rewrite_rules' ) );
-        
-		// Call parent init_vars TODO: remove init_vars()
-        $this->init_vars();
+
+		$this->init_vars();
     }
 
     /**
-     * Loads "content_types-[xx_XX].mo" language file from the "ct-languages" directory
+     * Initiate variables
      *
      * @return void
      */
-    function load_plugin_textdomain() {
-		// TODO: Fix textdomain loading. 
-        $dir = $this->plugin_dir . 'languages';
-        load_plugin_textdomain( $this->text_domain, null, $dir );
+    function init_vars() {
+        $this->enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
+
+        if ( $this->enable_subsite_content_types == 1 ) {
+            $this->post_types    = get_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_option( 'ct_custom_fields' );
+        } else {
+            $this->post_types    = get_site_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_site_option( 'ct_custom_fields' );
+        }
     }
 
     /**
@@ -531,7 +547,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
      * @return void
      */
     function flush_rewrite_rules() {
-		// Mechanisum for detecting changes in root site content types for flushing rewrite rules 
+		// Mechanisum for detecting changes in sub-site content types for flushing rewrite rules 
         if ( is_multisite() && !is_main_site() && $this->enable_subsite_content_types == 0 ) {
             $global_frr_id = get_site_option('ct_frr_id');
             $local_frr_id = get_option('ct_frr_id');
