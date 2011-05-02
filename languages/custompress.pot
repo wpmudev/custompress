@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: CustomPress v1.0.8\n"
+"Project-Id-Version: CustomPress v1.1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-01-19 05:20+0200\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Ivan Shaovchev <ivan.shaovchev@gmail.com>\n"
+"POT-Creation-Date: 2011-05-03 02:12+0200\n"
+"PO-Revision-Date: 2011-05-03 02:13+0200\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -13,75 +13,1183 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: /custompress\n"
 
-#: /custompress/core/admin.php:28
+#: /custompress/core/admin.php:67
+#: /custompress/core/admin.php:89
 msgid "CustomPress"
 msgstr ""
 
-#: /custompress/core/core.php:252
+#: /custompress/core/admin.php:70
+#: /custompress/core/admin.php:91
+msgid "Content Types"
+msgstr ""
+
+#: /custompress/core/admin.php:76
+#: /custompress/core/admin.php:92
+msgid "Settings"
+msgstr ""
+
+#: /custompress/core/core.php:222
 msgid "Security check failed!"
 msgstr ""
 
-#: /custompress/core/core.php:298
-msgid "Please install the latest version of <a href=\"http://premium.wpmudev.org/project/update-notifications/\" title=\"Download Now &raquo;\">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href=\"http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/\">More information &raquo;</a>"
+#: /custompress/ui-admin/add-custom-field.php:5
+msgid "Add Custom Field"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:13
-msgid "CustomPress Settings"
+#: /custompress/ui-admin/add-custom-field.php:10
+#: /custompress/ui-admin/add-custom-field.php:14
+#: /custompress/ui-admin/edit-custom-field.php:14
+#: /custompress/ui-admin/edit-custom-field.php:18
+msgid "Field Title"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:20
-msgid "Allow"
+#: /custompress/ui-admin/add-custom-field.php:14
+#: /custompress/ui-admin/add-custom-field.php:29
+#: /custompress/ui-admin/add-custom-field.php:88
+#: /custompress/ui-admin/add-post-type.php:12
+#: /custompress/ui-admin/add-taxonomy.php:14
+#: /custompress/ui-admin/add-taxonomy.php:29
+#: /custompress/ui-admin/edit-custom-field.php:18
+#: /custompress/ui-admin/edit-custom-field.php:33
+#: /custompress/ui-admin/edit-custom-field.php:103
+#: /custompress/ui-admin/edit-post-type.php:14
+#: /custompress/ui-admin/edit-taxonomy.php:35
+msgid "required"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:24
-msgid "Allow per site content types."
+#: /custompress/ui-admin/add-custom-field.php:18
+#: /custompress/ui-admin/edit-custom-field.php:22
+msgid "The title of the custom field."
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:28
-msgid "If you enable this setting, sites on your network will be able to define their own content types. Please note, that these content types are local to each site ( including the root one ) so the already defined network-wide content types will not be available ( unless you uncheck this setting - they are preserved ). If you disable this setting ( default behaviour ) all sites on your network can use the network-wide content types set by you, the Super Admin, but they cannot modify them."
+#: /custompress/ui-admin/add-custom-field.php:25
+#: /custompress/ui-admin/add-custom-field.php:29
+#: /custompress/ui-admin/custom-fields.php:20
+#: /custompress/ui-admin/custom-fields.php:29
+#: /custompress/ui-admin/edit-custom-field.php:29
+#: /custompress/ui-admin/edit-custom-field.php:33
+msgid "Field Type"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:34
-msgid "Display"
+#: /custompress/ui-admin/add-custom-field.php:33
+msgid "Text Box"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:38
-msgid "Display post types on \"Home\": "
+#: /custompress/ui-admin/add-custom-field.php:34
+msgid "Multi-line Text Box"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:58
-msgid "Check the custom post types you want to display on the \"Home\" page."
+#: /custompress/ui-admin/add-custom-field.php:35
+msgid "Radio Buttons"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:62
-msgid "If \"default\" is checked the \"Home\" page will display the default post types."
+#: /custompress/ui-admin/add-custom-field.php:36
+msgid "Checkboxes"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:68
-msgid "Template Files"
+#: /custompress/ui-admin/add-custom-field.php:37
+msgid "Drop Down Select Box"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:72
-msgid "Create template file for: "
+#: /custompress/ui-admin/add-custom-field.php:38
+msgid "Multi Select Box"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:82
-msgid "No custom post types available"
+#: /custompress/ui-admin/add-custom-field.php:40
+#: /custompress/ui-admin/add-custom-field.php:99
+#: /custompress/ui-admin/edit-custom-field.php:44
+#: /custompress/ui-admin/edit-custom-field.php:114
+msgid "Select one or more post types to add this custom field to."
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:85
-msgid "This will create \"single-[post_type].php\" file inside your active theme directory. This file will be the custom template for your custom post type. You can then edit and customize it."
+#: /custompress/ui-admin/add-custom-field.php:42
+#: /custompress/ui-admin/edit-custom-field.php:46
+msgid "Fill in the options for this field"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:86
-msgid "In some cases you may not want to do that. For example if you don't have a template for your custom post type the default \"single.php\" will be used."
+#: /custompress/ui-admin/add-custom-field.php:43
+#: /custompress/ui-admin/edit-custom-field.php:48
+msgid "Order By"
 msgstr ""
 
-#: /custompress/ui-admin/settings.php:87
-msgid "Your active theme folder permissions have to be set to 777 for this option to work. After the file is created you can set your active theme directory permissions back to 755."
+#: /custompress/ui-admin/add-custom-field.php:45
+#: /custompress/ui-admin/edit-custom-field.php:50
+msgid "Order Entered"
+msgstr ""
+
+#: /custompress/ui-admin/add-custom-field.php:52
+#: /custompress/ui-admin/edit-custom-field.php:61
+msgid "Option"
+msgstr ""
+
+#: /custompress/ui-admin/add-custom-field.php:55
+#: /custompress/ui-admin/edit-custom-field.php:64
+msgid "Default Value"
+msgstr ""
+
+#: /custompress/ui-admin/add-custom-field.php:59
+#: /custompress/ui-admin/edit-custom-field.php:74
+msgid "Add another option"
+msgstr ""
+
+#: /custompress/ui-admin/add-custom-field.php:67
+#: /custompress/ui-admin/add-custom-field.php:71
+#: /custompress/ui-admin/edit-custom-field.php:82
+#: /custompress/ui-admin/edit-custom-field.php:86
+msgid "Field Description"
+msgstr ""
+
+#: /custompress/ui-admin/add-custom-field.php:75
+#: /custompress/ui-admin/edit-custom-field.php:90
+msgid "Description for the custom field."
+msgstr ""
+
+#: /custompress/ui-admin/add-custom-field.php:84
+#: /custompress/ui-admin/add-custom-field.php:88
+#: /custompress/ui-admin/add-post-type.php:8
+#: /custompress/ui-admin/add-post-type.php:12
+#: /custompress/ui-admin/add-taxonomy.php:25
+#: /custompress/ui-admin/add-taxonomy.php:29
+#: /custompress/ui-admin/edit-custom-field.php:99
+#: /custompress/ui-admin/edit-custom-field.php:103
+#: /custompress/ui-admin/edit-post-type.php:10
+#: /custompress/ui-admin/edit-post-type.php:14
+#: /custompress/ui-admin/edit-taxonomy.php:31
+#: /custompress/ui-admin/edit-taxonomy.php:35
+#: /custompress/ui-admin/post-types.php:19
+#: /custompress/ui-admin/post-types.php:32
+msgid "Post Type"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:3
+#: /custompress/ui-admin/post-types.php:13
+#: /custompress/ui-admin/post-types.php:108
+msgid "Add Post Type"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:16
+#: /custompress/ui-admin/edit-post-type.php:19
+msgid "The new post type system name ( max. 20 characters ). Alphanumeric characters and underscores only. Min 2 letters. Once added the post type system name cannot be changed."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:23
+#: /custompress/ui-admin/add-post-type.php:27
+#: /custompress/ui-admin/edit-post-type.php:26
+#: /custompress/ui-admin/edit-post-type.php:30
+#: /custompress/ui-admin/post-types.php:23
+#: /custompress/ui-admin/post-types.php:36
+msgid "Supports"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:30
+#: /custompress/ui-admin/edit-post-type.php:33
+msgid "Register support of certain features for a post type."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:37
+#: /custompress/ui-admin/edit-post-type.php:40
+msgid "Title"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:40
+#: /custompress/ui-admin/edit-post-type.php:43
+msgid "Editor"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:40
+#: /custompress/ui-admin/edit-post-type.php:43
+msgid "Content"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:43
+#: /custompress/ui-admin/edit-post-type.php:46
+msgid "Author"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:46
+#: /custompress/ui-admin/edit-post-type.php:49
+msgid "Thumbnail"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:46
+#: /custompress/ui-admin/edit-post-type.php:49
+msgid "Featured Image - current theme must also support post-thumbnails."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:49
+#: /custompress/ui-admin/edit-post-type.php:52
+msgid "Excerpt"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:52
+#: /custompress/ui-admin/edit-post-type.php:55
+msgid "Trackbacks"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:55
+#: /custompress/ui-admin/edit-post-type.php:58
+#: /custompress/ui-admin/navigation.php:9
+msgid "Custom Fields"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:58
+#: /custompress/ui-admin/edit-post-type.php:61
+msgid "Comments"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:58
+#: /custompress/ui-admin/edit-post-type.php:61
+msgid "Also will see comment count balloon on edit screen."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:61
+#: /custompress/ui-admin/edit-post-type.php:64
+msgid "Revisions"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:61
+#: /custompress/ui-admin/edit-post-type.php:64
+msgid "Will store revisions."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:64
+#: /custompress/ui-admin/edit-post-type.php:67
+msgid "Page Attributes"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:64
+#: /custompress/ui-admin/edit-post-type.php:67
+msgid "Template and menu order - Hierarchical must be true!"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:67
+#: /custompress/ui-admin/edit-post-type.php:70
+msgid "Post Formats"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:67
+#: /custompress/ui-admin/edit-post-type.php:70
+msgid "Add post formats."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:74
+#: /custompress/ui-admin/add-post-type.php:78
+#: /custompress/ui-admin/edit-post-type.php:77
+#: /custompress/ui-admin/edit-post-type.php:81
+#: /custompress/ui-admin/post-types.php:24
+#: /custompress/ui-admin/post-types.php:37
+msgid "Capability Type"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:83
+#: /custompress/ui-admin/custom-fields.php:45
+#: /custompress/ui-admin/edit-post-type.php:86
+#: /custompress/ui-admin/post-types.php:54
+msgid "Edit"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:83
+#: /custompress/ui-admin/edit-post-type.php:86
+msgid "advanced"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:84
+#: /custompress/ui-admin/edit-post-type.php:87
+msgid "The post type to use for checking read, edit, and delete capabilities. Default: \"post\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:91
+#: /custompress/ui-admin/add-taxonomy.php:48
+#: /custompress/ui-admin/edit-post-type.php:94
+#: /custompress/ui-admin/edit-taxonomy.php:52
+msgid "Labels"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:95
+#: /custompress/ui-admin/add-taxonomy.php:52
+#: /custompress/ui-admin/edit-post-type.php:98
+#: /custompress/ui-admin/edit-taxonomy.php:56
+#: /custompress/ui-admin/post-types.php:20
+#: /custompress/ui-admin/post-types.php:33
+msgid "Name"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:99
+#: /custompress/ui-admin/edit-post-type.php:102
+msgid "General name for the post type, usually plural."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:104
+#: /custompress/ui-admin/add-taxonomy.php:61
+#: /custompress/ui-admin/edit-post-type.php:107
+#: /custompress/ui-admin/edit-taxonomy.php:65
+msgid "Singular Name"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:108
+#: /custompress/ui-admin/edit-post-type.php:111
+msgid "Name for one object of this post type. Defaults to value of name."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:113
+#: /custompress/ui-admin/edit-post-type.php:116
+msgid "Add New"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:117
+#: /custompress/ui-admin/edit-post-type.php:120
+msgid "The add new text. The default is Add New for both hierarchical and non-hierarchical types."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:122
+#: /custompress/ui-admin/add-taxonomy.php:70
+#: /custompress/ui-admin/edit-post-type.php:125
+#: /custompress/ui-admin/edit-taxonomy.php:74
+msgid "Add New Item"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:126
+#: /custompress/ui-admin/edit-post-type.php:129
+msgid "The add new item text. Default is Add New Post/Add New Page."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:131
+#: /custompress/ui-admin/add-taxonomy.php:88
+#: /custompress/ui-admin/edit-post-type.php:134
+#: /custompress/ui-admin/edit-taxonomy.php:92
+msgid "Edit Item"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:135
+#: /custompress/ui-admin/edit-post-type.php:138
+msgid "The edit item text. Default is Edit Post/Edit Page."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:140
+#: /custompress/ui-admin/edit-post-type.php:143
+msgid "New Item"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:144
+#: /custompress/ui-admin/edit-post-type.php:147
+msgid "The new item text. Default is New Post/New Page."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:149
+#: /custompress/ui-admin/edit-post-type.php:152
+msgid "View Item"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:153
+#: /custompress/ui-admin/edit-post-type.php:156
+msgid "The view item text. Default is View Post/View Page."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:158
+#: /custompress/ui-admin/add-taxonomy.php:106
+#: /custompress/ui-admin/edit-post-type.php:161
+#: /custompress/ui-admin/edit-taxonomy.php:110
+msgid "Search Items"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:162
+#: /custompress/ui-admin/edit-post-type.php:165
+msgid "The search items text. Default is Search Posts/Search Pages."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:167
+#: /custompress/ui-admin/edit-post-type.php:170
+msgid "Not Found"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:171
+#: /custompress/ui-admin/edit-post-type.php:174
+msgid "The not found text. Default is No posts found/No pages found."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:176
+#: /custompress/ui-admin/edit-post-type.php:179
+msgid "Not Found In Trash"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:180
+#: /custompress/ui-admin/edit-post-type.php:183
+msgid "The not found in trash text. Default is No posts found in Trash/No pages found in Trash."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:185
+#: /custompress/ui-admin/add-taxonomy.php:142
+#: /custompress/ui-admin/edit-post-type.php:188
+#: /custompress/ui-admin/edit-taxonomy.php:146
+msgid "Parent Item Colon"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:189
+#: /custompress/ui-admin/edit-post-type.php:192
+msgid "The parent text. This string isn't used on non-hierarchical types. In hierarchical ones the default is Parent Page"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:196
+#: /custompress/ui-admin/add-post-type.php:200
+#: /custompress/ui-admin/custom-fields.php:21
+#: /custompress/ui-admin/custom-fields.php:30
+#: /custompress/ui-admin/edit-post-type.php:199
+#: /custompress/ui-admin/edit-post-type.php:203
+#: /custompress/ui-admin/post-types.php:21
+#: /custompress/ui-admin/post-types.php:34
+msgid "Description"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:204
+#: /custompress/ui-admin/edit-post-type.php:207
+msgid "A short descriptive summary of what the post type is."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:211
+#: /custompress/ui-admin/add-post-type.php:215
+#: /custompress/ui-admin/edit-post-type.php:214
+#: /custompress/ui-admin/edit-post-type.php:218
+msgid "Menu Position"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:219
+#: /custompress/ui-admin/edit-post-type.php:222
+msgid "5 - below Posts; 10 - below Media; 20 - below Pages; 60 - below first separator; 100 - below second separator"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:226
+#: /custompress/ui-admin/add-post-type.php:230
+#: /custompress/ui-admin/edit-post-type.php:229
+#: /custompress/ui-admin/edit-post-type.php:233
+#: /custompress/ui-admin/post-types.php:22
+#: /custompress/ui-admin/post-types.php:35
+msgid "Menu Icon"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:234
+#: /custompress/ui-admin/edit-post-type.php:237
+msgid "The url to the icon to be used for this menu."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:243
+#: /custompress/ui-admin/add-post-type.php:247
+#: /custompress/ui-admin/add-taxonomy.php:182
+#: /custompress/ui-admin/add-taxonomy.php:186
+#: /custompress/ui-admin/edit-post-type.php:246
+#: /custompress/ui-admin/edit-post-type.php:250
+#: /custompress/ui-admin/edit-taxonomy.php:186
+#: /custompress/ui-admin/edit-taxonomy.php:190
+#: /custompress/ui-admin/post-types.php:25
+#: /custompress/ui-admin/post-types.php:38
+msgid "Public"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:250
+#: /custompress/ui-admin/edit-post-type.php:253
+msgid "Meta argument used to define default values for publicly_queriable, show_ui, show_in_nav_menus and exclude_from_search."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:257
+#: /custompress/ui-admin/add-post-type.php:294
+#: /custompress/ui-admin/add-post-type.php:322
+#: /custompress/ui-admin/add-post-type.php:346
+#: /custompress/ui-admin/add-post-type.php:370
+#: /custompress/ui-admin/add-post-type.php:394
+#: /custompress/ui-admin/add-post-type.php:418
+#: /custompress/ui-admin/add-post-type.php:448
+#: /custompress/ui-admin/add-post-type.php:498
+#: /custompress/ui-admin/add-post-type.php:522
+#: /custompress/ui-admin/add-taxonomy.php:196
+#: /custompress/ui-admin/add-taxonomy.php:223
+#: /custompress/ui-admin/add-taxonomy.php:247
+#: /custompress/ui-admin/add-taxonomy.php:271
+#: /custompress/ui-admin/add-taxonomy.php:295
+#: /custompress/ui-admin/add-taxonomy.php:319
+#: /custompress/ui-admin/add-taxonomy.php:364
+#: /custompress/ui-admin/edit-post-type.php:260
+#: /custompress/ui-admin/edit-post-type.php:295
+#: /custompress/ui-admin/edit-post-type.php:319
+#: /custompress/ui-admin/edit-post-type.php:343
+#: /custompress/ui-admin/edit-post-type.php:367
+#: /custompress/ui-admin/edit-post-type.php:391
+#: /custompress/ui-admin/edit-post-type.php:415
+#: /custompress/ui-admin/edit-post-type.php:445
+#: /custompress/ui-admin/edit-post-type.php:490
+#: /custompress/ui-admin/edit-post-type.php:514
+#: /custompress/ui-admin/edit-taxonomy.php:200
+#: /custompress/ui-admin/edit-taxonomy.php:227
+#: /custompress/ui-admin/edit-taxonomy.php:251
+#: /custompress/ui-admin/edit-taxonomy.php:275
+#: /custompress/ui-admin/edit-taxonomy.php:299
+#: /custompress/ui-admin/edit-taxonomy.php:323
+#: /custompress/ui-admin/edit-taxonomy.php:368
+msgid "TRUE"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:258
+#: /custompress/ui-admin/edit-post-type.php:261
+msgid "Display a user-interface for this \"post_type\""
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:259
+#: /custompress/ui-admin/edit-post-type.php:262
+msgid "Show \"post_type\" for selection in navigation menus"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:260
+#: /custompress/ui-admin/edit-post-type.php:263
+msgid "\"post_type\" queries can be performed from the front-end"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:261
+#: /custompress/ui-admin/add-post-type.php:268
+#: /custompress/ui-admin/edit-post-type.php:264
+#: /custompress/ui-admin/edit-post-type.php:271
+msgid "Exclude posts with this post type from search results"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:264
+#: /custompress/ui-admin/add-post-type.php:299
+#: /custompress/ui-admin/add-post-type.php:325
+#: /custompress/ui-admin/add-post-type.php:349
+#: /custompress/ui-admin/add-post-type.php:373
+#: /custompress/ui-admin/add-post-type.php:397
+#: /custompress/ui-admin/add-post-type.php:421
+#: /custompress/ui-admin/add-post-type.php:453
+#: /custompress/ui-admin/add-post-type.php:501
+#: /custompress/ui-admin/add-post-type.php:525
+#: /custompress/ui-admin/add-taxonomy.php:199
+#: /custompress/ui-admin/add-taxonomy.php:226
+#: /custompress/ui-admin/add-taxonomy.php:250
+#: /custompress/ui-admin/add-taxonomy.php:274
+#: /custompress/ui-admin/add-taxonomy.php:298
+#: /custompress/ui-admin/add-taxonomy.php:324
+#: /custompress/ui-admin/add-taxonomy.php:367
+#: /custompress/ui-admin/edit-post-type.php:267
+#: /custompress/ui-admin/edit-post-type.php:298
+#: /custompress/ui-admin/edit-post-type.php:322
+#: /custompress/ui-admin/edit-post-type.php:346
+#: /custompress/ui-admin/edit-post-type.php:370
+#: /custompress/ui-admin/edit-post-type.php:394
+#: /custompress/ui-admin/edit-post-type.php:418
+#: /custompress/ui-admin/edit-post-type.php:448
+#: /custompress/ui-admin/edit-post-type.php:493
+#: /custompress/ui-admin/edit-post-type.php:517
+#: /custompress/ui-admin/edit-taxonomy.php:203
+#: /custompress/ui-admin/edit-taxonomy.php:230
+#: /custompress/ui-admin/edit-taxonomy.php:254
+#: /custompress/ui-admin/edit-taxonomy.php:278
+#: /custompress/ui-admin/edit-taxonomy.php:302
+#: /custompress/ui-admin/edit-taxonomy.php:328
+#: /custompress/ui-admin/edit-taxonomy.php:371
+msgid "FALSE"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:265
+#: /custompress/ui-admin/edit-post-type.php:268
+msgid "Don not display a user-interface for this \"post_type\""
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:266
+#: /custompress/ui-admin/edit-post-type.php:269
+msgid "Hide \"post_type\" for selection in navigation menus"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:267
+#: /custompress/ui-admin/edit-post-type.php:270
+msgid "\"post_type\" queries cannot be performed from the front-end"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:271
+#: /custompress/ui-admin/edit-post-type.php:274
+#: /custompress/ui-admin/post-types.php:80
+msgid "Advanced"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:273
+#: /custompress/ui-admin/edit-post-type.php:274
+msgid "You can set each component manualy."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:280
+#: /custompress/ui-admin/add-post-type.php:284
+#: /custompress/ui-admin/add-taxonomy.php:209
+#: /custompress/ui-admin/add-taxonomy.php:213
+#: /custompress/ui-admin/edit-post-type.php:281
+#: /custompress/ui-admin/edit-post-type.php:285
+#: /custompress/ui-admin/edit-taxonomy.php:213
+#: /custompress/ui-admin/edit-taxonomy.php:217
+msgid "Show UI"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:287
+msgid "Whether to generate a default UI for managing this post type."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:296
+#: /custompress/ui-admin/edit-post-type.php:295
+msgid "Display a user-interface (admin panel) for this post type."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:301
+#: /custompress/ui-admin/edit-post-type.php:298
+msgid "Do not display a user-interface for this post type."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:308
+#: /custompress/ui-admin/add-taxonomy.php:257
+#: /custompress/ui-admin/edit-post-type.php:305
+#: /custompress/ui-admin/edit-taxonomy.php:261
+msgid "Show In Nav Menus "
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:312
+#: /custompress/ui-admin/add-taxonomy.php:261
+#: /custompress/ui-admin/edit-post-type.php:309
+#: /custompress/ui-admin/edit-taxonomy.php:265
+msgid "Show In Nav Menus"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:315
+#: /custompress/ui-admin/edit-post-type.php:312
+msgid "Whether post_type is available for selection in navigation menus."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:332
+#: /custompress/ui-admin/add-post-type.php:336
+#: /custompress/ui-admin/edit-post-type.php:329
+#: /custompress/ui-admin/edit-post-type.php:333
+msgid "Publicly Queryable"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:339
+#: /custompress/ui-admin/edit-post-type.php:336
+msgid "Whether post_type queries can be performed from the front end."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:356
+#: /custompress/ui-admin/add-post-type.php:360
+#: /custompress/ui-admin/edit-post-type.php:353
+#: /custompress/ui-admin/edit-post-type.php:357
+msgid "Exclude From Search"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:363
+#: /custompress/ui-admin/edit-post-type.php:360
+msgid "Whether to exclude posts with this post type from search results."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:380
+#: /custompress/ui-admin/add-post-type.php:384
+#: /custompress/ui-admin/add-taxonomy.php:281
+#: /custompress/ui-admin/add-taxonomy.php:285
+#: /custompress/ui-admin/edit-post-type.php:377
+#: /custompress/ui-admin/edit-post-type.php:381
+#: /custompress/ui-admin/edit-taxonomy.php:285
+#: /custompress/ui-admin/edit-taxonomy.php:289
+#: /custompress/ui-admin/post-types.php:26
+#: /custompress/ui-admin/post-types.php:39
+msgid "Hierarchical"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:387
+#: /custompress/ui-admin/edit-post-type.php:384
+msgid "Whether the post type is hierarchical. Allows Parent to be specified."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:404
+#: /custompress/ui-admin/add-post-type.php:408
+#: /custompress/ui-admin/edit-post-type.php:401
+#: /custompress/ui-admin/edit-post-type.php:405
+msgid "Has Archive"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:411
+#: /custompress/ui-admin/edit-post-type.php:408
+msgid "Enables post type archives. Will use string as archive slug. Will generate the proper rewrite rules if rewrite is enabled."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:423
+#: /custompress/ui-admin/add-post-type.php:458
+#: /custompress/ui-admin/add-taxonomy.php:329
+#: /custompress/ui-admin/edit-post-type.php:420
+#: /custompress/ui-admin/edit-post-type.php:450
+#: /custompress/ui-admin/edit-taxonomy.php:333
+msgid "Custom Slug"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:427
+#: /custompress/ui-admin/edit-post-type.php:424
+msgid "Custom slug for post type archive."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:434
+#: /custompress/ui-admin/add-post-type.php:438
+#: /custompress/ui-admin/add-taxonomy.php:305
+#: /custompress/ui-admin/add-taxonomy.php:309
+#: /custompress/ui-admin/edit-post-type.php:431
+#: /custompress/ui-admin/edit-post-type.php:435
+#: /custompress/ui-admin/edit-taxonomy.php:309
+#: /custompress/ui-admin/edit-taxonomy.php:313
+#: /custompress/ui-admin/post-types.php:27
+#: /custompress/ui-admin/post-types.php:40
+msgid "Rewrite"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:441
+#: /custompress/ui-admin/edit-post-type.php:438
+msgid "Rewrite permalinks with this format."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:450
+msgid "Default will use post type."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:455
+#: /custompress/ui-admin/add-taxonomy.php:326
+#: /custompress/ui-admin/edit-taxonomy.php:330
+msgid "Prevent rewrite."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:462
+#: /custompress/ui-admin/add-taxonomy.php:333
+#: /custompress/ui-admin/edit-post-type.php:454
+#: /custompress/ui-admin/edit-taxonomy.php:337
+msgid "Prepend posts with this slug. If empty default will be used."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:465
+#: /custompress/ui-admin/add-taxonomy.php:336
+#: /custompress/ui-admin/edit-post-type.php:457
+#: /custompress/ui-admin/edit-taxonomy.php:340
+msgid "Allow Front Base"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:467
+#: /custompress/ui-admin/add-taxonomy.php:338
+#: /custompress/ui-admin/edit-post-type.php:459
+#: /custompress/ui-admin/edit-taxonomy.php:342
+msgid "Allowing permalinks to be prepended with front base."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:470
+#: /custompress/ui-admin/edit-post-type.php:462
+msgid "Feeds"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:472
+#: /custompress/ui-admin/edit-post-type.php:464
+msgid "Default will use has_archive."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:475
+#: /custompress/ui-admin/edit-post-type.php:467
+msgid "Pages"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:477
+#: /custompress/ui-admin/edit-post-type.php:469
+msgid "Defaults to true."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:484
+#: /custompress/ui-admin/add-post-type.php:488
+#: /custompress/ui-admin/add-taxonomy.php:350
+#: /custompress/ui-admin/add-taxonomy.php:354
+#: /custompress/ui-admin/edit-post-type.php:476
+#: /custompress/ui-admin/edit-post-type.php:480
+#: /custompress/ui-admin/edit-taxonomy.php:354
+#: /custompress/ui-admin/edit-taxonomy.php:358
+msgid "Query var"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:491
+msgid "Can queries be performed on this post_type."
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:508
+#: /custompress/ui-admin/add-post-type.php:512
+#: /custompress/ui-admin/edit-post-type.php:500
+#: /custompress/ui-admin/edit-post-type.php:504
+msgid "Can Export"
+msgstr ""
+
+#: /custompress/ui-admin/add-post-type.php:515
+#: /custompress/ui-admin/edit-post-type.php:507
+msgid "Can this post_type be exported."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:5
+msgid "Add Taxonomy"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:10
+#: /custompress/ui-admin/add-taxonomy.php:14
+#: /custompress/ui-admin/edit-taxonomy.php:15
+#: /custompress/ui-admin/edit-taxonomy.php:19
+msgid "Taxonomy"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:18
+#: /custompress/ui-admin/edit-taxonomy.php:24
+msgid "The system name of the taxonomy. Alphanumeric characters and underscores only. Min 2 letters. Once added the taxonomy system name cannot be changed."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:41
+msgid "Select one or more post types to add this taxonomy to."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:56
+#: /custompress/ui-admin/edit-taxonomy.php:60
+msgid "General name for the taxonomy, usually plural."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:65
+#: /custompress/ui-admin/edit-taxonomy.php:69
+msgid "Name for one object of this taxonomy. Defaults to value of name."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:74
+#: /custompress/ui-admin/edit-taxonomy.php:78
+msgid "The add new item text. Default is \"Add New Tag\" or \"Add New Category\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:79
+#: /custompress/ui-admin/edit-taxonomy.php:83
+msgid "New Item Name"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:83
+#: /custompress/ui-admin/edit-taxonomy.php:87
+msgid "The new item name text. Default is \"New Tag Name\" or \"New Category Name\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:92
+#: /custompress/ui-admin/edit-taxonomy.php:96
+msgid "The edit item text. Default is \"Edit Tag\" or \"Edit Category\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:97
+#: /custompress/ui-admin/edit-taxonomy.php:101
+msgid "Update Item"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:101
+#: /custompress/ui-admin/edit-taxonomy.php:105
+msgid "The update item text. Default is \"Update Tag\" or \"Update Category\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:110
+#: /custompress/ui-admin/edit-taxonomy.php:114
+msgid "The search items text. Default is \"Search Tags\" or \"Search Categories\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:115
+#: /custompress/ui-admin/edit-taxonomy.php:119
+msgid "Popular Items"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:119
+#: /custompress/ui-admin/edit-taxonomy.php:123
+msgid "The popular items text. Default is \"Popular Tags\" or null."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:124
+#: /custompress/ui-admin/edit-taxonomy.php:128
+msgid "All Items"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:128
+#: /custompress/ui-admin/edit-taxonomy.php:132
+msgid "The all items text. Default is \"All Tags\" or \"All Categories\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:133
+#: /custompress/ui-admin/edit-taxonomy.php:137
+msgid "Parent Item"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:137
+#: /custompress/ui-admin/edit-taxonomy.php:141
+msgid "The parent item text. This string is not used on non-hierarchical taxonomies such as post tags. Default is null or \"Parent Category\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:146
+#: /custompress/ui-admin/edit-taxonomy.php:150
+msgid "The same as parent_item, but with colon : in the end null, \"Parent Category:\"."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:151
+#: /custompress/ui-admin/edit-taxonomy.php:155
+msgid "Add Or Remove Items"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:155
+#: /custompress/ui-admin/edit-taxonomy.php:159
+msgid "The add or remove items text is used in the meta box when JavaScript is disabled. This string isn't used on hierarchical taxonomies. Default is \"Add or remove tags\" or null."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:160
+#: /custompress/ui-admin/edit-taxonomy.php:164
+msgid "Separate Items With Commas"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:164
+#: /custompress/ui-admin/edit-taxonomy.php:168
+msgid "The separate item with commas text used in the taxonomy meta box. This string isn't used on hierarchical taxonomies. Default is \"Separate tags with commas\", or null."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:169
+#: /custompress/ui-admin/edit-taxonomy.php:173
+msgid "Choose From Most Used"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:173
+#: /custompress/ui-admin/edit-taxonomy.php:177
+msgid "The choose from most used text used in the taxonomy meta box. This string isn't used on hierarchical taxonomies. Default is \"Choose from the most used tags\" or null."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:189
+#: /custompress/ui-admin/edit-taxonomy.php:193
+msgid "Should this taxonomy be exposed in the admin UI."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:202
+#: /custompress/ui-admin/edit-taxonomy.php:206
+msgid "ADVANCED"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:216
+#: /custompress/ui-admin/edit-taxonomy.php:220
+msgid "Whether to generate a default UI for managing this taxonomy."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:233
+#: /custompress/ui-admin/add-taxonomy.php:237
+#: /custompress/ui-admin/edit-taxonomy.php:237
+#: /custompress/ui-admin/edit-taxonomy.php:241
+msgid "Show Tagcloud"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:240
+#: /custompress/ui-admin/edit-taxonomy.php:244
+msgid "Whether to show a tag cloud in the admin UI for this taxonomy."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:264
+#: /custompress/ui-admin/edit-taxonomy.php:268
+msgid "Whether to make this taxonomy available for selection in navigation menus."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:288
+#: /custompress/ui-admin/edit-taxonomy.php:292
+msgid "Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:312
+#: /custompress/ui-admin/edit-taxonomy.php:316
+msgid "Set to false to prevent rewrite, or true to customize."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:321
+#: /custompress/ui-admin/edit-taxonomy.php:325
+msgid "Default will use query var."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:341
+#: /custompress/ui-admin/edit-taxonomy.php:345
+msgid "Hierarchical URLs"
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:343
+#: /custompress/ui-admin/edit-taxonomy.php:347
+msgid "Allow hierarchical urls. Applicable for hierarchical taxonomies."
+msgstr ""
+
+#: /custompress/ui-admin/add-taxonomy.php:357
+msgid "False to prevent queries. Default will use the taxonomy system name as query var."
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:18
+#: /custompress/ui-admin/custom-fields.php:27
+msgid "Field Name"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:19
+#: /custompress/ui-admin/custom-fields.php:28
+msgid "Field ID"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:22
+#: /custompress/ui-admin/custom-fields.php:31
+#: /custompress/ui-admin/navigation.php:7
+msgid "Post Types"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:45
+msgid "Edit this custom field"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:48
+msgid "Show embed code"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:48
+msgid "Embed Code"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:51
+#: /custompress/ui-admin/post-types.php:57
+msgid "Delete"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:57
+#: /custompress/ui-admin/post-types.php:63
+msgid "Confirm"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:58
+#: /custompress/ui-admin/post-types.php:64
+msgid "Cancel"
+msgstr ""
+
+#: /custompress/ui-admin/custom-fields.php:73
+msgid "Returns the values of the custom fields with the specified key from the specified post."
+msgstr ""
+
+#: /custompress/ui-admin/edit-custom-field.php:8
+msgid "Edit Custom Field"
+msgstr ""
+
+#: /custompress/ui-admin/edit-post-type.php:5
+msgid "Edit Post Type"
+msgstr ""
+
+#: /custompress/ui-admin/edit-post-type.php:288
+msgid "Whether to generate a default UI for managing this post type. Note that built-in post types, such as post and page, are intentionally set to false."
+msgstr ""
+
+#: /custompress/ui-admin/edit-post-type.php:483
+msgid "Name of the query var to use for this post type."
+msgstr ""
+
+#: /custompress/ui-admin/edit-taxonomy.php:9
+msgid "Edit Taxonomy"
+msgstr ""
+
+#: /custompress/ui-admin/edit-taxonomy.php:45
+msgid "Select one or more post types to add this taxonomy to"
+msgstr ""
+
+#: /custompress/ui-admin/edit-taxonomy.php:361
+msgid "False to prevent queries, or string to customize query var. Default will use $taxonomy as query var."
 msgstr ""
 
 #: /custompress/ui-admin/message.php:3
 msgid "Settings Saved."
+msgstr ""
+
+#: /custompress/ui-admin/navigation.php:8
+msgid "Taxonomies"
+msgstr ""
+
+#: /custompress/ui-admin/post-types.php:54
+msgid "Edit the post type"
+msgstr ""
+
+#: /custompress/ui-admin/post-types.php:82
+#: /custompress/ui-admin/post-types.php:89
+#: /custompress/ui-admin/post-types.php:96
+msgid "True"
+msgstr ""
+
+#: /custompress/ui-admin/post-types.php:84
+#: /custompress/ui-admin/post-types.php:91
+#: /custompress/ui-admin/post-types.php:98
+msgid "False"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:18
+msgid "CustomPress Settings"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:25
+msgid "General"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:29
+msgid "Enable sub-site content types."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:33
+msgid "If you enable this option, sub-sites on your network will be able to define their own content types. If this option is not enabled ( default ) all sites on your network will be forced to use the network-wide content types defined by you, the Super Admin."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:36
+msgid "Keep the network-wide content types on sub-sites."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:39
+msgid "Remove the network-wide content types from sub-sites."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:50
+msgid "Display post types on \"Home\": "
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:79
+msgid "Check the custom post types you want to display on the \"Home\" page."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:83
+msgid "If \"default\" is checked the \"Home\" page will display the default post types."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:90
+msgid "Template Files"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:94
+msgid "Create template file for: "
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:104
+msgid "No custom post types available"
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:107
+msgid "This will create \"single-[post_type].php\" file inside your active theme directory by copying your current single.php template. This file will be the custom template for your custom post type. You can then edit and customize it."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:108
+msgid "In some cases you may not want to do that. For example if you don't have a template for your custom post type the default \"single.php\" will be used."
+msgstr ""
+
+#: /custompress/ui-admin/settings.php:109
+msgid "Your active theme folder permissions have to be set to 777 for this option to work. After the file is created you can set your active theme directory permissions back to 755."
+msgstr ""
+
+#: /custompress/ui-admin/taxonomies.php:47
+msgid "Edit this taxonomy"
+msgstr ""
+
+#: /custompress/ui-admin/taxonomies.php:96
+msgid "Returns an HTML string of taxonomy terms associated with a post and given taxonomy. Terms are linked to their respective term listing pages. Use it inside the Loop."
+msgstr ""
+
+#: /custompress/ui-admin/update-message.php:5
+msgid "Content Type Updated"
+msgstr ""
+
+#: /custompress/ui-admin/wip-update-taxonomy.php:356
+msgid "Prepend posts with this slug."
+msgstr ""
+
+#: /custompress/ui-admin/wip-update-taxonomy.php:359
+msgid "Disallow Front Base"
+msgstr ""
+
+#: /custompress/ui-admin/wip-update-taxonomy.php:361
+msgid "Disallowing permalinks to be prepended with front base."
 msgstr ""
 
