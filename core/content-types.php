@@ -2,47 +2,15 @@
 
 /**
  * Content Types Core Class
- **/
-if ( !class_exists('Content_Types_Core') ):
-class Content_Types_Core {
-
-    /** @var string Url to the submodule directory */
-    var $submodule_url = CT_SUBMODULE_URL;
-    /** @var string Path to the submodule directory */
-    var $submodule_dir = CT_SUBMODULE_DIR;
-    /** @var string Parent menu slug */
-    var $text_domain = 'content_types';
-    /** @var array Avilable Post Types */
-    var $post_types;
-    /** @var array Avilable Taxonomies */
-    var $taxonomies;
-    /** @var array Avilable Custom Fields */
-    var $custom_fields;
-    /** @var array Avilable Custom Fields */
-    var $registered_post_type_names;
-    /** @var boolean Flag whether to flush the rewrite rules or not */
-    var $flush_rewrite_rules = false;
-    /** @var boolean Flag whether the users have the ability to declair post type for their own blogs */
-    var $allow_per_site_content_types = false;
+ */
+class CustomPress_Content_Types extends CustomPress_Core {
 
     /**
       * Constructor
      *
      * @return void
-     **/
-    function Content_Types_Core( $plugin_menu_slug ) {
-        $this->init();
-        $this->init_vars( $plugin_menu_slug );
-        /* Initiate Admin class */
-        new Content_Types_Core_Admin( $plugin_menu_slug );
-    }
-
-    /**
-     * Initiate module.
-     *
-     * @return void
-     **/
-    function init() {
+     */
+    function CustomPress_Content_Types() {
         add_action( 'init', array( &$this, 'load_plugin_textdomain' ), 0 );
         add_action( 'init', array( &$this, 'handle_post_type_requests' ), 0 );
         add_action( 'init', array( &$this, 'register_post_types' ), 2 );
@@ -52,42 +20,27 @@ class Content_Types_Core {
         add_action( 'admin_menu', array( &$this, 'create_custom_fields' ), 2 );
         add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 1 );
         add_action( 'user_register', array( &$this, 'set_user_registration_rewrite_rules' ) );
+        
+        $this->init_vars();
     }
 
-    /**
-     * Initiate variables
-     *
-     * @return void
-     **/
-    function init_vars() {
-        $this->allow_per_site_content_types = apply_filters( 'allow_per_site_content_types', false );
-        if ( $this->allow_per_site_content_types == true ) {
-            $this->post_types = get_option( 'ct_custom_post_types' );
-            $this->taxonomies = get_option( 'ct_custom_taxonomies' );
-            $this->custom_fields = get_option( 'ct_custom_fields' );
-        } else {
-            $this->post_types = get_site_option( 'ct_custom_post_types' );
-            $this->taxonomies = get_site_option( 'ct_custom_taxonomies' );
-            $this->custom_fields = get_site_option( 'ct_custom_fields' );
-        }
-        $this->registered_post_type_names = get_post_types('','names');
-    }
 
     /**
      * Loads "content_types-[xx_XX].mo" language file from the "ct-languages" directory
      *
      * @return void
-     **/
+     */
     function load_plugin_textdomain() {
-        $module_dir = $this->submodule_dir . 'languages';
-        load_plugin_textdomain( $this->text_domain, null, $module_dir );
+		// TODO: Fix textdomain loading. 
+        $dir = $this->plugin_dir . 'languages';
+        load_plugin_textdomain( $this->text_domain, null, $dir );
     }
 
     /**
      * Intercept $_POST request and processes the custom post type submissions.
      *
      * @return void
-     **/
+     */
     function handle_post_type_requests() {
         /* If add/update request is made */
         if ( isset( $_POST['submit'] ) 
@@ -170,7 +123,7 @@ class Content_Types_Core {
                     }
                 }
                 /* Redirect to post types page */
-                wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&updated&frr=' . $this->flush_rewrite_rules ) );
+                wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&updated&frr=' . $this->flush_rewrite_rules ) );
             }
         }
         elseif ( isset( $_POST['submit'] ) 
@@ -186,10 +139,10 @@ class Content_Types_Core {
             else
                 update_site_option( 'ct_custom_post_types', $post_types );
             /* Redirect to post types page */
-            wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&updated' ));
+            wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&updated' ));
         }
         elseif ( isset( $_POST['redirect_add_post_type'] ) ) {
-            wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&ct_add_post_type=true' ) );
+            wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&ct_add_post_type=true' ) );
         }
     }
 
@@ -216,7 +169,7 @@ class Content_Types_Core {
      * Intercepts $_POST request and processes the custom taxonomy requests
      *
      * @return void
-     **/
+     */
     function handle_taxonomy_requests() {
         /* If valid add/edit taxonomy request is made */
         if ( isset( $_POST['submit'] ) 
@@ -297,7 +250,7 @@ class Content_Types_Core {
                     }
                 }
                 /* Redirect back to the taxonomies page */
-                wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&updated&frr' . $this->flush_rewrite_rules ) );
+                wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&updated&frr' . $this->flush_rewrite_rules ) );
             }
         }
         elseif ( isset( $_POST['submit'] ) 
@@ -314,10 +267,10 @@ class Content_Types_Core {
             else
                 update_site_option( 'ct_custom_taxonomies', $taxonomies );
             /* Redirect back to the taxonomies page */
-            wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&updated' ) );
+            wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&updated' ) );
         }
         elseif ( isset( $_POST['redirect_add_taxonomy'] ) ) {
-            wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&ct_add_taxonomy=true' ));
+            wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&ct_add_taxonomy=true' ));
         }
     }
 
@@ -329,7 +282,7 @@ class Content_Types_Core {
      *
      * @uses apply_filters() You can use the 'sort_custom_taxonomies' filter hook to sort your taxonomies
      * @return void
-     **/
+     */
     function register_taxonomies() {
         $taxonomies = $this->taxonomies;
         /* Plugins can filter this value and sort taxonomies */
@@ -348,7 +301,7 @@ class Content_Types_Core {
 
     /**
      * Intercepts $_POST request and processes the custom fields submissions
-     **/
+     */
     function handle_custom_field_requests() {
         /* If valid add/edit custom field request is made */
         if ( isset( $_POST['submit'] ) 
@@ -394,7 +347,7 @@ class Content_Types_Core {
                 update_option( 'ct_custom_fields', $custom_fields );
             else
                 update_site_option( 'ct_custom_fields', $custom_fields );
-            wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
+            wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
         }
         elseif ( isset( $_POST['submit'] ) 
             && isset( $_POST['_wpnonce'] ) 
@@ -410,10 +363,10 @@ class Content_Types_Core {
             else
                 update_site_option( 'ct_custom_fields', $custom_fields );
             /* Redirect back to the taxonomies page */
-            wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
+            wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
         }
         elseif ( isset( $_POST['redirect_add_custom_field'] ) ) {
-            wp_redirect( admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&ct_add_custom_field=true' ));
+            wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&ct_add_custom_field=true' ));
         }
     }
 
@@ -421,7 +374,7 @@ class Content_Types_Core {
      * Create the custom fields
      *
      * @return void
-     **/
+     */
     function create_custom_fields() {
         $custom_fields = $this->custom_fields;
 
@@ -437,7 +390,7 @@ class Content_Types_Core {
      * Display custom fields template on add custom post pages
      *
      * @return void
-     **/
+     */
     function display_custom_fields() {
         $this->render_admin('display-custom-fields');
     }
@@ -469,7 +422,7 @@ class Content_Types_Core {
      * Flush rewrite rules based on boolean check
      *
      * @return void
-     **/
+     */
     function flush_rewrite_rules() {
         /* Mechanisum for detecting changes in root site content types for flushing rewrite rules */
         if ( is_multisite() && !is_main_site() && $this->allow_per_site_content_types == false ) {
@@ -493,7 +446,7 @@ class Content_Types_Core {
      * rules for them.
      *
      * @return void
-     **/
+     */
     function set_user_registration_rewrite_rules() {
         $this->flush_rewrite_rules = true;
     }
@@ -504,7 +457,7 @@ class Content_Types_Core {
      * @param string $field
      * @param mixed $value
      * @return bool true/false depending on validation outcome
-     **/
+     */
     function validate_field( $field, $value ) {
         /* Validate set of common fields */
         if ( $field == 'taxonomy' || $field == 'post_type' ) {
@@ -534,23 +487,9 @@ class Content_Types_Core {
             }
         }
     }
-
-    /**
-	 * Renders an admin section of display code.
-	 *
-	 * @param  string $name Name of the admin file(without extension)
-	 * @param  string $vars Array of variable name=>value that is available to the display code(optional)
-	 * @return void
-	 **/
-    function render_admin( $name, $vars = array() ) {
-		foreach ( $vars as $key => $val )
-			$$key = $val;
-		if ( file_exists( "{$this->submodule_dir}ui-admin/{$name}.php" ) )
-			include "{$this->submodule_dir}ui-admin/{$name}.php";
-		else
-			echo "<p>Rendering of admin template {$this->submodule_dir}ui-admin/{$name}.php failed</p>";
-	}
 }
-endif;
+
+/* Initiate Content Types Module */
+new CustomPress_Content_Types();
 
 ?>

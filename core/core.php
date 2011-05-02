@@ -2,8 +2,7 @@
 
 /**
  * CustomPress Core Class
- **/
-if ( !class_exists('CustomPress_Core') ):
+ */
 class CustomPress_Core {
 
     /** @var string $plugin_version Plugin version */
@@ -16,52 +15,56 @@ class CustomPress_Core {
     var $text_domain = 'custompress';
     /** @var string $text_domain The text domain for strings localization */
     var $options_name = 'cp_options';
+    /** @var array Avilable Post Types */
+    var $post_types;
+    /** @var array Avilable Taxonomies */
+    var $taxonomies;
+    /** @var array Avilable Custom Fields */
+    var $custom_fields;
+    /** @var array Avilable Custom Fields */
+    var $registered_post_type_names;
+    /** @var boolean Flag whether to flush the rewrite rules or not */
+    var $flush_rewrite_rules = false;
+    /** @var boolean Flag whether the users have the ability to declair post type for their own blogs */
+    var $allow_per_site_content_types = false;
 
     function CustomPress_Core() {
-        $this->init();
-    }
-
-    /**
-     * Setup plugin hooks.
-     *
-     * @return void
-     **/
-    function init() {
-        add_action( 'plugins_loaded', array( &$this, 'init_modules' ) );
         add_action( 'init', array( &$this, 'load_plugin_textdomain' ), 0 );
         add_filter( 'pre_get_posts', array( &$this, 'display_custom_post_types' ) );
         add_action( 'wp_ajax_cp_get_post_types', array( &$this, 'ajax_action_callback' ) );
+
         register_activation_hook( $this->plugin_dir . 'loader.php', array( &$this, 'plugin_activate' ) );
         register_deactivation_hook( $this->plugin_dir . 'loader.php', array( &$this, 'plugin_deactivate' ) );
         $plugin = plugin_basename(__FILE__);
+
         add_filter( "plugin_action_links_$plugin", array( &$this, 'plugin_settings_link' ) );
         add_filter( 'allow_per_site_content_types', array( &$this, 'allow_per_site_content_types' ) );
     }
 
     /**
-     * Initiate variables.
+     * Initiate variables
      *
      * @return void
-     **/
-    function init_vars() {}
-
-    /**
-     * Initiate plugin modules.
-     *
-     * @return void
-     **/
-    function init_modules() {
-        /* Initiate Admin Class */
-        new CustomPress_Core_Admin();
-        /* Initiate Content Types Module */
-        new Content_Types_Core('cp_main');
+     */
+    function init_vars() {
+        $this->allow_per_site_content_types = apply_filters( 'allow_per_site_content_types', false );
+        if ( $this->allow_per_site_content_types == true ) {
+            $this->post_types = get_option( 'ct_custom_post_types' );
+            $this->taxonomies = get_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_option( 'ct_custom_fields' );
+        } else {
+            $this->post_types = get_site_option( 'ct_custom_post_types' );
+            $this->taxonomies = get_site_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_site_option( 'ct_custom_fields' );
+        }
+        $this->registered_post_type_names = get_post_types('','names');
     }
 
     /**
      * Loads "custompress-[xx_XX].mo" language file from the "languages" directory
      *
      * @return void
-     **/
+     */
     function load_plugin_textdomain() {
         $plugin_dir = $this->plugin_dir . 'languages';
         load_plugin_textdomain( 'custompress', null, $plugin_dir );
@@ -71,7 +74,7 @@ class CustomPress_Core {
      * Update plugin versions
      *
      * @return void
-     **/
+     */
     function plugin_activate() {
         /* Update plugin versions */
         $versions = array( 'version' => $this->plugin_version );
@@ -107,7 +110,7 @@ class CustomPress_Core {
      *
      * @param array $links
      * @return array
-     **/
+     */
     function plugin_settings_link( $links ) {
         $settings_link = '<a href="admin.php?page=cp_main">Settings</a>';
         array_unshift( $links, $settings_link );
@@ -136,7 +139,7 @@ class CustomPress_Core {
      *
      * @param object $query
      * @return object $query
-     **/
+     */
     function display_custom_post_types( $query ) {
         //if ( is_main_site() || get_site_option('allow_per_site_content_types') )
         $options = $this->get_options();
@@ -162,7 +165,7 @@ class CustomPress_Core {
     /**
      * Make AJAX POST request for getting the post type info associated with
      * a particular page.
-     **/
+     */
     function ajax_actions() { ?>
         <script type="text/javascript" >
             jQuery(document).ready(function($) {
@@ -197,7 +200,7 @@ class CustomPress_Core {
      * Ajax callback which gets the post types associated with each page.
      *
      * @return JSON Encoded data
-     **/
+     */
     function ajax_action_callback() {
         $page_name = $_POST['cp_ajax_page_name'];
         $options = $this->get_options();
@@ -239,7 +242,7 @@ class CustomPress_Core {
      *
      * @param  array $params The $_POST array
      * @return die() if _wpnonce is not verified
-     **/
+     */
     function save_options( $params ) {
         if ( wp_verify_nonce( $params['_wpnonce'], 'verify' ) ) {
             /* Remove unwanted parameters */
@@ -258,7 +261,7 @@ class CustomPress_Core {
      *
      * @param  string|NULL $key The key for that plugin option.
      * @return array $options Plugin options or empty array if no options are found
-     **/
+     */
     function get_options( $key = NULL ) {
         $options = get_option( $this->options_name );
         $options = is_array( $options ) ? $options : array();
@@ -268,37 +271,8 @@ class CustomPress_Core {
         else
             return $options;
     }
-
-    /**
-	 * Renders an admin section of display code.
-	 *
-	 * @param  string $name Name of the admin file(without extension)
-	 * @param  string $vars Array of variable name=>value that is available to the display code(optional)
-	 * @return void
-	 **/
-    function render_admin( $name, $vars = array() ) {
-		foreach ( $vars as $key => $val )
-			$$key = $val;
-		if ( file_exists( "{$this->plugin_dir}ui-admin/{$name}.php" ) )
-			include "{$this->plugin_dir}ui-admin/{$name}.php";
-		else
-			echo "<p>Rendering of admin template {$this->plugin_dir}ui-admin/{$name}.php failed</p>";
-	}
 }
-endif;
 
-/* Initiate Class */
-if ( class_exists('CustomPress_Core') )
-	$custompress_core = new CustomPress_Core();
-
-/* Update Notifications Notice */
-if ( !function_exists( 'wdp_un_check' ) ):
-function wdp_un_check() {
-    if ( !class_exists('WPMUDEV_Update_Notifications') && current_user_can('edit_users') )
-        echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
-}
-add_action( 'admin_notices', 'wdp_un_check', 5 );
-add_action( 'network_admin_notices', 'wdp_un_check', 5 );
-endif;
+new CustomPress_Core();
 
 ?>

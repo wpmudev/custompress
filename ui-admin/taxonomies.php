@@ -35,11 +35,11 @@
             <tr class="<?php echo ( $class ); ?>">
                 <td>
                     <strong>
-                        <a href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ) ); ?>"><?php echo( $name ); ?></a>
+                        <a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ) ); ?>"><?php echo( $name ); ?></a>
                     </strong>
                     <div class="row-actions" id="row-actions-<?php echo $name; ?>">
                         <span class="edit">
-                            <a title="<?php _e('Edit this taxonomy', 'content_types'); ?>" href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ) ); ?>"><?php _e('Edit', 'content_types'); ?></a> |
+                            <a title="<?php _e('Edit this taxonomy', 'content_types'); ?>" href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ) ); ?>"><?php _e('Edit', 'content_types'); ?></a> |
                         </span>
                         <span>
                             <a title="<?php _e('Show embed code', 'content_types'); ?>" href="" onclick="javascript:content_types.toggle_embed_code('<?php echo( $name ); ?>'); return false;"><?php _e('Embed Code', 'content_types'); ?></a> |
@@ -63,25 +63,25 @@
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $taxonomy['args']['public'] === null ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->submodule_url . 'ui-admin/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'content_types'); ?>" title="<?php _e('Advanced', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/advanced.png' ); ?>" alt="<?php _e('Advanced', 'content_types'); ?>" title="<?php _e('Advanced', 'content_types'); ?>" />
                     <?php elseif ( $taxonomy['args']['public'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->submodule_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->submodule_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $taxonomy['args']['hierarchical'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->submodule_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->submodule_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $taxonomy['args']['rewrite'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->submodule_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/true.png' ); ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo ( $this->submodule_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo ( $this->plugin_url . 'ui-admin/images/false.png' ); ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
                     <?php endif; ?>
                 </td>
             </tr>

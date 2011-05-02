@@ -42,11 +42,11 @@
             <tr class="<?php echo $class; ?>">
                 <td>
                     <strong>
-                        <a href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ) ); ?>"><?php echo $name; ?></a>
+                        <a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ) ); ?>"><?php echo $name; ?></a>
                     </strong>
                     <div class="row-actions" id="row-actions-<?php echo $name; ?>">
                         <span class="edit">
-                            <a title="<?php _e('Edit the post type', 'content_types'); ?>" href="<?php echo admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ); ?>"><?php _e('Edit', 'content_types'); ?></a> |
+                            <a title="<?php _e('Edit the post type', 'content_types'); ?>" href="<?php echo self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ); ?>"><?php _e('Edit', 'content_types'); ?></a> |
                         </span>
                         <span class="trash">
                             <a class="submitdelete" href="#" onclick="javascript:content_types.toggle_delete('<?php echo( $name ); ?>'); return false;"><?php _e('Delete', 'content_types'); ?></a>
@@ -62,7 +62,7 @@
                 <td><?php if ( isset( $post_type['labels']['name'] ) ) echo $post_type['labels']['name']; ?></td>
                 <td><?php if ( isset( $post_type['description'] ) ) echo $post_type['description']; ?></td>
                 <td>
-                    <img src="<?php if ( isset( $post_type['menu_icon'] ) ) echo $post_type['menu_icon']; ?>" alt="<?php if ( empty( $post_type['menu_icon'] ) ) echo( 'No Icon'); ?>" />
+                    <img src="<?php if ( isset( $post_type['menu_icon'] ) ) echo $post_type['menu_icon']; else echo $this->plugin_url . 'ui-admin/images/default-menu-icon.png'; ?>" alt="<?php if ( empty( $post_type['menu_icon'] ) ) echo( 'No Icon'); ?>" />
                 </td>
                 <td class="ct-supports">
                     <?php foreach ( $post_type['supports'] as $value ): ?>
@@ -72,25 +72,25 @@
                 <td><?php echo( $post_type['capability_type'] ); ?></td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $post_type['public'] === NULL ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->submodule_url . 'ui-admin/images/advanced.png'; ?>" alt="<?php _e('Advanced', 'content_types'); ?>" title="<?php _e('Advanced', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/advanced.png'; ?>" alt="<?php _e('Advanced', 'content_types'); ?>" title="<?php _e('Advanced', 'content_types'); ?>" />
                     <?php elseif ( $post_type['public'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->submodule_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->submodule_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $post_type['hierarchical'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->submodule_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->submodule_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
                     <?php endif; ?>
                 </td>
                 <td class="ct-tf-icons-wrap">
                     <?php if ( $post_type['rewrite'] ): ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->submodule_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', 'content_types'); ?>" title="<?php _e('True', 'content_types'); ?>" />
                     <?php else: ?>
-                        <img class="ct-tf-icons" src="<?php echo $this->submodule_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
+                        <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', 'content_types'); ?>" title="<?php _e('False', 'content_types'); ?>" />
                     <?php endif; ?>
                 </td>
             </tr>

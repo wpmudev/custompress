@@ -33,11 +33,11 @@
             <tr class="<?php echo ( $class ); ?>">
                 <td>
                     <strong>
-                        <a href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] )); ?>"><?php echo( $custom_field['field_title'] ); ?></a>
+                        <a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] )); ?>"><?php echo( $custom_field['field_title'] ); ?></a>
                     </strong>
                     <div class="row-actions" id="row-actions-<?php echo $custom_field['field_id']; ?>" >
                         <span class="edit">
-                            <a title="<?php _e('Edit this custom field', 'content_types'); ?>" href="<?php echo( admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] ) ); ?>"><?php _e( 'Edit', $this->text_domain ); ?></a> |
+                            <a title="<?php _e('Edit this custom field', 'content_types'); ?>" href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] ) ); ?>"><?php _e( 'Edit', $this->text_domain ); ?></a> |
                         </span>
                         <span>
                             <a title="<?php _e('Show embed code', 'content_types'); ?>" href="#" onclick="javascript:content_types.toggle_embed_code('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e('Embed Code', 'content_types'); ?></a> |
