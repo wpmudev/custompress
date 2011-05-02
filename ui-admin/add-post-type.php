@@ -266,7 +266,9 @@
                         <?php _e('Exclude posts with this post type from search results', 'content_types'); ?><br /> <code>( exclude_from_search = TRUE )</code></span>
                         <br /><br />
                         <input type="radio" name="public" value="advanced" <?php if ( isset( $_POST['public'] ) && $_POST['public'] == 'advanced' ) echo( 'checked="checked"' ); ?>>
-                        <span class="description"><strong><?php _e('ADVANCED', 'content_types'); ?></strong> - <?php _e('You can set each component manualy.', 'content_types'); ?></span>
+						<span class="description"><strong><?php _e('ADVANCED', 'content_types'); ?></strong>
+						<br />
+						<?php _e('You can set each component manualy.', 'content_types'); ?></span>
                     </td>
                 </tr>
             </table>
@@ -280,17 +282,21 @@
                         <label for="show_ui"><?php _e('Show UI', 'content_types') ?></label>
                     </th>
                     <td>
-                        <span class="description"><?php _e('Whether to generate a default UI for managing this post type. Note that built-in post types, such as post and page, are intentionally set to false.', 'content_types'); ?></span>
+                        <span class="description"><?php _e('Whether to generate a default UI for managing this post type.', 'content_types'); ?></span>
                     </td>
                 </tr>
                <tr>
                     <th></th>
                     <td>
                         <input type="radio" name="show_ui" value="1" <?php if ( isset( $_POST['public'] ) && $_POST['public'] == 'advanced' && isset( $_POST['show_ui'] ) && $_POST['show_ui'] === '1' ) echo( 'checked="checked"' ); ?>>
-                        <span class="description"><strong><?php _e('TRUE', 'content_types'); ?></strong> - <?php _e('Display a user-interface (admin panel) for this post type.', 'content_types'); ?></span>
+						<span class="description"><strong><?php _e('TRUE', 'content_types'); ?></strong>
+						<br />
+						<?php _e('Display a user-interface (admin panel) for this post type.', 'content_types'); ?></span>
                         <br />
                         <input type="radio" name="show_ui" value="0" <?php if ( isset( $_POST['public'] ) && $_POST['public'] == 'advanced' && isset( $_POST['show_ui'] ) && $_POST['show_ui'] === '0' ) echo( 'checked="checked"' ); ?>>
-                        <span class="description"><strong><?php _e('FALSE', 'content_types'); ?></strong> - <?php _e('Do not display a user-interface for this post type.', 'content_types'); ?></span>
+						<span class="description"><strong><?php _e('FALSE', 'content_types'); ?></strong>
+						<br />
+						<?php _e('Do not display a user-interface for this post type.', 'content_types'); ?></span>
                     </td>
                 </tr>
             </table>

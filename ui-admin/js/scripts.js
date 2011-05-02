@@ -49,7 +49,7 @@ var content_types = {
         $('.ct-field-add-option').click(function() {
             $('.ct-field-additional-options').append(function() {
                 
-                var count = parseInt($('input[name="track_number"]').val()) + 1;
+                var count = parseInt($('input[name="track_number"]').val(), 10) + 1;
                 $('input[name="track_number"]').val(count);
 
                 return '<p>Option ' + count + ': ' +
@@ -104,8 +104,8 @@ var content_types = {
 
     // initiate the values for the post type rewrite field
     function init_rewrite_checked_post_type() {
-        if ( $('.ct-post-type input[name="rewrite"]:checked').val() === '1'
-          || $('.ct-post-type input[name="rewrite"]:checked').val() === '0' ) {
+        if ( $('.ct-post-type input[name="rewrite"]:checked').val() === '1' || 
+			$('.ct-post-type input[name="rewrite"]:checked').val() === '0' ) {
             $('.ct-post-type input[name="rewrite_slug"]').attr( 'disabled', true );
         } else if ( $('.ct-post-type input[name="rewrite"]:checked').val() === 'advanced' ) {
             $('.ct-post-type input[name="rewrite_slug"]').attr( 'disabled', false );
@@ -150,24 +150,27 @@ var content_types = {
 
     // initiate the value of the taxonomy rewrite field
     function init_rewrite_checked_taxonomy() {
-        if ( $('.ct-taxonomy input[name="rewrite"]:checked').val() === '1'
-          || $('.ct-taxonomy input[name="rewrite"]:checked').val() === '0' ) {
-            $('.ct-taxonomy input[name="rewrite_slug"]').attr( 'disabled', true );
-        } else if ( $('.ct-taxonomy input[name="rewrite"]:checked').val() === 'advanced' ) {
-            $('.ct-taxonomy input[name="rewrite_slug"]').attr( 'disabled', false );
+        if ( $('.ct-taxonomy input[name="rewrite"]:checked').val() === '0' ) {
+            $('.ct-taxonomy input[name="rewrite_use_slug"]').attr( 'disabled', true );
+            $('.ct-taxonomy input[name="rewrite_disallow_with_front"]').attr( 'disabled', true );
+            $('.ct-taxonomy input[name="rewrite_hierarchical"]').attr( 'disabled', true );
+        } else if ( $('.ct-taxonomy input[name="rewrite"]:checked').val() === '1' ) {
+            $('.ct-taxonomy input[name="rewrite_use_slug"]').attr( 'disabled', false );
+            $('.ct-taxonomy input[name="rewrite_disallow_with_front"]').attr( 'disabled', false );
+            $('.ct-taxonomy input[name="rewrite_hierarchical"]').attr( 'disabled', false );
         }
     }
 
     // public field values initiation
     function field_type_options() {
-        if ( $('.ct-custom-fields select option:selected').val() === 'radio'
-          || $('.ct-custom-fields select option:selected').val() === 'selectbox'
-          || $('.ct-custom-fields select option:selected').val() === 'multiselectbox'
-          || $('.ct-custom-fields select option:selected').val() === 'checkbox' ) {
+        if ( $('.ct-custom-fields select option:selected').val() === 'radio' || 
+			$('.ct-custom-fields select option:selected').val() === 'selectbox' || 
+			$('.ct-custom-fields select option:selected').val() === 'multiselectbox' || 
+			$('.ct-custom-fields select option:selected').val() === 'checkbox' ) {
             $('.ct-field-type-options').show();
         }
-        else if ( $('.ct-custom-fields select option:selected').val() === 'text'
-               || $('.ct-custom-fields select option:selected').val() === 'textarea' ) {
+        else if ( $('.ct-custom-fields select option:selected').val() === 'text' || 
+			$('.ct-custom-fields select option:selected').val() === 'textarea' ) {
             $('.ct-field-type-options').hide();
         }
     }

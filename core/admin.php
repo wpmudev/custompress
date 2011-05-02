@@ -19,8 +19,8 @@ class CustomPress_Core_Admin extends CustomPress_Core {
      * Register all admin menues.
      */
     function admin_menu() {
-        // add_menu_page( __('CustomPress', 'custompress'), __('CustomPress', 'custompress'), 'activate_plugins', 'cp_main', array( &$this, 'handle_admin_requests' ) );
-		// add_submenu_page( 'cp_main', __('Settings', 'custompress'), __('Settings', 'custompress'), 'edit_users', 'cp_main', array( &$this, 'handle_admin_requests' ) );
+        // add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), 'activate_plugins', 'cp_main', array( &$this, 'handle_admin_requests' ) );
+		// add_submenu_page( 'cp_main', __('Settings', $this->text_domain), __('Settings', $this->text_domain), 'edit_users', 'cp_main', array( &$this, 'handle_admin_requests' ) );
 
 		// $settings_page = add_submenu_page( 'options-general.php', __( 'CustomPress', $this->text_domain ), __( 'CustomPress', $this->text_domain ), 'edit_users', 'settings', array( &$this, 'handle_admin_requests' ) );
     }
@@ -32,18 +32,16 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 	 * @return void
 	 */
 	function network_admin_menu() {
-        add_menu_page( __('CustomPress', 'custompress'), __('CustomPress', 'custompress'), 'activate_plugins', 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
-
-		$page_settings = add_submenu_page( 'cp_main', __('Settings', 'custompress'), __('Settings', 'custompress'), 'edit_users', 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
-
-        add_action( 'admin_head-' . $page_settings, array( &$this, 'ajax_actions' ) );
-
         $capability = ( $this->allow_per_site_content_types == true ) ? 'activate_plugins' : 'edit_users';
 
-        $page_content_types = add_submenu_page( 'cp_main' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), $capability, 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
+        add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), 'activate_plugins', 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
+
+        $page_content_types = add_submenu_page( 'ct_content_types' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), $capability, 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
+        $page_settings      = add_submenu_page( 'ct_content_types', __('Settings', $this->text_domain), __('Settings', $this->text_domain), 'edit_users', 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
 
         add_action( 'admin_print_styles-' .  $page_content_types, array( &$this, 'enqueue_styles' ) );
         add_action( 'admin_print_scripts-' . $page_content_types, array( &$this, 'enqueue_scripts' ) );
+        add_action( 'admin_head-' . $page_settings, array( &$this, 'ajax_actions' ) );
 	}
 
     /**
@@ -123,9 +121,9 @@ class CustomPress_Core_Admin extends CustomPress_Core {
                     $this->render_admin('post-types');
             }
             elseif ( $_GET['ct_content_type'] == 'taxonomy' ) {
-                if ( isset( $_GET['ct_add_taxonomy'] ) )
+				if ( isset( $_GET['ct_add_taxonomy'] ) 
                     $this->render_admin('add-taxonomy');
-                elseif ( isset( $_GET['ct_edit_taxonomy'] ) )
+				if ( isset( $_GET['ct_edit_taxonomy'] ) )
                     $this->render_admin('edit-taxonomy');
                 else
                     $this->render_admin('taxonomies');
