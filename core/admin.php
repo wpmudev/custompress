@@ -121,9 +121,9 @@ class CustomPress_Core_Admin extends CustomPress_Core {
                     $this->render_admin('post-types');
             }
             elseif ( $_GET['ct_content_type'] == 'taxonomy' ) {
-				if ( isset( $_GET['ct_add_taxonomy'] ) 
+				if ( isset( $_GET['ct_add_taxonomy'] ) )
                     $this->render_admin('add-taxonomy');
-				if ( isset( $_GET['ct_edit_taxonomy'] ) )
+				elseif ( isset( $_GET['ct_edit_taxonomy'] ) )
                     $this->render_admin('edit-taxonomy');
                 else
                     $this->render_admin('taxonomies');

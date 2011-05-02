@@ -57,7 +57,7 @@
 .ct-arrow {
     background: url("../images/menu-bits.gif") no-repeat left -109px;
     float:right;
-    height:28px;
+    height:27px;
     width:23px
 }
 .ct-arrow:hover {
@@ -107,4 +107,7 @@
 }
 .embed-code-wrap {
     margin-left: 10px;
+}
+.toplevel_page_ct_content_types .updated {
+	margin: 12px 15px 0px 0px; 
 }

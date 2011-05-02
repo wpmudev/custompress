@@ -71,11 +71,12 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     'description'         => $_POST['description'],
                     'menu_position'       => (int)  $_POST['menu_position'],
                     'public'              => (bool) $_POST['public'] ,
-                    'show_ui'             => ( isset( $_POST['show_ui'] ) ) ? (bool) $_POST['show_ui'] : NULL,
-                    'show_in_nav_menus'   => ( isset( $_POST['show_in_nav_menus'] ) ) ? (bool) $_POST['show_in_nav_menus'] : NULL,
-                    'publicly_queryable'  => ( isset( $_POST['publicly_queryable'] ) ) ? (bool) $_POST['publicly_queryable'] : NULL,
-                    'exclude_from_search' => ( isset( $_POST['exclude_from_search'] ) ) ? (bool) $_POST['exclude_from_search'] : NULL,
+                    'show_ui'             => ( isset( $_POST['show_ui'] ) ) ? (bool) $_POST['show_ui'] : null,
+                    'show_in_nav_menus'   => ( isset( $_POST['show_in_nav_menus'] ) ) ? (bool) $_POST['show_in_nav_menus'] : null,
+                    'publicly_queryable'  => ( isset( $_POST['publicly_queryable'] ) ) ? (bool) $_POST['publicly_queryable'] : null,
+                    'exclude_from_search' => ( isset( $_POST['exclude_from_search'] ) ) ? (bool) $_POST['exclude_from_search'] : null,
                     'hierarchical'        => (bool) $_POST['hierarchical'],
+					'has_archive'		  => (bool) $_POST['has_archive'],
                     'rewrite'             => (bool) $_POST['rewrite'],
                     'query_var'           => (bool) $_POST['query_var'],
                     'can_export'          => (bool) $_POST['can_export']
@@ -88,7 +89,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 }
 
 				// Set menu icon 
-                if ( !empty( $_POST['menu_icon'] ))
+                if ( !empty( $_POST['menu_icon'] ) )
                    $args['menu_icon'] = $_POST['menu_icon'];
 
 				// remove keys so we can use the defaults 
@@ -101,10 +102,24 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     unset( $args['exclude_from_search'] );
                 }
 
-				// If custom rewrite slug is set, use it 
-                if ( $_POST['rewrite'] == 'advanced' && !empty( $_POST['rewrite_slug'] )) {
-                    $args['rewrite'] = array( 'slug' => $_POST['rewrite_slug'] );
-					// Set flag which will later be used in register_post_types() 
+				// Set slug for post type archive pages
+				if ( !empty( $_POST['has_archive_slug'] ) ) 
+					$args['has_archive'] = $_POST['has_archive_slug']; 
+
+				// Customize taxonomy rewrite  
+                if ( !empty( $_POST['rewrite'] ) ) {
+
+					if ( !empty( $_POST['rewrite_slug'] ) )
+						$args['rewrite'] = (array) $args['rewrite'] + array( 'slug' => $_POST['rewrite_slug'] );
+
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => (bool) $_POST['rewrite_with_front'] );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'feeds' => (bool) $_POST['rewrite_feeds'] );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'pages' => (bool) $_POST['rewrite_pages'] );
+
+					// Remove boolean remaining from the type casting
+					if ( is_array( $args['rewrite'] ) )
+						unset( $args['rewrite'][0] );
+
                     $this->flush_rewrite_rules = true;
                 }
 
@@ -130,7 +145,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 }
 
 				// Redirect to post types page 
-                wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&updated&frr=' . $this->flush_rewrite_rules ) );
+				wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=post_type&updated&frr=' . $this->flush_rewrite_rules ) );
             }
         }
         elseif ( isset( $_POST['submit'] ) 
@@ -236,22 +251,15 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				// Customize taxonomy rewrite  
                 if ( !empty( $_POST['rewrite'] ) ) {
 
-					if (   !empty( $_POST['rewrite_use_slug'] ) 
-						&& !empty( $_POST['rewrite_slug'] ) 
-						|| !empty( $_POST['rewrite_disallow_with_front'] ) 
-						|| !empty( $_POST['rewrite_hierarchical'] ) 
-					) {
-						$args['rewrite'] = array();
-					}	
+					if ( !empty( $_POST['rewrite_slug'] ) )
+						$args['rewrite'] = (array) $args['rewrite'] + array( 'slug' => $_POST['rewrite_slug'] );
 
-					if ( !empty( $_POST['rewrite_use_slug'] ) && !empty( $_POST['rewrite_slug'] ) )
-						array_merge( $args['rewrite'], array( 'slug' => $_POST['rewrite_slug'] ) );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => (bool) $_POST['rewrite_with_front'] );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'hierarchical' => (bool) $_POST['rewrite_hierarchical'] );
 
-					if ( !empty( $_POST['rewrite_disallow_with_front'] ) )
-						array_merge( $args['rewrite'], array( 'with_front' => true ) );
-
-					if ( !empty( $_POST['rewrite_hierarchical'] ) )
-						array_merge( $args['rewrite'], array( 'hierarchical' => true ) );
+					// Remove boolean remaining from the type casting
+					if ( is_array( $args['rewrite'] ) )
+						unset( $args['rewrite'][0] );
 
                     $this->flush_rewrite_rules = true;
                 }
@@ -266,16 +274,17 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 $taxonomies = ( $this->taxonomies )
                     ? array_merge( $this->taxonomies, array( $taxonomy => array( 'object_type' => $object_type, 'args' => $args ) ) )
                     : array( $taxonomy => array( 'object_type' => $object_type, 'args' => $args ) );
+
 				// Check whether we have a new post type and set flush rewrite rules 
-				//
-                if ( !is_array( $this->taxonomies ) || !array_key_exists( $taxonomy, $this->taxonomies ) )
-                    $this->flush_rewrite_rules = true;
+				if ( !is_array( $this->taxonomies ) || !array_key_exists( $taxonomy, $this->taxonomies ) )
+					$this->flush_rewrite_rules = true;
 
 				// Update wp_options with the taxonomies options 
                 if ( $this->allow_per_site_content_types == true ) {
                     update_option( 'ct_custom_taxonomies', $taxonomies );
                 } else {
                     update_site_option( 'ct_custom_taxonomies', $taxonomies );
+
 					// Set flag for flush rewrite rules network-wide 
                     if ( $this->flush_rewrite_rules ) {
                         update_site_option( 'ct_frr_id', uniqid('') );
@@ -283,7 +292,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 }
 
 				// Redirect back to the taxonomies page 
-                wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&updated&frr' . $this->flush_rewrite_rules ) );
+				wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&updated&frr' . $this->flush_rewrite_rules ) );
             }
         }
         elseif ( isset( $_POST['submit'] ) 

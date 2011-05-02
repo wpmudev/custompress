@@ -285,7 +285,7 @@
                         <label for="hierarchical"><?php _e('Hierarchical', $this->text_domain) ?></label>
                     </th>
                     <td>
-                        <span class="description"><?php _e('Whether the post type is hierarchical. Allows Parent to be specified.', $this->text_domain); ?></span>
+                        <span class="description"><?php _e('Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags.', $this->text_domain); ?></span>
                     </td>
                 </tr>
                <tr>
@@ -326,17 +326,16 @@
                         <span class="description"><?php _e('Prevent rewrite.', $this->text_domain); ?></span>
                         <br /><br />
 
-                        <input type="checkbox" name="rewrite_use_slug" value="1" <?php if ( !empty( $_POST['rewrite_use_slug'] ) ) echo 'checked="checked"'; ?>>
                         <span class="description"><strong><?php _e('Custom Slug', $this->text_domain); ?></strong></span>
                         <br />
-                        <input type="text" name="rewrite_slug" value="<?php if ( isset( $_POST['rewrite_slug'] ) ) echo $_POST['rewrite_slug']; ?>" />
+                        <input type="text" name="rewrite_slug" value="<?php if ( !empty( $_POST['rewrite_slug'] ) ) echo $_POST['rewrite_slug']; ?>" />
                         <br />
-                        <span class="description"><?php _e('Prepend posts with this slug.', $this->text_domain); ?></span>
+                        <span class="description"><?php _e('Prepend posts with this slug. If empty default will be used.', $this->text_domain); ?></span>
 						<br /><br />
-                        <input type="checkbox" name="rewrite_disallow_with_front" value="1" <?php if ( !empty( $_POST['rewrite_disallow_with_front'] ) ) echo 'checked="checked"'; ?>>
-                        <span class="description"><strong><?php _e('Remove Front Base', $this->text_domain); ?></strong></span>
+                        <input type="checkbox" name="rewrite_with_front" value="1" <?php if ( !isset( $_POST['rewrite_with_front'] ) || !empty( $_POST['rewrite_with_front'] ) ) echo 'checked="checked"'; ?>>
+                        <span class="description"><strong><?php _e('Allow Front Base', $this->text_domain); ?></strong></span>
                         <br />
-                        <span class="description"><?php _e('Disallowing permalinks to be prepended with front base.', $this->text_domain); ?></span>
+                        <span class="description"><?php _e('Allowing permalinks to be prepended with front base.', $this->text_domain); ?></span>
 						<br /><br />
                         <input type="checkbox" name="rewrite_hierarchical" value="1" <?php if ( !empty( $_POST['rewrite_hierarchical'] ) ) echo 'checked="checked"'; ?>>
                         <span class="description"><strong><?php _e('Hierarchical URLs', $this->text_domain); ?></strong></span>

@@ -34,6 +34,8 @@ var content_types = {
         // bind functions
         $(window).bind('load', init_public_checked_post_type);
         $('.ct-post-type input[name="public"]').bind('change', init_public_checked_post_type);
+        $(window).bind('load', init_has_archive_checked_post_type);
+        $('.ct-post-type input[name="has_archive"]').bind('change', init_has_archive_checked_post_type);
         $(window).bind('load', init_rewrite_checked_post_type);
         $('.ct-post-type input[name="rewrite"]').bind('change', init_rewrite_checked_post_type);
         $(window).bind('load', init_capability_checked_post_type);
@@ -60,6 +62,7 @@ var content_types = {
                         '</p>'; 
             });
         });
+
         // custom fields remove options
         $('.ct-field-delete-option').live('click', function() {
             $(this).parent().remove();
@@ -102,13 +105,27 @@ var content_types = {
         }
     }
 
-    // initiate the values for the post type rewrite field
+    // initiate the value of the post_type rewrite field
+    function init_has_archive_checked_post_type() {
+        if ( $('.ct-post-type input[name="has_archive"]:checked').val() === '0' ) {
+            $('.ct-post-type input[name="has_archive_slug"]').attr( 'disabled', true );
+        } else if ( $('.ct-post-type input[name="has_archive"]:checked').val() === '1' ) {
+            $('.ct-post-type input[name="has_archive_slug"]').attr( 'disabled', false );
+        }
+    }
+
+    // initiate the value of the post_type rewrite field
     function init_rewrite_checked_post_type() {
-        if ( $('.ct-post-type input[name="rewrite"]:checked').val() === '1' || 
-			$('.ct-post-type input[name="rewrite"]:checked').val() === '0' ) {
+        if ( $('.ct-post-type input[name="rewrite"]:checked').val() === '0' ) {
             $('.ct-post-type input[name="rewrite_slug"]').attr( 'disabled', true );
-        } else if ( $('.ct-post-type input[name="rewrite"]:checked').val() === 'advanced' ) {
+            $('.ct-post-type input[name="rewrite_with_front"]').attr( 'disabled', true );
+            $('.ct-post-type input[name="rewrite_feeds"]').attr( 'disabled', true );
+            $('.ct-post-type input[name="rewrite_pages"]').attr( 'disabled', true );
+        } else if ( $('.ct-post-type input[name="rewrite"]:checked').val() === '1' ) {
             $('.ct-post-type input[name="rewrite_slug"]').attr( 'disabled', false );
+            $('.ct-post-type input[name="rewrite_with_front"]').attr( 'disabled', false );
+            $('.ct-post-type input[name="rewrite_feeds"]').attr( 'disabled', false );
+            $('.ct-post-type input[name="rewrite_pages"]').attr( 'disabled', false );
         }
     }
 
@@ -151,12 +168,12 @@ var content_types = {
     // initiate the value of the taxonomy rewrite field
     function init_rewrite_checked_taxonomy() {
         if ( $('.ct-taxonomy input[name="rewrite"]:checked').val() === '0' ) {
-            $('.ct-taxonomy input[name="rewrite_use_slug"]').attr( 'disabled', true );
-            $('.ct-taxonomy input[name="rewrite_disallow_with_front"]').attr( 'disabled', true );
+            $('.ct-taxonomy input[name="rewrite_slug"]').attr( 'disabled', true );
+            $('.ct-taxonomy input[name="rewrite_with_front"]').attr( 'disabled', true );
             $('.ct-taxonomy input[name="rewrite_hierarchical"]').attr( 'disabled', true );
         } else if ( $('.ct-taxonomy input[name="rewrite"]:checked').val() === '1' ) {
-            $('.ct-taxonomy input[name="rewrite_use_slug"]').attr( 'disabled', false );
-            $('.ct-taxonomy input[name="rewrite_disallow_with_front"]').attr( 'disabled', false );
+            $('.ct-taxonomy input[name="rewrite_slug"]').attr( 'disabled', false );
+            $('.ct-taxonomy input[name="rewrite_with_front"]').attr( 'disabled', false );
             $('.ct-taxonomy input[name="rewrite_hierarchical"]').attr( 'disabled', false );
         }
     }
