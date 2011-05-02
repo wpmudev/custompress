@@ -1,6 +1,11 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
-<?php $custom_fields = $this->custom_fields; ?>
+<?php 
+if ( is_network_admin() )
+	$custom_fields = get_site_option('ct_custom_fields');
+else 
+	$custom_fields = $this->custom_fields;
+?>
 
 <?php $this->render_admin('update-message'); ?>
 

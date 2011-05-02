@@ -1,7 +1,11 @@
 <?php
 
 /**
- * CustomPress Core Class
+ * CustomPress_Core 
+ * 
+ * @copyright Incsub 2007-2011 {@link http://incsub.com}
+ * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh} 
+ * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
  */
 class CustomPress_Core {
 
@@ -26,7 +30,7 @@ class CustomPress_Core {
     /** @var boolean Flag whether to flush the rewrite rules or not */
     var $flush_rewrite_rules = false;
     /** @var boolean Flag whether the users have the ability to declair post type for their own blogs */
-    var $allow_per_site_content_types = false;
+    var $enable_subsite_content_types = false;
 
     function CustomPress_Core() {
         add_action( 'init', array( &$this, 'load_plugin_textdomain' ), 0 );
@@ -38,7 +42,7 @@ class CustomPress_Core {
         $plugin = plugin_basename(__FILE__);
 
         add_filter( "plugin_action_links_$plugin", array( &$this, 'plugin_settings_link' ) );
-        add_filter( 'allow_per_site_content_types', array( &$this, 'allow_per_site_content_types' ) );
+        add_filter( 'enable_subsite_content_types', array( &$this, 'enable_subsite_content_types' ) );
     }
 
     /**
@@ -47,16 +51,18 @@ class CustomPress_Core {
      * @return void
      */
     function init_vars() {
-        $this->allow_per_site_content_types = apply_filters( 'allow_per_site_content_types', false );
-        if ( $this->allow_per_site_content_types == true ) {
-            $this->post_types = get_option( 'ct_custom_post_types' );
-            $this->taxonomies = get_option( 'ct_custom_taxonomies' );
+        $this->enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
+
+        if ( $this->enable_subsite_content_types == 1 ) {
+            $this->post_types    = get_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_option( 'ct_custom_taxonomies' );
             $this->custom_fields = get_option( 'ct_custom_fields' );
         } else {
-            $this->post_types = get_site_option( 'ct_custom_post_types' );
-            $this->taxonomies = get_site_option( 'ct_custom_taxonomies' );
+            $this->post_types    = get_site_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
             $this->custom_fields = get_site_option( 'ct_custom_fields' );
         }
+
         $this->registered_post_type_names = get_post_types('','names');
     }
 
@@ -124,8 +130,9 @@ class CustomPress_Core {
      * @param <type> $bool
      * @return bool
      */
-    function allow_per_site_content_types( $bool ) {
+    function enable_subsite_content_types( $bool ) {
         $option = get_site_option('allow_per_site_content_types');
+
         if ( !empty( $option ) )
             return true;
         else
@@ -230,7 +237,7 @@ class CustomPress_Core {
                     if ( @copy( $file, $newfile ) ) {
                         chmod( $newfile, 0777 );
                     } else {
-                        echo "Failed to copy $file...\n";
+                        echo '<div class="error">Failed to copy ' .  $file . '. Please set your active theme folder permissions to 777.</div>';
                     }
                 }
             }
@@ -262,7 +269,7 @@ class CustomPress_Core {
      * @param  string|NULL $key The key for that plugin option.
      * @return array $options Plugin options or empty array if no options are found
      */
-    function get_options( $key = NULL ) {
+    function get_options( $key = null ) {
         $options = get_option( $this->options_name );
         $options = is_array( $options ) ? $options : array();
         /* Check if specific plugin option is requested and return it */
@@ -271,6 +278,22 @@ class CustomPress_Core {
         else
             return $options;
     }
+
+    /**
+	 * Renders an admin section of display code.
+	 *
+	 * @param  string $name Name of the admin file(without extension)
+	 * @param  string $vars Array of variable name=>value that is available to the display code(optional)
+	 * @return void
+	 */
+    function render_admin( $name, $vars = array() ) {
+		foreach ( $vars as $key => $val )
+			$$key = $val;
+		if ( file_exists( "{$this->plugin_dir}ui-admin/{$name}.php" ) )
+			include "{$this->plugin_dir}ui-admin/{$name}.php";
+		else
+			echo "<p>Rendering of admin template {$this->plugin_dir}ui-admin/{$name}.php failed</p>";
+	}
 }
 
 new CustomPress_Core();

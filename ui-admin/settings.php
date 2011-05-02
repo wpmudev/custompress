@@ -1,41 +1,50 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
 <?php
-$allow_per_site_content_types = get_site_option('allow_per_site_content_types');
-if ( $allow_per_site_content_types )
-    $post_types = get_option('ct_custom_post_types');
-else
+$enable_subsite_content_types = get_site_option('allow_per_site_content_types');
+$keep_network_content_types   = get_site_option('keep_network_content_types');
+
+if ( is_network_admin() )
     $post_types = get_site_option('ct_custom_post_types');
+else
+    $post_types = get_option('ct_custom_post_types');
 ?>
 
 <div class="wrap">
     <?php screen_icon('options-general'); ?>
-    <h2><?php _e('CustomPress Settings', 'custompress'); ?></h2>
+    <h2><?php _e('CustomPress Settings', $this->text_domain); ?></h2>
 
     <?php $this->render_admin('message'); ?>
 
     <form action="" method="post" class="cp-main">
 
-        <?php if ( is_multisite() && is_super_admin() ): ?>
-        <h3><?php _e( 'Allow', 'directory' ); ?></h3>
+        <?php if ( is_multisite() && is_super_admin() && is_network_admin() ): ?>
+        <h3><?php _e( 'General', $this->text_domain );  ?></h3>
         <table class="form-table">
             <tr>
                 <th>
-                    <label for="allow_per_site_content_types"><?php _e('Allow per site content types.', 'custompress') ?></label>
+                    <label for="enable_subsite_content_types"><?php _e('Enable sub-site content types.', $this->text_domain) ?></label>
                 </th>
                 <td>
-                    <input type="checkbox" id="allow_per_site_content_types" name="allow_per_site_content_types" value="1" <?php if ( !empty( $allow_per_site_content_types ) ) echo 'checked="checked"'; ?>  />
-                    <span class="description"><?php _e('If you enable this setting, sites on your network will be able to define their own content types. Please note, that these content types are local to each site ( including the root one ) so the already defined network-wide content types will not be available ( unless you uncheck this setting - they are preserved ). If you disable this setting ( default behaviour ) all sites on your network can use the network-wide content types set by you, the Super Admin, but they cannot modify them.', 'directory'); ?></span>
+                    <input type="checkbox" id="enable_subsite_content_types" name="enable_subsite_content_types" value="1" <?php if ( !empty( $enable_subsite_content_types ) ) echo 'checked="checked"'; ?>  />
+                    <span class="description"><?php _e('If you enable this option, sub-sites on your network will be able to define their own content types. If this option is not enabled ( default ) all sites on your network will be forced to use the network-wide content types defined by you, the Super Admin.', $this->text_domain); ?></span>
+					<br /><br />
+					<input type="radio" name="keep_network_content_types" value="1" <?php if ( !empty( $keep_network_content_types ) ) echo 'checked="checked"'; ?> />
+                    <span class="description"><?php _e('Keep the network-wide content types on sub-sites.', $this->text_domain); ?></span>
+					<br />
+                    <input type="radio" name="keep_network_content_types" value="0" <?php if ( empty( $keep_network_content_types ) ) echo 'checked="checked"'; ?> />
+                    <span class="description"><?php _e('Remove the network-wide content types from sub-sites.', $this->text_domain); ?></span>
                 </td>
             </tr>
         </table>
         <?php endif; ?>
 
-        <h3><?php _e( 'Display', 'custompress' ); ?></h3>
+		<?php if ( is_admin() && !is_network_admin() ): ?>
+        <h3><?php _e( 'Post Types', $this->text_domain ); ?></h3>
         <table class="form-table">
             <tr>
                 <th>
-                    <label for="post_type"><?php _e('Display post types on "Home": ', 'custompress') ?></label>
+                    <label for="post_type"><?php _e('Display post types on "Home": ', $this->text_domain) ?></label>
                 </th>
                 <td>
                     <input type="checkbox" name="post_type[]" value="post" />
@@ -55,21 +64,22 @@ else
                         <?php endforeach; ?>
                     <?php endif; ?>
                     <br />
-                    <span class="description"><?php _e('Check the custom post types you want to display on the "Home" page.', 'custompress'); ?></span>
+                    <span class="description"><?php _e('Check the custom post types you want to display on the "Home" page.', $this->text_domain); ?></span>
                     <br /><br />
                     <input type="checkbox" name="post_type[]" value="default" />
                     <span class="description"><strong>default</strong></span><br /><br />
-                    <span class="description"><?php _e('If "default" is checked the "Home" page will display the default post types.', 'custompress'); ?></span>
+                    <span class="description"><?php _e('If "default" is checked the "Home" page will display the default post types.', $this->text_domain); ?></span>
                 </td>
             </tr>
         </table>
+		<?php endif; ?>
 
-        <?php if ( is_super_admin() ): ?>
-        <h3><?php _e( 'Template Files', 'custompress' ); ?></h3>
+        <?php if ( is_super_admin() && is_network_admin() ): ?>
+        <h3><?php _e( 'Template Files', $this->text_domain ); ?></h3>
         <table class="form-table">
             <tr>
                 <th>
-                    <label for="post_type"><?php _e('Create template file for: ', 'custompress') ?></label>
+                    <label for="post_type"><?php _e('Create template file for: ', $this->text_domain) ?></label>
                 </th>
                 <td>
                     <?php if ( !empty( $post_types )): ?>
@@ -79,12 +89,12 @@ else
                             <br />
                         <?php endforeach; ?>
                     <?php else: ?>
-                        <span class="description"><strong><?php _e('No custom post types available', 'custompress'); ?></strong></span>
+                        <span class="description"><strong><?php _e('No custom post types available', $this->text_domain); ?></strong></span>
                     <?php endif; ?>
                     <br />
-                    <span class="description"><?php _e('This will create "single-[post_type].php" file inside your active theme directory. This file will be the custom template for your custom post type. You can then edit and customize it.', 'custompress'); ?></span><br />
-                    <span class="description"><?php _e('In some cases you may not want to do that. For example if you don\'t have a template for your custom post type the default "single.php" will be used.', 'custompress'); ?></span><br />
-                    <span class="description"><?php _e('Your active theme folder permissions have to be set to 777 for this option to work. After the file is created you can set your active theme directory permissions back to 755.', 'custompress'); ?></span>
+                    <span class="description"><?php _e('This will create "single-[post_type].php" file inside your active theme directory by copying your current single.php template. This file will be the custom template for your custom post type. You can then edit and customize it.', $this->text_domain); ?></span><br />
+                    <span class="description"><?php _e('In some cases you may not want to do that. For example if you don\'t have a template for your custom post type the default "single.php" will be used.', $this->text_domain); ?></span><br />
+                    <span class="description"><?php _e('Your active theme folder permissions have to be set to 777 for this option to work. After the file is created you can set your active theme directory permissions back to 755.', $this->text_domain); ?></span>
                 </td>
             </tr>
         </table>

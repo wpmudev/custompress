@@ -6,7 +6,7 @@
 class CustomPress_Core_Admin extends CustomPress_Core {
 
     function CustomPress_Core_Admin() {
-        // add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
         add_action( 'network_admin_menu', array( &$this, 'network_admin_menu' ) );
 
         add_action( 'admin_print_styles-post.php', array( &$this, 'enqueue_custom_field_styles') );
@@ -16,31 +16,40 @@ class CustomPress_Core_Admin extends CustomPress_Core {
     }
 
     /**
-     * Register all admin menues.
+     * Register site admin menues.
+	 *
+	 * @access public
+	 * @return void
      */
     function admin_menu() {
-        // add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), 'activate_plugins', 'cp_main', array( &$this, 'handle_admin_requests' ) );
-		// add_submenu_page( 'cp_main', __('Settings', $this->text_domain), __('Settings', $this->text_domain), 'edit_users', 'cp_main', array( &$this, 'handle_admin_requests' ) );
+        $capability = ( $this->enable_subsite_content_types == true ) ? 'activate_plugins' : 'manage_network';
 
-		// $settings_page = add_submenu_page( 'options-general.php', __( 'CustomPress', $this->text_domain ), __( 'CustomPress', $this->text_domain ), 'edit_users', 'settings', array( &$this, 'handle_admin_requests' ) );
+        add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), $capability, 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
+
+        $page_content_types = add_submenu_page( 'ct_content_types' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), $capability, 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
+        $page_settings      = add_submenu_page( 'ct_content_types', __('Settings', $this->text_domain), __('Settings', $this->text_domain), $capability, 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
+
+        add_action( 'admin_print_styles-' .  $page_content_types, array( &$this, 'enqueue_styles' ) );
+        add_action( 'admin_print_scripts-' . $page_content_types, array( &$this, 'enqueue_scripts' ) );
+        add_action( 'admin_print_scripts-' . $page_settings, array( &$this, 'enqueue_settings_scripts' ) );
+        add_action( 'admin_head-' . $page_settings, array( &$this, 'ajax_actions' ) );
     }
 
 	/**
-	 * network_admin_menu 
+	 * Register network admin menus. 
 	 * 
 	 * @access public
 	 * @return void
 	 */
 	function network_admin_menu() {
-        $capability = ( $this->allow_per_site_content_types == true ) ? 'activate_plugins' : 'edit_users';
+        add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), 'manage_network', 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
 
-        add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), 'activate_plugins', 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
-
-        $page_content_types = add_submenu_page( 'ct_content_types' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), $capability, 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
-        $page_settings      = add_submenu_page( 'ct_content_types', __('Settings', $this->text_domain), __('Settings', $this->text_domain), 'edit_users', 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
+        $page_content_types = add_submenu_page( 'ct_content_types' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), 'manage_network', 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
+        $page_settings      = add_submenu_page( 'ct_content_types', __('Settings', $this->text_domain), __('Settings', $this->text_domain), 'manage_network', 'cp_main', array( &$this, 'handle_settings_page_requests' ) );
 
         add_action( 'admin_print_styles-' .  $page_content_types, array( &$this, 'enqueue_styles' ) );
         add_action( 'admin_print_scripts-' . $page_content_types, array( &$this, 'enqueue_scripts' ) );
+        add_action( 'admin_print_scripts-' . $page_settings, array( &$this, 'enqueue_settings_scripts' ) );
         add_action( 'admin_head-' . $page_settings, array( &$this, 'ajax_actions' ) );
 	}
 
@@ -61,7 +70,18 @@ class CustomPress_Core_Admin extends CustomPress_Core {
      */
     function enqueue_scripts() {
         wp_enqueue_script( 'ct-admin-scripts',
-                            $this->plugin_url . 'ui-admin/js/scripts.js',
+                            $this->plugin_url . 'ui-admin/js/ct-scripts.js',
+                            array( 'jquery' ) );
+    }
+
+    /**
+     * Load scripts on plugin specific admin pages only.
+     *
+     * @return void
+     */
+    function enqueue_settings_scripts() {
+        wp_enqueue_script( 'settings-admin-scripts',
+                            $this->plugin_url . 'ui-admin/js/settings-scripts.js',
                             array( 'jquery' ) );
     }
 
@@ -82,13 +102,20 @@ class CustomPress_Core_Admin extends CustomPress_Core {
     function handle_settings_page_requests() {
 		// Save settings 
 		if ( isset( $_POST['save'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'verify' ) ) {
+
 			// Set network-wide content types 
-			if ( is_multisite() && is_super_admin() ) {
-				if ( !empty( $_POST['allow_per_site_content_types'] ) )
+			if ( is_multisite() && is_super_admin() && is_network_admin() ) {
+
+				if ( !empty( $_POST['enable_subsite_content_types'] ) ) {
 					update_site_option( 'allow_per_site_content_types', true );
-				else
+					update_site_option( 'keep_network_content_types', (bool) $_POST['keep_network_content_types'] );
+				}
+				else {
 					update_site_option( 'allow_per_site_content_types', false );
-				/* Create template file */
+					update_site_option( 'keep_network_content_types', false );
+				}
+
+				// Create template file 
 				if ( !empty( $_POST['post_type_file'] ) ) {
 					$this->create_post_type_files( $_POST['post_type_file'] );
 				}
@@ -138,21 +165,6 @@ class CustomPress_Core_Admin extends CustomPress_Core {
             }
     }
 
-    /**
-	 * Renders an admin section of display code.
-	 *
-	 * @param  string $name Name of the admin file(without extension)
-	 * @param  string $vars Array of variable name=>value that is available to the display code(optional)
-	 * @return void
-	 */
-    function render_admin( $name, $vars = array() ) {
-		foreach ( $vars as $key => $val )
-			$$key = $val;
-		if ( file_exists( "{$this->plugin_dir}ui-admin/{$name}.php" ) )
-			include "{$this->plugin_dir}ui-admin/{$name}.php";
-		else
-			echo "<p>Rendering of admin template {$this->plugin_dir}ui-admin/{$name}.php failed</p>";
-	}
 }
 
 /* Initiate Admin Class */

@@ -1,6 +1,11 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
-<?php $post_types = $this->post_types; ?>
+<?php 
+if ( is_network_admin() )
+	$post_types = get_site_option('ct_custom_post_types');
+else 
+	$post_types = $this->post_types;
+?>
 
 <?php $this->render_admin('update-message'); ?>
 

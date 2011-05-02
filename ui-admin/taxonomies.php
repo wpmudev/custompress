@@ -1,6 +1,11 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
-<?php $taxonomies = $this->taxonomies; ?>
+<?php 
+if ( is_network_admin() )
+	$taxonomies = get_site_option('ct_custom_taxonomies');
+else 
+	$taxonomies = $this->taxonomies;
+?>
 
 <?php $this->render_admin('update-message'); ?>
 

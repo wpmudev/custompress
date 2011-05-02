@@ -104,7 +104,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
                     </th>
                     <td>
                         <select name="object_type[]" multiple="multiple" class="ct-object-type">
-                            <?php if ( !empty( $post_types )): ?>
+                            <?php if ( !empty( $post_types ) ): ?>
                                 <?php foreach( $post_types as $post_type ): ?>
                                     <option value="<?php echo ( $post_type ); ?>" <?php foreach ( $custom_field['object_type'] as $key => $object_type ) { if ( $object_type == $post_type ) echo( 'selected="selected"' ); } ?>><?php echo ( $post_type ); ?></option>
                                 <?php endforeach; ?>

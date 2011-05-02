@@ -1,7 +1,13 @@
 <?php
 
 /**
- * Content Types Core Class
+ * CustomPress_Content_Types 
+ * 
+ * @uses CustomPress
+ * @uses _Core
+ * @copyright Incsub 2007-2011 {@link http://incsub.com}
+ * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh} 
+ * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
  */
 class CustomPress_Content_Types extends CustomPress_Core {
 
@@ -134,7 +140,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     $this->flush_rewrite_rules = true;
 
 				// Update options with the post type options 
-                if ( $this->allow_per_site_content_types == true ) {
+                if ( $this->enable_subsite_content_types == 1 ) {
                     update_option( 'ct_custom_post_types', $post_types );
                 } else {
                     update_site_option( 'ct_custom_post_types', $post_types );
@@ -156,7 +162,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			// remove the deleted post type 
             unset( $post_types[$_POST['post_type_name']] );
 			// update the available post types 
-            if ( $this->allow_per_site_content_types == true )
+            if ( $this->enable_subsite_content_types == 1 )
                 update_option( 'ct_custom_post_types', $post_types );
             else
                 update_site_option( 'ct_custom_post_types', $post_types );
@@ -177,14 +183,26 @@ class CustomPress_Content_Types extends CustomPress_Core {
      * @return void
      */
     function register_post_types() {
+		// TODO This sucks, think of a better way 
+		$keep_network_content_types = get_site_option('keep_network_content_types');
+
+		if ( $keep_network_content_types == 1 ) {
+			$post_types = get_site_option('ct_custom_post_types');
+			// Register each post type if array of data is returned 
+			if ( is_array( $post_types ) ) {
+				foreach ( $post_types as $post_type => $args )
+					register_post_type( $post_type, $args );
+			}
+		}
+
         $post_types = $this->post_types;
 		// Register each post type if array of data is returned 
         if ( is_array( $post_types ) ) {
             foreach ( $post_types as $post_type => $args )
                 register_post_type( $post_type, $args );
-			// Flush the rewrite rules if necessary 
-            $this->flush_rewrite_rules();
         }
+
+        $this->flush_rewrite_rules();
     }
 
     /**
@@ -280,13 +298,13 @@ class CustomPress_Content_Types extends CustomPress_Core {
 					$this->flush_rewrite_rules = true;
 
 				// Update wp_options with the taxonomies options 
-                if ( $this->allow_per_site_content_types == true ) {
+                if ( $this->enable_subsite_content_types == 1 ) {
                     update_option( 'ct_custom_taxonomies', $taxonomies );
                 } else {
                     update_site_option( 'ct_custom_taxonomies', $taxonomies );
 
 					// Set flag for flush rewrite rules network-wide 
-                    if ( $this->flush_rewrite_rules ) {
+                    if ( $this->flush_rewrite_rules == true ) {
                         update_site_option( 'ct_frr_id', uniqid('') );
                     }
                 }
@@ -301,13 +319,16 @@ class CustomPress_Content_Types extends CustomPress_Core {
         ) {
 			// Set available taxonomies 
             $taxonomies = $this->taxonomies;
+
 			// Remove the deleted taxonomy 
             unset( $taxonomies[$_POST['taxonomy_name']] );
+
 			// Update the available taxonomies 
-            if ( $this->allow_per_site_content_types == true )
+            if ( $this->enable_subsite_content_types == 1 )
                 update_option( 'ct_custom_taxonomies', $taxonomies );
             else
                 update_site_option( 'ct_custom_taxonomies', $taxonomies );
+
 			// Redirect back to the taxonomies page 
             wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=taxonomy&updated' ) );
         }
@@ -326,6 +347,19 @@ class CustomPress_Content_Types extends CustomPress_Core {
      * @return void
      */
     function register_taxonomies() {
+		// TODO This sucks, think of a better way 
+		$keep_network_content_types = get_site_option('keep_network_content_types');
+
+		if ( $keep_network_content_types == 1 ) {
+			$taxonomies = get_site_option('ct_custom_taxonomies');
+			// If custom taxonomies are present, register them 
+			if ( is_array( $taxonomies ) ) {
+				// Register taxonomies 
+				foreach ( $taxonomies as $taxonomy => $args )
+					register_taxonomy( $taxonomy, $args['object_type'], $args['args'] );
+			}
+		}
+
         $taxonomies = $this->taxonomies;
 		// Plugins can filter this value and sort taxonomies 
         $sort = null;
@@ -385,11 +419,15 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 unset( $args['field_options'] );
 
 			// Set new custom fields 
-            $custom_fields = ( $this->custom_fields ) ? array_merge( $this->custom_fields, array( $field_id => $args ) ) : array( $field_id => $args );
-            if ( $this->allow_per_site_content_types == true )
+			$custom_fields = ( $this->custom_fields ) 
+				? array_merge( $this->custom_fields, array( $field_id => $args ) ) 
+				: array( $field_id => $args );
+
+            if ( $this->enable_subsite_content_types == 1 )
                 update_option( 'ct_custom_fields', $custom_fields );
             else
                 update_site_option( 'ct_custom_fields', $custom_fields );
+
             wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
         }
         elseif ( isset( $_POST['submit'] ) 
@@ -398,13 +436,16 @@ class CustomPress_Content_Types extends CustomPress_Core {
         ) {
 			// Set available custom fields 
             $custom_fields = $this->custom_fields;
+
 			// Remove the deleted custom field 
             unset( $custom_fields[$_POST['custom_field_id']] );
+
 			// Update the available custom fields 
-            if ( $this->allow_per_site_content_types == true )
+            if ( $this->enable_subsite_content_types == 1 )
                 update_option( 'ct_custom_fields', $custom_fields );
             else
                 update_site_option( 'ct_custom_fields', $custom_fields );
+
 			// Redirect back to the taxonomies page 
             wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
         }
@@ -419,6 +460,20 @@ class CustomPress_Content_Types extends CustomPress_Core {
      * @return void
      */
     function create_custom_fields() {
+		// TODO This sucks, think of a better way 
+		$keep_network_content_types = get_site_option('keep_network_content_types');
+
+		if ( $keep_network_content_types == 1 ) {
+			$custom_fields = get_site_option('ct_custom_fields');
+
+			if ( !empty( $custom_fields ) ) {
+				foreach ( $custom_fields as $custom_field ) {
+					foreach ( $custom_field['object_type'] as $object_type )
+						add_meta_box( 'ct-network-custom-fields', 'Default Custom Fields', array( &$this, 'display_custom_fields_network' ), $object_type, 'normal', 'high' );
+				}
+			}
+		}
+
         $custom_fields = $this->custom_fields;
 
         if ( !empty( $custom_fields ) ) {
@@ -435,7 +490,16 @@ class CustomPress_Content_Types extends CustomPress_Core {
      * @return void
      */
     function display_custom_fields() {
-        $this->render_admin('display-custom-fields');
+        $this->render_admin('display-custom-fields', array( 'type' => 'local' ) );
+    }
+
+    /**
+     * Display custom fields template on add custom post pages
+     *
+     * @return void
+     */
+    function display_custom_fields_network() {
+        $this->render_admin('display-custom-fields', array( 'type' => 'network' ) );
     }
 
     /**
@@ -468,7 +532,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
      */
     function flush_rewrite_rules() {
 		// Mechanisum for detecting changes in root site content types for flushing rewrite rules 
-        if ( is_multisite() && !is_main_site() && $this->allow_per_site_content_types == false ) {
+        if ( is_multisite() && !is_main_site() && $this->enable_subsite_content_types == 0 ) {
             $global_frr_id = get_site_option('ct_frr_id');
             $local_frr_id = get_option('ct_frr_id');
             if ( $global_frr_id != $local_frr_id ) {

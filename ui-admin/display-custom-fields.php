@@ -3,7 +3,10 @@
 <?php
 global $post;
 $prefix = '_ct_';
-$custom_fields = $this->custom_fields;
+if ( $type == 'local' )
+	$custom_fields = $this->custom_fields;
+elseif ( $type == 'network' )
+	$custom_fields = get_site_option('ct_custom_fields');
 $output = false;
 ?>
 
