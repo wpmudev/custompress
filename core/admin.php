@@ -61,12 +61,17 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 	 * @return void
      */
     function admin_menu() {
-		$menu_slug = $this->enable_subsite_content_types ? 'ct_content_types' : 'cp_main';
-		$menu_callback = $this->enable_subsite_content_types ? 'handle_content_types_page_requests' : 'handle_settings_page_requests'; 	
+		if ( is_multisite() ) {
+			$menu_slug = $this->enable_subsite_content_types ? 'ct_content_types' : 'cp_main';
+			$menu_callback = $this->enable_subsite_content_types ? 'handle_content_types_page_requests' : 'handle_settings_page_requests'; 	
+		} else {
+			$menu_slug = 'ct_content_types';
+			$menu_callback = 'handle_content_types_page_requests';
+		}
 
         add_menu_page( __('CustomPress', $this->text_domain), __('CustomPress', $this->text_domain), 'activate_plugins', $menu_slug, array( &$this, $menu_callback ) );
 
-		if ( $this->enable_subsite_content_types ) {
+		if ( $this->enable_subsite_content_types || !is_multisite() ) {
 			$page_content_types = add_submenu_page( 'ct_content_types' , __( 'Content Types', $this->text_domain ), __( 'Content Types', $this->text_domain ), 'activate_plugins', 'ct_content_types', array( &$this, 'handle_content_types_page_requests' ) );
 
 			add_action( 'admin_print_styles-' .  $page_content_types, array( &$this, 'enqueue_styles' ) );

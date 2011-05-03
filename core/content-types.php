@@ -56,6 +56,12 @@ class CustomPress_Content_Types extends CustomPress_Core {
             $this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
             $this->custom_fields = get_site_option( 'ct_custom_fields' );
         }
+
+		if ( is_network_admin() ) {
+            $this->post_types    = get_site_option( 'ct_custom_post_types' );
+            $this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
+            $this->custom_fields = get_site_option( 'ct_custom_fields' );
+		}
     }
 
     /**
@@ -134,9 +140,9 @@ class CustomPress_Content_Types extends CustomPress_Core {
 					if ( !empty( $_POST['rewrite_slug'] ) )
 						$args['rewrite'] = (array) $args['rewrite'] + array( 'slug' => $_POST['rewrite_slug'] );
 
-					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => (bool) $_POST['rewrite_with_front'] );
-					$args['rewrite'] = (array) $args['rewrite'] + array( 'feeds' => (bool) $_POST['rewrite_feeds'] );
-					$args['rewrite'] = (array) $args['rewrite'] + array( 'pages' => (bool) $_POST['rewrite_pages'] );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => !empty( $_POST['rewrite_with_front'] ) ? true : false );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'feeds' => !empty( $_POST['rewrite_feeds'] ) ? true : false );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'pages' => !empty( $_POST['rewrite_pages'] ) ? true : false );
 
 					// Remove boolean remaining from the type casting
 					if ( is_array( $args['rewrite'] ) )
@@ -154,9 +160,9 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				// Check whether we have a new post type and set flag which will later be used in register_post_types() 
                 if ( !is_array( $this->post_types ) || !array_key_exists( $post_type, $this->post_types ) )
                     $this->flush_rewrite_rules = true;
-
+				
 				// Update options with the post type options 
-                if ( $this->enable_subsite_content_types == 1 ) {
+                if ( $this->enable_subsite_content_types == 1 && !is_network_admin() ) {
                     update_option( 'ct_custom_post_types', $post_types );
                 } else {
                     update_site_option( 'ct_custom_post_types', $post_types );
@@ -178,7 +184,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			// remove the deleted post type 
             unset( $post_types[$_POST['post_type_name']] );
 			// update the available post types 
-            if ( $this->enable_subsite_content_types == 1 )
+            if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
                 update_option( 'ct_custom_post_types', $post_types );
             else
                 update_site_option( 'ct_custom_post_types', $post_types );
@@ -288,8 +294,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 					if ( !empty( $_POST['rewrite_slug'] ) )
 						$args['rewrite'] = (array) $args['rewrite'] + array( 'slug' => $_POST['rewrite_slug'] );
 
-					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => (bool) $_POST['rewrite_with_front'] );
-					$args['rewrite'] = (array) $args['rewrite'] + array( 'hierarchical' => (bool) $_POST['rewrite_hierarchical'] );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => !empty( $_POST['rewrite_with_front'] ) ? true : false );
+					$args['rewrite'] = (array) $args['rewrite'] + array( 'hierarchical' => !empty( $_POST['rewrite_hierarchical'] ) ? true : false );
 
 					// Remove boolean remaining from the type casting
 					if ( is_array( $args['rewrite'] ) )
@@ -314,7 +320,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 					$this->flush_rewrite_rules = true;
 
 				// Update wp_options with the taxonomies options 
-                if ( $this->enable_subsite_content_types == 1 ) {
+                if ( $this->enable_subsite_content_types == 1 && !is_network_admin() ) {
                     update_option( 'ct_custom_taxonomies', $taxonomies );
                 } else {
                     update_site_option( 'ct_custom_taxonomies', $taxonomies );
@@ -340,7 +346,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
             unset( $taxonomies[$_POST['taxonomy_name']] );
 
 			// Update the available taxonomies 
-            if ( $this->enable_subsite_content_types == 1 )
+            if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
                 update_option( 'ct_custom_taxonomies', $taxonomies );
             else
                 update_site_option( 'ct_custom_taxonomies', $taxonomies );
@@ -439,7 +445,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				? array_merge( $this->custom_fields, array( $field_id => $args ) ) 
 				: array( $field_id => $args );
 
-            if ( $this->enable_subsite_content_types == 1 )
+            if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
                 update_option( 'ct_custom_fields', $custom_fields );
             else
                 update_site_option( 'ct_custom_fields', $custom_fields );
@@ -457,7 +463,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
             unset( $custom_fields[$_POST['custom_field_id']] );
 
 			// Update the available custom fields 
-            if ( $this->enable_subsite_content_types == 1 )
+            if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
                 update_option( 'ct_custom_fields', $custom_fields );
             else
                 update_site_option( 'ct_custom_fields', $custom_fields );

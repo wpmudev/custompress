@@ -86,7 +86,7 @@ if ( $enable_subsite_content_types && $keep_network_content_types )
         </table>
 		<?php endif; ?>
 
-        <?php if ( is_super_admin() && is_network_admin() ): ?>
+        <?php if ( ( is_super_admin() && is_network_admin() ) || !is_multisite() ): ?>
         <h3><?php _e( 'Template Files', $this->text_domain ); ?></h3>
         <table class="form-table">
             <tr>
