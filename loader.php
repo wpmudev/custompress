@@ -9,6 +9,7 @@ Author: Ivan Shaovchev (Incsub)
 Author URI: http://ivan.sh
 WDP ID: 163
 License: GNU General Public License (Version 2 - GPLv2)
+Network: true
 */
 
 /*
