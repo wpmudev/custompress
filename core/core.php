@@ -1,10 +1,10 @@
 <?php
 
 /**
- * CustomPress_Core 
- * 
+ * CustomPress_Core
+ *
  * @copyright Incsub 2007-2011 {@link http://incsub.com}
- * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh} 
+ * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
  * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
  */
 class CustomPress_Core {
@@ -43,7 +43,7 @@ class CustomPress_Core {
     }
 
     /**
-     * Plugin activation. 
+     * Plugin activation.
      *
      * @return void
      */
@@ -108,16 +108,16 @@ class CustomPress_Core {
      * @return object $query
      */
     function display_custom_post_types( $query ) {
+        global $wp_query;
+
         //if ( is_main_site() || get_site_option('allow_per_site_content_types') )
         $options = $this->get_options();
 
         if ( isset( $options['display_post_types']['home']['post_type'] )
           && is_array( $options['display_post_types']['home']['post_type'] ) ) {
             if ( is_home() && !in_array( 'default', $options['display_post_types']['home']['post_type'] ) )
-                $query->set( 'post_type', $options['display_post_types']['home']['post_type'] );
+              $wp_query->query_vars['post_type'] = $options['display_post_types']['home']['post_type'];
         }
-
-        return $query;
 
         /** @todo Display custom post types on any page set by the user.
         global $post;

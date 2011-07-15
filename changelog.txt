@@ -1,10 +1,11 @@
 === CustomPress ===
 Author: Ivan Shaovchev (Incsub)
-Author URI: http://ivan.sh
+Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
-= 1.1.2 =
+= 1.1.3 =
+* fixed problem with navigation menu on home page. 1.1.2 =
 * Major update 
 
 = 1.1.1 =
