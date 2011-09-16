@@ -2,7 +2,6 @@
 
 <?php
 global $post;
-$prefix = '_ct_';
 if ( $type == 'local' )
 	$custom_fields = $this->custom_fields;
 elseif ( $type == 'network' )
@@ -20,6 +19,13 @@ $output = false;
                     <?php $output = true; break; ?>
                 <?php endif; ?>
             <?php endforeach; ?>
+
+            <?php
+            if ( 1 == $custom_field['field_wp_allow'] )
+                $prefix = 'ct_';
+            else
+                $prefix = '_ct_';
+            ?>
 
             <?php if ( $output ): ?>
 

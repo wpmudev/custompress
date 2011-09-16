@@ -1,9 +1,9 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
-<?php 
+<?php
 if ( is_network_admin() )
 	$custom_fields = get_site_option('ct_custom_fields');
-else 
+else
 	$custom_fields = $this->custom_fields;
 ?>
 
@@ -17,6 +17,7 @@ else
         <tr>
             <th><?php _e('Field Name', $this->text_domain); ?></th>
             <th><?php _e('Field ID', $this->text_domain); ?></th>
+            <th><?php _e('WP/Plugins', $this->text_domain); ?></th>
             <th><?php _e('Field Type', $this->text_domain); ?></th>
             <th><?php _e('Description', $this->text_domain); ?></th>
             <th><?php _e('Post Types', $this->text_domain); ?></th>
@@ -26,6 +27,7 @@ else
         <tr>
             <th><?php _e('Field Name', $this->text_domain); ?></th>
             <th><?php _e('Field ID', $this->text_domain); ?></th>
+            <th><?php _e('WP/Plugins', $this->text_domain); ?></th>
             <th><?php _e('Field Type', $this->text_domain); ?></th>
             <th><?php _e('Description', $this->text_domain); ?></th>
             <th><?php _e('Post Types', $this->text_domain); ?></th>
@@ -34,6 +36,14 @@ else
     <tbody>
         <?php if ( !empty( $custom_fields ) ): ?>
             <?php $i = 0; foreach ( $custom_fields as $custom_field ): ?>
+
+            <?php
+            if ( 1 == $custom_field['field_wp_allow'] )
+                $prefix = 'ct_';
+            else
+                $prefix = '_ct_';
+            ?>
+
             <?php $class = ( $i % 2) ? 'ct-edit-row alternate' : 'ct-edit-row'; $i++; ?>
             <tr class="<?php echo ( $class ); ?>">
                 <td>
@@ -54,11 +64,13 @@ else
                     <form action="" method="post" id="form-<?php echo $custom_field['field_id']; ?>" class="del-form">
                         <?php wp_nonce_field('delete_custom_field'); ?>
                         <input type="hidden" name="custom_field_id" value="<?php echo $custom_field['field_id']; ?>" />
-                        <input type="submit" class="button confirm" value="<?php _e( 'Confirm', $this->text_domain ); ?>" name="submit" />
+                        <input type="submit" class="button confirm" value="<?php _e( 'Field and values', $this->text_domain ); ?>" name="delete_cf_values" />
                         <input type="submit" class="button cancel"  value="<?php _e( 'Cancel', $this->text_domain ); ?>" onClick="content_types.cancel('<?php echo $custom_field['field_id']; ?>'); return false;" />
+                        <input type="submit" class="button confirm" value="<?php _e( 'Only field', $this->text_domain ); ?>" name="submit" />
                     </form>
                 </td>
-                <td><?php echo '_ct_' . $custom_field['field_id']; ?></td>
+                <td><?php echo $prefix . $custom_field['field_id']; ?></td>
+                <td><?php echo ( 1 == $custom_field['field_wp_allow'] ) ? __( 'Allow', $this->text_domain ) : __( 'Deny', $this->text_domain ); ?></td>
                 <td><?php echo( $custom_field['field_type'] ); ?></td>
                 <td><?php echo( $custom_field['field_description'] ); ?></td>
                 <td>
@@ -73,9 +85,9 @@ else
                         <span class="description"><?php _e( 'Returns the values of the custom fields with the specified key from the specified post.', $this->text_domain ); ?></span>
                         <br /><br />
                         <?php if ( $custom_field['field_type'] == 'text'|| $custom_field['field_type'] == 'textarea' ):  ?>
-                            <code><span style="color:red">&lt;?php</span> echo <strong>get_post_meta(</strong> $post->ID, '_ct_<?php echo( $custom_field['field_id'] ); ?>', true <strong>)</strong>; <span style="color:red">?&gt;</span></code>
+                            <code><span style="color:red">&lt;?php</span> echo <strong>get_post_meta(</strong> $post->ID, '<?php echo( $prefix . $custom_field['field_id'] ); ?>', true <strong>)</strong>; <span style="color:red">?&gt;</span></code>
                         <?php else: ?>
-                            <code><span style="color:red">&lt;?php</span> if ( <strong>get_post_meta(</strong> $post->ID, '_ct_<?php echo( $custom_field['field_id'] ); ?>', true <strong>)</strong> ) { foreach ( <strong>get_post_meta(</strong> $post->ID, '_ct_<?php echo( $custom_field['field_id'] ); ?>', true <strong>)</strong> as $value ) { echo $value . ', '; }} <span style="color:red">?&gt;</span></code>
+                            <code><span style="color:red">&lt;?php</span> if ( <strong>get_post_meta(</strong> $post->ID, '<?php echo( $prefix . $custom_field['field_id'] ); ?>', true <strong>)</strong> ) { foreach ( <strong>get_post_meta(</strong> $post->ID, '<?php echo( $prefix . $custom_field['field_id'] ); ?>', true <strong>)</strong> as $value ) { echo $value . ', '; }} <span style="color:red">?&gt;</span></code>
                         <?php endif; ?>
                     </div>
                 </td>

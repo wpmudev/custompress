@@ -18,6 +18,15 @@
                         <span class="description"><?php _e('The title of the custom field.', $this->text_domain); ?></span>
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        <label for="field_title"><?php _e('Allow for WP/plugins', $this->text_domain) ?> <br /><span class="ct-required">(<?php _e("can't be changed", $this->text_domain) ?>)</span></label>
+                    </th>
+                    <td>
+                        <input type="checkbox" name="field_wp_allow" value="2" <?php echo ( isset( $_POST['field_wp_allow'] ) ) ? 'checked' : ''; ?> >
+                        <span class="description"><?php _e('The WP and other plugins can use this custom field.', $this->text_domain); ?></span>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="ct-table-wrap">

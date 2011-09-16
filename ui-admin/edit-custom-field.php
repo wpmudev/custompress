@@ -22,6 +22,15 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
                         <span class="description"><?php _e('The title of the custom field.', $this->text_domain); ?></span>
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        <label for="field_title"><?php _e('Allow for WP/plugins', $this->text_domain) ?> <br /><span class="ct-required">(<?php _e("can't be changed", $this->text_domain) ?>)</span></label>
+                    </th>
+                    <td>
+                        <input type="checkbox" disabled value="1" <?php echo ( isset( $custom_field['field_wp_allow'] ) ) ? 'checked' : ''; ?> >
+                        <span class="description"><?php _e('The WP and other plugins can use this custom field.', $this->text_domain); ?></span>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="ct-table-wrap">

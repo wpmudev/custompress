@@ -192,6 +192,15 @@
                         <span class="description"><?php _e('The parent text. This string isn\'t used on non-hierarchical types. In hierarchical ones the default is Parent Page', $this->text_domain); ?></span>
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        <label for="labels[custom_fields_block]"><?php _e('Custom Fields block', $this->text_domain) ?></label>
+                    </th>
+                    <td>
+                        <input type="text" name="labels[custom_fields_block]" value="<?php if ( isset( $post_type['labels']['custom_fields_block'] ) ) echo $post_type['labels']['custom_fields_block']; ?>">
+                        <span class="description"><?php _e('Title of Custom Fields block.', $this->text_domain); ?></span>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="ct-table-wrap">
@@ -235,6 +244,44 @@
                     <td>
                         <input type="text" name="menu_icon" value="<?php if ( isset( $post_type['menu_icon'] ) ) echo ( $post_type['menu_icon'] ); ?>">
                         <span class="description"><?php _e('The url to the icon to be used for this menu.', $this->text_domain); ?></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="ct-table-wrap">
+            <div class="ct-arrow"><br></div>
+            <h3 class="ct-toggle"><?php _e('Display Custom Fields columns', $this->text_domain) ?></h3>
+            <table class="form-table supports">
+                <tr>
+                    <th>
+                        <label for="supports"><?php _e('Custom Fields', $this->text_domain) ?></label>
+                    </th>
+                    <td>
+                        <span class="description"><?php _e('These Custom Fields will be display as columns on the custom post type screen.', $this->text_domain); ?></span>
+                    </td>
+                </tr>
+               <tr>
+                    <th></th>
+                    <td>
+                    <?php
+                    $custom_fields = get_site_option( 'ct_custom_fields' );
+                    if ( ! empty( $custom_fields ) ) {
+                        foreach ( $custom_fields as $custom_field ) {
+                            if ( false !== array_search( $_GET['ct_edit_post_type'], $custom_field['object_type'] ) ) {
+                                if ( 1 == $post_type['cf_columns'][$custom_field['field_id']] )
+                                    $checked = 'checked';
+                                else
+                                    $checked = '';
+
+                                echo '<input type="checkbox" name="cf_columns[' . $custom_field['field_id'] . ']" value="1" ' . $checked . '  /> ';
+                                echo '<label for="colums[' . $custom_field['field_id'] . ']"><span class="description"><strong>' . $custom_field['field_title'] . '</strong></span></label><br />';
+                            }
+                        }
+                    }
+                    if ( ! isset( $checked ) ) {
+                         echo '<br /><span class="description"><strong>' . __('This custom post type not uses any Custom Fields', $this->text_domain) . '</strong></span><br />';
+                    }
+                    ?>
                     </td>
                 </tr>
             </table>

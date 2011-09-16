@@ -189,6 +189,15 @@
                         <span class="description"><?php _e('The parent text. This string isn\'t used on non-hierarchical types. In hierarchical ones the default is Parent Page', $this->text_domain); ?></span>
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        <label for="labels[custom_fields_block]"><?php _e('Custom Fields block', $this->text_domain) ?></label>
+                    </th>
+                    <td>
+                        <input type="text" name="labels[custom_fields_block]" value="<?php if ( isset( $_POST['labels']['custom_fields_block'] ) ) echo $_POST['labels']['custom_fields_block']; ?>">
+                        <span class="description"><?php _e('Title of Custom Fields block.', $this->text_domain); ?></span>
+                    </td>
+                </tr>
             </table>
         </div>
         <div class="ct-table-wrap">

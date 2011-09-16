@@ -1,11 +1,11 @@
 <?php
 
 /**
- * CustomPress_Core_Admin 
- * 
+ * CustomPress_Core_Admin
+ *
  * @uses CustomPress_Core
  * @copyright Incsub 2007-2011 {@link http://incsub.com}
- * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh} 
+ * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
  * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
  */
 class CustomPress_Core_Admin extends CustomPress_Core {
@@ -20,14 +20,61 @@ class CustomPress_Core_Admin extends CustomPress_Core {
     var $enable_subsite_content_types = false;
 
     function CustomPress_Core_Admin() {
+        $this->init_vars();
+
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
         add_action( 'network_admin_menu', array( &$this, 'network_admin_menu' ) );
+        add_action( 'admin_init', array( &$this, 'admin_init' ) );
 
         add_action( 'admin_print_styles-post.php', array( &$this, 'enqueue_custom_field_styles') );
         add_action( 'admin_print_styles-post-new.php', array( &$this, 'enqueue_custom_field_styles') );
 
-		$this->init_vars();
     }
+
+    /**
+     * Admin init
+     *
+     * @return void
+     */
+    function admin_init() {
+        //Add custom fields as Columns on edit Post Type page
+        if ( true === is_array( $this->post_types[$_GET['post_type']] ) ) {
+            add_filter( 'manage_edit-' . $_GET['post_type'] . '_columns', array( &$this, 'add_new_cf_columns' ) );
+            add_action( 'manage_' . $_GET['post_type'] . '_posts_custom_column', array( &$this, 'manage_cf_columns' ), 10, 2 );
+        }
+    }
+
+    /**
+     * add new cf columns to columns list
+     *
+     * @return array columns
+     */
+    function add_new_cf_columns( $columns ) {
+        if ( is_array( $this->post_types[$_GET['post_type']]['cf_columns'] ) )
+            foreach ( $this->post_types[$_GET['post_type']]['cf_columns'] as $key => $value ) {
+                if ( 1 == $value )
+                    $columns[$key] = $this->custom_fields[$key]['field_title'];
+            }
+
+        return $columns;
+    }
+
+    /**
+     * Get values for added cf columns
+     *
+     * @return void
+     */
+    function manage_cf_columns( $column_name, $post_it ) {
+        if ( $column_name == $this->custom_fields[$column_name]['field_id']) {
+            if ( 1 == $this->custom_fields[$column_name]['field_wp_allow'] )
+                $prefix = 'ct_';
+            else
+                $prefix = '_ct_';
+
+            echo get_post_meta( $post_it, $prefix . $column_name, true );
+        }
+    }
+
 
     /**
      * Initiate variables
@@ -63,7 +110,7 @@ class CustomPress_Core_Admin extends CustomPress_Core {
     function admin_menu() {
 		if ( is_multisite() ) {
 			$menu_slug = $this->enable_subsite_content_types ? 'ct_content_types' : 'cp_main';
-			$menu_callback = $this->enable_subsite_content_types ? 'handle_content_types_page_requests' : 'handle_settings_page_requests'; 	
+			$menu_callback = $this->enable_subsite_content_types ? 'handle_content_types_page_requests' : 'handle_settings_page_requests';
 		} else {
 			$menu_slug = 'ct_content_types';
 			$menu_callback = 'handle_content_types_page_requests';
@@ -85,8 +132,8 @@ class CustomPress_Core_Admin extends CustomPress_Core {
     }
 
 	/**
-	 * Register network admin menus. 
-	 * 
+	 * Register network admin menus.
+	 *
 	 * @access public
 	 * @return void
 	 */
@@ -149,10 +196,10 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 	 * @return void
      */
     function handle_settings_page_requests() {
-		// Save settings 
+		// Save settings
 		if ( isset( $_POST['save'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'verify' ) ) {
 
-			// Set network-wide content types 
+			// Set network-wide content types
 			if ( is_multisite() && is_super_admin() && is_network_admin() ) {
 
 				if ( !empty( $_POST['enable_subsite_content_types'] ) ) {
@@ -164,13 +211,13 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 					update_site_option( 'keep_network_content_types', false );
 				}
 
-				// Create template file 
+				// Create template file
 				if ( !empty( $_POST['post_type_file'] ) ) {
 					$this->create_post_type_files( $_POST['post_type_file'] );
 				}
 			}
 
-			// Process post types display 
+			// Process post types display
 			$args = array( 'page' => 'home', 'post_type' => ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : null );
 			$options = $this->get_options();
 			$options = array_merge( $options , array( 'display_post_types' => array( $args['page'] => $args ) ) );
@@ -187,13 +234,12 @@ class CustomPress_Core_Admin extends CustomPress_Core {
      */
     function handle_content_types_page_requests() {
             $this->render_admin('navigation');
-            
             if ( empty( $_GET['ct_content_type'] ) || $_GET['ct_content_type'] == 'post_type' ) {
                 if ( isset( $_GET['ct_add_post_type'] ) )
                     $this->render_admin('add-post-type');
                 elseif ( isset( $_GET['ct_edit_post_type'] ) )
                     $this->render_admin('edit-post-type');
-                else 
+                else
                     $this->render_admin('post-types');
             }
             elseif ( $_GET['ct_content_type'] == 'taxonomy' ) {
