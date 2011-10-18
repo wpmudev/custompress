@@ -210,12 +210,12 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 					update_site_option( 'allow_per_site_content_types', false );
 					update_site_option( 'keep_network_content_types', false );
 				}
-
-				// Create template file
-				if ( !empty( $_POST['post_type_file'] ) ) {
-					$this->create_post_type_files( $_POST['post_type_file'] );
-				}
 			}
+
+            // Create template file
+            if ( !empty( $_POST['post_type_file'] ) ) {
+                $this->create_post_type_files( $_POST['post_type_file'] );
+            }
 
 			// Process post types display
 			$args = array( 'page' => 'home', 'post_type' => ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : null );

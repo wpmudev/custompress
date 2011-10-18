@@ -46,7 +46,7 @@
                             <option value="selectbox" <?php if ( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'selectbox' ) echo( 'selected="selected"' ); ?>><?php _e('Drop Down Select Box', $this->text_domain); ?></option>
                             <option value="multiselectbox" <?php if ( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'multiselectbox' ) echo( 'selected="selected"' ); ?>><?php _e('Multi Select Box', $this->text_domain); ?></option>
                         </select>
-                        <span class="description"><?php _e('Select one or more post types to add this custom field to.', $this->text_domain); ?></span>
+                        <span class="description"><?php _e('Select type of the custom field.', $this->text_domain); ?></span>
                         <div class="ct-field-type-options">
                             <h4><?php _e('Fill in the options for this field', $this->text_domain); ?>:</h4>
                             <p><?php _e('Order By', $this->text_domain); ?> :

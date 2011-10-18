@@ -9,12 +9,13 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
-
-=1.1.4.1 =
+=1.1.5 =
 
 * Fixed problem with upper case in name of taxonomy; 
 * Fixed problem of display "An unidentified error has occurred" when click on "All ...";
-
+* Fixed problem with create custom template;
+* Changed style for Custom fields;
+* Changed some texts;
 
 =1.1.4 =
 

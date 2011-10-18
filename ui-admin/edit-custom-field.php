@@ -50,7 +50,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
                             <option value="selectbox" <?php if ( isset( $custom_field['field_type'] ) && $custom_field['field_type'] == 'selectbox' ) echo ( 'selected="selected"' ); ?>>Drop Down Select Box</option>
                             <option value="multiselectbox" <?php if ( isset( $custom_field['field_type'] ) && $custom_field['field_type'] == 'multiselectbox' ) echo ( 'selected="selected"' ); ?>>Multi Select Box</option>
                         </select>
-                        <span class="description"><?php _e('Select one or more post types to add this custom field to.', $this->text_domain); ?></span>
+                        <span class="description"><?php _e('Select type of the custom field.', $this->text_domain); ?></span>
                         <div class="ct-field-type-options">
                             <h4><?php _e('Fill in the options for this field', $this->text_domain); ?>:</h4>
                             <p>
