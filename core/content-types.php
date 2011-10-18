@@ -76,7 +76,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
             && wp_verify_nonce( $_POST['_wpnonce'], 'submit_post_type' )
         ) {
 			// Validate input fields
-            if ( $this->validate_field( 'post_type', $_POST['post_type'] ) ) {
+            if ( $this->validate_field( 'post_type', strtolower( $_POST['post_type'] ) ) ) {
 				// Post type labels
                 $labels = array(
                     'name'                  => $_POST['labels']['name'],
@@ -154,7 +154,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 }
 
 				// Set post type
-                $post_type = ( $_POST['post_type'] ) ? $_POST['post_type'] : $_GET['ct_edit_post_type'];
+                $post_type = ( $_POST['post_type'] ) ? strtolower( $_POST['post_type'] ) : $_GET['ct_edit_post_type'];
 
 				// Set new post types
                 $post_types = ( $this->post_types ) ? array_merge( $this->post_types, array( $post_type => $args ) ) : array( $post_type => $args );
@@ -241,7 +241,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
             && wp_verify_nonce( $_POST['_wpnonce'], 'submit_taxonomy' )
         ) {
 			// Validate input fields
-            $valid_taxonomy = $this->validate_field( 'taxonomy', ( isset( $_POST['taxonomy'] ) ) ? $_POST['taxonomy'] : null );
+            $valid_taxonomy = $this->validate_field( 'taxonomy', ( isset( $_POST['taxonomy'] ) ) ? strtolower( $_POST['taxonomy'] ) : null );
             $valid_object_type = $this->validate_field( 'object_type', ( isset( $_POST['object_type'] ) ) ? $_POST['object_type'] : null );
 
             if ( $valid_taxonomy && $valid_object_type ) {
@@ -310,7 +310,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 $object_type = $_POST['object_type'];
 
 				// Set the taxonomy which we are adding/updating
-                $taxonomy = ( isset( $_POST['taxonomy'] )) ? $_POST['taxonomy'] : $_GET['ct_edit_taxonomy'];
+                $taxonomy = ( isset( $_POST['taxonomy'] )) ? strtolower( $_POST['taxonomy'] ) : $_GET['ct_edit_taxonomy'];
 
 				// Set new taxonomies
                 $taxonomies = ( $this->taxonomies )

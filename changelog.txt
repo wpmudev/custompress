@@ -9,6 +9,13 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
+
+=1.1.4.1 =
+
+* Fixed problem with upper case in name of taxonomy; 
+* Fixed problem of display "An unidentified error has occurred" when click on "All ...";
+
+
 =1.1.4 =
 
 * Added label for block of Custom Fields ("Custom Fields block" on create/edit Post Type page).

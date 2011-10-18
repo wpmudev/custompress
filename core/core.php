@@ -39,7 +39,7 @@ class CustomPress_Core {
      * @return void
      */
     function load_plugin_textdomain() {
-        load_plugin_textdomain( $this->text_domain, null, 'custompress/launguages' );
+        load_plugin_textdomain( $this->text_domain, false, 'custompress/launguages' );
     }
 
     /**
@@ -47,7 +47,54 @@ class CustomPress_Core {
      *
      * @return void
      */
-    function plugin_activate() {}
+    function plugin_activate() {
+
+
+    /*
+    TODO:
+    This block was added in version 1.1.5
+    For fix problem with Upper case of name in Taxonomies which were created by memeber in oldest versions.
+    You can remove this block in future. After several version.
+    */
+
+        $enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
+
+        if ( $enable_subsite_content_types )
+            $taxonomies = get_option( 'ct_custom_taxonomies' );
+        else
+            $taxonomies = get_site_option( 'ct_custom_taxonomies' );
+
+        if ( is_network_admin() )
+            $taxonomies = get_site_option( 'ct_custom_taxonomies' );
+
+        if ( isset( $taxonomies ) && is_array( $taxonomies ) ) {
+            $update_flag = 0;
+            foreach( $taxonomies as $taxonom_name => $value ) {
+                if ( $taxonom_name != strtolower( $taxonom_name ) ) {
+                    global $wpdb;
+                    $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->term_taxonomy} SET taxonomy= '%s' WHERE taxonomy= '%s'", strtolower( $taxonom_name ), $taxonom_name ) );
+                    $new_tax[strtolower( $taxonom_name )] = $value;
+                    $update_flag = 1;
+                } else {
+                    $new_tax[$taxonom_name] = $value;
+                }
+            }
+
+
+            if ( 1 == $update_flag ) {
+                if ( $enable_subsite_content_types )
+                    update_option( 'ct_custom_taxonomies', $new_tax );
+                else
+                    update_site_option( 'ct_custom_taxonomies', $new_tax );
+
+                if ( is_network_admin() )
+                    update_site_option( 'ct_custom_taxonomies', $new_tax );
+            }
+        }
+    /* END block */
+
+
+    }
 
     /**
      * Deactivate plugin. If $this->flush_plugin_data is set to "true"
