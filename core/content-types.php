@@ -32,6 +32,11 @@ class CustomPress_Content_Types extends CustomPress_Core {
         add_action( 'init', array( &$this, 'handle_taxonomy_requests' ), 0 );
         add_action( 'init', array( &$this, 'register_taxonomies' ), 1 );
         add_action( 'init', array( &$this, 'handle_custom_field_requests' ), 0 );
+
+        //create hierarchical checkbox on media page
+        add_filter( 'attachment_fields_to_edit', array( &$this, 'media_hierarchical_checkbox' ), 111, 2 );
+        add_filter( 'attachment_fields_to_save', array( &$this, 'media_save_attachment_hierarchical_fields' ), 111, 2 );
+
         add_action( 'admin_menu', array( &$this, 'create_custom_fields' ), 2 );
         add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 1 );
         add_action( 'user_register', array( &$this, 'set_user_registration_rewrite_rules' ) );
@@ -678,6 +683,88 @@ class CustomPress_Content_Types extends CustomPress_Core {
             }
         }
     }
+
+
+    //Change input to checkbox on media page
+    function media_hierarchical_checkbox( $form_fields, $post ) {
+        if ( $form_fields ) {
+            foreach ( $form_fields as $taxonomy => $taxonomy_value ) {
+                if ( isset( $taxonomy_value['hierarchical'] ) && 1 == $taxonomy_value['hierarchical'] ) {
+                    //get all terms of taxonomy
+                    $terms = get_terms( $taxonomy, array( 'get' => 'all' ) );
+
+                    $taxonomy_tree  = array();
+                    $children       = array();
+                    $term_ids       = array();
+
+                    //create hierarchical tree
+                    foreach( $terms as $term ) {
+                        $term_ids[$term->term_id] = $term;
+                        if ( 0 == $term->parent )
+                            $taxonomy_tree[$term->term_id] = array();
+                         else
+                            $children[$term->parent][$term->term_id] = array();
+
+                    }
+
+                    if ( count( $children ) ) {
+                        foreach( $children as $base => $child )
+                            foreach( $children as $child_key => $val )
+                                if ( array_key_exists( $base, $val ) ) {
+                                    $children[$child_key][$base] = &$children[$base];
+                                    break;
+                                }
+
+                        foreach ( $children as $base => $child )
+                            if ( isset( $taxonomy_tree[$base] ) )
+                                $taxonomy_tree[$base] = $child;
+                    }
+
+                    //gen checkbox of tree
+                    $checkbox = $this->media_gen_hierarchical_field( $post->ID, $taxonomy, $term_ids, $taxonomy_tree );
+                    if ( $terms ) {
+                        $form_fields[$taxonomy]['input']    = 'checkbox';
+                        $form_fields[$taxonomy]['checkbox'] = $checkbox;
+                    } else {
+                        $form_fields[$taxonomy]['input']    = 'html';
+                        $form_fields[$taxonomy]['html']     = __( 'No values', $this->text_domain );
+                    }
+                }
+            }
+        }
+        return $form_fields;
+    }
+
+    //generate html for hierarchical fields on media page
+    function media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $taxonomy_tree, $checkbox = '', $num = 0 ) {
+        foreach ( $taxonomy_tree as $term_id => $tree ) {
+            $type       = 'checkbox';
+            $checked    = is_object_in_term( $post_id, $taxonomy, $term_id ) ? ' checked="checked"' : '';
+            $checkbox      .= str_repeat( '&ndash;&ndash;', count( get_ancestors( $term_id, $taxonomy ) ) );
+            $checkbox      .= ' <input type="' . $type . '" id="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '" name="attachments[' . $post_id . '][' . $taxonomy . '][]" value="' . $term_id . '"' . $checked . ' /><label for="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '">' . esc_html( $term_ids[$term_id]->name ) . "</label><br />\n";
+            $num++;
+            if ( count( $tree ) )
+                $checkbox = $this->media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $tree, $checkbox, &$num );
+        }
+        return $checkbox;
+    }
+
+    //Save selected checkbox for hierarchical fields of attachment on media page
+    function media_save_attachment_hierarchical_fields( $post, $attachment ) {
+
+        $taxonomies = get_object_taxonomies( $post['post_type'], false );
+
+        if ( $taxonomies ) {
+            foreach ( $taxonomies as $tax_name => $tax_value ) {
+                if ( ! ( 'post' == $post['post_type']  && 'category' == $tax_name ) && $tax_value->show_ui )
+                    if ( $tax_value->hierarchical )
+                        wp_set_post_terms( $post['ID'], array_filter( $attachment[$tax_name] ), $tax_name );
+            }
+        }
+    }
+
+
+
 }
 
 // Initiate Content Types Module

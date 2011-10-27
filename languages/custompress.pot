@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CustomPress v1.1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-18 23:34+0200\n"
-"PO-Revision-Date: 2011-10-18 23:34+0200\n"
+"POT-Creation-Date: 2011-10-27 23:29+0200\n"
+"PO-Revision-Date: 2011-10-27 23:29+0200\n"
 "Last-Translator: Andrey Shipilov\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,10 @@ msgstr ""
 #: /custompress/core/admin.php:128
 #: /custompress/core/admin.php:144
 msgid "Settings"
+msgstr ""
+
+#: /custompress/core/content-types.php:730
+msgid "No values"
 msgstr ""
 
 #: /custompress/core/core.php:269

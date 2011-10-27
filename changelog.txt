@@ -9,6 +9,10 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
+=1.1.5.1 =
+
+* Display hierarchical taxonomy as tree of checkboxes for the 'attachment' post type.
+
 =1.1.5 =
 
 * Fixed problem with upper case in name of taxonomy; 
