@@ -9,7 +9,7 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
-=1.1.5.1 =
+=1.1.6 =
 
 * Display hierarchical taxonomy as tree of checkboxes for the 'attachment' post type.
 
