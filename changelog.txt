@@ -9,6 +9,14 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
+
+=1.1.7 =
+
+* Fixed problem with change type on "'radio, checkbox, selectbox, multiselectbox" when edit custom fields;
+* Fixed display checkbox of "Allow for WP/plugins" on Edit Custom Field page;
+* Added feature for display Custom Fields on media page (for Attachment post type);
+* Display terms of Attachment post type like submenu of the media menu;
+
 =1.1.6 =
 
 * Display hierarchical taxonomy as tree of checkboxes for the 'attachment' post type.

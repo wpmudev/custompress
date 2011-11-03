@@ -27,7 +27,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
                         <label for="field_title"><?php _e('Allow for WP/plugins', $this->text_domain) ?> <br /><span class="ct-required">(<?php _e("can't be changed", $this->text_domain) ?>)</span></label>
                     </th>
                     <td>
-                        <input type="checkbox" disabled value="1" <?php echo ( isset( $custom_field['field_wp_allow'] ) ) ? 'checked' : ''; ?> >
+                        <input type="checkbox" disabled value="1" <?php echo ( isset( $custom_field['field_wp_allow'] ) && 1 == $custom_field['field_wp_allow'] ) ? 'checked' : ''; ?> >
                         <span class="description"><?php _e('The WP and other plugins can use this custom field.', $this->text_domain); ?></span>
                     </td>
                 </tr>
@@ -76,10 +76,16 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
                                         <?php endif; ?>
                                     </p>
                                 <?php endforeach; ?>
+                            <?php else: ?>
+                                <p><?php _e('Option', $this->text_domain); ?> 1:
+                                    <input type="text" name="field_options[1]" value="<?php if ( isset( $custom_field['field_options'][1] ) ) echo $custom_field['field_options'][1]; ?>">
+                                    <input type="radio" value="1" name="field_default_option" <?php if ( isset( $custom_field['field_default_option'] ) && $custom_field['field_default_option'] == '1' ) echo 'checked="checked"'; ?>>
+                                    <?php _e('Default Value', $this->text_domain); ?>
+                                </p>
                             <?php endif; ?>
 
                             <div class="ct-field-additional-options"></div>
-                            <input type="hidden" value="<?php if ( isset( $custom_field['field_options'] ) ) echo count( $custom_field['field_options'] ); ?>" name="track_number">
+                            <input type="hidden" value="<?php echo ( isset( $custom_field['field_options'] ) ) ? count( $custom_field['field_options'] ) : '1'; ?>" name="track_number">
                             <p><a href="#" class="ct-field-add-option"><?php _e('Add another option', $this->text_domain); ?></a></p>
                         </div>
                     </td>
