@@ -757,7 +757,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                             jQuery("input:checkbox[name=\'my_terms_[' . $post->ID . '][' . $taxonomy . '][]\']:checked").each(function(){
                               ' . $taxonomy . ' = ' . $taxonomy . ' + "," + this.value;
                             })
-                            alert(' . $taxonomy . ');
+
                             if ( jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").length ) {
                                 jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").val( ' . $taxonomy . ' );
                             }
@@ -927,6 +927,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     if ( isset( $attachment[$custom_field['field_id']] ) ) {
                         // update_post_meta
                         update_post_meta( $post['ID'], $custom_field['field_id'], $attachment[$custom_field['field_id']] );
+                    } elseif ( 'checkbox' == $custom_field['field_type'] ) {
+                        update_post_meta( $post['ID'], $custom_field['field_id'], '-1' );
                     }
                 }
             }

@@ -9,9 +9,10 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
-=1.1.7.1 =
+=1.1.7.2 =
 
 * Fixed problem of saving the custom hierarchical taxonomy on media page;
+* Fixed saving value of non checked checkbox(custom fields) on media page; 
 
 =1.1.7 =
 
