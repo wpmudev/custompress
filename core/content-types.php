@@ -400,7 +400,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                 ksort( $taxonomies );
 			// Register taxonomies
             foreach ( $taxonomies as $taxonomy => $args )
-                   register_taxonomy( $taxonomy, $args['object_type'], $args['args'] );
+                register_taxonomy( $taxonomy, $args['object_type'], $args['args'] );
         }
     }
 
@@ -528,16 +528,17 @@ class CustomPress_Content_Types extends CustomPress_Core {
      */
     function create_custom_fields() {
 
+        global $submenu;
         //Add admin submenu in media tab for taxanomy of attachment post type
         $taxonomies = $this->taxonomies;
-        // If custom taxonomies are present
+        //If custom taxonomies are present
         if ( is_array( $taxonomies ) ) {
             // Sort taxonomies
             ksort( $taxonomies );
             foreach ( $taxonomies as $taxonomy => $args ) {
                 if ( in_array ( 'attachment', $args['object_type'] ) ) {
                     $name = ( $args['args']['labels']['name'] ) ? $args['args']['labels']['name'] : $taxonomy;
-                    add_submenu_page( 'upload.php', $name, $name, 'manage_categories', 'edit-tags.php?taxonomy='. $taxonomy .'&post_type=attachment' );
+                    $submenu['upload.php'][] = array( $name, 'upload_files', 'edit-tags.php?taxonomy=' . $taxonomy );
                 }
             }
         }
@@ -740,13 +741,52 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     //gen checkbox of tree
                     $checkbox = $this->media_gen_hierarchical_field( $post->ID, $taxonomy, $term_ids, $taxonomy_tree );
                     if ( $terms ) {
-                        $form_fields[$taxonomy]['input']    = 'checkbox';
-                        $form_fields[$taxonomy]['checkbox'] = $checkbox;
+                        $form_fields[ 'temp_' . $taxonomy]['input']    = 'checkbox';
+                        $form_fields[ 'temp_' . $taxonomy]['checkbox'] = $checkbox;
+
+
+                         /* Save hierarchical terms:
+                         only with JavaScript - for change Array value to String
+                         because terms velue can't be array - error of WP \wp-admin\includes\media.php - line 479 - wp_set_object_terms....
+                         */
+                        // gen JavaScript
+                        $script .= '
+                        var ' . $taxonomy . ' = "";
+
+                        if ( jQuery("input:checkbox[name=\'my_terms_[' . $post->ID . '][' . $taxonomy . '][]\']").length ) {
+                            jQuery("input:checkbox[name=\'my_terms_[' . $post->ID . '][' . $taxonomy . '][]\']:checked").each(function(){
+                              ' . $taxonomy . ' = ' . $taxonomy . ' + "," + this.value;
+                            })
+                            alert(' . $taxonomy . ');
+                            if ( jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").length ) {
+                                jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").val( ' . $taxonomy . ' );
+                            }
+                        }
+                        ';
+                        $form_fields[$taxonomy]['input'] = 'hidden';
+                        $form_fields[$taxonomy]['value'] = '';
+                        $add_script = 1;
+
                     } else {
-                        $form_fields[$taxonomy]['input']    = 'html';
-                        $form_fields[$taxonomy]['html']     = __( 'No values', $this->text_domain );
+                        $form_fields[$taxonomy]['input'] = 'html';
+                        $form_fields[$taxonomy]['html']  = __( 'No values', $this->text_domain );
                     }
                 }
+            }
+
+            //add JavaScript to meadia page for save terms
+            if ( isset( $add_script ) ) {
+                $form_fields['script_for']['input'] = 'html';
+                $form_fields['script_for']['html']  = '
+                    <script type="text/javascript">
+                        jQuery( document ).ready( function() {
+                            jQuery("#media-single-form").submit(function(){
+                               ' . $script . '
+                                return true;
+                            });
+                        });
+                    </script>
+                ';
             }
 
 
@@ -868,8 +908,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
         foreach ( $taxonomy_tree as $term_id => $tree ) {
             $type       = 'checkbox';
             $checked    = is_object_in_term( $post_id, $taxonomy, $term_id ) ? ' checked="checked"' : '';
-            $checkbox      .= str_repeat( '&ndash;&ndash;', count( get_ancestors( $term_id, $taxonomy ) ) );
-            $checkbox      .= ' <input type="' . $type . '" id="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '" name="attachments[' . $post_id . '][' . $taxonomy . '][]" value="' . $term_id . '"' . $checked . ' /><label for="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '">' . esc_html( $term_ids[$term_id]->name ) . "</label><br />\n";
+            $checkbox  .= str_repeat( '&ndash;&ndash;', count( get_ancestors( $term_id, $taxonomy ) ) );
+            $checkbox  .= ' <input type="' . $type . '" id="my_terms_' . $post_id . '_' . $taxonomy . '_' . $num . '" name="my_terms_[' . $post_id . '][' . $taxonomy . '][]" value="' . $term_ids[$term_id]->name . '"' . $checked . ' /><label for="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '">' . esc_html( $term_ids[$term_id]->name ) . "</label><br />\n";
             $num++;
             if ( count( $tree ) )
                 $checkbox = $this->media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $tree, $checkbox, &$num );
@@ -877,18 +917,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
         return $checkbox;
     }
 
-    //Save terms and custom feilds value from media page
+    //Save custom feilds value from media page
     function save_custom_for_attachment( $post, $attachment ) {
-
-        //Create terms for Attachment post type
-        $taxonomies = get_object_taxonomies( $post['post_type'], false );
-        if ( $taxonomies ) {
-            foreach ( $taxonomies as $tax_name => $tax_value ) {
-                if ( ! ( 'post' == $post['post_type']  && 'category' == $tax_name ) && $tax_value->show_ui )
-                    if ( $tax_value->hierarchical )
-                        wp_set_post_terms( $post['ID'], array_filter( $attachment[$tax_name] ), $tax_name );
-            }
-        }
 
         //Save custom fields for Attachment post type
         if ( $this->custom_fields )
@@ -900,6 +930,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     }
                 }
             }
+
         return $post;
     }
 
