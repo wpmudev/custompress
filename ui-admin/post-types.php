@@ -1,9 +1,9 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
-<?php 
+<?php
 if ( is_network_admin() )
 	$post_types = get_site_option('ct_custom_post_types');
-else 
+else
 	$post_types = $this->post_types;
 ?>
 
@@ -76,9 +76,9 @@ else
                 </td>
                 <td><?php echo( $post_type['capability_type'] ); ?></td>
                 <td class="ct-tf-icons-wrap">
-                    <?php if ( $post_type['public'] === NULL ): ?>
+                    <?php if ( isset( $post_type['public'] ) && $post_type['public'] === NULL ): ?>
                         <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/advanced.png'; ?>" alt="<?php _e('Advanced', $this->text_domain); ?>" title="<?php _e('Advanced', $this->text_domain); ?>" />
-                    <?php elseif ( $post_type['public'] ): ?>
+                    <?php elseif ( isset( $post_type['public'] ) ): ?>
                         <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/true.png'; ?>" alt="<?php _e('True', $this->text_domain); ?>" title="<?php _e('True', $this->text_domain); ?>" />
                     <?php else: ?>
                         <img class="ct-tf-icons" src="<?php echo $this->plugin_url . 'ui-admin/images/false.png'; ?>" alt="<?php _e('False', $this->text_domain); ?>" title="<?php _e('False', $this->text_domain); ?>" />

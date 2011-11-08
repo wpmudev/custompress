@@ -476,7 +476,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
             // Remove all values of custom field
             if ( isset( $_POST['delete_cf_values'] ) ) {
 
-                if ( 1 == $custom_fields[$_POST['custom_field_id']]['field_wp_allow'] )
+                if ( isset( $custom_fields[$_POST['custom_field_id']]['field_wp_allow'] ) && 1 == $custom_fields[$_POST['custom_field_id']]['field_wp_allow'] )
                     $prefix = 'ct_';
                 else
                     $prefix = '_ct_';
@@ -537,7 +537,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
             ksort( $taxonomies );
             foreach ( $taxonomies as $taxonomy => $args ) {
                 if ( in_array ( 'attachment', $args['object_type'] ) ) {
-                    $name = ( $args['args']['labels']['name'] ) ? $args['args']['labels']['name'] : $taxonomy;
+                    $name = ( isset( $args['args']['labels']['name'] ) ) ? $args['args']['labels']['name'] : $taxonomy;
                     $submenu['upload.php'][] = array( $name, 'upload_files', 'edit-tags.php?taxonomy=' . $taxonomy );
                 }
             }
@@ -574,7 +574,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
                     $meta_box_label = 'Custom Fields';
 
-                    if ( $this->post_types[$object_type] ) {
+                    if ( isset( $this->post_types[$object_type] ) ) {
                         if ( 0 < strlen( $this->post_types[$object_type]['labels']['custom_fields_block'] ) )
                             $meta_box_label = $this->post_types[$object_type]['labels']['custom_fields_block'];
                     }
@@ -617,13 +617,16 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
         if ( !empty( $custom_fields )) {
             foreach ( $custom_fields as $custom_field ) {
-                if ( 1 == $custom_field['field_wp_allow'] )
+                if ( isset( $custom_field['field_wp_allow'] ) && 1 == $custom_field['field_wp_allow'] )
                     $prefix = 'ct_';
                 else
                     $prefix = '_ct_';
 
                 if ( isset( $_POST[$prefix . $custom_field['field_id']] ))
                     update_post_meta( $post_id, $prefix . $custom_field['field_id'], $_POST[$prefix . $custom_field['field_id']] );
+                //for non checked checkbox set value -1
+                elseif ( in_array( $_POST["post_type"], $custom_field["object_type"] ) && 'checkbox' == $custom_field['field_type'] )
+                    update_post_meta( $post_id, $prefix . $custom_field['field_id'], -1 );
                 else
                     delete_post_meta( $post_id, $prefix . $custom_field['field_id'] );
             }
@@ -705,6 +708,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
     function add_custom_for_attachment( $form_fields, $post ) {
         if ( $form_fields ) {
 
+            $script = '';
+
             //add hierarchical terms as checkbox
             foreach ( $form_fields as $taxonomy => $taxonomy_value ) {
                 if ( isset( $taxonomy_value['hierarchical'] ) && 1 == $taxonomy_value['hierarchical'] ) {
@@ -742,8 +747,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     $checkbox = $this->media_gen_hierarchical_field( $post->ID, $taxonomy, $term_ids, $taxonomy_tree );
                     if ( $terms ) {
                         $form_fields[ 'temp_' . $taxonomy]['input']    = 'checkbox';
+                        $form_fields[ 'temp_' . $taxonomy]['label']    = ( isset( $taxonomy_value['labels']->name ) && '' != $taxonomy_value['labels']->name ) ? $taxonomy_value['labels']->name : ucwords( $taxonomy );
                         $form_fields[ 'temp_' . $taxonomy]['checkbox'] = $checkbox;
-
 
                          /* Save hierarchical terms:
                          only with JavaScript - for change Array value to String
@@ -763,6 +768,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
                             }
                         }
                         ';
+
                         $form_fields[$taxonomy]['input'] = 'hidden';
                         $form_fields[$taxonomy]['value'] = '';
                         $add_script = 1;
@@ -776,8 +782,9 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
             //add JavaScript to meadia page for save terms
             if ( isset( $add_script ) ) {
-                $form_fields['script_for']['input'] = 'html';
-                $form_fields['script_for']['html']  = '
+                $form_fields['script_for_terms']['input'] = 'html';
+                $form_fields['script_for_terms']['label'] = '';
+                $form_fields['script_for_terms']['html']  = '
                     <script type="text/javascript">
                         jQuery( document ).ready( function() {
                             jQuery("#media-single-form").submit(function(){
@@ -791,120 +798,129 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 
             //Add custome fields to Media page
-            foreach ( $this->custom_fields as $custom_field ) {
+            if ( is_array( $this->custom_fields ) )
+                foreach ( $this->custom_fields as $custom_field ) {
 
-                if ( in_array ( 'attachment', $custom_field['object_type'] ) ) {
+                    if ( in_array ( 'attachment', $custom_field['object_type'] ) ) {
 
-                    $html = '';
+                        $html = '';
 
-                    switch ( $custom_field['field_type'] ) {
-                        case 'text';
-                        case 'textarea':
-                            $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-                            $form_fields[$custom_field['field_id']]['input'] = $custom_field['field_type'];
-                            $form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
-                            $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-                        break;
+                        switch ( $custom_field['field_type'] ) {
+                            case 'text';
+                            case 'textarea':
+                                $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+                                $form_fields[$custom_field['field_id']]['input'] = $custom_field['field_type'];
+                                $form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
+                                $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+                            break;
 
-                        case 'radio':
+                            case 'radio':
 
-                            $values = get_post_meta( $post->ID, $custom_field['field_id'], true );
+                                $values = get_post_meta( $post->ID, $custom_field['field_id'], true );
 
-                            if ( empty( $values ) )
-                                $values = (array) $custom_field['field_default_option'];
-                            elseif ( ! is_array( $values ) )
-                                $values = (array) $values;
+                                if ( empty( $values ) )
+                                    $values = (array) $custom_field['field_default_option'];
+                                elseif ( ! is_array( $values ) )
+                                    $values = (array) $values;
 
 
-                            foreach ( $custom_field['field_options'] as $key => $value ) {
-                                $input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . ']';
-                                $input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
+                                foreach ( $custom_field['field_options'] as $key => $value ) {
+                                    $input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . ']';
+                                    $input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
 
-                                if ( in_array( $key, $values ) )
-                                    $html .= '<input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $key . '" checked />
-                                              <label for="' . $input_id . '">' . $value . '</label><br />';
+                                    if ( in_array( $value, $values ) )
+                                        $html .= '<label>
+                                                    <input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" checked />
+                                                    ' . $value . '
+                                                  </label><br />';
+                                    else
+                                        $html .= '<label>
+                                                    <input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" />
+                                                    ' . $value . '
+                                                  </label><br />';
+                                }
+
+                                $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+                                $form_fields[$custom_field['field_id']]['input'] = 'html';
+                                $form_fields[$custom_field['field_id']]['html']  = $html;
+                                $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+                            break;
+
+                            case 'checkbox':
+
+                                $values = get_post_meta( $post->ID, $custom_field['field_id'], true );
+
+                                if ( empty( $values ) )
+                                    $values = (array) $custom_field['field_default_option'];
+                                elseif ( ! is_array( $values ) )
+                                    $values = (array) $values;
+
+                                foreach ( $custom_field['field_options'] as $key => $value ) {
+                                    $input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . '][' . $key . ']';
+                                    $input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
+
+                                    if ( in_array( $value, $values ) )
+                                        $html .= '<label>
+                                                    <input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" checked />
+                                                    ' . $value . '
+                                                  </label><br />';
+                                    else
+                                        $html .= '<label>
+                                                    <input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" />
+                                                    ' . $value . '
+                                                  </label><br />';
+                                }
+
+                                $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+                                $form_fields[$custom_field['field_id']]['input'] = 'html';
+                                $form_fields[$custom_field['field_id']]['html']  = $html;
+                                $form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
+                                $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+                            break;
+
+                            case 'selectbox';
+                            case 'multiselectbox':
+                                if ( 'multiselectbox' == $custom_field['field_type'] )
+                                    $multiple = 'multiple style="height: 130px;"';
                                 else
-                                    $html .= '<input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $key . '" />
-                                              <label for="' . $input_id . '">' . $value . '</label><br />';
-                            }
+                                    $multiple = '';
 
-                            $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-                            $form_fields[$custom_field['field_id']]['input'] = 'html';
-                            $form_fields[$custom_field['field_id']]['html']  = $html;
-                            $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-                        break;
+                                $values = get_post_meta( $post->ID, $custom_field['field_id'], true );
 
-                        case 'checkbox':
-
-                            $values = get_post_meta( $post->ID, $custom_field['field_id'], true );
-
-                            if ( empty( $values ) )
-                                $values = (array) $custom_field['field_default_option'];
-                            elseif ( ! is_array( $values ) )
-                                $values = (array) $values;
-
-                            foreach ( $custom_field['field_options'] as $key => $value ) {
-                                $input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . '][]';
-                                $input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
-
-                                if ( in_array( $key, $values ) )
-                                    $html .= '<input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $key . '" checked />
-                                              <label for="' . $input_id . '">' . $value . '</label><br />';
-                                else
-                                    $html .= '<input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $key . '" />
-                                              <label for="' . $input_id . '">' . $value . '</label><br />';
-                            }
-
-                            $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-                            $form_fields[$custom_field['field_id']]['input'] = 'html';
-                            $form_fields[$custom_field['field_id']]['html']  = $html;
-                            $form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
-                            $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-                        break;
-
-                        case 'selectbox';
-                        case 'multiselectbox':
-                            if ( 'multiselectbox' == $custom_field['field_type'] )
-                                $multiple = 'multiple style="height: 130px;"';
-                            else
-                                $multiple = '';
-
-                            $values = get_post_meta( $post->ID, $custom_field['field_id'], true );
-
-                            if ( empty( $values ) )
-                                $values = (array) $custom_field['field_default_option'];
-                            elseif ( ! is_array( $values ) )
-                                $values = (array) $values;
+                                if ( empty( $values ) )
+                                    $values = (array) $custom_field['field_default_option'];
+                                elseif ( ! is_array( $values ) )
+                                    $values = (array) $values;
 
 
-                            foreach ( $custom_field['field_options'] as $key => $value ) {
-                                if ( in_array( $key, $values ) )
-                                    $html .= '<option value="' . $key . '" selected >' . $value . '&nbsp;</option>';
-                                else
-                                    $html .= '<option value="' . $key . '">' . $value . '&nbsp;</option>';
-                            }
+                                foreach ( $custom_field['field_options'] as $key => $value ) {
+                                    if ( in_array( $value, $values ) )
+                                        $html .= '<option value="' . $value . '" selected >' . $value . '&nbsp;</option>';
+                                    else
+                                        $html .= '<option value="' . $value . '">' . $value . '&nbsp;</option>';
+                                }
 
-                            $html = '
-                                <select ' . $multiple . ' name="attachments['. $post->ID .'][' . $custom_field['field_id'] . '][]" id="attachments['. $post->ID .'][' . $custom_field['field_id'] . ']">
-                                    ' . $html . '
-                                </select>
-                            ';
+                                $html = '
+                                    <select ' . $multiple . ' name="attachments['. $post->ID .'][' . $custom_field['field_id'] . '][]" id="attachments['. $post->ID .'][' . $custom_field['field_id'] . ']">
+                                        ' . $html . '
+                                    </select>
+                                ';
 
-                            $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-                            $form_fields[$custom_field['field_id']]['input'] = 'html';
-                            $form_fields[$custom_field['field_id']]['html']  = $html;
-                            $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-                        break;
+                                $form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+                                $form_fields[$custom_field['field_id']]['input'] = 'html';
+                                $form_fields[$custom_field['field_id']]['html']  = $html;
+                                $form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+                            break;
+                        }
                     }
                 }
-            }
 
         }
         return $form_fields;
     }
 
     //generate html for hierarchical fields on media page
-    function media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $taxonomy_tree, $checkbox = '', $num = 0 ) {
+    function media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $taxonomy_tree, $checkbox = '', &$num = 0 ) {
         foreach ( $taxonomy_tree as $term_id => $tree ) {
             $type       = 'checkbox';
             $checked    = is_object_in_term( $post_id, $taxonomy, $term_id ) ? ' checked="checked"' : '';
@@ -912,7 +928,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
             $checkbox  .= ' <input type="' . $type . '" id="my_terms_' . $post_id . '_' . $taxonomy . '_' . $num . '" name="my_terms_[' . $post_id . '][' . $taxonomy . '][]" value="' . $term_ids[$term_id]->name . '"' . $checked . ' /><label for="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '">' . esc_html( $term_ids[$term_id]->name ) . "</label><br />\n";
             $num++;
             if ( count( $tree ) )
-                $checkbox = $this->media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $tree, $checkbox, &$num );
+                $checkbox = $this->media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $tree, $checkbox, $num );
         }
         return $checkbox;
     }
@@ -921,7 +937,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
     function save_custom_for_attachment( $post, $attachment ) {
 
         //Save custom fields for Attachment post type
-        if ( $this->custom_fields )
+        if ( is_array( $this->custom_fields ) )
             foreach ( $this->custom_fields as $custom_field ) {
                 if ( in_array ( 'attachment', $custom_field['object_type'] ) ) {
                     if ( isset( $attachment[$custom_field['field_id']] ) ) {

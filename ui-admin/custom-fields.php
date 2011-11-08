@@ -38,7 +38,7 @@ else
             <?php $i = 0; foreach ( $custom_fields as $custom_field ): ?>
 
             <?php
-            if ( 1 == $custom_field['field_wp_allow'] )
+            if ( isset( $custom_field['field_wp_allow'] ) && 1 == $custom_field['field_wp_allow'] )
                 $prefix = 'ct_';
             else
                 $prefix = '_ct_';
@@ -70,7 +70,7 @@ else
                     </form>
                 </td>
                 <td><?php echo $prefix . $custom_field['field_id']; ?></td>
-                <td><?php echo ( 1 == $custom_field['field_wp_allow'] ) ? __( 'Allow', $this->text_domain ) : __( 'Deny', $this->text_domain ); ?></td>
+                <td><?php echo ( isset( $custom_field['field_wp_allow'] ) && 1 == $custom_field['field_wp_allow'] ) ? __( 'Allow', $this->text_domain ) : __( 'Deny', $this->text_domain ); ?></td>
                 <td><?php echo( $custom_field['field_type'] ); ?></td>
                 <td><?php echo( $custom_field['field_description'] ); ?></td>
                 <td>

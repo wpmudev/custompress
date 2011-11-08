@@ -268,7 +268,7 @@
                     if ( ! empty( $custom_fields ) ) {
                         foreach ( $custom_fields as $custom_field ) {
                             if ( false !== array_search( $_GET['ct_edit_post_type'], $custom_field['object_type'] ) ) {
-                                if ( 1 == $post_type['cf_columns'][$custom_field['field_id']] )
+                                if ( isset( $post_type['cf_columns'][$custom_field['field_id']] ) && 1 == $post_type['cf_columns'][$custom_field['field_id']] )
                                     $checked = 'checked';
                                 else
                                     $checked = '';
