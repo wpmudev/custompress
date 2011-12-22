@@ -4,7 +4,7 @@
 Plugin Name: CustomPress
 Plugin URI: http://premium.wpmudev.org/project/custompress
 Description: CustomPress - Custom Post, Taxonomy and Field Manager.
-Version: 1.1.8
+Version: 1.1.8.1
 Author: Ivan Shaovchev, Andrey Shipilov (Incsub)
 Author URI: http://premium.wpmudev.org
 WDP ID: 163
