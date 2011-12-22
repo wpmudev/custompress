@@ -1,9 +1,9 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
-<?php 
+<?php
 if ( is_network_admin() )
 	$taxonomies = get_site_option('ct_custom_taxonomies');
-else 
+else
 	$taxonomies = $this->taxonomies;
 ?>
 

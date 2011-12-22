@@ -9,6 +9,11 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
+=1.1.9 =
+
+* Fixed problem with "Allow for WP/plugins" when editing  Custom Fields;
+* Added feature for assign regular taxonomies to Custom Post Type;
+
 =1.1.8 =
 
 * Fixed Warning\Notice message;

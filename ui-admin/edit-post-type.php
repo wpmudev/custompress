@@ -74,6 +74,34 @@
         </div>
         <div class="ct-table-wrap">
             <div class="ct-arrow"><br></div>
+            <h3 class="ct-toggle"><?php _e('Support Regular Taxonomies', $this->text_domain) ?></h3>
+               <table class="form-table supports">
+                <tr>
+                    <th>
+                        <label for="supports"><?php _e('Support Regular Taxonomies', $this->text_domain) ?></label>
+                    </th>
+                    <td>
+                        <span class="description"><?php _e('Assign regular taxonomies to this Post Type.', $this->text_domain); ?></span>
+                    </td>
+                </tr>
+               <tr>
+                    <th></th>
+                    <td>
+                    <?php if ( taxonomy_exists( 'category' ) ): ?>
+                        <input type="checkbox" name="supports_reg_tax[category]" value="1" <?php echo ( isset( $post_type['supports_reg_tax']['category'] ) && '1' == $post_type['supports_reg_tax']['category'] ) ? 'checked' : ''; ?>>
+                        <span class="description"><strong><?php _e( 'Categories', $this->text_domain ) ?></strong></span>
+                    <?php endif; ?>
+                    <br />
+                    <?php if ( taxonomy_exists( 'post_tag' ) ): ?>
+                        <input type="checkbox" name="supports_reg_tax[post_tag]" value="1" <?php echo ( isset( $post_type['supports_reg_tax']['post_tag'] ) && '1' == $post_type['supports_reg_tax']['post_tag'] ) ? 'checked' : ''; ?>>
+                        <span class="description"><strong><?php _e( 'Tags', $this->text_domain ) ?></strong></span>
+                    <?php endif; ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="ct-table-wrap">
+            <div class="ct-arrow"><br></div>
             <h3 class="ct-toggle"><?php _e('Capability Type', $this->text_domain) ?></h3>
             <table class="form-table">
                 <tr>

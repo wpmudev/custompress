@@ -97,10 +97,18 @@ class CustomPress_Content_Types extends CustomPress_Core {
                     'parent_item_colon'     => $_POST['labels']['parent_item_colon'],
                     'custom_fields_block'   => $_POST['labels']['custom_fields_block']
                 );
+
+                //choose regular taxonomies
+                $supports_reg_tax = array (
+                    'category' => ( isset( $_POST['supports_reg_tax']['category'] ) ) ? '1' : '',
+                    'post_tag' => ( isset( $_POST['supports_reg_tax']['post_tag'] ) ) ? '1' : '',
+                );
+
 				// Post type args
                 $args = array(
                     'labels'              => $labels,
                     'supports'            => $_POST['supports'],
+                    'supports_reg_tax'    => $supports_reg_tax,
                     'capability_type'     => ( isset( $_POST['capability_type'] ) ) ? $_POST['capability_type'] : 'post',
                     'description'         => $_POST['description'],
                     'menu_position'       => (int)  $_POST['menu_position'],
@@ -227,8 +235,20 @@ class CustomPress_Content_Types extends CustomPress_Core {
         $post_types = $this->post_types;
 		// Register each post type if array of data is returned
         if ( is_array( $post_types ) ) {
-            foreach ( $post_types as $post_type => $args )
+            foreach ( $post_types as $post_type => $args ) {
+
+                //register post type
                 register_post_type( $post_type, $args );
+
+                //assign post type with regular taxanomies
+                if ( isset( $args['supports_reg_tax'] ) ) {
+                    foreach ( $args['supports_reg_tax'] as $key => $value ) {
+                        if ( taxonomy_exists( $key ) && '1' == $value ) {
+                            register_taxonomy_for_object_type( $key, $post_type );
+                        }
+                    }
+                }
+            }
         }
 
         $this->flush_rewrite_rules();
