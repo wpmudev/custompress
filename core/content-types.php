@@ -977,6 +977,6 @@ class CustomPress_Content_Types extends CustomPress_Core {
 }
 
 // Initiate Content Types Module
-new CustomPress_Content_Types();
+$CustomPress_Content_Types = new CustomPress_Content_Types();
 
 ?>

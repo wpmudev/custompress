@@ -263,6 +263,6 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 }
 
 /* Initiate Admin Class */
-new CustomPress_Core_Admin();
+$CustomPress_Core_Admin = new CustomPress_Core_Admin();
 
 ?>

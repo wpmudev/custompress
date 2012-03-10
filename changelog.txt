@@ -9,6 +9,11 @@ Author URI: http://premium.wpmudev.org
 
 = 
 
+
+=1.2.0 =
+
+* Compatibility with the Directory plugin;
+
 =1.1.9 =
 
 * Fixed problem with "Allow for WP/plugins" when editing  Custom Fields;
