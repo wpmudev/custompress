@@ -7,7 +7,11 @@ Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
-= 
+= 1.2.1 =
+
+* Added Date Picker
+* Corrected CP_PLUGIN_URL for SSL
+* Fixed double display of options on Radio buttons
 
 
 =1.2.0 =
