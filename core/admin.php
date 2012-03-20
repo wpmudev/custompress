@@ -198,7 +198,6 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 	function handle_settings_page_requests() {
 		// Save settings
 		if ( isset( $_POST['save'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'verify' ) ) {
-				print_r($_POST);
 
 			// Set network-wide content types
 			if ( is_multisite() && is_super_admin() && is_network_admin() ) {
@@ -222,7 +221,10 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 			$args = array( 'page' => 'home', 'post_type' => ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : null );
 			$options = $this->get_options();
 			$options = array_merge( $options , array( 'display_post_types' => array( $args['page'] => $args )) );
-			$options = array_merge( $options, array('datepicker_theme' => $_POST['datepicker_theme'] ) ); 
+			
+			//Update datepicker settings
+			if (! empty($_POST['datepicker_theme']) && ! empty($_POST['date_format']))
+			$options = array_merge( $options, array('datepicker_theme' => $_POST['datepicker_theme'], 'date_format' => $_POST['date_format']  ) ); 
 			update_option( $this->options_name, $options );
 		}
 

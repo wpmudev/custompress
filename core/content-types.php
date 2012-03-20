@@ -817,7 +817,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			}
 
 
-			//Add custome fields to Media page
+			//Add custom fields to Media page
 			if ( is_array( $this->custom_fields ) )
 			foreach ( $this->custom_fields as $custom_field ) {
 

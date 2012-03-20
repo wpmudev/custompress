@@ -165,7 +165,7 @@ $output = false;
 					<label for="<?php echo ( $prefix . $custom_field['field_id'] ); ?>"><?php echo ( $custom_field['field_title'] ); ?></label>
 				</th>
 				<td>
-					<?php echo $this->get_jquery_ui_css(); ?>
+					<?php echo $this->jquery_ui_css(); ?>
 					<input type="text" class="pickdate" name="<?php echo ( $prefix . $custom_field['field_id'] ); ?>" id="<?php echo ( $prefix . $custom_field['field_id'] ); ?>" value="<?php echo ( get_post_meta( $post->ID, $prefix . $custom_field['field_id'], true )); ?>" />
 					<p><?php echo ( $custom_field['field_description'] ); ?></p>
 				</td>

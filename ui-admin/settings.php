@@ -95,24 +95,69 @@ $network_post_types = get_site_option('ct_custom_post_types');
 		<table class="form-table">
 			<tr>
 				<th>
-					<label for="datepicker_theme"><?php _e('Select Datepicker Theme.', $this->text_domain) ?></label>
 				</th>
 				<td>
-					<?php
-					$this->jquery_ui_css(); //Load the current ui theme
-					$datepicker_theme = $this->get_options('datepicker_theme');
-					$themes = glob($this->plugin_dir . 'css/*', GLOB_ONLYDIR);
-					?>
-					<select id="datepicker_theme" name="datepicker_theme" onchange="update_stylesheet('<?php echo $this->plugin_url . 'css/'; ?>' + this.options[this.selectedIndex].value + '/datepicker.css');" >
-						<?php
-						foreach($themes as $theme){
-							$theme = basename($theme);
-							$selected = ($theme == $datepicker_theme) ? 'selected="selected"' : '';
-							echo "<option value=\"$theme\" $selected >" . ucwords(str_replace('-',' ', $theme)) . "</option>\n";
-						}
-						?>
-					</select><br /><br />
-					<div class="pickdate"></div>
+					<table>
+						<tr>
+							<td style="vertical-align:top;">
+								<select id="date_format" name="date_format" style="width:100%" onchange="jQuery('.pickdate').datepicker( 'option', 'dateFormat', this.options[this.selectedIndex].value );" >
+
+									<?php
+
+									$date_format = $this->get_options('date_format');
+
+									$date_format = (is_array($date_format)) ? 'mm/dd/yy' : $date_format;
+
+									$formats = array(
+									'Default - mm/dd/yy' => 'mm/dd/yy',
+									'Litle Endian - dd/mm/yy' => 'dd/mm/yy',
+									'Big Endian - yy/mm/dd' => 'yy/mm/dd',
+									'ISO 8601 - yy-mm-dd' => 'yy-mm-dd',
+									'ME Short - M d, yy' => 'M d, y',
+									'ME Medium - MM d, yy' => 'MM d, yy',
+									'LE Short - d M, yy' => 'd M, yy',
+									'LE Medium - d MM, yy' => 'd MM, yy',
+									'Full - DD, d MM, yy' => 'DD, d MM, yy',
+									"With text - 'day' d 'of' MM 'in the year' yy" => "'day' d 'of' MM 'in the year' yy",
+									);
+									foreach($formats as $key => $format){
+
+										$selected = ($format == $date_format) ? 'selected="selected"' : '';
+
+										echo "<option value=\"$format\" $selected >$key</option>\n";
+									}
+									?>
+								</select><br />
+								<label for="date_format"><?php _e('Date Format options', $this->text_domain) ?></label><br />
+								<?php
+								$this->jquery_ui_css(); //Load the current ui theme
+								$datepicker_theme = $this->get_options('datepicker_theme');
+								$themes = glob($this->plugin_dir . 'datepicker/css/*', GLOB_ONLYDIR);
+								?>
+								<br />
+								<select id="datepicker_theme" name="datepicker_theme" style="width:100%" onchange="update_stylesheet('<?php echo $this->plugin_url . 'datepicker/css/'; ?>' + this.options[this.selectedIndex].value + '/datepicker.css');" >
+									<?php
+									foreach($themes as $theme){
+										$theme = basename($theme);
+										$selected = ($theme == $datepicker_theme) ? 'selected="selected"' : '';
+										echo "<option value=\"$theme\" $selected >" . ucwords(str_replace('-',' ', $theme)) . "</option>\n";
+									}
+									?>
+								</select><br />
+								<label for="datepicker_theme"><?php _e('Select Datepicker Theme.', $this->text_domain) ?></label>
+
+								<p><div class="pickdate"></div></p
+							</td>
+							<td style="vertical-align:top;">
+								<?php $watermark = __(' or Enter custom date format', $this->text_domain); ?>
+								<input type="text" name="date_format" size="38" value="<?php echo $watermark; ?>"
+								onblur="if (this.value == '') this.value='<?php echo $watermark; ?>'; if (this.value != '<?php echo $watermark; ?>') jQuery('.pickdate').datepicker( 'option', 'dateFormat', this.value );"
+								onclick="if (this.value == '<?php echo $watermark; ?>') this.value='';"/><br /><br /><br />
+								<input class="pickdate" id="datepicker" type="text" size="38" value="" /><br />
+								<label for="datepicker"><?php _e('Date picker sample', $this->text_domain) ?></label>
+							</td>
+						</tr>
+					</table>
 
 				</td>
 			</tr>
