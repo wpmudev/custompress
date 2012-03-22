@@ -1,18 +1,19 @@
 === CustomPress ===
 
-Author: Ivan Shaovchev, Andrey Shipilov (Incsub) 
+Author: Ivan Shaovchev, Andrey Shipilov (Incsub), Arnold Bailey (Incsub)
 Author URI: http://premium.wpmudev.org
 
 
 
 == Changelog ==
 
-= 1.2.1 =
+= 1.2.1 = 2012-03-22 Arnold Bailey
 
 * Added Date Picker
 * Corrected CP_PLUGIN_URL for SSL
 * Fixed double display of options on Radio buttons
-
+* Added class exists exclusions
+* Verified function as a sub module for Classifieds, Directory etc.
 
 =1.2.0 =
 

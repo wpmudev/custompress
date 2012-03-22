@@ -8,6 +8,9 @@
 * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
 * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
 */
+
+if (!class_exists('CustomPress_Core_Admin')):
+
 class CustomPress_Core_Admin extends CustomPress_Core {
 
 	/** @var array Avilable Post Types */
@@ -168,6 +171,7 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 		wp_enqueue_script( 'ct-admin-scripts',
 		$this->plugin_url . 'ui-admin/js/ct-scripts.js',
 		array( 'jquery' ) );
+		
 	}
 
 	/**
@@ -268,5 +272,7 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 
 /* Initiate Admin Class */
 $CustomPress_Core_Admin = new CustomPress_Core_Admin();
+
+endif;
 
 ?>

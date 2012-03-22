@@ -8,6 +8,9 @@
 * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
 * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
 */
+
+if (!class_exists('CustomPress_Content_Types')):
+
 class CustomPress_Content_Types extends CustomPress_Core {
 
 	/** @var array Avilable Post Types */
@@ -972,12 +975,11 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 		return $post;
 	}
-
-
-
 }
 
 // Initiate Content Types Module
 $CustomPress_Content_Types = new CustomPress_Content_Types();
+
+endif;
 
 ?>

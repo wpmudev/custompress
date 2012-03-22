@@ -63,7 +63,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 									<option value="asc"><?php _e('Name - Ascending', $this->text_domain); ?></option>
 									<option value="desc"><?php _e('Name - Descending', $this->text_domain); ?></option>
 									*/ ?>
-								</select
+								</select>
 							</p>
 
 							<?php if ( isset( $custom_field['field_options'] ) && is_array( $custom_field['field_options'] )): ?>

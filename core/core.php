@@ -7,6 +7,9 @@
 * @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
 * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
 */
+
+if(! class_exists('CustomPress_Core')):
+
 class CustomPress_Core {
 
 	/** @var string $plugin_version Plugin version */
@@ -50,6 +53,7 @@ class CustomPress_Core {
 	function on_enqueue_scripts(){
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-datepicker');
+		wp_enqueue_script('jquery-ui-widget');
 
 		$lang = (WPLANG == '') ? '' : substr(WPLANG, 0, 2);
 		//longer exceptions
@@ -57,6 +61,11 @@ class CustomPress_Core {
 		// If it can't find one too bad.
 		wp_register_script('jquery-ui-datepicker-lang', $this->plugin_url . "datepicker/js/i18n/jquery.ui.datepicker-$lang.js", array('jquery','jquery-ui-datepicker'), '1.8.18');
 		wp_enqueue_script('jquery-ui-datepicker-lang');
+
+		wp_register_script('jquery-combobox', $this->plugin_url . "datepicker/js/jquery.combobox/jquery.combobox.js", array('jquery'), '1.8.18');
+		wp_enqueue_script('jquery-combobox');
+		wp_register_style('jquery-combobox', $this->plugin_url . "datepicker/js/jquery.combobox/style.css", array(), '0.5');
+		wp_enqueue_style('jquery-combobox');
 	}
 
 	/**
@@ -254,112 +263,121 @@ class CustomPress_Core {
 					});
 				}
 			});
-			</script> <?php
-		}
 
-		/**
-		* Ajax callback which gets the post types associated with each page.
-		*
-		* @return JSON Encoded data
-		*/
-		function ajax_action_callback() {
-			$page_name = $_POST['cp_ajax_page_name'];
-			$options = $this->get_options();
-			if ( isset( $options['display_post_types'][$page_name]['post_type'] ) ) {
-				/* json encode the response */
-				$response = json_encode( $options['display_post_types'][$page_name]['post_type'] );
-				/* response output */
-				header( "Content-Type: application/json" );
-				echo $response;
-				die();
-			} else {
-				die();
-			}
-		}
+		</script>
+		<?php
+	}
 
-		/**
-		* Create a copy of the single.php file with the post type name added
-		*
-		* @param string $post_type
-		*/
-		function create_post_type_files( $post_type ) {
-			$file = TEMPLATEPATH . '/single.php';
-			if ( !empty( $post_type ) ) {
-				foreach ( $post_type as $post_type ) {
-					$newfile = TEMPLATEPATH . '/single-' .  strtolower( $post_type ) . '.php';
-					if ( !file_exists( $newfile )) {
-						if ( @copy( $file, $newfile ) ) {
-							chmod( $newfile, 0777 );
-						} else {
-							echo '<div class="error">Failed to copy ' .  $file . '. Please set your active theme folder permissions to 777.</div>';
-						}
+	/**
+	* Ajax callback which gets the post types associated with each page.
+	*
+	* @return JSON Encoded data
+	*/
+	function ajax_action_callback() {
+		$page_name = $_POST['cp_ajax_page_name'];
+		$options = $this->get_options();
+		if ( isset( $options['display_post_types'][$page_name]['post_type'] ) ) {
+			/* json encode the response */
+			$response = json_encode( $options['display_post_types'][$page_name]['post_type'] );
+			/* response output */
+			header( "Content-Type: application/json" );
+			echo $response;
+			die();
+		} else {
+			die();
+		}
+	}
+
+	/**
+	* Create a copy of the single.php file with the post type name added
+	*
+	* @param string $post_type
+	*/
+	function create_post_type_files( $post_type ) {
+		$file = TEMPLATEPATH . '/single.php';
+		if ( !empty( $post_type ) ) {
+			foreach ( $post_type as $post_type ) {
+				$newfile = TEMPLATEPATH . '/single-' .  strtolower( $post_type ) . '.php';
+				if ( !file_exists( $newfile )) {
+					if ( @copy( $file, $newfile ) ) {
+						chmod( $newfile, 0777 );
+					} else {
+						echo '<div class="error">Failed to copy ' .  $file . '. Please set your active theme folder permissions to 777.</div>';
 					}
 				}
 			}
 		}
+	}
 
-		/**
-		* Save plugin options.
-		*
-		* @param  array $params The $_POST array
-		* @return die() if _wpnonce is not verified
-		*/
-		function save_options( $params ) {
-			if ( wp_verify_nonce( $params['_wpnonce'], 'verify' ) ) {
-				/* Remove unwanted parameters */
-				unset( $params['_wpnonce'], $params['_wp_http_referer'], $params['save'] );
+	/**
+	* Save plugin options.
+	*
+	* @param  array $params The $_POST array
+	* @return die() if _wpnonce is not verified
+	*/
+	function save_options( $params ) {
+		if ( wp_verify_nonce( $params['_wpnonce'], 'verify' ) ) {
+			/* Remove unwanted parameters */
+			unset( $params['_wpnonce'], $params['_wp_http_referer'], $params['save'] );
 
-				/* Update options by merging the old ones */
-				$options = $this->get_options();
-				$options = array_merge( $options, array( $params['key'] => $params ) );
-				update_option( $this->options_name, $options );
-			} else {
-				die( __( 'Security check failed!', $this->text_domain ) );
-			}
+			/* Update options by merging the old ones */
+			$options = $this->get_options();
+			$options = array_merge( $options, array( $params['key'] => $params ) );
+			update_option( $this->options_name, $options );
+		} else {
+			die( __( 'Security check failed!', $this->text_domain ) );
 		}
+	}
 
-		/**
-		* Get plugin options.
-		*
-		* @param  string|NULL $key The key for that plugin option.
-		* @return array $options Plugin options or empty array if no options are found
-		*/
-		function get_options( $key = null ) {
-			$options = get_option( $this->options_name );
-			$options = is_array( $options ) ? $options : array();
-			/* Check if specific plugin option is requested and return it */
-			if ( isset( $key ) && array_key_exists( $key, $options ) )
-			return $options[$key];
-			else
-			return $options;
-		}
+	/**
+	* Get plugin options.
+	*
+	* @param  string|NULL $key The key for that plugin option.
+	* @return array $options Plugin options or empty array if no options are found
+	*/
+	function get_options( $key = null ) {
+		$options = get_option( $this->options_name );
+		$options = is_array( $options ) ? $options : array();
+		/* Check if specific plugin option is requested and return it */
+		if ( isset( $key ) && array_key_exists( $key, $options ) )
+		return $options[$key];
+		else
+		return $options;
+	}
 
-		/**
-		* Renders an admin section of display code.
-		*
-		* @param  string $name Name of the admin file(without extension)
-		* @param  string $vars Array of variable name=>value that is available to the display code(optional)
-		* @return void
-		*/
-		function render_admin( $name, $vars = array() ) {
-			foreach ( $vars as $key => $val )
-			$$key = $val;
-			if ( file_exists( "{$this->plugin_dir}ui-admin/{$name}.php" ) )
-			include "{$this->plugin_dir}ui-admin/{$name}.php";
-			else
-			echo "<p>Rendering of admin template {$this->plugin_dir}ui-admin/{$name}.php failed</p>";
-		}
+	/**
+	* Renders an admin section of display code.
+	*
+	* @param  string $name Name of the admin file(without extension)
+	* @param  string $vars Array of variable name=>value that is available to the display code(optional)
+	* @return void
+	*/
+	function render_admin( $name, $vars = array() ) {
+		foreach ( $vars as $key => $val )
+		$$key = $val;
+		if ( file_exists( "{$this->plugin_dir}ui-admin/{$name}.php" ) )
+		include "{$this->plugin_dir}ui-admin/{$name}.php";
+		else
+		echo "<p>Rendering of admin template {$this->plugin_dir}ui-admin/{$name}.php failed</p>";
+	}
 
-		/**
-		* get_jquery_ui_css -  Returns a piece of javascript the will load or switch the jQuery-ui css Stylesheet to the current theme. This is used so the theme won't be loaded unless ther is a ui conpnent on the page.
-		*
-		*/
-		function jquery_ui_css(){
-			echo '<script type="text/javascript">update_stylesheet( "' . $this->plugin_url . 'datepicker/css/' . $this->get_options('datepicker_theme') .'/datepicker.css"); </script>' . PHP_EOL;
-		}
+	/**
+	* get_jquery_ui_css -  Returns a piece of javascript the will load or switch the jQuery-ui css Stylesheet to the current theme. This is used so the theme won't be loaded unless ther is a ui conpnent on the page.
+	*
+	*/
+	function jquery_ui_css($theme = ''){
+		$theme = (empty($theme)) ? $this->get_options('datepicker_theme') : $theme;
+		echo '<script type="text/javascript">update_stylesheet( "' . $this->plugin_url . "datepicker/css/$theme/datepicker.css\" ); </script>\n";
+	}
+
+	function widget_shortcodes(){
 
 	}
 
-	new CustomPress_Core();
+}
 
-	?>
+$CustomPress_Core =	new CustomPress_Core();
+
+endif;
+
+?>
