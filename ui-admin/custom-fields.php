@@ -10,7 +10,7 @@ $custom_fields = $this->custom_fields;
 <?php $this->render_admin('update-message'); ?>
 
 <form action="" method="post" class="ct-form-single-btn">
-	<input type="submit" class="button-secondary" name="redirect_add_custom_field" value="Add Custom Field" />
+	<input type="submit" class="button-secondary" name="redirect_add_custom_field" value="<?php _e('Add Custom Field', $this->text_domain); ?>" />
 </form>
 <table class="widefat">
 	<thead>
@@ -84,11 +84,14 @@ $custom_fields = $this->custom_fields;
 				<div class="embed-code-wrap">
 					<span class="description"><?php _e( 'Returns the values of the custom fields with the specified key from the specified post.', $this->text_domain ); ?></span>
 					<br /><br />
+     					<code><span style="color:red">&lt;?php</span> echo <strong>do_shortcode('[ct id="<?php echo( $prefix . $custom_field['field_id'] ); ?>"]')</strong>; <span style="color:red">?&gt;</span></code>
+<!--
 					<?php if ( $custom_field['field_type'] == 'text'|| $custom_field['field_type'] == 'textarea' || $custom_field['field_type'] == 'datepicker' ):  ?>
 					<code><span style="color:red">&lt;?php</span> echo <strong>get_post_meta(</strong> $post->ID, '<?php echo( $prefix . $custom_field['field_id'] ); ?>', true <strong>)</strong>; <span style="color:red">?&gt;</span></code>
 					<?php else: ?>
 					<code><span style="color:red">&lt;?php</span> if ( <strong>get_post_meta(</strong> $post->ID, '<?php echo( $prefix . $custom_field['field_id'] ); ?>', true <strong>)</strong> ) { foreach ( <strong>get_post_meta(</strong> $post->ID, '<?php echo( $prefix . $custom_field['field_id'] ); ?>', true <strong>)</strong> as $value ) { echo $value . ', '; }} <span style="color:red">?&gt;</span></code>
 					<?php endif; ?>
+-->		
 				</div>
 			</td>
 		</tr>
@@ -97,5 +100,5 @@ $custom_fields = $this->custom_fields;
 	</tbody>
 </table>
 <form action="" method="post" class="ct-form-single-btn">
-	<input type="submit" class="button-secondary" name="redirect_add_custom_field" value="Add Custom Field" />
+	<input type="submit" class="button-secondary" name="redirect_add_custom_field" value="<?php _e('Add Custom Field', $this->text_domain); ?>" />
 </form>

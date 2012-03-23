@@ -107,6 +107,7 @@ $network_post_types = get_site_option('ct_custom_post_types');
 						$datepicker_theme = (is_array($datepicker_theme)) ? 'excite-bike' : $datepicker_theme;
 
 						$this->jquery_ui_css($datepicker_theme); //Load the current ui theme css
+						
 						$themes = glob($this->plugin_dir . 'datepicker/css/*', GLOB_ONLYDIR);
 						foreach($themes as $theme){
 							$theme = basename($theme);
@@ -125,6 +126,12 @@ $network_post_types = get_site_option('ct_custom_post_types');
 					<br /><br />
 					<input class="pickdate" id="datepicker" type="text" size="38" value="" /><br />
 					<span class="description"><?php _e('Date picker sample', $this->text_domain) ?></span>
+					<script type="text/javascript">
+						//Make em pickers
+						jQuery('.pickdate').datepicker({ dateFormat : '<?php echo $date_format; ?>' });
+						//Default date for display
+						jQuery('#datepicker').attr('value', jQuery.datepicker.formatDate('<?php echo $date_format; ?>', new Date(), {}) );
+					</script>
 
 				</td>
 			</tr>

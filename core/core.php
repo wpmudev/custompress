@@ -4,7 +4,7 @@
 * CustomPress_Core
 *
 * @copyright Incsub 2007-2011 {@link http://incsub.com}
-* @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
+* @author Ivan Shaovchev (Incsub), Arnold Bailey (Incsub)
 * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
 */
 
@@ -31,7 +31,6 @@ class CustomPress_Core {
 		add_action('admin_enqueue_scripts', array($this, 'on_enqueue_scripts'));
 
 		add_action('admin_head', array($this, 'on_admin_head'));
-		add_action('admin_print_footer_scripts', array($this, 'on_admin_print_footer_scripts'));
 
 		register_activation_hook( $this->plugin_dir . 'loader.php', array( &$this, 'plugin_activate' ) );
 		register_deactivation_hook( $this->plugin_dir . 'loader.php', array( &$this, 'plugin_deactivate' ) );
@@ -39,6 +38,7 @@ class CustomPress_Core {
 
 		add_filter( "plugin_action_links_$plugin", array( &$this, 'plugin_settings_link' ) );
 		add_filter( 'enable_subsite_content_types', array( &$this, 'enable_subsite_content_types' ) );
+		
 	}
 
 	/**
@@ -66,26 +66,6 @@ class CustomPress_Core {
 		wp_enqueue_script('jquery-combobox');
 		wp_register_style('jquery-combobox', $this->plugin_url . "datepicker/js/jquery.combobox/style.css", array(), '0.5');
 		wp_enqueue_style('jquery-combobox');
-	}
-
-	/**
-	*
-	*
-	*/
-	function on_admin_print_footer_scripts (){
-
-		//Add the Datepicker date format to javascript and intialize the datepickers
-		// We put it at the end so the cp_datepicker format javascript variable has a chance to be created before we try to use it
-		$date_format = $this->get_options('date_format');
-		$date_format = (is_array($date_format)) ? 'mm/dd/yy' : $date_format;
-		?>
-
-		<script type="text/javascript">
-			var cp_datepicker_format = '<?php echo $date_format; ?>'; //CustomPress datepicker format
-			jQuery(document).ready(function(){jQuery('.pickdate').datepicker({ dateFormat : cp_datepicker_format })});
-		</script>
-
-		<?php
 	}
 
 	function on_admin_head(){
@@ -370,9 +350,6 @@ class CustomPress_Core {
 		echo '<script type="text/javascript">update_stylesheet( "' . $this->plugin_url . "datepicker/css/$theme/datepicker.css\" ); </script>\n";
 	}
 
-	function widget_shortcodes(){
-
-	}
 
 }
 

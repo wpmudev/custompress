@@ -45,17 +45,17 @@ $post_types = $this->post_types;
 		<?php $i = 0; foreach ( $post_types as $name => $post_type ): ?>
 		<?php $class = ( $i % 2) ? 'ct-edit-row alternate' : 'ct-edit-row'; $i++; ?>
 		<tr class="<?php echo $class; ?>">
-			<td>
+			<td style="min-width:80px;">
 				<strong>
 					<a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ) ); ?>"><?php echo $name; ?></a>
 				</strong>
 				<div class="row-actions" id="row-actions-<?php echo $name; ?>">
 					<span class="edit">
-						<a title="<?php _e('Edit the post type', $this->text_domain); ?>" href="<?php echo self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ); ?>"><?php _e('Edit', $this->text_domain); ?></a> |
-					</span>
+						<a title="<?php _e('Edit the post type', $this->text_domain); ?>" href="<?php echo self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ); ?>"><?php _e('Edit', $this->text_domain); ?></a> | 
+						</span>
 					<span class="trash">
 						<a class="submitdelete" href="#" onclick="javascript:content_types.toggle_delete('<?php echo( $name ); ?>'); return false;"><?php _e('Delete', $this->text_domain); ?></a>
-					</span>
+						</span>
 				</div>
 				<form action="" method="post" id="form-<?php echo( $name ); ?>" class="del-form">
 					<?php wp_nonce_field('delete_post_type'); ?>

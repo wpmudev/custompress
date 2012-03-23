@@ -43,7 +43,6 @@
 	height: 100%;
 	width: 12px;
 	border: 1px solid #bbb;
-
 }
 
 .combobox_button:hover {
@@ -59,7 +58,7 @@
 	font-family: Helvetia, Arial, sans-serif;
 	font-size: 12px;
 	z-index: 1000;
-	max-height: 260px;
+	max-height: 280px;
 	overflow: auto;
 }
 
@@ -68,8 +67,7 @@
 	margin: 0;
 	list-style: none;
 	border:1px solid #bbb;
-		line-height:.6em;
-
+	line-height:.6em;
 }
 
 .combobox_selector li {
@@ -82,4 +80,3 @@
 	background-color: Highlight;
 	color: #fff;
 }
-

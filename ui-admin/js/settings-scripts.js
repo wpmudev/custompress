@@ -5,12 +5,8 @@
 		$(window).bind('load', init_enable_subsite_content_types);
 		$('.cp-main input[name="enable_subsite_content_types"]').bind('change', init_enable_subsite_content_types);
 
-		//Add a default date for the datepicker settings
-		var ds = $.datepicker.formatDate(cp_datepicker_format, new Date(), {});
-		$('#datepicker').attr('value', ds );
-
 		//Make the combo box for date formats
-		jQuery('#date_format').combobox([
+		$('#date_format').combobox([
 		'mm/dd/yy',
 		'mm-dd-yy',
 		'mm.dd.yy',

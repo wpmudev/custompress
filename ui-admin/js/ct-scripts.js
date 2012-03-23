@@ -73,6 +73,25 @@ var content_types = {
 
 
 		});
+		
+		//Make the combo box for date formats
+		$('#field_date_format').combobox([
+		'mm/dd/yy',
+		'mm-dd-yy',
+		'mm.dd.yy',
+		'dd/mm/yy',
+		'dd-mm-yy',
+		'dd.mm.yy',
+		'yy/mm/dd',
+		'yy-mm-dd',
+		'yy.mm.dd',
+		'M d, y',
+		'MM d, yy',
+		'd M, yy',
+		'd MM, yy',
+		'DD, d MM, yy',
+		"'day' d 'of' MM 'in the year' yy"
+		]);
 
 	});
 
@@ -185,12 +204,19 @@ var content_types = {
 		$('.ct-custom-fields select option:selected').val() === 'selectbox' ||
 		$('.ct-custom-fields select option:selected').val() === 'multiselectbox' ||
 		$('.ct-custom-fields select option:selected').val() === 'checkbox' ) {
+			$('.ct-date-type-options').hide();
 			$('.ct-field-type-options').show();
 		}
 		else if ( $('.ct-custom-fields select option:selected').val() === 'text' ||
-			$('.ct-custom-fields select option:selected').val() === 'datepicker' ||
 			$('.ct-custom-fields select option:selected').val() === 'textarea' ) {
 				$('.ct-field-type-options').hide();
+				$('.ct-date-type-options').hide();
+			}
+			else if ( $('.ct-custom-fields select option:selected').val() === 'datepicker'){
+				$('.ct-field-type-options').hide();
+				$('.ct-date-type-options').show();
 			}
 		}
+
+
 	})(jQuery);

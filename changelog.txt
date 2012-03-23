@@ -3,13 +3,18 @@
 Author: Ivan Shaovchev, Andrey Shipilov (Incsub), Arnold Bailey (Incsub)
 Author URI: http://premium.wpmudev.org
 
-
-
 == Changelog ==
 
-= 1.2.1 = 2012-03-22 Arnold Bailey
+= 1.2.1 = 2012-03-24 Arnold Bailey
 
 * Added Date Picker
+* Added Datepicker themes
+* Added Datepicker date formats
+* Added individual date formats for each created field
+* Added shortcodes for Taxonomy [tax id="tax" before="your before text " separator=", " after=" your after text"]
+* Added shortcodes for Custom fields including metadata [ct id="field id" property=" title | description | value "] or leave out property entirely for default value.
+* Enabled shortcodes in widgets 
+* Change embed codes to <? echo do_shortcode('[]'); ?> style for better error trapping. The old style still works so old templates aren't broken.
 * Corrected CP_PLUGIN_URL for SSL
 * Fixed double display of options on Radio buttons
 * Added class exists exclusions

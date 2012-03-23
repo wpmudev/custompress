@@ -567,7 +567,7 @@
 			</div>
 			<p class="submit">
 				<?php wp_nonce_field('submit_post_type'); ?>
-				<input type="submit" class="button-primary" name="submit" value="Add Post Type" />
+				<input type="submit" class="button-primary" name="submit" value="<?php _e('Add Post Type', $this->text_domain); ?>" />
 			</p>
 			<br /><br /><br /><br />
 		</form>

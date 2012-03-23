@@ -5,11 +5,15 @@
 *
 * @uses CustomPress_Core
 * @copyright Incsub 2007-2011 {@link http://incsub.com}
-* @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
+* @author Ivan Shaovchev (Incsub), Arnold Bailey (Incsub)
 * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
 */
 
+
 if (!class_exists('CustomPress_Content_Types')):
+
+//Allow shortcodes in Widgets
+add_filter( 'widget_text', 'do_shortcode' );
 
 class CustomPress_Content_Types extends CustomPress_Core {
 
@@ -43,6 +47,9 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		add_action( 'admin_menu', array( &$this, 'create_custom_fields' ), 2 );
 		add_action( 'save_post', array( &$this, 'save_custom_fields' ), 1, 1 );
 		add_action( 'user_register', array( &$this, 'set_user_registration_rewrite_rules' ) );
+
+		add_shortcode('ct', array($this,'ct_shortcode'));
+		add_shortcode('tax', array($this,'tax_shortcode'));
 
 		$this->init_vars();
 	}
@@ -466,6 +473,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			'field_type'           => $_POST['field_type'],
 			'field_sort_order'     => $_POST['field_sort_order'],
 			'field_options'        => $_POST['field_options'],
+			'field_date_format'    => $_POST['field_date_format'],
 			'field_default_option' => ( isset( $_POST['field_default_option'] ) ) ? $_POST['field_default_option'] : NULL,
 			'field_description'    => $_POST['field_description'],
 			'object_type'          => $_POST['object_type'],
@@ -474,7 +482,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			);
 
 			// Unset if there are no options to be stored in the db
-			if ( $args['field_type'] == 'text' || $args['field_type'] == 'textarea' || $args['field_type'] == 'datepicker')
+			if ( $args['field_type'] == 'text' || $args['field_type'] == 'textarea')
 			unset( $args['field_options'] );
 
 			// Set new custom fields
@@ -838,6 +846,14 @@ class CustomPress_Content_Types extends CustomPress_Core {
 						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
 						break;
 
+						case 'datepicker':
+						$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+						$form_fields[$custom_field['field_id']]['input'] = $custom_field['field_type'];
+						$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
+						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+
+						break;
+
 						case 'radio':
 
 						$values = get_post_meta( $post->ID, $custom_field['field_id'], true );
@@ -900,6 +916,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 						$form_fields[$custom_field['field_id']]['html']  = $html;
 						$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
 						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+						$form_fields[$custom_field['field_id']]['date_format'] = $custom_field['field_date_format'];
 						break;
 
 						case 'selectbox';
@@ -975,6 +992,75 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 		return $post;
 	}
+
+	/**
+	* Creates shortcodes for fields which may be used for shortened embed codes.
+	*
+	* @return string
+	*/
+	function ct_shortcode($atts, $content=null){
+		global $post;
+
+		extract( shortcode_atts( array(
+		'id' => '',
+		'property' => 'value',
+		), $atts ) );
+
+		// Take off the prefix for indexing the array;
+		$cid = str_replace('_ct_','',$id);
+		$cid = str_replace('ct_','',$cid);
+
+		$custom_field = (isset($this->custom_fields[$cid])) ? $this->custom_fields[$cid] : null;
+
+		$property = strtolower($property);
+		$result = '';
+
+		switch ($property){
+			case 'title': $result = $custom_field['field_title']; break;
+			case 'description': $result = $custom_field['field_description']; break;
+			case 'value':
+			default: {
+				switch ($custom_field['field_type']){
+					case 'checkbox':
+					case 'selectbox':
+					case 'multiselectbox':
+					case 'radio': {
+						if ( get_post_meta( $post->ID, $id, true ) ) {
+							foreach ( get_post_meta( $post->ID, $id, true ) as $value ) {
+								$result .= (empty($result)) ? $value : ', ' . $value;
+							}
+						}
+						break;
+					}
+					default: $result = get_post_meta( $post->ID, $id, true ); break;
+				}
+			}
+		}
+		return $result;
+	}
+
+	/**
+	* Creates shortcodes for fields which may be used for shortened embed codes.
+	*
+	* @string
+	*/
+	function tax_shortcode($atts, $content = null){
+		global $post;
+
+		extract( shortcode_atts( array(
+		'id' => '',
+		'before' => '',
+		'separator' => ', ',
+		'after' => '',
+		), $atts ) );
+
+		$result = get_the_term_list( $post->ID, $id, $before, $separator, $after );
+
+		$result = (is_wp_error($result)) ? __('Invalid Taxonomy name in [tax] shortcode', $this->text_domain) : $result;
+
+		return $result;
+	}
+
 }
 
 // Initiate Content Types Module

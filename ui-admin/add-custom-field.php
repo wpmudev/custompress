@@ -48,22 +48,65 @@
 							<option value="datepicker" <?php if ( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'datepicker' ) echo( 'selected="selected"' ); ?>><?php _e('Date Picker', $this->text_domain); ?></option>
 						</select>
 						<span class="description"><?php _e('Select type of the custom field.', $this->text_domain); ?></span>
+						<div class="ct-date-type-options">
+
+							<?php
+
+							$date_format = (empty($_POST['field_date_format'])) ? $this->get_options('date_format') : $_POST['field_date_format'];
+							$date_format = (is_array($date_format)) ? 'mm/dd/yy' : $date_format;
+
+							$this->jquery_ui_css(); //Load the current ui theme css
+
+							?>
+							<h4><?php _e('Fill in the options for this field', $this->text_domain); ?>:</h4>
+							<p>
+								<input type="text" id="field_date_format" name="field_date_format" size="38" value="<?php echo $date_format; ?>" onchange="jQuery('#datepicker').datepicker( 'option', 'dateFormat', this.value );"/><br />
+								<span class="description"><?php _e('Select Date Format option or type your own', $this->text_domain) ?></span>
+								<br />
+								<input class="pickdate" id="datepicker" type="text" size="38" value="" /><br />
+								<span class="description"><?php _e('Date picker sample', $this->text_domain) ?></span>
+
+								<script type="text/javascript">
+									jQuery('#datepicker').datepicker({ dateFormat : '<?php echo $date_format; ?>' });
+									jQuery('#datepicker').attr('value', jQuery.datepicker.formatDate('<?php echo $date_format; ?>', new Date(), {}) );
+								</script>
+
+							</p>
+
+						</div>
 						<div class="ct-field-type-options">
 							<h4><?php _e('Fill in the options for this field', $this->text_domain); ?>:</h4>
-							<p><?php _e('Order By', $this->text_domain); ?> :
+							<p>
+								<?php _e('Order By', $this->text_domain); ?> :
 								<select name="field_sort_order">
 									<option value="default"><?php _e('Order Entered', $this->text_domain); ?></option>
 									<?php /** @todo introduce the additional order options
 									<option value="asc"><?php _e('Name - Ascending', $this->text_domain); ?></option>
 									<option value="desc"><?php _e('Name - Descending', $this->text_domain); ?></option>
 									*/ ?>
-								</select
+								</select>
 							</p>
+
+							<?php if ( isset( $_POST['field_options'] ) && is_array( $_POST['field_options'] )): ?>
+							<?php foreach ( $_POST['field_options'] as $key => $field_option ): ?>
+							<p>
+								<?php _e('Option', $this->text_domain); ?> <?php echo( $key ); ?>:
+								<input type="text" name="field_options[<?php echo( $key ); ?>]" value="<?php echo( $field_option ); ?>" />
+								<input type="radio" value="<?php echo( $key ); ?>" name="field_default_option" <?php if ( $_POST['field_default_option'] == $key ) echo ( 'checked="checked"' ); ?> />
+								<?php _e('Default Value', $this->text_domain); ?>
+								<?php if ( $key != 1 ): ?>
+								<a href="#" class="ct-field-delete-option">[x]</a>
+								<?php endif; ?>
+							</p>
+							<?php endforeach; ?>
+							<?php else: ?>
 							<p><?php _e('Option', $this->text_domain); ?> 1:
 								<input type="text" name="field_options[1]" value="<?php if ( isset( $_POST['field_options'][1] ) ) echo $_POST['field_options'][1]; ?>">
 								<input type="radio" value="1" name="field_default_option" <?php if ( isset( $_POST['field_default_option'] ) && $_POST['field_default_option'] == '1' ) echo 'checked="checked"'; ?>>
 								<?php _e('Default Value', $this->text_domain); ?>
 							</p>
+							<?php endif; ?>
+
 							<div class="ct-field-additional-options"></div>
 							<input type="hidden" value="1" name="track_number">
 							<p><a href="#" class="ct-field-add-option"><?php _e('Add another option', $this->text_domain); ?></a></p>
@@ -111,6 +154,8 @@
 				</tr>
 			</table>
 		</div>
+
+		</div>
 		<?php /** @todo implement required fields
 		<div class="ct-table-wrap">
 		<div class="ct-arrow"><br></div>
@@ -142,7 +187,7 @@
 
 	<p class="submit">
 		<?php wp_nonce_field( 'submit_custom_field' ); ?>
-		<input type="submit" class="button-primary" name="submit" value="Add Custom Field">
+		<input type="submit" class="button-primary" name="submit" value="<?php _e('Add Custom Field', $this->text_domain); ?>" />
 	</p>
 	<br /><br /><br /><br />
 </form>

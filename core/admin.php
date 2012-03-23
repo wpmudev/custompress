@@ -5,7 +5,7 @@
 *
 * @uses CustomPress_Core
 * @copyright Incsub 2007-2011 {@link http://incsub.com}
-* @author Ivan Shaovchev (Incsub) {@link http://ivan.sh}
+* @author Ivan Shaovchev (Incsub), Arnold Bailey (Incsub)
 * @license GNU General Public License (Version 2 - GPLv2) {@link http://www.gnu.org/licenses/gpl-2.0.html}
 */
 

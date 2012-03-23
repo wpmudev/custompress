@@ -53,6 +53,33 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 							<option value="datepicker" <?php if ( isset( $custom_field['field_type'] ) && $custom_field['field_type'] == 'datepicker' ) echo ( 'selected="selected"' ); ?>>Date Picker</option>
 						</select>
 						<span class="description"><?php _e('Select type of the custom field.', $this->text_domain); ?></span>
+						<div class="ct-date-type-options">
+
+							<?php
+
+							$date_format = $custom_field['field_date_format'];
+							$date_format = (empty($date_format)) ? $this->get_options('date_format') : $date_format;
+							$date_format = (is_array($date_format)) ? 'mm/dd/yy' : $date_format;
+
+							$this->jquery_ui_css(); //Load the current ui theme css
+
+							?>
+							<h4><?php _e('Fill in the options for this field', $this->text_domain); ?>:</h4>
+							<p>
+								<input type="text" id="field_date_format" name="field_date_format" size="38" value="<?php echo $date_format; ?>" onchange="jQuery('#datepicker').datepicker( 'option', 'dateFormat', this.value );"/><br />
+								<span class="description"><?php _e('Select Date Format option or type your own', $this->text_domain) ?></span>
+								<br />
+								<input class="pickdate" id="datepicker" type="text" size="38" value="" /><br />
+								<span class="description"><?php _e('Date picker sample', $this->text_domain) ?></span>
+
+								<script type="text/javascript">
+									jQuery('#datepicker').datepicker({ dateFormat : '<?php echo $date_format; ?>' });
+									jQuery('#datepicker').attr('value', jQuery.datepicker.formatDate('<?php echo $date_format; ?>', new Date(), {}) );
+								</script>
+
+							</p>
+
+						</div>
 						<div class="ct-field-type-options">
 							<h4><?php _e('Fill in the options for this field', $this->text_domain); ?>:</h4>
 							<p>
@@ -133,6 +160,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 				</tr>
 			</table>
 		</div>
+
 		<?php /** @todo implement required fields
 		<div class="ct-table-wrap">
 		<div class="ct-arrow"><br></div>
@@ -163,7 +191,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 	<br style="clear: left" />
 	<p class="submit">
 		<?php wp_nonce_field( 'submit_custom_field' ); ?>
-		<input type="submit" class="button-primary" name="submit" value="Update Custom Field" />
+		<input type="submit" class="button-primary" name="submit" value="<?php _e('Update Custom Field', $this->text_domain); ?>" />
 	</p>
 	<br /><br /><br /><br />
 </form>

@@ -373,7 +373,7 @@
 	<div class="clear"></div>
 	<p class="submit">
 		<?php wp_nonce_field('submit_taxonomy'); ?>
-		<input type="submit" class="button-primary" name="submit" value="Add Taxonomy">
+		<input type="submit" class="button-primary" name="submit" value="<?php _e('Add Taxonomy Type', $this->text_domain); ?>">
 	</p>
 	<br /><br /><br /><br />
 </form>

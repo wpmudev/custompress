@@ -165,8 +165,12 @@ $output = false;
 					<label for="<?php echo ( $prefix . $custom_field['field_id'] ); ?>"><?php echo ( $custom_field['field_title'] ); ?></label>
 				</th>
 				<td>
-					<?php echo $this->jquery_ui_css(); ?>
-					<input type="text" class="pickdate" name="<?php echo ( $prefix . $custom_field['field_id'] ); ?>" id="<?php echo ( $prefix . $custom_field['field_id'] ); ?>" value="<?php echo ( get_post_meta( $post->ID, $prefix . $custom_field['field_id'], true )); ?>" />
+					<?php
+					echo $this->jquery_ui_css();
+					$fid = $prefix . $custom_field['field_id'];
+					?>
+					<input type="text" class="pickdate" name="<?php echo $fid; ?>" id="<?php echo $fid; ?>" value="<?php echo ( get_post_meta( $post->ID, $prefix . $custom_field['field_id'], true )); ?>" />
+					<script type="text/javascript">jQuery('#<?php echo $fid; ?>').datepicker({ dateFormat : '<?php echo $custom_field['field_date_format']; ?>' });</script>
 					<p><?php echo ( $custom_field['field_description'] ); ?></p>
 				</td>
 			</tr>
