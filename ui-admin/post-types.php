@@ -45,7 +45,7 @@ $post_types = $this->post_types;
 		<?php $i = 0; foreach ( $post_types as $name => $post_type ): ?>
 		<?php $class = ( $i % 2) ? 'ct-edit-row alternate' : 'ct-edit-row'; $i++; ?>
 		<tr class="<?php echo $class; ?>">
-			<td style="min-width:80px;">
+			<td style="min-width:8em;">
 				<strong>
 					<a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=post_type&ct_edit_post_type=' . $name ) ); ?>"><?php echo $name; ?></a>
 				</strong>

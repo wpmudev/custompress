@@ -7,10 +7,18 @@ Description: CustomPress - Custom Post, Taxonomy and Field Manager.
 Version: 1.2.1
 Author: Ivan Shaovchev, Andrey Shipilov (Incsub), Arnold Bailey (Incsub)
 Author URI: http://premium.wpmudev.org
+Text Domain: custompress
+Domain Path: languages
 WDP ID: 163
 License: GNU General Public License (Version 2 - GPLv2)
 Network: true
 */
+
+$plugin_header_translate = array(    
+__('CustomPress - Custom Post, Taxonomy and Field Manager.', 'custompress'),    
+__('Ivan Shaovchev, Andrey Shipilov (Incsub), Arnold Bailey (Incsub)', 'custompress'),    
+__('http://premium.wpmudev.org', 'custompress'),    
+__('CustomPress', 'custompress'));
 
 /*
 Copyright 2011 Incsub, (http://incsub.com)

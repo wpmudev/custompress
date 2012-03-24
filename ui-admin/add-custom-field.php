@@ -1,7 +1,7 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
 <?php $post_types = get_post_types('','names'); ?>
-
+<div style="clear: both">
 <h3><?php _e('Add Custom Field', $this->text_domain); ?></h3>
 <form action="" method="post" class="ct-custom-fields">
 	<div class="ct-wrap-left">
@@ -20,7 +20,16 @@
 				</tr>
 				<tr>
 					<th>
-						<label for="field_title"><?php _e('Allow for WP/plugins', $this->text_domain) ?> <br /><span class="ct-required">(<?php _e("can't be changed", $this->text_domain) ?>)</span></label>
+						<label for="field_required"><?php _e('Required Field', $this->text_domain) ?></label>
+					</th>
+					<td>
+						<input type="checkbox" name="field_required" value="2" <?php echo ( isset( $_POST['field_required'] ) ) ? 'checked' : ''; ?> >
+						<span class="description"><?php _e('Make this a Required Field.', $this->text_domain); ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="field_wp_allow"><?php _e('Allow for WP/plugins', $this->text_domain) ?> <br /><span class="ct-required">(<?php _e("can't be changed", $this->text_domain) ?>)</span></label>
 					</th>
 					<td>
 						<input type="checkbox" name="field_wp_allow" value="2" <?php echo ( isset( $_POST['field_wp_allow'] ) ) ? 'checked' : ''; ?> >
@@ -155,7 +164,6 @@
 			</table>
 		</div>
 
-		</div>
 		<?php /** @todo implement required fields
 		<div class="ct-table-wrap">
 		<div class="ct-arrow"><br></div>
@@ -191,3 +199,4 @@
 	</p>
 	<br /><br /><br /><br />
 </form>
+</div>

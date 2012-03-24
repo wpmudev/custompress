@@ -4,7 +4,7 @@
 $post_types = get_post_types('','names');
 $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 ?>
-
+<div class="wrap">
 <h3><?php _e('Edit Custom Field', $this->text_domain); ?></h3>
 <form action="" method="post" class="ct-custom-fields">
 	<?php wp_nonce_field( 'ct_submit_custom_field_verify', 'ct_submit_custom_field_secret' ); ?>
@@ -20,6 +20,15 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 					<td>
 						<input type="text" name="field_title" value="<?php echo ( $custom_field['field_title'] ); ?>" />
 						<span class="description"><?php _e('The title of the custom field.', $this->text_domain); ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						<label for="field_required"><?php _e('Required Field', $this->text_domain) ?></label>
+					</th>
+					<td>
+						<input type="checkbox" name="field_required" value="2" <?php echo ( isset( $custom_field['field_required'] ) ) ? 'checked' : ''; ?> >
+						<span class="description"><?php _e('Make this a Required Field.', $this->text_domain); ?></span>
 					</td>
 				</tr>
 				<tr>
@@ -195,3 +204,5 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 	</p>
 	<br /><br /><br /><br />
 </form>
+
+</div> >

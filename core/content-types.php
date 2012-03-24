@@ -40,7 +40,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		add_action( 'init', array( &$this, 'register_taxonomies' ), 1 );
 		add_action( 'init', array( &$this, 'handle_custom_field_requests' ), 0 );
 
-		//Add custome terms and fields on media page
+		//Add custom terms and fields on media page
 		add_filter( 'attachment_fields_to_edit', array( &$this, 'add_custom_for_attachment' ), 111, 2 );
 		add_filter( 'attachment_fields_to_save', array( &$this, 'save_custom_for_attachment' ), 111, 2 );
 
@@ -438,6 +438,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	* Intercepts $_POST request and processes the custom fields submissions
 	*/
 	function handle_custom_field_requests() {
+
 		// If valid add/edit custom field request is made
 		if ( isset( $_POST['submit'] )
 		&& isset( $_POST['_wpnonce'] )
@@ -449,7 +450,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 			// Check for specific field types and validate differently
 			if ( in_array( $_POST['field_type'], array( 'radio', 'checkbox', 'selectbox', 'multiselectbox' ) ) ) {
-				$field_options_valid = $this->validate_field( 'field_options', $_POST['field_options'][1] );
+				
+				$field_options_valid = $this->validate_field( 'field_options', $_POST['field_options'] ); //2 because an empty first choice is common
 				// Check whether fields pass the validation, if not stop execution and return
 				if ( $field_title_valid == false || $field_object_type_valid == false || $field_options_valid == false )
 				return;
@@ -477,9 +479,10 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			'field_default_option' => ( isset( $_POST['field_default_option'] ) ) ? $_POST['field_default_option'] : NULL,
 			'field_description'    => $_POST['field_description'],
 			'object_type'          => $_POST['object_type'],
-			//'required'             => $_POST['required'],
+			'field_required'       => (2 == $_POST['field_required'] ) ? 1 : 0,
 			'field_id'             => $field_id
 			);
+
 
 			// Unset if there are no options to be stored in the db
 			if ( $args['field_type'] == 'text' || $args['field_type'] == 'textarea')
@@ -489,6 +492,12 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			$custom_fields = ( $this->custom_fields )
 			? array_merge( $this->custom_fields, array( $field_id => $args ) )
 			: array( $field_id => $args );
+
+			//Set the field_order of the fields to the current default order
+			$i = 0;
+			foreach($custom_fields as &$custom_field){
+				$custom_field['field_order'] = $i++;
+			}
 
 			if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
 			update_option( 'ct_custom_fields', $custom_fields );
@@ -538,6 +547,12 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			// Remove the deleted custom field
 			unset( $custom_fields[$_POST['custom_field_id']] );
 
+			//Set the field_order of the fields to the current default order
+			$i = 0;
+			foreach($custom_fields as &$custom_field){
+				$custom_field['field_order'] = $i++;
+			}
+
 			// Update the available custom fields
 			if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
 			update_option( 'ct_custom_fields', $custom_fields );
@@ -546,6 +561,64 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 			// Redirect back to the taxonomies page
 			wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
+		}
+		elseif ( isset( $_GET['ct_reorder_custom_field'] )
+		&& isset( $_GET['_wpnonce'] )
+		&& wp_verify_nonce( $_GET['_wpnonce'], 'reorder_custom_fields' )
+		) {
+
+			// Reorder the fields
+			$dir = $_GET['direction'];
+			$fid = $_GET['ct_reorder_custom_field'];
+			$custom_fields = $this->custom_fields;
+
+			//Set the field_order of the fields to the current default order
+			$i = 0;
+			foreach($custom_fields as &$custom_field){
+				$custom_field['field_order'] = $i++;
+			}
+
+			$keys = array_keys($custom_fields);
+			$key = array_search($fid, $keys);
+
+			if($key !== false) {
+				$swapped = false;
+				if($dir == 'up' && $key > 0) {
+					$ndx = $custom_fields[$keys[$key]]['field_order'];
+					$custom_fields[$keys[$key]]['field_order']=$custom_fields[$keys[$key-1]]['field_order'];
+					$custom_fields[$keys[$key-1]]['field_order'] = $ndx;
+					$swapped = true;
+				}
+				if($dir == 'down' && array_key_exists($key+1, $keys)) {
+					$ndx = $custom_fields[$keys[$key]]['field_order'];
+					$custom_fields[$keys[$key]]['field_order']=$custom_fields[$keys[$key+1]]['field_order'];
+					$custom_fields[$keys[$key+1]]['field_order'] = $ndx;
+					$swapped = true;
+				}
+
+				if($swapped){
+
+					if(!function_exists('ct_cmp')){
+						function ct_cmp($a, $b){
+							if ($a['field_order'] == $b['field_order']) return 0;
+							return ($a['field_order'] < $b['field_order']) ? -1 : 1;
+						}
+
+						if (uasort(&$custom_fields, 'ct_cmp')){
+							// Update the available custom fields
+							if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
+							update_option( 'ct_custom_fields', $custom_fields );
+							else
+							update_site_option( 'ct_custom_fields', $custom_fields );
+						}
+					}
+
+				}
+			}
+			// Redirect back to the taxonomies page
+			wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
+
+
 		}
 		elseif ( isset( $_POST['redirect_add_custom_field'] ) ) {
 			wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&ct_add_custom_field=true' ));
@@ -641,7 +714,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	*/
 	function save_custom_fields( $post_id ) {
 		// Prevent autosave from deleting the custom fields
-		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || defined('DOING_AJAX') && DOING_AJAX )
+		if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE || defined('DOING_AJAX') && DOING_AJAX || defined('DOING_CRON') && DOING_CRON )
 		return;
 
 		$custom_fields = $this->custom_fields;
@@ -718,9 +791,21 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				return false;
 			}
 		}
+
 		// Validate set of common fields
 		if ( $field == 'object_type' || $field == 'field_title' || $field == 'field_options' ) {
-			if ( empty( $value ) ) {
+
+			if (is_array($value)){
+
+				$invalid = true;
+				
+				foreach($value as $item){
+					$invalid = (!empty($item)) ? $false : $invalid; 					
+				}
+				
+			} else { $invalid = empty($value); }
+			
+			if ( $invalid ) {
 				if ( $field == 'object_type' )
 				add_action( 'ct_invalid_field_object_type', create_function( '', 'echo "form-invalid";' ) );
 				if ( $field == 'field_title' )
@@ -1006,6 +1091,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		'property' => 'value',
 		), $atts ) );
 
+		return var_export($this->custom_fields, true);
+
 		// Take off the prefix for indexing the array;
 		$cid = str_replace('_ct_','',$id);
 		$cid = str_replace('ct_','',$cid);
@@ -1056,7 +1143,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 		$result = get_the_term_list( $post->ID, $id, $before, $separator, $after );
 
-		$result = (is_wp_error($result)) ? __('Invalid Taxonomy name in [tax] shortcode', $this->text_domain) : $result;
+		$result = (is_wp_error($result)) ? __('Invalid Taxonomy name in [tax ] shortcode', $this->text_domain) : $result;
 
 		return $result;
 	}

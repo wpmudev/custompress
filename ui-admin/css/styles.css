@@ -4,7 +4,7 @@
 
 .ct-wrap input[type="text"] {
 	margin: 0 !important;
-	width: 200px;
+	width: 200;
 }
 .ct-wrap select {
 	height: auto !important;
@@ -12,7 +12,7 @@
 .ct-wrap-left {
 	width: 48%;
 	float: left;
-	margin-right: 20px;
+	margin-right: 2em;
 }
 .ct-wrap-left .description {
 	display: block;
@@ -25,46 +25,47 @@
 	float: left;
 }
 .ct-table-wrap {
-	-moz-border-radius:6px 6px 6px 6px;
+	-moz-border-radius:.6em .6em .6em .6em;
+	border-radius:.6em .6em .6em .6em;
 	border-style:solid;
 	border-width:1px;
 	line-height:1;
-	margin-bottom:20px;
+	margin-bottom:2em;
 	background-color: #FFFFFF;
 	border-color:#DFDFDF;
-	margin:0 0 20px 0;
+	margin:0 0 2em 0;
 }
 .ct-toggle {
-	padding:7px 9px;
+	padding:.7em .9em;
 	background:url("../images/gray-grad.png") repeat-x left top #DFDFDF;
 	cursor: pointer;
 	margin: 0;
 }
 .form-table {
-	margin-bottom: 0px;
+	margin-bottom: 0;
 	margin-top: 0;
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: .5em;
+	padding-bottom: .5em;
 	border-collapse: inherit;
 }
 .ct-post-type h3, .ct-taxonomy h3, .ct-custom-fields h3 {
 	font-size: 1em;
 }
 .ct-edit-row td {
-	padding-top: 8px;
-	padding-bottom: 8px;
+	padding-top: .8em;
+	padding-bottom: .8em;
 }
 .ct-arrow {
-	background: url("../images/menu-bits.gif") no-repeat left -109px;
+	background: url("../images/menu-bits.gif") no-repeat left -10.9em;
 	float:right;
-	height:27px;
+	height:2.7em;
 	width:23px
 }
 .ct-arrow:hover {
-	background: url('../images/menu-bits.gif') no-repeat left -206px;
+	background: url('../images/menu-bits.gif') no-repeat left -20.6em;
 }
 .ct-form-single-btn {
-	padding: 10px 0;
+	padding: 1em 0;
 }
 .ct-clear {
 	clear: left;
@@ -74,10 +75,10 @@
 	font-style: italic;
 }
 .ct-tf-icons {
-	padding: 10px 0 0 10px;
+	padding: 1em 0 0 1em;
 }
 .ct-object-type {
-	width: 200px;
+	width: 200;
 	height: inherit !important;
 }
 .ct-field-type-options {
@@ -97,17 +98,17 @@
 	padding-bottom:0 ;
 }
 .ct-embed-code {
-	max-width: 400px;
+	max-width: 40em;
 }
 .updated {
-	margin: 10px 15px 0 0;
+	margin: 1em 1.5em 0 0;
 }
 .embed-code td {
-	padding: 8px 0 16px 0 !important;
+	padding: .8em 0 1.6em 0 !important;
 }
 .embed-code-wrap {
-	margin-left: 10px;
+	margin-left: 1em;
 }
 .toplevel_page_ct_content_types .updated {
-	margin: 12px 15px 0px 0px;
+	margin: 12px 1.5em 0 0;
 }

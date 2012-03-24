@@ -5,6 +5,10 @@ if ( is_network_admin() )
 $custom_fields = get_site_option('ct_custom_fields');
 else
 $custom_fields = $this->custom_fields;
+
+//Nonce for reorder
+$nonce = wp_create_nonce('reorder_custom_fields');
+
 ?>
 
 <?php $this->render_admin('update-message'); ?>
@@ -15,6 +19,7 @@ $custom_fields = $this->custom_fields;
 <table class="widefat">
 	<thead>
 		<tr>
+			<th><?php _e('Order', $this->text_domain); ?></th>
 			<th><?php _e('Field Name', $this->text_domain); ?></th>
 			<th><?php _e('Field ID', $this->text_domain); ?></th>
 			<th><?php _e('WP/Plugins', $this->text_domain); ?></th>
@@ -25,6 +30,7 @@ $custom_fields = $this->custom_fields;
 	</thead>
 	<tfoot>
 		<tr>
+			<th><?php _e('Order', $this->text_domain); ?></th>
 			<th><?php _e('Field Name', $this->text_domain); ?></th>
 			<th><?php _e('Field ID', $this->text_domain); ?></th>
 			<th><?php _e('WP/Plugins', $this->text_domain); ?></th>
@@ -34,8 +40,13 @@ $custom_fields = $this->custom_fields;
 		</tr>
 	</tfoot>
 	<tbody>
+		
 		<?php if ( !empty( $custom_fields ) ): ?>
-		<?php $i = 0; foreach ( $custom_fields as $custom_field ): ?>
+		<?php 
+		
+		$last = count($custom_fields);
+		$i = 0; 
+		foreach ( $custom_fields as $custom_field ): ?>
 
 		<?php
 		if ( isset( $custom_field['field_wp_allow'] ) && 1 == $custom_field['field_wp_allow'] )
@@ -46,6 +57,14 @@ $custom_fields = $this->custom_fields;
 
 		<?php $class = ( $i % 2) ? 'ct-edit-row alternate' : 'ct-edit-row'; $i++; ?>
 		<tr class="<?php echo ( $class ); ?>">
+<td>
+	<?php if($i != 1): ?>
+			<span class="ct-up"><a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . "&ct_content_type=custom_field&direction=up&_wpnonce=$nonce&ct_reorder_custom_field=" . $custom_field['field_id'] )); ?>"><img src="<?php echo $this->plugin_url . 'ui-admin/images/up.png'; ?>" /></a> </span>
+	<?php endif; ?>			
+	<?php if($i != $last): ?>
+		<span class="ct-down"><a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . "&ct_content_type=custom_field&direction=down&_wpnonce=$nonce&ct_reorder_custom_field=" . $custom_field['field_id'] )); ?>"><img src="<?php echo $this->plugin_url . 'ui-admin/images/down.png'; ?>" /></a></span>
+	<?php endif; ?>			
+</td>
 			<td>
 				<strong>
 					<a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] )); ?>"><?php echo( $custom_field['field_title'] ); ?></a>

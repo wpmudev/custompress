@@ -21,3 +21,18 @@
 .ct-form-field p {
 	margin-left: 0 !important;
 }
+
+.error{
+	border: 2px solid red !important;
+	background-color: #FFFFD5;
+}
+
+label.error {
+	display: block;
+	background: #ffd2d2;
+	color: #111;
+	padding: 0 1em;
+	margin: 0 2em 0 0;
+	border: none;
+}
+
