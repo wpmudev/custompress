@@ -19,8 +19,9 @@ Author URI: http://premium.wpmudev.org
 * Change embed codes to <? echo do_shortcode('[]'); ?> style for better error trapping. The old style still works so old templates aren't broken.
 * Corrected CP_PLUGIN_URL for SSL
 * Fixed double display of options on Radio buttons
+* Fixed Group checkbox problem
 * Added class exists exclusions
-* Verified function as a sub module for Classifieds, Directory etc.
+* Verified function as a direct sub module for Classifieds, Directory etc.
 
 =1.2.0 =
 
