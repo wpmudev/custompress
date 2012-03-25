@@ -1091,8 +1091,6 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		'property' => 'value',
 		), $atts ) );
 
-		return var_export($this->custom_fields, true);
-
 		// Take off the prefix for indexing the array;
 		$cid = str_replace('_ct_','',$id);
 		$cid = str_replace('ct_','',$cid);
