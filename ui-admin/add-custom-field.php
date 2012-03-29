@@ -1,6 +1,9 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
-<?php $post_types = get_post_types('','names'); ?>
+<?php 
+$post_types = get_post_types('','names'); 
+
+?>
 <div style="clear: both">
 <h3><?php _e('Add Custom Field', $this->text_domain); ?></h3>
 <form action="" method="post" class="ct-custom-fields">
