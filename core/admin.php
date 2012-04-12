@@ -228,7 +228,7 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 			}
 
 			// Process post types display
-			$args = array( 'page' => 'home', 'post_type' => ( isset( $_POST['post_type'] ) ) ? $_POST['post_type'] : null );
+			$args = array( 'page' => 'home', 'post_type' => ( isset( $_POST['cp_post_type'] ) ) ? $_POST['cp_post_type'] : null );
 			$options = $this->get_options();
 			$options = array_merge( $options , array( 'display_post_types' => array( $args['page'] => $args )) );
 
