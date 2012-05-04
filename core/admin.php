@@ -11,7 +11,7 @@
 
 if (!class_exists('CustomPress_Core_Admin')):
 
-class CustomPress_Core_Admin extends CustomPress_Core {
+class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 	/** @var array Avilable Post Types */
 	var $post_types;
@@ -22,7 +22,12 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 	/** @var boolean Flag whether the users have the ability to declair post type for their own blogs */
 	var $enable_subsite_content_types = false;
 
-	function CustomPress_Core_Admin() {
+	function CustomPress_Core_Admin() { __construct(); }
+
+	function __construct(){
+
+		parent::__construct();
+
 		$this->init_vars();
 
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -277,7 +282,9 @@ class CustomPress_Core_Admin extends CustomPress_Core {
 }
 
 /* Initiate Admin Class */
-$CustomPress_Core_Admin = new CustomPress_Core_Admin();
+$CustomPress_Core_Admin =
+
+new CustomPress_Core_Admin();
 
 endif;
 

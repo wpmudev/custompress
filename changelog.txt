@@ -5,6 +5,13 @@ Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
+= 1.2.1.4 = 2012-05-03 Arnold Bailey
+* fixed improper supports tags in setup. Things like custom-fields were entered as custom_fields
+* fixed numerous xhtml validation problems.
+* Changed Custom field metabox name to CustomPress Fields so they won't be confused with Wordpress native custom fields editor
+* Refactored objects so that they properly inherit and don't initialize the same thing 2 and 3 times.
+* Blocked changes to Custom fields on Bulk Edit
+
 = 1.2.1.3 = 2012-04-30 Arnold Bailey
 * changed script inclusion so the datepicker and validation can run on the front end for Directory and classifieds.
 

@@ -23,7 +23,9 @@ class CustomPress_Core {
 	/** @var string $options_name The options name */
 	var $options_name = 'cp_options';
 
-	function CustomPress_Core() {
+	function CustomPress_Core() {__construct(); }
+		
+		function __construct(){
 		add_action( 'init', array( &$this, 'load_plugin_textdomain' ), 0 );
 		add_filter( 'pre_get_posts', array( &$this, 'display_custom_post_types' ) );
 		add_action( 'wp_ajax_cp_get_post_types', array( &$this, 'ajax_action_callback' ) );
@@ -379,7 +381,8 @@ class CustomPress_Core {
 
 	}
 
-	$CustomPress_Core =	new CustomPress_Core();
+	//$CustomPress_Core =	
+	//new CustomPress_Core();
 
 	endif;
 
