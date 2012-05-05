@@ -6,6 +6,9 @@ Author URI: http://premium.wpmudev.org
 == Changelog ==
 
 = 1.2.1.4 = 2012-05-03 Arnold Bailey
+* extraneous spaces causing header already sent problem
+
+= 1.2.1.4 = 2012-05-03 Arnold Bailey
 * fixed improper supports tags in setup. Things like custom-fields were entered as custom_fields
 * fixed numerous xhtml validation problems.
 * Changed Custom field metabox name to CustomPress Fields so they won't be confused with Wordpress native custom fields editor

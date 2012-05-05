@@ -820,366 +820,367 @@ class CustomPress_Content_Types extends CustomPress_Core {
 					$invalid = (!empty($item)) ? $false : $invalid;
 				}
 
-			} else { $invalid = empty($value); }
-
-				if ( $invalid ) {
-					if ( $field == 'object_type' )
-					add_action( 'ct_invalid_field_object_type', create_function( '', 'echo "form-invalid";' ) );
-					if ( $field == 'field_title' )
-					add_action( 'ct_invalid_field_title', create_function( '', 'echo "form-invalid";' ) );
-					if ( $field == 'field_options' )
-					add_action( 'ct_invalid_field_options', create_function( '', 'echo "form-invalid";' ) );
-					return false;
-				} else {
-					return true;
-				}
-			}
-		}
-
-
-		//Add terms and custome fields on media page
-		function add_custom_for_attachment( $form_fields, $post ) {
-			if ( $form_fields ) {
-
-				$script = '';
-
-				//add hierarchical terms as checkbox
-				foreach ( $form_fields as $taxonomy => $taxonomy_value ) {
-					if ( isset( $taxonomy_value['hierarchical'] ) && 1 == $taxonomy_value['hierarchical'] ) {
-						//get all terms of taxonomy
-						$terms = get_terms( $taxonomy, array( 'get' => 'all' ) );
-
-						$taxonomy_tree  = array();
-						$children       = array();
-						$term_ids       = array();
-
-						//create hierarchical tree
-						foreach( $terms as $term ) {
-							$term_ids[$term->term_id] = $term;
-							if ( 0 == $term->parent )
-							$taxonomy_tree[$term->term_id] = array();
-							else
-							$children[$term->parent][$term->term_id] = array();
-
-						}
-
-						if ( count( $children ) ) {
-							foreach( $children as $base => $child )
-							foreach( $children as $child_key => $val )
-							if ( array_key_exists( $base, $val ) ) {
-								$children[$child_key][$base] = &$children[$base];
-								break;
-							}
-
-							foreach ( $children as $base => $child )
-							if ( isset( $taxonomy_tree[$base] ) )
-							$taxonomy_tree[$base] = $child;
-						}
-
-						//gen checkbox of tree
-						$checkbox = $this->media_gen_hierarchical_field( $post->ID, $taxonomy, $term_ids, $taxonomy_tree );
-						if ( $terms ) {
-							$form_fields[ 'temp_' . $taxonomy]['input']    = 'checkbox';
-							$form_fields[ 'temp_' . $taxonomy]['label']    = ( isset( $taxonomy_value['labels']->name ) && '' != $taxonomy_value['labels']->name ) ? $taxonomy_value['labels']->name : ucwords( $taxonomy );
-							$form_fields[ 'temp_' . $taxonomy]['checkbox'] = $checkbox;
-
-							/* Save hierarchical terms:
-							only with JavaScript - for change Array value to String
-							because terms velue can't be array - error of WP \wp-admin\includes\media.php - line 479 - wp_set_object_terms....
-							*/
-							// gen JavaScript
-							$script .= '
-							var ' . $taxonomy . ' = "";
-
-							if ( jQuery("input:checkbox[name=\'my_terms_[' . $post->ID . '][' . $taxonomy . '][]\']").length ) {
-							jQuery("input:checkbox[name=\'my_terms_[' . $post->ID . '][' . $taxonomy . '][]\']:checked").each(function(){
-							' . $taxonomy . ' = ' . $taxonomy . ' + "," + this.value;
-							})
-
-							if ( jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").length ) {
-							jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").val( ' . $taxonomy . ' );
-							}
-							}
-							';
-
-							$form_fields[$taxonomy]['input'] = 'hidden';
-							$form_fields[$taxonomy]['value'] = '';
-							$add_script = 1;
-
-						} else {
-							$form_fields[$taxonomy]['input'] = 'html';
-							$form_fields[$taxonomy]['html']  = __( 'No values', $this->text_domain );
-						}
-					}
-				}
-
-				//add JavaScript to meadia page for save terms
-				if ( isset( $add_script ) ) {
-					$form_fields['script_for_terms']['input'] = 'html';
-					$form_fields['script_for_terms']['label'] = '';
-					$form_fields['script_for_terms']['html']  = '
-					<script type="text/javascript">
-					jQuery( document ).ready( function() {
-					jQuery("#media-single-form").submit(function(){
-					' . $script . '
-					return true;
-					});
-					});
-					</script>
-					';
-				}
-
-
-				//Add custom fields to Media page
-				if ( is_array( $this->custom_fields ) )
-				foreach ( $this->custom_fields as $custom_field ) {
-
-					if ( in_array ( 'attachment', $custom_field['object_type'] ) ) {
-
-						$html = '';
-
-						switch ( $custom_field['field_type'] ) {
-							case 'text';
-							case 'textarea':
-							case 'datepicker':
-							$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-							$form_fields[$custom_field['field_id']]['input'] = $custom_field['field_type'];
-							$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
-							$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-							break;
-
-							case 'datepicker':
-							$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-							$form_fields[$custom_field['field_id']]['input'] = $custom_field['field_type'];
-							$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
-							$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-
-							break;
-
-							case 'radio':
-
-							$values = get_post_meta( $post->ID, $custom_field['field_id'], true );
-
-							if ( empty( $values ) )
-							$values = (array) $custom_field['field_default_option'];
-							elseif ( ! is_array( $values ) )
-							$values = (array) $values;
-
-
-							foreach ( $custom_field['field_options'] as $key => $value ) {
-								$input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . ']';
-								$input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
-
-								if ( in_array( $value, $values ) )
-								$html .= '<label>
-								<input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" checked />
-								' . $value . '
-								</label><br />';
-								else
-								$html .= '<label>
-								<input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" />
-								' . $value . '
-								</label><br />';
-							}
-
-							$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-							$form_fields[$custom_field['field_id']]['input'] = 'html';
-							$form_fields[$custom_field['field_id']]['html']  = $html;
-							$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-							break;
-
-							case 'checkbox':
-
-							$values = get_post_meta( $post->ID, $custom_field['field_id'], true );
-
-							if ( empty( $values ) )
-							$values = (array) $custom_field['field_default_option'];
-							elseif ( ! is_array( $values ) )
-							$values = (array) $values;
-
-							foreach ( $custom_field['field_options'] as $key => $value ) {
-								$input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . '][' . $key . ']';
-								$input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
-
-								if ( in_array( $value, $values ) )
-								$html .= '<label>
-								<input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" checked />
-								' . $value . '
-								</label><br />';
-								else
-								$html .= '<label>
-								<input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" />
-								' . $value . '
-								</label><br />';
-							}
-
-							$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-							$form_fields[$custom_field['field_id']]['input'] = 'html';
-							$form_fields[$custom_field['field_id']]['html']  = $html;
-							$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
-							$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-							$form_fields[$custom_field['field_id']]['date_format'] = $custom_field['field_date_format'];
-							break;
-
-							case 'selectbox';
-							case 'multiselectbox':
-							if ( 'multiselectbox' == $custom_field['field_type'] )
-							$multiple = 'multiple style="height: 130px;"';
-							else
-							$multiple = '';
-
-							$values = get_post_meta( $post->ID, $custom_field['field_id'], true );
-
-							if ( empty( $values ) )
-							$values = (array) $custom_field['field_default_option'];
-							elseif ( ! is_array( $values ) )
-							$values = (array) $values;
-
-
-							foreach ( $custom_field['field_options'] as $key => $value ) {
-								if ( in_array( $value, $values ) )
-								$html .= '<option value="' . $value . '" selected >' . $value . '&nbsp;</option>';
-								else
-								$html .= '<option value="' . $value . '">' . $value . '&nbsp;</option>';
-							}
-
-							$html = '
-							<select ' . $multiple . ' name="attachments['. $post->ID .'][' . $custom_field['field_id'] . '][]" id="attachments['. $post->ID .'][' . $custom_field['field_id'] . ']">
-							' . $html . '
-							</select>
-							';
-
-							$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
-							$form_fields[$custom_field['field_id']]['input'] = 'html';
-							$form_fields[$custom_field['field_id']]['html']  = $html;
-							$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
-							break;
-						}
-					}
-				}
-
-			}
-			return $form_fields;
-		}
-
-		//generate html for hierarchical fields on media page
-		function media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $taxonomy_tree, $checkbox = '', &$num = 0 ) {
-			foreach ( $taxonomy_tree as $term_id => $tree ) {
-				$type       = 'checkbox';
-				$checked    = is_object_in_term( $post_id, $taxonomy, $term_id ) ? ' checked="checked"' : '';
-				$checkbox  .= str_repeat( '&ndash;&ndash;', count( get_ancestors( $term_id, $taxonomy ) ) );
-				$checkbox  .= ' <input type="' . $type . '" id="my_terms_' . $post_id . '_' . $taxonomy . '_' . $num . '" name="my_terms_[' . $post_id . '][' . $taxonomy . '][]" value="' . $term_ids[$term_id]->name . '"' . $checked . ' /><label for="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '">' . esc_html( $term_ids[$term_id]->name ) . "</label><br />\n";
-				$num++;
-				if ( count( $tree ) )
-				$checkbox = $this->media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $tree, $checkbox, $num );
-			}
-			return $checkbox;
-		}
-
-		//Save custom feilds value from media page
-		function save_custom_for_attachment( $post, $attachment ) {
-
-			//Save custom fields for Attachment post type
-			if ( is_array( $this->custom_fields ) )
-			foreach ( $this->custom_fields as $custom_field ) {
-				if ( in_array ( 'attachment', $custom_field['object_type'] ) ) {
-					if ( isset( $attachment[$custom_field['field_id']] ) ) {
-						// update_post_meta
-						update_post_meta( $post['ID'], $custom_field['field_id'], $attachment[$custom_field['field_id']] );
-					} elseif ( 'checkbox' == $custom_field['field_type'] ) {
-						update_post_meta( $post['ID'], $custom_field['field_id'], '-1' );
-					}
-				}
+			} else {
+				$invalid = empty($value);
 			}
 
-			return $post;
-		}
-
-		/**
-		* Creates shortcodes for fields which may be used for shortened embed codes.
-		*
-		* @return string
-		*/
-		function ct_shortcode($atts, $content=null){
-			global $post;
-
-			extract( shortcode_atts( array(
-			'id' => '',
-			'property' => 'value',
-			), $atts ) );
-
-			// Take off the prefix for indexing the array;
-			$cid = str_replace('_ct_','',$id);
-			$cid = str_replace('ct_','',$cid);
-
-			$custom_field = (isset($this->custom_fields[$cid])) ? $this->custom_fields[$cid] : null;
-
-			$property = strtolower($property);
-			$result = '';
-
-			switch ($property){
-				case 'title': $result = $custom_field['field_title']; break;
-				case 'description': $result = $custom_field['field_description']; break;
-				case 'value':
-				default: {
-					switch ($custom_field['field_type']){
-						case 'checkbox':
-						case 'multiselectbox': {
-							if ( get_post_meta( $post->ID, $id, true ) ) {
-								foreach ( get_post_meta( $post->ID, $id, true ) as $value ) {
-									$result .= (empty($result)) ? $value : ', ' . $value;
-								}
-							}
-							break;
-						}
-						case 'selectbox':
-						case 'radio': {
-							if ( get_post_meta( $post->ID, $id, false ) ) {
-								foreach ( get_post_meta( $post->ID, $id, false ) as $value ) {
-									$result .= (empty($result)) ? $value : ', ' . $value;
-								}
-							}
-							break;
-						}
-						default: {
-							$result = get_post_meta( $post->ID, $id, true ); break;
-						}
-					}
-				}
+			if ( $invalid ) {
+				if ( $field == 'object_type' )
+				add_action( 'ct_invalid_field_object_type', create_function( '', 'echo "form-invalid";' ) );
+				if ( $field == 'field_title' )
+				add_action( 'ct_invalid_field_title', create_function( '', 'echo "form-invalid";' ) );
+				if ( $field == 'field_options' )
+				add_action( 'ct_invalid_field_options', create_function( '', 'echo "form-invalid";' ) );
+				return false;
+			} else {
+				return true;
 			}
-			return $result;
 		}
-
-		/**
-		* Creates shortcodes for fields which may be used for shortened embed codes.
-		*
-		* @string
-		*/
-		function tax_shortcode($atts, $content = null){
-			global $post;
-
-			extract( shortcode_atts( array(
-			'id' => '',
-			'before' => '',
-			'separator' => ', ',
-			'after' => '',
-			), $atts ) );
-
-			$result = get_the_term_list( $post->ID, $id, $before, $separator, $after );
-
-			$result = (is_wp_error($result)) ? __('Invalid Taxonomy name in [tax ] shortcode', $this->text_domain) : $result;
-
-			return $result;
-		}
-
 	}
 
-	// Initiate Content Types Module
+
+	//Add terms and custome fields on media page
+	function add_custom_for_attachment( $form_fields, $post ) {
+		if ( $form_fields ) {
+
+			$script = '';
+
+			//add hierarchical terms as checkbox
+			foreach ( $form_fields as $taxonomy => $taxonomy_value ) {
+				if ( isset( $taxonomy_value['hierarchical'] ) && 1 == $taxonomy_value['hierarchical'] ) {
+					//get all terms of taxonomy
+					$terms = get_terms( $taxonomy, array( 'get' => 'all' ) );
+
+					$taxonomy_tree  = array();
+					$children       = array();
+					$term_ids       = array();
+
+					//create hierarchical tree
+					foreach( $terms as $term ) {
+						$term_ids[$term->term_id] = $term;
+						if ( 0 == $term->parent )
+						$taxonomy_tree[$term->term_id] = array();
+						else
+						$children[$term->parent][$term->term_id] = array();
+
+					}
+
+					if ( count( $children ) ) {
+						foreach( $children as $base => $child )
+						foreach( $children as $child_key => $val )
+						if ( array_key_exists( $base, $val ) ) {
+							$children[$child_key][$base] = &$children[$base];
+							break;
+						}
+
+						foreach ( $children as $base => $child )
+						if ( isset( $taxonomy_tree[$base] ) )
+						$taxonomy_tree[$base] = $child;
+					}
+
+					//gen checkbox of tree
+					$checkbox = $this->media_gen_hierarchical_field( $post->ID, $taxonomy, $term_ids, $taxonomy_tree );
+					if ( $terms ) {
+						$form_fields[ 'temp_' . $taxonomy]['input']    = 'checkbox';
+						$form_fields[ 'temp_' . $taxonomy]['label']    = ( isset( $taxonomy_value['labels']->name ) && '' != $taxonomy_value['labels']->name ) ? $taxonomy_value['labels']->name : ucwords( $taxonomy );
+						$form_fields[ 'temp_' . $taxonomy]['checkbox'] = $checkbox;
+
+						/* Save hierarchical terms:
+						only with JavaScript - for change Array value to String
+						because terms velue can't be array - error of WP \wp-admin\includes\media.php - line 479 - wp_set_object_terms....
+						*/
+						// gen JavaScript
+						$script .= '
+						var ' . $taxonomy . ' = "";
+
+						if ( jQuery("input:checkbox[name=\'my_terms_[' . $post->ID . '][' . $taxonomy . '][]\']").length ) {
+						jQuery("input:checkbox[name=\'my_terms_[' . $post->ID . '][' . $taxonomy . '][]\']:checked").each(function(){
+						' . $taxonomy . ' = ' . $taxonomy . ' + "," + this.value;
+						})
+
+						if ( jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").length ) {
+						jQuery("input:hidden[name=\'attachments[' . $post->ID . '][' . $taxonomy . ']\']").val( ' . $taxonomy . ' );
+						}
+						}
+						';
+
+						$form_fields[$taxonomy]['input'] = 'hidden';
+						$form_fields[$taxonomy]['value'] = '';
+						$add_script = 1;
+
+					} else {
+						$form_fields[$taxonomy]['input'] = 'html';
+						$form_fields[$taxonomy]['html']  = __( 'No values', $this->text_domain );
+					}
+				}
+			}
+
+			//add JavaScript to meadia page for save terms
+			if ( isset( $add_script ) ) {
+				$form_fields['script_for_terms']['input'] = 'html';
+				$form_fields['script_for_terms']['label'] = '';
+				$form_fields['script_for_terms']['html']  = '
+				<script type="text/javascript">
+				jQuery( document ).ready( function() {
+				jQuery("#media-single-form").submit(function(){
+				' . $script . '
+				return true;
+				});
+				});
+				</script>
+				';
+			}
 
 
-	if(!is_admin()) $CustomPress_Content_Types = new CustomPress_Content_Types();
+			//Add custom fields to Media page
+			if ( is_array( $this->custom_fields ) )
+			foreach ( $this->custom_fields as $custom_field ) {
 
-	endif;
+				if ( in_array ( 'attachment', $custom_field['object_type'] ) ) {
 
-	?>
+					$html = '';
 
+					switch ( $custom_field['field_type'] ) {
+						case 'text';
+						case 'textarea':
+						case 'datepicker':
+						$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+						$form_fields[$custom_field['field_id']]['input'] = $custom_field['field_type'];
+						$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
+						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+						break;
+
+						case 'datepicker':
+						$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+						$form_fields[$custom_field['field_id']]['input'] = $custom_field['field_type'];
+						$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
+						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+
+						break;
+
+						case 'radio':
+
+						$values = get_post_meta( $post->ID, $custom_field['field_id'], true );
+
+						if ( empty( $values ) )
+						$values = (array) $custom_field['field_default_option'];
+						elseif ( ! is_array( $values ) )
+						$values = (array) $values;
+
+
+						foreach ( $custom_field['field_options'] as $key => $value ) {
+							$input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . ']';
+							$input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
+
+							if ( in_array( $value, $values ) )
+							$html .= '<label>
+							<input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" checked />
+							' . $value . '
+							</label><br />';
+							else
+							$html .= '<label>
+							<input type="radio" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" />
+							' . $value . '
+							</label><br />';
+						}
+
+						$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+						$form_fields[$custom_field['field_id']]['input'] = 'html';
+						$form_fields[$custom_field['field_id']]['html']  = $html;
+						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+						break;
+
+						case 'checkbox':
+
+						$values = get_post_meta( $post->ID, $custom_field['field_id'], true );
+
+						if ( empty( $values ) )
+						$values = (array) $custom_field['field_default_option'];
+						elseif ( ! is_array( $values ) )
+						$values = (array) $values;
+
+						foreach ( $custom_field['field_options'] as $key => $value ) {
+							$input_name = 'attachments['. $post->ID .'][' . $custom_field['field_id'] . '][' . $key . ']';
+							$input_id   = 'attachments_'. $post->ID .'_' . $custom_field['field_id'] . '_' . $key;
+
+							if ( in_array( $value, $values ) )
+							$html .= '<label>
+							<input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" checked />
+							' . $value . '
+							</label><br />';
+							else
+							$html .= '<label>
+							<input type="checkbox" name="'. $input_name .'" id="' . $input_id . '" value="' . $value . '" />
+							' . $value . '
+							</label><br />';
+						}
+
+						$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+						$form_fields[$custom_field['field_id']]['input'] = 'html';
+						$form_fields[$custom_field['field_id']]['html']  = $html;
+						$form_fields[$custom_field['field_id']]['value'] = get_post_meta( $post->ID, $custom_field['field_id'], true );
+						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+						$form_fields[$custom_field['field_id']]['date_format'] = $custom_field['field_date_format'];
+						break;
+
+						case 'selectbox';
+						case 'multiselectbox':
+						if ( 'multiselectbox' == $custom_field['field_type'] )
+						$multiple = 'multiple style="height: 130px;"';
+						else
+						$multiple = '';
+
+						$values = get_post_meta( $post->ID, $custom_field['field_id'], true );
+
+						if ( empty( $values ) )
+						$values = (array) $custom_field['field_default_option'];
+						elseif ( ! is_array( $values ) )
+						$values = (array) $values;
+
+
+						foreach ( $custom_field['field_options'] as $key => $value ) {
+							if ( in_array( $value, $values ) )
+							$html .= '<option value="' . $value . '" selected >' . $value . '&nbsp;</option>';
+							else
+							$html .= '<option value="' . $value . '">' . $value . '&nbsp;</option>';
+						}
+
+						$html = '
+						<select ' . $multiple . ' name="attachments['. $post->ID .'][' . $custom_field['field_id'] . '][]" id="attachments['. $post->ID .'][' . $custom_field['field_id'] . ']">
+						' . $html . '
+						</select>
+						';
+
+						$form_fields[$custom_field['field_id']]['label'] = $custom_field['field_title'];
+						$form_fields[$custom_field['field_id']]['input'] = 'html';
+						$form_fields[$custom_field['field_id']]['html']  = $html;
+						$form_fields[$custom_field['field_id']]['helps'] = $custom_field['field_description'];
+						break;
+					}
+				}
+			}
+
+		}
+		return $form_fields;
+	}
+
+	//generate html for hierarchical fields on media page
+	function media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $taxonomy_tree, $checkbox = '', &$num = 0 ) {
+		foreach ( $taxonomy_tree as $term_id => $tree ) {
+			$type       = 'checkbox';
+			$checked    = is_object_in_term( $post_id, $taxonomy, $term_id ) ? ' checked="checked"' : '';
+			$checkbox  .= str_repeat( '&ndash;&ndash;', count( get_ancestors( $term_id, $taxonomy ) ) );
+			$checkbox  .= ' <input type="' . $type . '" id="my_terms_' . $post_id . '_' . $taxonomy . '_' . $num . '" name="my_terms_[' . $post_id . '][' . $taxonomy . '][]" value="' . $term_ids[$term_id]->name . '"' . $checked . ' /><label for="attachments_' . $post_id . '_' . $taxonomy . '_' . $num . '">' . esc_html( $term_ids[$term_id]->name ) . "</label><br />\n";
+			$num++;
+			if ( count( $tree ) )
+			$checkbox = $this->media_gen_hierarchical_field( $post_id, $taxonomy, $term_ids, $tree, $checkbox, $num );
+		}
+		return $checkbox;
+	}
+
+	//Save custom feilds value from media page
+	function save_custom_for_attachment( $post, $attachment ) {
+
+		//Save custom fields for Attachment post type
+		if ( is_array( $this->custom_fields ) )
+		foreach ( $this->custom_fields as $custom_field ) {
+			if ( in_array ( 'attachment', $custom_field['object_type'] ) ) {
+				if ( isset( $attachment[$custom_field['field_id']] ) ) {
+					// update_post_meta
+					update_post_meta( $post['ID'], $custom_field['field_id'], $attachment[$custom_field['field_id']] );
+				} elseif ( 'checkbox' == $custom_field['field_type'] ) {
+					update_post_meta( $post['ID'], $custom_field['field_id'], '-1' );
+				}
+			}
+		}
+
+		return $post;
+	}
+
+	/**
+	* Creates shortcodes for fields which may be used for shortened embed codes.
+	*
+	* @return string
+	*/
+	function ct_shortcode($atts, $content=null){
+		global $post;
+
+		extract( shortcode_atts( array(
+		'id' => '',
+		'property' => 'value',
+		), $atts ) );
+
+		// Take off the prefix for indexing the array;
+		$cid = str_replace('_ct_','',$id);
+		$cid = str_replace('ct_','',$cid);
+
+		$custom_field = (isset($this->custom_fields[$cid])) ? $this->custom_fields[$cid] : null;
+
+		$property = strtolower($property);
+		$result = '';
+
+		switch ($property){
+			case 'title': $result = $custom_field['field_title']; break;
+			case 'description': $result = $custom_field['field_description']; break;
+			case 'value':
+			default: {
+				switch ($custom_field['field_type']){
+					case 'checkbox':
+					case 'multiselectbox': {
+						if ( get_post_meta( $post->ID, $id, true ) ) {
+							foreach ( get_post_meta( $post->ID, $id, true ) as $value ) {
+								$result .= (empty($result)) ? $value : ', ' . $value;
+							}
+						}
+						break;
+					}
+					case 'selectbox':
+					case 'radio': {
+						if ( get_post_meta( $post->ID, $id, false ) ) {
+							foreach ( get_post_meta( $post->ID, $id, false ) as $value ) {
+								$result .= (empty($result)) ? $value : ', ' . $value;
+							}
+						}
+						break;
+					}
+					default: {
+						$result = get_post_meta( $post->ID, $id, true ); break;
+					}
+				}
+			}
+		}
+		return $result;
+	}
+
+	/**
+	* Creates shortcodes for fields which may be used for shortened embed codes.
+	*
+	* @string
+	*/
+	function tax_shortcode($atts, $content = null){
+		global $post;
+
+		extract( shortcode_atts( array(
+		'id' => '',
+		'before' => '',
+		'separator' => ', ',
+		'after' => '',
+		), $atts ) );
+
+		$result = get_the_term_list( $post->ID, $id, $before, $separator, $after );
+
+		$result = (is_wp_error($result)) ? __('Invalid Taxonomy name in [tax ] shortcode', $this->text_domain) : $result;
+
+		return $result;
+	}
+
+}
+
+// Initiate Content Types Module
+
+
+if(!is_admin()) $CustomPress_Content_Types = new CustomPress_Content_Types();
+
+endif;
+
+?>
