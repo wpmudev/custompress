@@ -5,7 +5,7 @@ Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
-= 1.2.1.4 = 2012-05-03 Arnold Bailey
+= 1.2.1.5 = 2012-05-03 Arnold Bailey
 * extraneous spaces causing header already sent problem
 
 = 1.2.1.4 = 2012-05-03 Arnold Bailey
