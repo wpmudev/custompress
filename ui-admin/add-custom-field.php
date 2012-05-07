@@ -6,7 +6,7 @@ $post_types = get_post_types('','names');
 ?>
 <div style="clear: both">
 	<h3><?php _e('Add Custom Field', $this->text_domain); ?></h3>
-	<form action="" method="post" class="ct-custom-fields">
+	<form action="#" method="post" class="ct-custom-fields">
 		<div class="ct-wrap-left">
 			<div class="ct-table-wrap">
 				<div class="ct-arrow"><br></div>

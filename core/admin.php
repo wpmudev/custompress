@@ -233,9 +233,23 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 			}
 
 			// Process post types display
-			$args = array( 'page' => 'home', 'post_type' => ( isset( $_POST['cp_post_type'] ) ) ? $_POST['cp_post_type'] : null );
 			$options = $this->get_options();
-			$options = array_merge( $options , array( 'display_post_types' => array( $args['page'] => $args )) );
+
+
+			$dpt = array();
+			$args = array( 'page' => 'home', 'post_type' => ( isset( $_POST['cp_post_type']['home'] ) ) ? $_POST['cp_post_type']['home'] : null );
+			$display_post_types['display_post_types'][$args['page']] = $args;
+
+			$args = array( 'page' => 'archive', 'post_type' => ( isset( $_POST['cp_post_type']['archive'] ) ) ? $_POST['cp_post_type']['archive'] : null );
+			$display_post_types['display_post_types'][$args['page']] = $args;
+
+			$args = array( 'page' => 'front_page', 'post_type' => ( isset( $_POST['cp_post_type']['front_page'] ) ) ? $_POST['cp_post_type']['front_page'] : null );
+			$display_post_types['display_post_types'][$args['page']] = $args;
+
+			$args = array( 'page' => 'search', 'post_type' => ( isset( $_POST['cp_post_type']['search'] ) ) ? $_POST['cp_post_type']['search'] : null );
+			$display_post_types['display_post_types'][$args['page']] = $args;
+
+			$options = array_merge( $options , $display_post_types );
 
 			//Update datepicker settings
 			if (! empty($_POST['datepicker_theme']) && ! empty($_POST['date_format']))

@@ -3,7 +3,7 @@
 <?php// print_r($_POST); ?>
 
 <h3><?php _e('Add Post Type', $this->text_domain); ?></h3>
-<form action="" method="post" class="ct-post-type">
+<form action="#" method="post" class="ct-post-type">
 	<div class="ct-wrap-left">
 		<div class="ct-table-wrap">
 			<div class="ct-arrow"><br></div>

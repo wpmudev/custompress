@@ -257,8 +257,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 				//register post type
 				register_post_type( $post_type, $args );
-
-				//assign post type with regular taxanomies
+			//assign post type with regular taxanomies
 				if ( isset( $args['supports_reg_tax'] ) ) {
 					foreach ( $args['supports_reg_tax'] as $key => $value ) {
 						if ( taxonomy_exists( $key ) && '1' == $value ) {
@@ -746,7 +745,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				if ( isset( $_POST[$prefix . $custom_field['field_id']] ))
 				update_post_meta( $post_id, $prefix . $custom_field['field_id'], $_POST[$prefix . $custom_field['field_id']] );
 				//for non checked checkbox set value -1
-				elseif ( in_array( $_POST["post_type"], $custom_field["object_type"] ) && 'checkbox' == $custom_field['field_type'] )
+				elseif ( isset($_POST["post_type"]) && in_array( $_POST["post_type"], $custom_field["object_type"] ) && 'checkbox' == $custom_field['field_type'] )
 				update_post_meta( $post_id, $prefix . $custom_field['field_id'], -1 );
 				else
 				delete_post_meta( $post_id, $prefix . $custom_field['field_id'] );

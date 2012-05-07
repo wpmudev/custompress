@@ -24,8 +24,8 @@ class CustomPress_Core {
 	var $options_name = 'cp_options';
 
 	function CustomPress_Core() {__construct(); }
-		
-		function __construct(){
+
+	function __construct(){
 		add_action( 'init', array( &$this, 'load_plugin_textdomain' ), 0 );
 		add_filter( 'pre_get_posts', array( &$this, 'display_custom_post_types' ) );
 		add_action( 'wp_ajax_cp_get_post_types', array( &$this, 'ajax_action_callback' ) );
@@ -217,14 +217,35 @@ class CustomPress_Core {
 		*/
 		function display_custom_post_types( $query ) {
 			global $wp_query;
-
 			//if ( is_main_site() || get_site_option('allow_per_site_content_types') )
 			$options = $this->get_options();
 
-			if ( isset( $options['display_post_types']['home']['post_type'] )
-			&& is_array( $options['display_post_types']['home']['post_type'] ) ) {
-				if ( is_home() && !in_array( 'default', $options['display_post_types']['home']['post_type'] ) )
-				$wp_query->query_vars['post_type'] = $options['display_post_types']['home']['post_type'];
+			//Home Page
+			if ( isset($options['display_post_types']['home']['post_type']) && is_array( $options['display_post_types']['home']['post_type'] ) ) {
+				if ( is_home() && !in_array( 'default', $options['display_post_types']['home']['post_type'] ) ){
+					$wp_query->query_vars['post_type'] = $options['display_post_types']['home']['post_type'];
+				}
+			}
+
+			//Archive Page
+			if (isset($options['display_post_types']['archive']['post_type']) && is_array( $options['display_post_types']['archive']['post_type'] ) ) {
+				if ( is_archive() && !in_array( 'default', $options['display_post_types']['archive']['post_type'] ) ){
+					$wp_query->query_vars['post_type'] = $options['display_post_types']['archive']['post_type'];
+				}
+			}
+
+			//Front Page
+			if ( isset($options['display_post_types']['front_page']['post_type']) && is_array( $options['display_post_types']['front_page']['post_type'] ) ) {
+				if ( is_front-page() && !in_array( 'default', $options['display_post_types']['front_page']['post_type'] ) ){
+					$wp_query->query_vars['post_type'] = $options['display_post_types']['front_page']['post_type'];
+				}
+			}
+
+			//Search Page
+			if ( isset($options['display_post_types']['search']['post_type']) && is_array( $options['display_post_types']['search']['post_type'] ) ) {
+				if ( is_search() && !in_array( 'default', $options['display_post_types']['search']['post_type'] ) ){
+					$wp_query->query_vars['post_type'] = $options['display_post_types']['search']['post_type'];
+				}
 			}
 
 			/** @todo Display custom post types on any page set by the user.
@@ -381,7 +402,7 @@ class CustomPress_Core {
 
 	}
 
-	//$CustomPress_Core =	
+	//$CustomPress_Core =
 	//new CustomPress_Core();
 
 	endif;
