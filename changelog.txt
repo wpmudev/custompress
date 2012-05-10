@@ -5,7 +5,11 @@ Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
-= 1.2.1.6 = 2012-05-03 Arnold Bailey
+= 1.2.1.7 = 2012-05-08 Arnold Bailey
+* Fixed stripslashes problem with Gravity forms.
+* Changes datepicker translation plugin loading sequence.
+
+= 1.2.1.6 = 2012-05-06 Arnold Bailey
 * Added custom type display inclusion for Home, Front, Archive and Search pages
 
 = 1.2.1.5 = 2012-05-03 Arnold Bailey

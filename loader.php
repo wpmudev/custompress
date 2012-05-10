@@ -4,7 +4,7 @@
 Plugin Name: CustomPress
 Plugin URI: http://premium.wpmudev.org/project/custompress
 Description: CustomPress - Custom Post, Taxonomy and Field Manager.
-Version: 1.2.1.6
+Version: 1.2.1.7
 Author: Ivan Shaovchev, Andrey Shipilov (Incsub), Arnold Bailey (Incsub)
 Author URI: http://premium.wpmudev.org
 Text Domain: custompress
@@ -38,7 +38,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 /* Define plugin version */
-define ( 'CP_VERSION', '1.2.1.6' );
+define ( 'CP_VERSION', '1.2.1.7' );
 /* define the plugin folder url */
 define ( 'CP_PLUGIN_URL', plugin_dir_url(__FILE__) );
 /* define the plugin folder dir */
@@ -61,5 +61,3 @@ if ( !function_exists( 'wdp_un_check' ) ) {
 		echo '<div class="error fade"><p>' . __('Please install the latest version of <a href="http://premium.wpmudev.org/project/update-notifications/" title="Download Now &raquo;">our free Update Notifications plugin</a> which helps you stay up-to-date with the most stable, secure versions of WPMU DEV themes and plugins. <a href="http://premium.wpmudev.org/wpmu-dev/update-notifications-plugin-information/">More information &raquo;</a>', 'wpmudev') . '</a></p></div>';
 	}
 }
-
-?>
