@@ -5,6 +5,9 @@ Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
+= 1.2.1.8 = 2012-05-14 Arnold Bailey
+* Fixed bad url on Taxonomy when running under Multisite.
+
 = 1.2.1.7 = 2012-05-08 Arnold Bailey
 * Fixed stripslashes problem with Gravity forms.
 * Changes datepicker translation plugin loading sequence.

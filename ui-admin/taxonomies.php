@@ -40,11 +40,11 @@ $taxonomies = $this->taxonomies;
 		<tr class="<?php echo ( $class ); ?>">
 			<td>
 				<strong>
-					<a href="<?php echo esc_attr(admin_url() . '/admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name); ?>"><?php echo( $name ); ?></a>
+					<a href="<?php echo self_admin_url('admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name); ?>"><?php echo( $name ); ?></a>
 				</strong>
 				<div class="row-actions" id="row-actions-<?php echo $name; ?>">
 					<span class="edit">
-						<a title="<?php _e('Edit this taxonomy', $this->text_domain); ?>" href="<?php echo esc_attr( admin_url() . '/admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ); ?>" ><?php _e('Edit', $this->text_domain); ?></a> |
+						<a title="<?php _e('Edit this taxonomy', $this->text_domain); ?>" href="<?php echo self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=taxonomy&ct_edit_taxonomy=' . $name ); ?>" ><?php _e('Edit', $this->text_domain); ?></a> |
 					</span>
 					<span>
 						<a title="<?php _e('Show embed code', $this->text_domain); ?>" href="" onclick="javascript:content_types.toggle_embed_code('<?php echo( $name ); ?>'); return false;"><?php _e('Embed Code', $this->text_domain); ?></a> |
