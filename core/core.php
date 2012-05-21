@@ -61,17 +61,17 @@ class CustomPress_Core {
 	function on_enqueue_scripts(){
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-datepicker');
-		wp_enqueue_script('jquery-ui-widget');
 
 		$lang = (WPLANG == '') ? '' : substr(WPLANG, 0, 2);
 
 		//language exceptions
 		$lang = (in_array(WPLANG, array('ar_DZ', 'cy_GB', 'en_AU', 'en_GB', 'en_NZ', 'fr_CH', 'nl_BE', 'pt_BR', 'sr_SR', 'zh_CN', 'zh_HK', 'zh_TW') ) )  ?  str_replace('_', '-', WPLANG) : $lang;
-
-		// If it can't find one too bad.
-		wp_register_script('jquery-ui-datepicker-lang', $this->plugin_url . "datepicker/js/i18n/jquery.ui.datepicker-$lang.js", array('jquery','jquery-ui-datepicker'), '1.8.18');
-		wp_enqueue_script('jquery-ui-datepicker-lang');
-
+		if(!empty($lang))
+		{
+			// If it can't find one too bad.
+			wp_register_script('jquery-ui-datepicker-lang', $this->plugin_url . "datepicker/js/i18n/jquery.ui.datepicker-$lang.js", array('jquery','jquery-ui-datepicker'), '1.8.18');
+			wp_enqueue_script('jquery-ui-datepicker-lang');
+		}
 
 		wp_register_script('jquery-validate', $this->plugin_url . "ui-admin/js/jquery.validate.min.js", array('jquery'), '1.8.18');
 		wp_enqueue_script('jquery-validate');

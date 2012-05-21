@@ -254,13 +254,6 @@ $cp_post_type = $options['display_post_types'];
 					<br /><br />
 					<input class="pickdate" id="datepicker" type="text" size="38" value="" /><br />
 					<span class="description"><?php _e('Date picker sample', $this->text_domain) ?></span>
-					<script type="text/javascript">
-						//Make em pickers
-						jQuery('.pickdate').datepicker({ dateFormat : '<?php echo $date_format; ?>' });
-						//Default date for display
-						jQuery('#datepicker').attr('value', jQuery.datepicker.formatDate('<?php echo $date_format; ?>', new Date(), {}) );
-					</script>
-
 				</td>
 			</tr>
 		</table>
@@ -300,3 +293,12 @@ $cp_post_type = $options['display_post_types'];
 
 	</form>
 </div>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		//Make em pickers
+		jQuery('.pickdate').datepicker({ dateFormat : '<?php echo $date_format; ?>' });
+		//Default date for display
+		jQuery('#datepicker').attr('value', jQuery.datepicker.formatDate('<?php echo $date_format; ?>', new Date(), {}) );
+	});
+</script>
+

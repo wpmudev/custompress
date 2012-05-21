@@ -5,6 +5,9 @@ Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
+= 1.2.2.1 = 2012-05-20 Arnold Bailey
+* Changed datepicker load order
+
 = 1.2.2 = 2012-05-17 Arnold Bailey
 * filter the_category and the_tags to properly combine custom and standard taxonomies if selected in post_types.
 
