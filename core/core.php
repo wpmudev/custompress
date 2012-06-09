@@ -33,7 +33,7 @@ class CustomPress_Core {
 		add_action('admin_enqueue_scripts', array($this, 'on_enqueue_scripts'));
 		add_action('wp_enqueue_scripts', array($this, 'on_enqueue_scripts'));
 
-		add_action('admin_print_scripts', array($this, 'on_print_scripts'));
+//		add_action('admin_print_scripts', array($this, 'on_print_scripts'));
 		add_action('wp_print_scripts', array($this, 'on_print_scripts'));
 
 		add_action('admin_print_footer_scripts', array($this, 'on_admin_print_footer_scripts'));
@@ -235,7 +235,7 @@ class CustomPress_Core {
 		//Home Page
 		if ( isset($options['display_post_types']['home']['post_type']) && is_array( $options['display_post_types']['home']['post_type'] ) ) {
 			$post_types = $options['display_post_types']['home']['post_type'];
-			if ( is_archive() && !in_array( 'default', $post_types ) ){
+			if ( is_home() && !in_array( 'default', $post_types ) ){
 				if(count($post_types) == 1) $post_types = $post_types[0];
 				$wp_query->query_vars['post_type'] = $post_types;
 			}
@@ -253,7 +253,7 @@ class CustomPress_Core {
 		//Front Page
 		if ( isset($options['display_post_types']['front_page']['post_type']) && is_array( $options['display_post_types']['front_page']['post_type'] ) ) {
 			$post_types = $options['display_post_types']['front_page']['post_type'];
-			if ( is_archive() && !in_array( 'default', $post_types ) ){
+			if ( is_front_page() && !in_array( 'default', $post_types ) ){
 				if(count($post_types) == 1) $post_types = $post_types[0];
 				$wp_query->query_vars['post_type'] = $post_types;
 			}
@@ -262,7 +262,7 @@ class CustomPress_Core {
 		//Search Page
 		if ( isset($options['display_post_types']['search']['post_type']) && is_array( $options['display_post_types']['search']['post_type'] ) ) {
 			$post_types = $options['display_post_types']['search']['post_type'];
-			if ( is_archive() && !in_array( 'default', $post_types ) ){
+			if ( is_search() && !in_array( 'default', $post_types ) ){
 				if(count($post_types) == 1) $post_types = $post_types[0];
 				$wp_query->query_vars['post_type'] = $post_types;
 			}
