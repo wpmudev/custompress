@@ -33,7 +33,7 @@ class CustomPress_Core {
 		add_action('admin_enqueue_scripts', array($this, 'on_enqueue_scripts'));
 		add_action('wp_enqueue_scripts', array($this, 'on_enqueue_scripts'));
 
-//		add_action('admin_print_scripts', array($this, 'on_print_scripts'));
+		//		add_action('admin_print_scripts', array($this, 'on_print_scripts'));
 		add_action('wp_print_scripts', array($this, 'on_print_scripts'));
 
 		add_action('admin_print_footer_scripts', array($this, 'on_admin_print_footer_scripts'));
@@ -86,19 +86,19 @@ class CustomPress_Core {
 		// Load the dynamic jQuery-UI theme loader for DatePicker
 		?>
 
-		<script type="text/javascript">
+		<script type="text/javascript">//<![CDATA[
 
 			function update_stylesheet(url) {
 				new_stylesheet=url;
 				if(jQuery("#cp_dynamic_css").length==0){
-					jQuery("head").append("<link>");
+					jQuery("head").append("<link/>");
 					css=jQuery("head").children(":last");
 					css.attr({id:"cp_dynamic_css",rel:"stylesheet",type:"text/css",href:new_stylesheet})
 				}else{
 					jQuery("#cp_dynamic_css").attr("href",new_stylesheet)
 				}
 			}
-
+			//]]>
 		</script>
 		<?php
 	}
