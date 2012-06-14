@@ -76,8 +76,13 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 								<p>
 									<label for="field_regex"><?php _e('Regular Expression Validation', $this->text_domain) ?></label><br />
 									<textarea name="field_regex" rows="2" cols="50" ><?php if ( isset( $custom_field['field_regex'] ) ) echo esc_textarea($custom_field['field_regex']); ?></textarea>
-									<span class="description"><?php _e('Enter a regular expression to validate against or leave blank.', $this->text_domain) ?></span>
-									<span class="description"><?php _e('Example Email: ', $this->text_domain) ?></span>
+
+									<label for="field_regex_options"><?php _e('Options:', $this->text_domain) ?></label>
+									<input type="text" id="field_regex_options" name="field_regex_options" size="3" value="<?php if ( isset( $custom_field['field_regex_options'] ) ) echo $custom_field['field_regex_options']; ?>" />
+									<span class="description"><?php _e('i = ignore case, g = global, m = multiline', $this->text_domain) ?></span><br />
+
+									<span class="description"><?php _e('Enter a regular expression to validate against or leave blank. Example for Email:', $this->text_domain) ?></span>
+									<span class="description"><?php _e('<code>^[\w.%+-]+@[\w.-]+\.[A-Z]{2,4}$</code> <code>i</code>', $this->text_domain) ?></span>
 								</p>
 								<p>
 									<label for="field_regex_message"><?php _e('Regular Expression Validation Error Message', $this->text_domain) ?></label><br />

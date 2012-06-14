@@ -496,6 +496,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			'field_options'        => $params['field_options'],
 			'field_date_format'    => $params['field_date_format'],
 			'field_regex'          => trim($params['field_regex']),
+			'field_regex_options'  => trim($params['field_regex_options']),
 			'field_regex_message'  => trim($params['field_regex_message']),
 			'field_message'        => trim($params['field_message']),
 			'field_default_option' => ( isset( $params['field_default_option'] ) ) ? $params['field_default_option'] : NULL,
@@ -513,6 +514,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				//regex on text only
 				unset( $args['field_regex'] );
 				unset( $args['field_regex_message'] );
+				unset( $args['field_regex_options'] );
 			}
 
 			// Set new custom fields
@@ -1294,21 +1296,24 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 			$message = ( empty( $custom_field['field_message']) ) ? '' : trim($custom_field['field_message']);
 			if( ! empty( $message ) ) $msgs[] = "required: '{$message}'";
+			
+			$regex_options = ( empty( $custom_field['field_regex_options']) ) ? '' : trim($custom_field['field_regex_options']);
 
 			$regex_message = ( empty( $custom_field['field_regex_message']) ) ? '' : trim($custom_field['field_regex_message']);
 			if( ! empty( $regex_message ) ) $msgs[] = "regex: '{$regex_message}'";
 
-			if( ! empty($msgs) )	$validation[] = "jQuery('[name={$fid}]').rules('add', { messages: {" . implode(", ", $msgs ) . "} });";
+
+			if( ! empty($msgs) )	$validation[] = "jQuery('[name={$fid}]').rules('add', { messages: {" . implode(", ", $msgs ) . " } });";
 
 			//Collect rules
 			$rls = array();
 			if ($custom_field['field_required'] || ! empty($custom_field['field_regex'])) { //we have validation rules
 				if( ! empty($custom_field['field_required']) ) $rls[] = 'required: true';
-				if( ! empty($custom_field['field_regex'])) $rls[] = "regex: '" . addslashes($custom_field['field_regex']) . "'";
+				if( ! empty($custom_field['field_regex'])) $rls[] = "regex: /{$custom_field['field_regex']}/{$regex_options}";
 				//Add more in the future
 			}
 
-			if( ! empty($rls) ) $validation[] = "jQuery('[name={$fid}]').rules('add', { " . implode(", ", $rls ) . "} );";
+			if( ! empty($rls) ) $validation[] = "jQuery('[name={$fid}]').rules('add', { " . implode(", ", $rls ) . " } );";
 		}
 
 		$validation = implode("\n", $validation);

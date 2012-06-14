@@ -7,10 +7,12 @@ Author URI: http://premium.wpmudev.org
 
 = 1.2.3 = 2012-06-14 Arnold Bailey
 * Added new update notification
+* Tested against WP 3.4
 * Added custom required error messages for custom fields
 * Added regular expression validation for custom text and textarea fields
 * Added custom required error messages for regex validation
 * Reworked Network and Local custom field handling.
+* Added regex options flags
 
 
 = 1.2.2.5 = 2012-06-01 Arnold Bailey
