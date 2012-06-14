@@ -28,8 +28,6 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 		parent::__construct();
 
-		$this->init_vars();
-
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
 		add_action( 'network_admin_menu', array( &$this, 'network_admin_menu' ) );
 		add_action( 'admin_init', array( &$this, 'admin_init' ) );
@@ -83,32 +81,6 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 			$prefix = '_ct_';
 
 			echo get_post_meta( $post_it, $prefix . $column_name, true );
-		}
-	}
-
-
-	/**
-	* Initiate variables
-	*
-	* @return void
-	*/
-	function init_vars() {
-		$this->enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
-
-		if ( $this->enable_subsite_content_types ) {
-			$this->post_types    = get_option( 'ct_custom_post_types' );
-			$this->taxonomies    = get_option( 'ct_custom_taxonomies' );
-			$this->custom_fields = get_option( 'ct_custom_fields' );
-		} else {
-			$this->post_types    = get_site_option( 'ct_custom_post_types' );
-			$this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
-			$this->custom_fields = get_site_option( 'ct_custom_fields' );
-		}
-
-		if ( is_network_admin() ) {
-			$this->post_types    = get_site_option( 'ct_custom_post_types' );
-			$this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
-			$this->custom_fields = get_site_option( 'ct_custom_fields' );
 		}
 	}
 

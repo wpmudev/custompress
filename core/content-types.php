@@ -70,7 +70,6 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	function init_vars() {
 
 		$this->network_content = get_site_option('keep_network_content_types');
-
 		$this->enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
 
 		if ( $this->enable_subsite_content_types == 1 ) {
@@ -687,6 +686,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		$current_post_type = $this->get_current_post_type();
 
 		$net_custom_fields = get_site_option('ct_custom_fields');
+		
 		if ( $this->network_content && !empty($net_custom_fields)) {
 			//get the network fields
 			$net_post_types = get_site_option('ct_custom_post_types');
@@ -1326,7 +1326,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 
 if(!is_admin()) {
-	$CustomPress_Content_Types = new CustomPress_Content_Types();
+	$CustomPress_Core = new CustomPress_Content_Types();
 }
 
 endif;

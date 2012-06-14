@@ -80,6 +80,10 @@ $output = false;
 							} ?>
 							<p><?php echo ( $custom_field['field_description'] ); ?></p>
 							<?php
+							break;
+						}
+
+						case 'checkbox' : {	//checkbox fields
 							if ( get_post_meta( $post->ID, $fid, true )){
 								$field_values = get_post_meta( $post->ID, $fid, true );
 								foreach ( $custom_field['field_options'] as $key => $field_option ): ?>
@@ -89,7 +93,9 @@ $output = false;
 									<?php echo ( $field_option ); ?>
 								</label>
 								<?php endforeach;
-							} else {
+							}
+							else
+							{
 								foreach ( $custom_field['field_options'] as $key => $field_option ): ?>
 								<label>
 									<input type="checkbox" name="<?php echo $fid; ?>[]" id="<?php echo ( $fid . '_' . $key); ?>" value="<?php echo ( $field_option ); ?>" <?php checked( $custom_field['field_default_option'] == $key ); ?>   />
