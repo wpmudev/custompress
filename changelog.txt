@@ -5,6 +5,14 @@ Author URI: http://premium.wpmudev.org
 
 == Changelog ==
 
+= 1.2.3 = 2012-06-14 Arnold Bailey
+* Added new update notification
+* Added custom required error messages for custom fields
+* Added regular expression validation for custom text and textarea fields
+* Added custom required error messages for regex validation
+* Reworked Network and Local custom field handling.
+
+
 = 1.2.2.5 = 2012-06-01 Arnold Bailey
 * Fixed double label on Show UI
 * Fixed display_custom_post_types() to handle multiple post_types.

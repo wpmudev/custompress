@@ -36,8 +36,6 @@ class CustomPress_Core {
 		//		add_action('admin_print_scripts', array($this, 'on_print_scripts'));
 		add_action('wp_print_scripts', array($this, 'on_print_scripts'));
 
-		add_action('admin_print_footer_scripts', array($this, 'on_admin_print_footer_scripts'));
-
 		register_activation_hook( $this->plugin_dir . 'loader.php', array( &$this, 'plugin_activate' ) );
 		register_deactivation_hook( $this->plugin_dir . 'loader.php', array( &$this, 'plugin_deactivate' ) );
 		$plugin = plugin_basename(__FILE__);
@@ -103,17 +101,6 @@ class CustomPress_Core {
 		<?php
 	}
 
-	function on_admin_print_footer_scripts(){
-		?>
-
-		<script type="text/javascript">
-			jQuery(document).ready(function(){
-				jQuery("#post").validate();
-
-			});
-		</script>
-		<?php
-	}
 	/**
 	* Plugin activation.
 	*
@@ -403,8 +390,9 @@ class CustomPress_Core {
 	* @return void
 	*/
 	function render_admin( $name, $vars = array() ) {
-		foreach ( $vars as $key => $val )
+		foreach ( $vars as $key => $val ){
 		$$key = $val;
+		}
 		if ( file_exists( "{$this->plugin_dir}ui-admin/{$name}.php" ) )
 		include "{$this->plugin_dir}ui-admin/{$name}.php";
 		else

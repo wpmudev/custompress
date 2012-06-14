@@ -297,6 +297,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 }
 
 /* Initiate Admin Class */
-$CustomPress_Core_Admin = new CustomPress_Core_Admin();
-
+if(is_admin()) {
+$CustomPress_Core = new CustomPress_Core_Admin();
+}
 endif;
