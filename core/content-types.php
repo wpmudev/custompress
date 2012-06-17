@@ -134,6 +134,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				'supports'            => $params['supports'],
 				'supports_reg_tax'    => $supports_reg_tax,
 				'capability_type'     => ( isset( $params['capability_type'] ) ) ? $params['capability_type'] : 'post',
+				'map_meta_cap'        => (bool) $params['map_meta_cap'],
 				'description'         => $params['description'],
 				'menu_position'       => (int)  $params['menu_position'],
 				'public'              => (bool) $params['public'] ,
@@ -686,7 +687,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		$current_post_type = $this->get_current_post_type();
 
 		$net_custom_fields = get_site_option('ct_custom_fields');
-		
+
 		if ( $this->network_content && !empty($net_custom_fields)) {
 			//get the network fields
 			$net_post_types = get_site_option('ct_custom_post_types');
@@ -785,6 +786,33 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	}
 
 	/**
+	* Makes sure the admin always has all rights to all custom post types.
+	*
+	* @return void
+	*/
+	function add_admin_capabilities(){
+		global $wp_roles;
+
+		if ( $this->network_content == 1 ) {
+			$post_types = get_site_option('ct_custom_post_types');
+			foreach($post_types as $key => $pt){
+				$post_type = get_post_type_object($key);
+				foreach($post_type->cap as $capability){
+					$wp_roles->add_cap('administrator', $capability);
+				}
+			}
+		}
+
+		$post_types = $this->post_types;
+		foreach($post_types as $key => $pt){
+			$post_type = get_post_type_object($key);
+			foreach($post_type->cap as $cap){
+				$wp_roles->add_cap('administrator', $cap);
+			}
+		}
+	}
+
+	/**
 	* Flush rewrite rules based on boolean check
 	*
 	* @return void
@@ -797,6 +825,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			if ( $global_frr_id != $local_frr_id ) {
 				$this->flush_rewrite_rules = true;
 				update_option('ct_frr_id', $global_frr_id );
+				$this->add_admin_capabilities();
 			}
 		}
 
@@ -804,6 +833,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		if ( $this->flush_rewrite_rules || !empty( $_GET['frr'] ) ) {
 			flush_rewrite_rules(false);
 			$this->flush_rewrite_rules = false;
+			$this->add_admin_capabilities();
 		}
 	}
 
@@ -1296,7 +1326,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 			$message = ( empty( $custom_field['field_message']) ) ? '' : trim($custom_field['field_message']);
 			if( ! empty( $message ) ) $msgs[] = "required: '{$message}'";
-			
+
 			$regex_options = ( empty( $custom_field['field_regex_options']) ) ? '' : trim($custom_field['field_regex_options']);
 
 			$regex_message = ( empty( $custom_field['field_regex_message']) ) ? '' : trim($custom_field['field_regex_message']);

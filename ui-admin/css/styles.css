@@ -14,9 +14,7 @@
 	float: left;
 	margin-right: 2em;
 }
-.ct-wrap-left .description {
-	display: block;
-}
+
 .ct-wrap-left .supports .description {
 	display:  inline;
 }
