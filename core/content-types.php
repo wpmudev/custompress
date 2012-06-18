@@ -56,6 +56,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 		add_shortcode('ct', array($this,'ct_shortcode'));
 		add_shortcode('tax', array($this,'tax_shortcode'));
+		add_shortcode('custom_fields_block', array($this,'fields_shortcode'));
 
 		add_filter('the_content', array($this,'run_custom_shortcodes'), 6 ); //Early priority so that other shortcodes can use custom values
 
@@ -1161,6 +1162,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	* Creates shortcodes for fields which may be used for shortened embed codes.
 	*
 	* @return string
+	* @uses appy_filters()
 	*/
 	function ct_shortcode($atts, $content=null){
 		global $post;
@@ -1209,6 +1211,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				}
 			}
 		}
+		$result = apply_filters('ct_shortcode', $result, $atts, $content);
 		return $result;
 	}
 
@@ -1216,6 +1219,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	* Creates shortcodes for fields which may be used for shortened embed codes.
 	*
 	* @string
+	* @uses appy_filters()
 	*/
 	function tax_shortcode($atts, $content = null){
 		global $post;
@@ -1230,6 +1234,126 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		$result = get_the_term_list( $post->ID, $id, $before, $separator, $after );
 
 		$result = (is_wp_error($result)) ? __('Invalid Taxonomy name in [tax ] shortcode', $this->text_domain) : $result;
+
+		$result = apply_filters('tax_shortcode', $result, $atts, $content);
+		return $result;
+	}
+
+	/**
+	* Creates shortcodes for fields which may be used for shortened embed codes.
+	*
+	* @string
+	* @uses appy_filters()
+	*/
+	function fields_shortcode($atts, $content = null){
+		global $post;
+
+		extract( shortcode_atts( array(
+		'wrap' => 'ul',
+		'open' => null,
+		'close' => null,
+		'open_line' => null,
+		'close_line' => null,
+		'open_title' => null,
+		'close_title' => null,
+		'open_value' => null,
+		'close_value' => null,
+		), $atts ) );
+
+		// Setup the various structures table, ul, div
+		$structures = array (
+		"none" =>
+		array (
+		"open" => "",
+		"close" => "",
+		"open_line" => "",
+		"close_line" => "",
+		"open_title" => "",
+		"close_title" => "",
+		"open_value" => "",
+		"close_value" => "",
+		),
+		"table" =>
+		array (
+		"open" => "<table>\n",
+		"close" => "</table>\n",
+		"open_line" => "<tr>\n",
+		"close_line" => "</tr>\n",
+		"open_title" => "<th>\n",
+		"close_title" => "</th>\n",
+		"open_value" => "<td>\n",
+		"close_value" => "</td>\n",
+		),
+		"ul" =>
+		array (
+		"open" => "<ul>\n",
+		"close" => "</ul>\n",
+		"open_line" => "<li>\n",
+		"close_line" => "</li>\n",
+		"open_title" => "<span>",
+		"close_title" => "</span>",
+		"open_value" => " ",
+		"close_value" => "",
+		),
+		"div" =>
+		array (
+		"open" => "<div>",
+		"close" => "</div>\n",
+		"open_line" => "<p>",
+		"close_line" => "</p>\n",
+		"open_title" => "<span>",
+		"close_title" => "</span>",
+		"open_value" => " ",
+		"close_value" => "",
+		),
+		);
+
+		//Initialize with blanks
+		$fmt = $structures['none']; 
+		
+		// If its' predefined
+		if(in_array($wrap, array('table','ul','div'))){ 
+			$fmt = $structures[$wrap];
+		}
+
+		//Override any defined in $atts
+		foreach($fmt as $key => $item){ 
+			$fmt[$key] = ($$key === null) ? $fmt[$key] : $$key;
+		}
+
+		$custom_fields = get_option( 'ct_custom_fields' );
+		if (empty($custom_fields)) $custom_fields = array();
+		
+		$result = $fmt['open'];
+		foreach ( $custom_fields as $custom_field ){
+			$output = in_array($post->post_type, $custom_field['object_type']);
+			if ( $output ){
+
+
+				$prefix = ( empty( $custom_field['field_wp_allow'] ) ) ? '_ct_' : 'ct_';
+				$fid = $prefix . $custom_field['field_id'];
+
+				$result .= $fmt['open_line'];
+				$result .= $fmt['open_title'];
+				$result .= ( $custom_field['field_title'] );
+				$result .= $fmt['close_title'];
+				$result .= $fmt['open_value'];
+
+				$result .= do_shortcode('[ct id="' . $fid . '"]');
+
+				$result .= $fmt['close_value'];
+				$result .= $fmt['close_line'];
+
+			}
+		}
+		$result .= $fmt['close'];
+		
+		$result .= $fmt['close'];
+		
+		$result = apply_filters('custom_fields_shortcode', $result, $atts, $content);
+
+		// Wrap of for CSS after filtering
+		$result = '<div class="ct-custom-field-block">' . "\n{$result}</div>\n";
 
 		return $result;
 	}

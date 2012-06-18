@@ -15,7 +15,7 @@ $post_type = $this->post_types[$_GET['ct_edit_post_type']];
 			<table class="form-table">
 				<tr>
 					<th>
-						<label><?php _e('Post Type', $this->text_domain) ?> (<span class="ct-required"> <?php _e('required', $this->text_domain); ?> </span>)</label>
+						<label><?php _e('Post Type', $this->text_domain) ?> <span class="ct-required">(<?php _e('required', $this->text_domain); ?>)</span></label>
 					</th>
 					<td>
 						<input type="text" value="<?php if ( isset( $_GET['ct_edit_post_type'] ) ) echo $_GET['ct_edit_post_type']; ?>" disabled="disabled">
