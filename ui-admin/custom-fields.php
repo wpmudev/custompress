@@ -1,10 +1,22 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
 <?php
-if ( is_network_admin() )
-$custom_fields = get_site_option('ct_custom_fields');
-else
-$custom_fields = $this->custom_fields;
+
+$custom_fields = array();
+if(is_multisite()) {
+
+	if($this->display_network_content || is_network_admin() ){
+		$cf = get_site_option('ct_custom_fields');
+		$custom_fields['net'] = (empty($cf)) ? array() : $cf;
+	}
+	if($this->enable_subsite_content_types && ! is_network_admin() ){
+		$cf = get_option('ct_custom_fields');
+		$custom_fields['local'] = (empty($cf)) ? array() : $cf;
+	}
+} else {
+	$cf = get_option('ct_custom_fields');
+	$custom_fields['local'] = (empty($cf)) ? array() : $cf;
+}
 
 //Nonce for reorder
 $nonce = wp_create_nonce('reorder_custom_fields');
@@ -72,45 +84,66 @@ $nonce = wp_create_nonce('reorder_custom_fields');
 	</tfoot>
 	<tbody>
 
-		<?php if ( !empty( $custom_fields ) ): ?>
 		<?php
+		foreach($custom_fields as $source => $cf):
 
-		$last = count($custom_fields);
+		$flag = ($source == 'net') && ! is_network_admin();
+		$last = count($cf);
 		$i = 0;
-		foreach ( $custom_fields as $custom_field ): ?>
+		foreach ( $cf as $custom_field ): ?>
 
 		<?php
-		if ( isset( $custom_field['field_wp_allow'] ) && 1 == $custom_field['field_wp_allow'] )
-		$prefix = 'ct_';
-		else
-		$prefix = '_ct_';
+
+		$prefix = ( empty( $custom_field['field_wp_allow'] ) ) ? '_ct_' : 'ct_';
+		$fid = $prefix . $custom_field['field_id'];
 		?>
 
 		<?php $class = ( $i % 2) ? 'ct-edit-row alternate' : 'ct-edit-row'; $i++; ?>
 		<tr class="<?php echo ( $class ); ?>">
 			<td>
-				<?php if($i != 1): ?>
+
+				<?php if($flag): ?>
+				<span class="description"><?php _e('network', $this->text_domain); ?></span>
+				<?php endif; ?>
+				<?php if($i != 1 && ! $flag): ?>
 				<span class="ct-up"><a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . "&ct_content_type=custom_field&direction=up&_wpnonce=$nonce&ct_reorder_custom_field=" . $custom_field['field_id'] )); ?>"><img src="<?php echo $this->plugin_url . 'ui-admin/images/up.png'; ?>" /></a> </span>
 				<?php endif; ?>
-				<?php if($i != $last): ?>
+				<?php if($i != $last && ! $flag): ?>
 				<span class="ct-down"><a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . "&ct_content_type=custom_field&direction=down&_wpnonce=$nonce&ct_reorder_custom_field=" . $custom_field['field_id'] )); ?>"><img src="<?php echo $this->plugin_url . 'ui-admin/images/down.png'; ?>" /></a></span>
 				<?php endif; ?>
 			</td>
 			<td>
 				<strong>
+					<?php
+					if($flag):
+					echo( $custom_field['field_title'] );
+					else:
+					?>
 					<a href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] )); ?>"><?php echo( $custom_field['field_title'] ); ?></a>
+					<?php endif; ?>
+
 				</strong>
 				<div class="row-actions" id="row-actions-<?php echo $custom_field['field_id']; ?>" >
+					<?php if(! $flag): ?>
 					<span class="edit">
 						<a title="<?php _e('Edit this custom field', $this->text_domain); ?>" href="<?php echo( self_admin_url( 'admin.php?page=' . $_GET['page'] . '&ct_content_type=custom_field&ct_edit_custom_field=' . $custom_field['field_id'] ) ); ?>"><?php _e( 'Edit', $this->text_domain ); ?></a> |
 					</span>
+					<?php endif; ?>
 					<span>
-						<a title="<?php _e('Show embed code', $this->text_domain); ?>" href="#" onclick="javascript:content_types.toggle_embed_code('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e('Embed Code', $this->text_domain); ?></a> |
+						<a title="<?php _e('Show embed code', $this->text_domain); ?>" href="#" onclick="javascript:content_types.toggle_embed_code('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e('Embed Code', $this->text_domain); ?></a>
 					</span>
+
+					<?php if($flag): ?>
+					<span class="description"><?php _e('Edit in Network Admin.', $this->text_domain); ?></span>
+					<?php endif; ?>
+
+					<?php if(! $flag): ?>
 					<span class="trash">
-						<a class="submitdelete" href="#" onclick="javascript:content_types.toggle_delete('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e( 'Delete', $this->text_domain ); ?></a>
+						| <a class="submitdelete" href="#" onclick="javascript:content_types.toggle_delete('<?php echo $custom_field['field_id']; ?>'); return false;"><?php _e( 'Delete', $this->text_domain ); ?></a>
 					</span>
+					<?php endif; ?>
 				</div>
+
 				<form action="#" method="post" id="form-<?php echo $custom_field['field_id']; ?>" class="del-form">
 					<?php wp_nonce_field('delete_custom_field'); ?>
 					<input type="hidden" name="custom_field_id" value="<?php echo $custom_field['field_id']; ?>" />
@@ -143,7 +176,8 @@ $nonce = wp_create_nonce('reorder_custom_fields');
 			</td>
 		</tr>
 		<?php endforeach; ?>
-		<?php endif; ?>
+		<?php endforeach; ?>
+
 	</tbody>
 </table>
 <form action="#" method="post" class="ct-form-single-btn">

@@ -183,11 +183,11 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 				if ( !empty( $params['enable_subsite_content_types'] ) ) {
 					update_site_option( 'allow_per_site_content_types', true );
-					update_site_option( 'keep_network_content_types', (bool) $params['keep_network_content_types'] );
+					update_site_option( 'display_network_content_types', (bool) $params['display_network_content_types'] );
 				}
 				else {
 					update_site_option( 'allow_per_site_content_types', false );
-					update_site_option( 'keep_network_content_types', false );
+					update_site_option( 'display_network_content_types', false );
 				}
 			}
 

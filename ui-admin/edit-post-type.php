@@ -1,7 +1,11 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
 <?php
-$post_type = $this->post_types[$_GET['ct_edit_post_type']];
+if(is_network_admin()){
+	$post_type = $this->network_post_types[$_GET['ct_edit_post_type']];
+} else {
+	$post_type = $this->post_types[$_GET['ct_edit_post_type']];
+}
 
 ?>
 

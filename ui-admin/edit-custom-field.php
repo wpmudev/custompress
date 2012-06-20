@@ -1,8 +1,15 @@
 <?php if (!defined('ABSPATH')) die('No direct access allowed!'); ?>
 
 <?php
+
 $post_types = get_post_types('','names');
+
+if(is_network_admin()){
+$custom_field = $this->network_custom_fields[$_GET['ct_edit_custom_field']];
+} else {
 $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
+}
+
 ?>
 <div class="wrap">
 	<h3><?php _e('Edit Custom Field', $this->text_domain); ?></h3>

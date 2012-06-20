@@ -18,11 +18,20 @@ add_filter( 'widget_text', 'do_shortcode' );
 class CustomPress_Content_Types extends CustomPress_Core {
 
 	/** @var array Available Post Types */
-	var $post_types;
+	var $post_types = array();
+	/** @var array Available Network Post Types */
+	var $network_post_types = array();
+
 	/** @var array Available Taxonomies */
-	var $taxonomies;
-	/** @var array Available Custom Fields */
-	var $custom_fields;
+	var $taxonomies = array();
+	/** @var array Available Network Taxonomies */
+	var $network_taxonomies = array();
+
+	/** @var array Available Custom fields */
+	var $custom_fields = array();
+	/** @var array Available Network Custom fields */
+	var $network_custom_fields = array();
+
 	/** @var boolean Flag whether to flush the rewrite rules or not */
 	var $flush_rewrite_rules = false;
 	/** @var boolean Flag whether the users have the ability to declare post types for their own blogs */
@@ -70,8 +79,15 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	*/
 	function init_vars() {
 
-		$this->network_content = get_site_option('keep_network_content_types');
+		$this->display_network_content = get_site_option('display_network_content_types');
+
 		$this->enable_subsite_content_types = apply_filters( 'enable_subsite_content_types', false );
+
+		if ( is_network_admin() ) {
+			$this->network_post_types    = get_site_option( 'ct_custom_post_types' );
+			$this->network_taxonomies    = get_site_option( 'ct_custom_taxonomies' );
+			$this->network_custom_fields = get_site_option( 'ct_custom_fields' );
+		}
 
 		if ( $this->enable_subsite_content_types == 1 ) {
 			$this->post_types    = get_option( 'ct_custom_post_types' );
@@ -83,11 +99,6 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			$this->custom_fields = get_site_option( 'ct_custom_fields' );
 		}
 
-		if ( is_network_admin() ) {
-			$this->post_types    = get_site_option( 'ct_custom_post_types' );
-			$this->taxonomies    = get_site_option( 'ct_custom_taxonomies' );
-			$this->custom_fields = get_site_option( 'ct_custom_fields' );
-		}
 	}
 
 	/**
@@ -241,13 +252,14 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	* Get available custom post types and register them.
 	* The function attach itself to the init hook and uses priority of 2. It loads
 	* after the register_taxonomies() function which hooks itself to the init
-	* hook with priority of 1 ( that's kinda improtant ) .
+	* hook with priority of 1 ( that's kinda important ) .
 	*
 	* @return void
 	*/
 	function register_post_types() {
 
-		if ( $this->network_content == 1 ) {
+		//if ( $this->display_network_content == 1 )
+		{
 			$post_types = get_site_option('ct_custom_post_types');
 			// Register each post type if array of data is returned
 			if ( is_array( $post_types ) ) {
@@ -425,7 +437,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	*/
 	function register_taxonomies() {
 
-		if ( $this->network_content == 1 ) {
+		//if ( $this->display_network_content == 1 )
+		{
 			$taxonomies = get_site_option('ct_custom_taxonomies');
 			// If custom taxonomies are present, register them
 			if ( is_array( $taxonomies ) ) {
@@ -689,7 +702,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 		$net_custom_fields = get_site_option('ct_custom_fields');
 
-		if ( $this->network_content && !empty($net_custom_fields)) {
+		if ( $this->display_network_content && !empty($net_custom_fields)) {
 			//get the network fields
 			$net_post_types = get_site_option('ct_custom_post_types');
 			$meta_box_label = __('Default CustomPress Fields', $this->text_domain);
@@ -794,25 +807,29 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	function add_admin_capabilities(){
 		global $wp_roles;
 
-		if ( $this->network_content == 1 ) {
-			$post_types = get_site_option('ct_custom_post_types');
-			foreach($post_types as $key => $pt){
-				$post_type = get_post_type_object($key);
-				foreach($post_type->cap as $capability){
-					$wp_roles->add_cap('administrator', $capability);
+		//if ( $this->display_network_content == 1 )
+		{
+			$post_types = $this->network_post_types;
+			if(is_array($post_types)){
+				foreach($post_types as $key => $pt){
+					$post_type = get_post_type_object($key);
+					foreach($post_type->cap as $capability){
+						$wp_roles->add_cap('administrator', $capability);
+					}
 				}
 			}
 		}
 
 		$post_types = $this->post_types;
-		foreach($post_types as $key => $pt){
-			$post_type = get_post_type_object($key);
-			foreach($post_type->cap as $cap){
-				$wp_roles->add_cap('administrator', $cap);
+		if(is_array($post_types)){
+			foreach($post_types as $key => $pt){
+				$post_type = get_post_type_object($key);
+				foreach($post_type->cap as $cap){
+					$wp_roles->add_cap('administrator', $cap);
+				}
 			}
 		}
 	}
-
 	/**
 	* Flush rewrite rules based on boolean check
 	*
@@ -1309,21 +1326,21 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		);
 
 		//Initialize with blanks
-		$fmt = $structures['none']; 
-		
+		$fmt = $structures['none'];
+
 		// If its' predefined
-		if(in_array($wrap, array('table','ul','div'))){ 
+		if(in_array($wrap, array('table','ul','div'))){
 			$fmt = $structures[$wrap];
 		}
 
 		//Override any defined in $atts
-		foreach($fmt as $key => $item){ 
+		foreach($fmt as $key => $item){
 			$fmt[$key] = ($$key === null) ? $fmt[$key] : $$key;
 		}
 
 		$custom_fields = get_option( 'ct_custom_fields' );
 		if (empty($custom_fields)) $custom_fields = array();
-		
+
 		$result = $fmt['open'];
 		foreach ( $custom_fields as $custom_field ){
 			$output = in_array($post->post_type, $custom_field['object_type']);
@@ -1347,9 +1364,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			}
 		}
 		$result .= $fmt['close'];
-		
-		$result .= $fmt['close'];
-		
+
 		$result = apply_filters('custom_fields_shortcode', $result, $atts, $content);
 
 		// Wrap of for CSS after filtering
