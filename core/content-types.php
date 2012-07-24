@@ -647,7 +647,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 							return ($a['field_order'] < $b['field_order']) ? -1 : 1;
 						}
 
-						if (uasort(&$custom_fields, 'ct_cmp')){
+						if (uasort($custom_fields, 'ct_cmp')){
 							// Update the available custom fields
 							if ( $this->enable_subsite_content_types == 1 && !is_network_admin() )
 							update_option( 'ct_custom_fields', $custom_fields );
