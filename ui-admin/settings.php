@@ -15,13 +15,21 @@ $network_post_types = get_site_option('ct_custom_post_types');
 
 $options = $this->get_options();
 
-$cp_post_type = $options['display_post_types'];
+//Get or initialize post type display
+$cp_post_type = empty($options['display_post_types']) ? 
+array(
+'home' => array('post_type' => array()), 
+'front_page' => array('post_type' => array() ), 
+'archive' => array('post_type' => array() ), 
+'search' => array('post_type' => array() ) 
+) 
+: $options['display_post_types'];
 
 ?>
 
 <div class="wrap">
 	<?php screen_icon('options-general'); ?>
-	<h2><?php _e('CustomPress Settings', $this->text_domain); echo CP_VERSION;?></h2>
+	<h2><?php echo sprintf(__('CustomPress Settings %s', $this->text_domain), CP_VERSION);?></h2>
 
 	<?php $this->render_admin('message'); ?>
 
@@ -126,7 +134,7 @@ $cp_post_type = $options['display_post_types'];
 
 					<span class="description"><?php _e('Check the custom post types you want to display on the "Front" static page.', $this->text_domain); ?></span>
 					<br /><br />
-					<input type="checkbox" name="cp_post_type[front_page][]" value="default" <?php checked(is_array($cp_post_type['front_page']['post_type']) && in_array('default', $cp_post_type['front_page']['post_type'])); ?> />
+					<input type="checkbox" name="cp_post_type[front_page][]" value="default" <?php checked(empty($cp_post_type['front_page']['post_type']) || (is_array($cp_post_type['front_page']['post_type']) && in_array('default', $cp_post_type['front_page']['post_type']))); ?> />
 					<span class="description"><strong>default</strong></span><br />
 					<span class="description"><?php _e('If "default" is checked the list above will be disabled and only default post_types will display.', $this->text_domain); ?></span>
 				</td>
