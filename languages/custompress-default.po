@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: CustomPress v1.3\n"
+"Project-Id-Version: CustomPress v1.2.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-08 16:49-0500\n"
-"PO-Revision-Date: 2012-09-08 16:50-0500\n"
+"POT-Creation-Date: 2012-09-16 13:03-0500\n"
+"PO-Revision-Date: 2012-09-16 13:04-0500\n"
 "Last-Translator: Arnold Bailey <abaileytn@gmail.com>\n"
 "Language-Team: Arnold Bailey <arnold@incsub.com>\n"
 "Language: en\n"
@@ -13,6 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_x\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.5.3\n"
 "X-Poedit-SearchPath-0: D:\\wamp\\www\\custompress\\wp-content\\plugins"
 "\\custompress\n"
 
@@ -44,19 +45,19 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:722
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:795
 msgid "Default CustomPress Fields"
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:745
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:818
 msgid "CustomPress Fields"
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:1012
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:1085
 msgid "No values"
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:1274
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/core/content-types.php:1347
 msgid "Invalid Taxonomy name in [tax ] shortcode"
 msgstr ""
 
@@ -245,13 +246,13 @@ msgstr ""
 
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/add-custom-field.php:107
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/edit-custom-field.php:115
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:261
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:267
 msgid "Select Date Format option or type your own"
 msgstr ""
 
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/add-custom-field.php:111
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/edit-custom-field.php:118
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:264
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:270
 msgid "Date picker sample"
 msgstr ""
 
@@ -1392,7 +1393,7 @@ msgstr ""
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/custom-fields.php:51
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/custom-fields.php:62
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/navigation.php:7
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:61
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:67
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/taxonomies.php:33
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/taxonomies.php:43
 msgid "Post Types"
@@ -1601,78 +1602,84 @@ msgid ""
 msgstr ""
 
 #: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:50
+msgid ""
+"If you enable this option, all subsites will use and display the content "
+"types defined at the network level. "
+msgstr ""
+
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:55
 msgid "Display the network-wide content types on sub-sites."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:53
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:58
 msgid "Do not display the network-wide content types on sub-sites."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:65
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:71
 msgid "On \"Blog / Home\" page, display these post types: "
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:94
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:100
 msgid ""
 "Check the custom post types you want to display on the \"Blog / Home\" page."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:98
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:139
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:180
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:221
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:104
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:145
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:186
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:227
 msgid ""
 "If \"default\" is checked the list above will be disabled and only default "
 "post_types will display."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:106
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:112
 msgid "On \"Front\" page, display these post types: "
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:135
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:141
 msgid ""
 "Check the custom post types you want to display on the \"Front\" static page."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:147
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:153
 msgid "On \"Archive\" pages, display these post types:  "
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:176
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:182
 msgid ""
 "Check the custom post types you want to display on the \"Archive\" page."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:188
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:194
 msgid "On \"Search\" pages, display these post types:  "
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:217
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:223
 msgid "Check the custom post types you want to display on the \"Search\" page."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:229
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:235
 msgid "Date Picker Settings"
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:255
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:261
 msgid "Select Datepicker Theme."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:271
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:277
 msgid "Template Files"
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:275
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:281
 msgid "Create template file for: "
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:285
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:291
 msgid "No custom post types available"
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:288
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:294
 msgid ""
 "This will create \"single-[post_type].php\" file inside your active theme "
 "directory by copying your current single.php template. This file will be the "
@@ -1680,13 +1687,13 @@ msgid ""
 "it."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:289
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:295
 msgid ""
 "In some cases you may not want to do that. For example if you don't have a "
 "template for your custom post type the default \"single.php\" will be used."
 msgstr ""
 
-#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:290
+#: D:\wamp\www\custompress\wp-content\plugins\custompress/ui-admin/settings.php:296
 msgid ""
 "Your active theme folder permissions have to be set to 777 for this option "
 "to work. After the file is created you can set your active theme directory "
