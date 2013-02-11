@@ -111,7 +111,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		add_action( 'init', array( &$this, 'handle_custom_field_requests' ), 0 );
 		add_action( 'init', array( &$this, 'register_taxonomies' ), 1 );
 		add_action( 'init', array( &$this, 'register_post_types' ), 2 );
-		add_action( 'init', array( &$this, 'flush_rewrite_rules' ), 3 );
+		add_action( 'init', array( &$this, 'flush_rewrite_rules' ), 99 ); //Give everyone else a chance to set rules, endpoints etc.
 
 		//Add custom terms and fields on media page
 		add_filter( 'attachment_fields_to_edit', array( &$this, 'add_custom_for_attachment' ), 111, 2 );
@@ -231,7 +231,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				'rewrite'             => (bool) $params['rewrite'],
 				'query_var'           => (bool) $params['query_var'],
 				'can_export'          => (bool) $params['can_export'],
-				'cf_columns'          => $params['cf_columns']
+				'cf_columns'          => $params['cf_columns'],
 				);
 
 				// Remove empty labels so we can use the defaults
@@ -255,8 +255,12 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				}
 
 				// Set slug for post type archive pages
-				if ( !empty( $params['has_archive_slug'] ) )
-				$args['has_archive'] = $params['has_archive_slug'];
+				if ( !empty( $params['has_archive_slug'] ) && $args['has_archive'] !== false )
+				$args['has_archive'] = sanitize_key($params['has_archive_slug']);
+
+				// Set key for post type query var
+				if ( !empty( $params['query_var_key'] ) && $args['query_var'] !== false)
+				$args['query_var'] = sanitize_key($params['query_var_key']);
 
 				// Customize taxonomy rewrite
 				if ( !empty( $params['rewrite'] ) ) {
@@ -267,6 +271,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => !empty( $params['rewrite_with_front'] ) ? true : false );
 					$args['rewrite'] = (array) $args['rewrite'] + array( 'feeds' => !empty( $params['rewrite_feeds'] ) ? true : false );
 					$args['rewrite'] = (array) $args['rewrite'] + array( 'pages' => !empty( $params['rewrite_pages'] ) ? true : false );
+
+					$args['rewrite']['ep_mask'] = array_sum($params['ep_mask']);
 
 					// Remove boolean remaining from the type casting
 					if ( is_array( $args['rewrite'] ) )
@@ -430,6 +436,10 @@ class CustomPress_Content_Types extends CustomPress_Core {
 					unset( $args['show_in_nav_menus'] );
 				}
 
+				// Set key for taxonomy query var
+				if ( !empty( $params['query_var_key'] ) && $args['query_var'] !== false)
+				$args['query_var'] = sanitize_key($params['query_var_key'] );
+
 				// Customize taxonomy rewrite
 				if ( !empty( $params['rewrite'] ) ) {
 
@@ -438,6 +448,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 
 					$args['rewrite'] = (array) $args['rewrite'] + array( 'with_front' => !empty( $params['rewrite_with_front'] ) ? true : false );
 					$args['rewrite'] = (array) $args['rewrite'] + array( 'hierarchical' => !empty( $params['rewrite_hierarchical'] ) ? true : false );
+
+					$args['rewrite']['ep_mask'] = array_sum($params['ep_mask']);
 
 					// Remove boolean remaining from the type casting
 					if ( is_array( $args['rewrite'] ) )
@@ -634,7 +646,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				}
 				update_site_option( 'ct_custom_fields', $custom_fields );
 			}
-			
+
 			wp_redirect( self_admin_url( 'admin.php?page=ct_content_types&ct_content_type=custom_field&updated' ) );
 		}
 		elseif ( ( isset( $params['submit'] ) || isset( $params['delete_cf_values'] ) )
@@ -913,10 +925,10 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			$post_types = $this->network_post_types;
 			if(is_array($post_types)){
 				foreach($post_types as $key => $pt){
-
 					$post_type = get_post_type_object($key);
 					if($post_type !== null ) {
-						foreach($post_type->cap as $capability){
+						$all_caps = $this->all_capabilities($key);
+						foreach($all_caps as $capability){
 							$wp_roles->add_cap('administrator', $capability);
 						}
 					}
@@ -929,20 +941,23 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			foreach($post_types as $key => $pt){
 				$post_type = get_post_type_object($key);
 				if($post_type !== null ) {
-					foreach($post_type->cap as $cap){
-						$wp_roles->add_cap('administrator', $cap);
+					$all_caps = $this->all_capabilities($key);
+					foreach($all_caps as $capability){
+						$wp_roles->add_cap('administrator', $capability);
 					}
 				}
 			}
 		}
+
 	}
+
 	/**
 	* Flush rewrite rules based on boolean check
 	*  Setting 'ct_flush_rewrite_rules' site_option to a unique triggers across network
 	* @return void
 	*/
 	function flush_rewrite_rules() {
-		// Mechanisum for detecting changes in sub-site content types for flushing rewrite rules
+		// Mechanism for detecting changes in sub-site content types for flushing rewrite rules
 
 		$global_frr_id = get_site_option('ct_flush_rewrite_rules');
 		$hard = (1 == $global_frr_id + 0); //Convert to number
