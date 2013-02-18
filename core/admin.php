@@ -295,11 +295,11 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 		if ( !current_user_can( 'manage_options' ) ) die(-1);
 
-		if(empty($_POST['role'])) die(-1);
-		if(empty($_POST['post_type'])) die(-1);
+		if(empty($_REQUEST['role'])) die(-1);
+		if(empty($_REQUEST['post_type'])) die(-1);
 
-		$role = $_POST['role'];
-		$post_type = $_POST['post_type'];
+		$role = $_REQUEST['role'];
+		$post_type = $_REQUEST['post_type'];
 
 		if ( !$wp_roles->is_role( $role ) )
 		die(-1);
@@ -334,12 +334,12 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 		// add/remove capabilities
 		global $wp_roles;
 
-		$role = $_POST['roles'];
-		$post_type = $_POST['post_type'];
+		$role = $_REQUEST['roles'];
+		$post_type = $_REQUEST['post_type'];
 
 		$all_caps = $this->all_capabilities($post_type);
 
-		$to_add = array_keys( (array)$_POST['capabilities'] );
+		$to_add = array_keys( (array)$_REQUEST['capabilities'] );
 		$to_remove = array_diff( $all_caps, $to_add );
 
 		foreach ( $to_remove as $capability ) {

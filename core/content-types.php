@@ -123,6 +123,7 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		add_action( 'user_register', array( &$this, 'set_user_registration_rewrite_rules' ) );
 
 		add_shortcode('ct', array($this,'ct_shortcode'));
+		add_shortcode('ct_in', array($this,'ct_in_shortcode'));
 		add_shortcode('tax', array($this,'tax_shortcode'));
 		add_shortcode('ct_filter', array($this,'filter_shortcode'));
 
@@ -868,8 +869,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	*
 	* @return void
 	*/
-	function display_custom_fields($fields = '') {
-		$this->render_admin('display-custom-fields', array( 'type' => 'local', 'fields' => $fields ) );
+	function display_custom_fields($fields = '', $style = '') {
+		$this->render_admin('display-custom-fields', array( 'type' => 'local', 'fields' => $fields, 'style' => $style ) );
 	}
 
 	/**
@@ -877,8 +878,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	*
 	* @return void
 	*/
-	function display_custom_fields_network($fields = '') {
-		$this->render_admin('display-custom-fields', array( 'type' => 'network', 'fields' => $fields  ) );
+	function display_custom_fields_network($fields = '', $style = '') {
+		$this->render_admin('display-custom-fields', array( 'type' => 'network', 'fields' => $fields, 'style' => $style ) );
 	}
 
 	/**
@@ -1318,12 +1319,12 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		), $atts ) );
 
 		// Take off the prefix for indexing the array;
-		$cid = str_replace('_ct_','',$id);
-		$cid = str_replace('ct_','',$cid);
+
+		$cid = preg_replace('/^(_ct|ct)_/', '', $id);
 
 		$custom_field = (isset($this->all_custom_fields[$cid])) ? $this->all_custom_fields[$cid] : null;
-
 		$property = strtolower($property);
+
 		$result = '';
 
 		switch ($property){
@@ -1363,6 +1364,110 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	/**
 	* Creates shortcodes for fields which may be used for shortened embed codes.
 	*
+	* @return string
+	* @uses appy_filters()
+	*/
+	function ct_in_shortcode($atts, $content=null){
+		global $post;
+
+		extract( shortcode_atts( array(
+		'id' => '',
+		'property' => 'input',
+		), $atts ) );
+
+		// Take off the prefix for indexing the array;
+
+		$cid = preg_replace('/^(_ct|ct)_/', '', $id);
+
+		$custom_field = (isset($this->all_custom_fields[$cid])) ? $this->all_custom_fields[$cid] : null;
+		$property = strtolower($property);
+		$result = '';
+
+		switch ($property){
+			case 'title': $result = $custom_field['field_title']; break;
+			case 'description': $result = $custom_field['field_description']; break;
+			case 'input':
+			default: {
+				switch ($custom_field['field_type']){
+					case 'checkbox': {
+						$field_values = get_post_meta( $post->ID, $id, true );
+
+						foreach ( $custom_field['field_options'] as $key => $field_option ) {
+							if($field_values)
+							$result .= sprintf('<label><input type="checkbox" class="ct-field ct-checkbox" name="%s[]" id="%s" value="%s" %s /> %s</label>', $id, "{$id}_{$key}", esc_attr( $field_option ), checked( is_array($field_values) && array_search($field_option, $field_values) !== false ), $field_option );
+							else
+							$result .= sprintf('<label><input type="checkbox" name="%s[]" id="%s" value="%s" %s /> %s</label>', $id, "{$id}_{$key}", esc_attr( $field_option ), checked( $custom_field['field_default_option'] == $key ), $field_option );
+						}
+						break;
+					}
+					case 'multiselectbox': {
+						$multiselectbox_values = get_post_meta( $post->ID, $fid, true );
+						$multiselectbox_values = (is_array($multiselectbox_values)) ? $multiselectbox_values : (array)$multiselectbox_values;
+
+						$result = sprintf('<select class="ct-field ct-multiselectbox" name="%s[]" id="%s" mutiple="multiple" class="ct-select-multiple" >', $id, $id ) . PHP_EOL;
+						foreach ( $custom_field['field_options'] as $key => $field_option ) {
+							if($multiselectbox_values)
+							$result .= sprintf('<option value="%s" %s >%s</option>', esc_attr( $field_option ), selected(in_array($field_option, $multiselectbox_values) ), $field_option ) . PHP_EOL;
+							else
+							$result .= sprintf('<option value="%s" %s >%s</option>', esc_attr( $field_option ), selected($custom_field['field_default_option'] == $key ), $field_option ) . PHP_EOL;
+						}
+						$result .= "</select>\n";
+						break;
+					}
+					case 'selectbox': {
+						$field_value = get_post_meta( $post->ID, $id, true );
+
+						$result = sprintf('<select class="ct-field ct-selectbox" name="%s" id="%s" >', $id, $id) . PHP_EOL;
+						foreach ( $custom_field['field_options'] as $key => $field_option ) {
+							if ($field_value)
+							$result .= sprintf('<option value="%s" %s >%s</option>', esc_attr( $field_option ), selected($field_value, $field_option, false), $field_option ) . PHP_EOL;
+							else
+							$result .= sprintf('<option value="%s" %s>%s</option>', esc_attr( $field_option ), selected($custom_field['field_default_option'], $key, false ), $field_option ) . PHP_EOL;
+						}
+						$result .= "</select>\n";
+						break;
+					}
+					case 'radio': {
+						$field_value = get_post_meta( $post->ID, $id, true );
+
+						foreach ( $custom_field['field_options'] as $key => $field_option ) {
+							if($field_value)
+							$result .=	sprintf('<label><input type="radio" class="ct-field ct-radio"  name="%s" id="%s" value="%s" %s /> %s</label>', $id, "{$id}_{$key}", esc_attr( $field_option ), checked($field_value, $field_option, false), $field_option);
+							else
+							$result .=	sprintf('<label><input type="radio" class="ct-field ct-radion" name="%s" id="%s" value="%s" %s /> %s</label>', $id, "{$id}_{$key}", esc_attr( $field_option ), checked($field_value, $key, false), $field_option);
+						}
+						break;
+					}
+					case 'text': {
+						$result = sprintf('<input type="text" class="ct-field ct-text" name="%s" id="%s" value="%s" />', $id, $id, esc_attr( get_post_meta( $post->ID, $id, true ) ) );
+						break;
+					}
+					case 'textarea': {
+						$result = sprintf('<textarea class="ct-field ct-textarea" name="%s" id="%s" rows="5" cols="40" >%s</textarea>', $id, $id, esc_textarea( get_post_meta( $post->ID, $id, true ) ) );
+						break;
+					}
+					case 'datepicker': {
+						$result = $this->jquery_ui_css() . PHP_EOL;
+						$result .= sprintf('<input type="text" class="pickdate ct-field" name="%s" id="%s" value="%s" />', $id, $id, esc_attr( get_post_meta( $post->ID, $id, true ) ) ) . PHP_EOL;
+						$result .= '<script type="text/javascript">
+						jQuery(document).ready(function(){
+						jQuery("#' . $id . '").datepicker({ dateFormat : ' . $custom_field['field_date_format'] . ' });
+						});
+						</script>';
+						break;
+					}
+				}
+			}
+		}
+		$result = apply_filters('ct_in_shortcode', $result, $atts, $content);
+		return $result;
+	}
+
+
+
+	/**
+	* Creates shortcodes for fields which may be used for shortened embed codes.
+	*
 	* @string
 	* @uses appy_filters()
 	*/
@@ -1392,7 +1497,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	function inputs_shortcode($atts, $content=null){
 		global $post;
 		extract( shortcode_atts( array(
-		'id' => 0,
+		'post_id' => 0,
+		'style' => '',
 		'wrap' => 'ul',
 		'open' => null,
 		'close' => null,
@@ -1404,10 +1510,10 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		'close_value' => null,
 		), $atts ) );
 
-		if ( ! empty($id) ) $post = get_post($id);
+		if ( ! empty($post_id) ) $post = get_post($post_id);
 		ob_start();
-		//include $this->plugin_dir . 'ui-admin/display-custom-fields.php';
-		$this->display_custom_fields( do_shortcode($content) );
+
+		$this->display_custom_fields( do_shortcode($content), $style );
 		$result = ob_get_contents();
 		ob_end_clean();
 		return $result;
@@ -1456,7 +1562,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			$custom_fields = $this->all_custom_fields;
 		} else {
 			foreach($field_ids as $field_id){
-				$cid = str_replace(array('_ct_', 'ct_'), '', $field_id);
+				$cid = preg_replace('/^(_ct|ct)_/', '', $field_id);
+
 				if(array_key_exists($cid, $this->all_custom_fields)) {
 					$custom_fields[$cid] = $this->all_custom_fields[$cid];
 				}
@@ -1507,10 +1614,11 @@ class CustomPress_Content_Types extends CustomPress_Core {
 	*/
 
 	function filter_shortcode($atts, $content=null){
-		global $post
-		;
+		global $post;
+		
 		extract( shortcode_atts( array(
 		'terms' => '',
+		'not' => 'false',
 		), $atts ) );
 
 		$post_type = get_post_type($post->ID);
@@ -1523,7 +1631,6 @@ class CustomPress_Content_Types extends CustomPress_Core {
 			$taxonomies = array_values( get_object_taxonomies($post_type, 'object') );
 
 			$term_names = array_map('trim', (array)explode(',',$terms) );
-
 
 			foreach($taxonomies as $taxonomy){
 				if($taxonomy->hierarchical){ //Only the category like
@@ -1539,6 +1646,14 @@ class CustomPress_Content_Types extends CustomPress_Core {
 				}
 			}
 			if(! $belongs) $fields = array();
+		}
+
+
+		if($not == 'true'){
+			
+			foreach($fields as &$field) $field = preg_replace('/^(_ct|ct)_/', '', $field); 
+			
+			$fields = array_keys( array_diff_key( $this->all_custom_fields, array_flip($fields)) );
 		}
 
 		$result = implode(',', array_filter($fields) );  //filter blanks
@@ -1572,6 +1687,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		remove_all_shortcodes();
 
 		add_shortcode( 'ct', array(&$this, 'ct_shortcode') );
+
+		add_shortcode( 'ct_in', array(&$this, 'ct_in_shortcode') );
 
 		add_shortcode( 'tax', array(&$this, 'tax_shortcode') );
 
