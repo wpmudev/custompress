@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CustomPress v1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-11 10:27-0500\n"
-"PO-Revision-Date: 2013-02-11 10:28-0500\n"
+"POT-Creation-Date: 2013-02-18 12:38-0500\n"
+"PO-Revision-Date: 2013-02-18 12:39-0500\n"
 "Last-Translator: Arnold Bailey <abaileytn@gmail.com>\n"
 "Language-Team: Arnold Bailey <arnold@incsub.com>\n"
 "Language: en\n"
@@ -45,15 +45,15 @@ msgstr ""
 msgid "Export / Import"
 msgstr ""
 
-#: ../core/content-types.php:844
+#: ../core/content-types.php:845
 msgid "CustomPress Fields"
 msgstr ""
 
-#: ../core/content-types.php:1119
+#: ../core/content-types.php:1120
 msgid "No values"
 msgstr ""
 
-#: ../core/content-types.php:1381
+#: ../core/content-types.php:1486
 msgid "Invalid Taxonomy name in [tax ] shortcode"
 msgstr ""
 
@@ -1579,96 +1579,161 @@ msgstr ""
 msgid "CustomPress Shortcodes"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:24 ../ui-admin/shortcodes.php:49
+#: ../ui-admin/shortcodes.php:16
+msgid "Custom Fields Input"
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:19
+msgid ""
+"Used to embed the input fields of a set of custom fields for the post \"ID\" "
+"specifed. Must be used inside a &lt;form&gt; and after submit the receiving "
+"form code must call the global:"
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:21
+msgid "to save the input back to the post."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:24 ../ui-admin/shortcodes.php:55
 msgid "Basic shortcode"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:26 ../ui-admin/shortcodes.php:51
+#: ../ui-admin/shortcodes.php:26 ../ui-admin/shortcodes.php:57
 msgid ""
 "Returns a full set of input fields based on the post type of the post id "
 "provided."
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:28 ../ui-admin/shortcodes.php:53
+#: ../ui-admin/shortcodes.php:27
+msgid ""
+"if the post_id is left out, it assumes the current global $post as the post "
+"being operated on."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:29 ../ui-admin/shortcodes.php:59
 msgid "or with field list"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:30 ../ui-admin/shortcodes.php:55
+#: ../ui-admin/shortcodes.php:31 ../ui-admin/shortcodes.php:61
 msgid ""
 "Returns a set of input fields as supplied by the field id list in the "
 "shortcode. Any ids not associate with the post type will be ignored."
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:32 ../ui-admin/shortcodes.php:57
+#: ../ui-admin/shortcodes.php:33 ../ui-admin/shortcodes.php:63
 msgid "or with field list filtered by category"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:34 ../ui-admin/shortcodes.php:59
+#: ../ui-admin/shortcodes.php:35 ../ui-admin/shortcodes.php:65
 msgid "Multiple filters may be used in one input block."
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:64
+#: ../ui-admin/shortcodes.php:37
+msgid ""
+"or use [ct_in] for individual input fields to allow better postioning and "
+"styling."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:39
+msgid "Leaving off the property attribute defaults to the input field html."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:40
+msgid "Assumes the current global $post as the post being operated on."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:41
+msgid ""
+"The nomenclature \"title | description | input\" means use one of the "
+"choices. \"title\" or \"description or \"input\"."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:48
+msgid "Custom Fields Block"
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:52
+msgid ""
+"Used to embed the output of a set of custom fields for the current post. "
+"Must be used inside the loop."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:68
 msgid "Attributes for the [custom_fields_block]"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:65
+#: ../ui-admin/shortcodes.php:69
 msgid ""
 "wrap        = Wrap the fields in either a \"table\", a \"ul\" or a \"div\" "
 "structure."
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:66
+#: ../ui-admin/shortcodes.php:70
 msgid ""
 "The default wrap attributes may be overriden using the following individual "
 "attributes:"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:67
+#: ../ui-admin/shortcodes.php:71
 msgid "open = HTML to begin the block with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:68
+#: ../ui-admin/shortcodes.php:72
 msgid "close = HTML to end the block with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:69
+#: ../ui-admin/shortcodes.php:73
 msgid "open_line = HTML to begin a line with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:70
+#: ../ui-admin/shortcodes.php:74
 msgid "close_line = HTML to end a line with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:71
+#: ../ui-admin/shortcodes.php:75
 msgid "open_title = HTML to begin the title with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:72
+#: ../ui-admin/shortcodes.php:76
 msgid "close_title = HTML to end the title with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:73
+#: ../ui-admin/shortcodes.php:77
 msgid "open_value = HTML to begin the value with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:74
+#: ../ui-admin/shortcodes.php:78
 msgid "close_value = HTML to end the value with"
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:84
+#: ../ui-admin/shortcodes.php:85
+msgid "Custom Field Filter"
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:88
 msgid ""
 "Used to restrict the list of fields returned depending on the categories of "
 "the post. Multiple [ct_filter] shortcodes may be added to a "
 "[custom_field_input] or [custom_field_block] shortcode."
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:86
+#: ../ui-admin/shortcodes.php:90
+msgid "Attributes for the [custom_field_filter]"
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:91
 msgid ""
 "terms= Comma separated category list to filter on. Categories not associated "
 "with the post type of the current post will be ignored."
 msgstr ""
 
-#: ../ui-admin/shortcodes.php:87
+#: ../ui-admin/shortcodes.php:92
+msgid ""
+"not= If true the filter will be inverted returning all the fields that were "
+"Not selected. Defaults to false."
+msgstr ""
+
+#: ../ui-admin/shortcodes.php:93
 msgid ""
 "The comma separated list of fields between the opening and closing tags will "
 "be returned if the categories match. Fields not associated with the post "
