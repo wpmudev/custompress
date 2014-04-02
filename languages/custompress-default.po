@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CustomPress v1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-31 17:46-0500\n"
-"PO-Revision-Date: 2014-03-31 17:46-0500\n"
+"POT-Creation-Date: 2014-04-02 14:35-0500\n"
+"PO-Revision-Date: 2014-04-02 14:35-0500\n"
 "Last-Translator: Arnold Bailey <arnold@incsub.com>\n"
 "Language-Team: Arnold Bailey <arnold@incsub.com>\n"
 "Language: en\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "CustomPress Fields"
 msgstr ""
 
-#: ../core/content-types.php:854
+#: ../core/content-types.php:626
 msgid "Invalid Taxonomy name in [tax ] shortcode"
 msgstr ""
 
