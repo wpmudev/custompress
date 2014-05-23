@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: CustomPress v1.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-02 14:35-0500\n"
-"PO-Revision-Date: 2014-04-02 14:35-0500\n"
+"POT-Creation-Date: 2014-05-23 13:36-0500\n"
+"PO-Revision-Date: 2014-05-23 13:36-0500\n"
 "Last-Translator: Arnold Bailey <arnold@incsub.com>\n"
 "Language-Team: Arnold Bailey <arnold@incsub.com>\n"
 "Language: en\n"
@@ -14,7 +14,7 @@ msgstr ""
 "esc_html__;esc_html_e;esc_html_x\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../core/admin.php:134 ../core/admin.php:157 ../loader.php:20
@@ -73,7 +73,7 @@ msgstr ""
 #: ../ui-admin/add-taxonomy.php:30 ../ui-admin/edit-custom-field.php:25
 #: ../ui-admin/edit-custom-field.php:68 ../ui-admin/edit-custom-field.php:186
 #: ../ui-admin/edit-post-type.php:26 ../ui-admin/edit-taxonomy.php:39
-#: ../ui-admin/wip-update-taxonomy.php:28
+#: ../ui-admin/update-post-type.php:35 ../ui-admin/wip-update-taxonomy.php:28
 #: ../ui-admin/wip-update-taxonomy.php:43
 msgid "required"
 msgstr ""
@@ -236,6 +236,7 @@ msgstr ""
 #: ../ui-admin/edit-post-type.php:22 ../ui-admin/edit-post-type.php:26
 #: ../ui-admin/edit-taxonomy.php:35 ../ui-admin/edit-taxonomy.php:39
 #: ../ui-admin/post-types.php:35 ../ui-admin/post-types.php:48
+#: ../ui-admin/update-post-type.php:31 ../ui-admin/update-post-type.php:35
 #: ../ui-admin/wip-update-taxonomy.php:39
 #: ../ui-admin/wip-update-taxonomy.php:43
 msgid "Post Type"
@@ -256,11 +257,12 @@ msgid ""
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:3 ../ui-admin/add-post-type.php:783
-#: ../ui-admin/post-types.php:29 ../ui-admin/post-types.php:140
+#: ../ui-admin/post-types.php:29 ../ui-admin/post-types.php:164
 msgid "Add Post Type"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:16 ../ui-admin/edit-post-type.php:31
+#: ../ui-admin/update-post-type.php:44
 msgid ""
 "The new post type system name ( max. 20 characters ). Alphanumeric lower-"
 "case characters and underscores only. Min 2 letters. Once added the post "
@@ -270,116 +272,142 @@ msgstr ""
 #: ../ui-admin/add-post-type.php:23 ../ui-admin/add-post-type.php:27
 #: ../ui-admin/edit-post-type.php:38 ../ui-admin/edit-post-type.php:42
 #: ../ui-admin/post-types.php:39 ../ui-admin/post-types.php:52
+#: ../ui-admin/update-post-type.php:51 ../ui-admin/update-post-type.php:55
 msgid "Supports"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:30 ../ui-admin/edit-post-type.php:45
+#: ../ui-admin/update-post-type.php:58
 msgid "Register support of certain features for a post type."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:33 ../ui-admin/edit-post-type.php:48
+#: ../ui-admin/update-post-type.php:61
 msgid "Title"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:38 ../ui-admin/edit-post-type.php:53
+#: ../ui-admin/update-post-type.php:66
 msgid "Editor"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:38 ../ui-admin/edit-post-type.php:53
+#: ../ui-admin/update-post-type.php:66
 msgid "Content"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:43 ../ui-admin/edit-post-type.php:58
+#: ../ui-admin/update-post-type.php:71
 msgid "Author"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:48 ../ui-admin/edit-post-type.php:63
+#: ../ui-admin/update-post-type.php:76
 msgid "Thumbnail"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:48 ../ui-admin/edit-post-type.php:63
+#: ../ui-admin/update-post-type.php:76
 msgid "Featured Image - current theme must also support post-thumbnails."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:53 ../ui-admin/edit-post-type.php:68
+#: ../ui-admin/update-post-type.php:81
 msgid "Excerpt"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:58 ../ui-admin/edit-post-type.php:73
+#: ../ui-admin/update-post-type.php:86
 msgid "Trackbacks"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:63 ../ui-admin/edit-post-type.php:78
 #: ../ui-admin/edit-post-type.php:395 ../ui-admin/navigation.php:9
+#: ../ui-admin/update-post-type.php:91 ../ui-admin/update-post-type.php:412
 msgid "Custom Fields"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:68 ../ui-admin/edit-post-type.php:83
+#: ../ui-admin/update-post-type.php:96
 msgid "Comments"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:68 ../ui-admin/edit-post-type.php:83
+#: ../ui-admin/update-post-type.php:96
 msgid "Also will see comment count balloon on edit screen."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:73 ../ui-admin/edit-post-type.php:88
+#: ../ui-admin/update-post-type.php:101
 msgid "Revisions"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:73 ../ui-admin/edit-post-type.php:88
+#: ../ui-admin/update-post-type.php:101
 msgid "Will store revisions."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:78 ../ui-admin/edit-post-type.php:93
+#: ../ui-admin/update-post-type.php:106
 msgid "Page Attributes"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:78 ../ui-admin/edit-post-type.php:93
+#: ../ui-admin/update-post-type.php:106
 msgid "Template and menu order - Hierarchical must be true!"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:83 ../ui-admin/edit-post-type.php:98
+#: ../ui-admin/update-post-type.php:111
 msgid "Post Formats"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:83 ../ui-admin/edit-post-type.php:98
+#: ../ui-admin/update-post-type.php:111
 msgid "Add post formats."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:91 ../ui-admin/add-post-type.php:95
 #: ../ui-admin/edit-post-type.php:106 ../ui-admin/edit-post-type.php:110
+#: ../ui-admin/update-post-type.php:120 ../ui-admin/update-post-type.php:124
 msgid "Support Regular Taxonomies"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:98 ../ui-admin/edit-post-type.php:113
+#: ../ui-admin/update-post-type.php:127
 msgid "Assign regular taxonomies to this Post Type."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:102 ../ui-admin/edit-post-type.php:117
+#: ../ui-admin/update-post-type.php:132
 msgid "Categories"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:109 ../ui-admin/edit-post-type.php:124
+#: ../ui-admin/update-post-type.php:140
 msgid "Tags"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:118 ../ui-admin/add-post-type.php:122
 #: ../ui-admin/edit-post-type.php:134 ../ui-admin/edit-post-type.php:138
 #: ../ui-admin/post-types.php:40 ../ui-admin/post-types.php:53
+#: ../ui-admin/update-post-type.php:150 ../ui-admin/update-post-type.php:154
 msgid "Capability Type"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:128 ../ui-admin/custom-fields.php:109
 #: ../ui-admin/edit-post-type.php:146 ../ui-admin/post-types.php:83
-#: ../ui-admin/taxonomies.php:74
+#: ../ui-admin/taxonomies.php:74 ../ui-admin/update-post-type.php:159
 msgid "Edit"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:128 ../ui-admin/edit-post-type.php:146
+#: ../ui-admin/update-post-type.php:159
 msgid "advanced"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:130 ../ui-admin/edit-post-type.php:147
+#: ../ui-admin/update-post-type.php:160
 msgid ""
 "The post type to use for checking read, edit, and delete capabilities. "
 "Default: \"post\"."
@@ -387,10 +415,12 @@ msgstr ""
 
 #: ../ui-admin/add-post-type.php:138 ../ui-admin/add-post-type.php:142
 #: ../ui-admin/edit-post-type.php:155 ../ui-admin/edit-post-type.php:159
+#: ../ui-admin/update-post-type.php:168 ../ui-admin/update-post-type.php:172
 msgid "Map Meta Capabilities"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:145 ../ui-admin/edit-post-type.php:162
+#: ../ui-admin/update-post-type.php:175
 msgid "Use the internal default meta capability handling."
 msgstr ""
 
@@ -413,6 +443,12 @@ msgstr ""
 #: ../ui-admin/edit-taxonomy.php:267 ../ui-admin/edit-taxonomy.php:295
 #: ../ui-admin/edit-taxonomy.php:325 ../ui-admin/edit-taxonomy.php:353
 #: ../ui-admin/edit-taxonomy.php:381 ../ui-admin/edit-taxonomy.php:540
+#: ../ui-admin/update-post-type.php:178 ../ui-admin/update-post-type.php:452
+#: ../ui-admin/update-post-type.php:499 ../ui-admin/update-post-type.php:525
+#: ../ui-admin/update-post-type.php:548 ../ui-admin/update-post-type.php:571
+#: ../ui-admin/update-post-type.php:594 ../ui-admin/update-post-type.php:617
+#: ../ui-admin/update-post-type.php:646 ../ui-admin/update-post-type.php:809
+#: ../ui-admin/update-post-type.php:838
 #: ../ui-admin/wip-update-taxonomy.php:218
 #: ../ui-admin/wip-update-taxonomy.php:245
 #: ../ui-admin/wip-update-taxonomy.php:269
@@ -442,6 +478,12 @@ msgstr ""
 #: ../ui-admin/edit-taxonomy.php:272 ../ui-admin/edit-taxonomy.php:300
 #: ../ui-admin/edit-taxonomy.php:330 ../ui-admin/edit-taxonomy.php:358
 #: ../ui-admin/edit-taxonomy.php:388 ../ui-admin/edit-taxonomy.php:545
+#: ../ui-admin/update-post-type.php:183 ../ui-admin/update-post-type.php:465
+#: ../ui-admin/update-post-type.php:506 ../ui-admin/update-post-type.php:530
+#: ../ui-admin/update-post-type.php:553 ../ui-admin/update-post-type.php:576
+#: ../ui-admin/update-post-type.php:599 ../ui-admin/update-post-type.php:622
+#: ../ui-admin/update-post-type.php:651 ../ui-admin/update-post-type.php:814
+#: ../ui-admin/update-post-type.php:843
 #: ../ui-admin/wip-update-taxonomy.php:221
 #: ../ui-admin/wip-update-taxonomy.php:248
 #: ../ui-admin/wip-update-taxonomy.php:272
@@ -454,7 +496,7 @@ msgstr ""
 
 #: ../ui-admin/add-post-type.php:162 ../ui-admin/add-taxonomy.php:49
 #: ../ui-admin/edit-post-type.php:232 ../ui-admin/edit-taxonomy.php:56
-#: ../ui-admin/wip-update-taxonomy.php:70
+#: ../ui-admin/update-post-type.php:248 ../ui-admin/wip-update-taxonomy.php:70
 msgid "Labels"
 msgstr ""
 
@@ -462,29 +504,33 @@ msgstr ""
 #: ../ui-admin/edit-post-type.php:236 ../ui-admin/edit-taxonomy.php:60
 #: ../ui-admin/post-types.php:36 ../ui-admin/post-types.php:49
 #: ../ui-admin/taxonomies.php:32 ../ui-admin/taxonomies.php:42
-#: ../ui-admin/wip-update-taxonomy.php:74
+#: ../ui-admin/update-post-type.php:252 ../ui-admin/wip-update-taxonomy.php:74
 msgid "Name"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:170 ../ui-admin/edit-post-type.php:240
+#: ../ui-admin/update-post-type.php:256
 msgid "General name for the post type, usually plural."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:175 ../ui-admin/add-taxonomy.php:62
 #: ../ui-admin/edit-post-type.php:245 ../ui-admin/edit-taxonomy.php:69
-#: ../ui-admin/wip-update-taxonomy.php:83
+#: ../ui-admin/update-post-type.php:261 ../ui-admin/wip-update-taxonomy.php:83
 msgid "Singular Name"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:179 ../ui-admin/edit-post-type.php:249
+#: ../ui-admin/update-post-type.php:265
 msgid "Name for one object of this post type. Defaults to value of name."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:184 ../ui-admin/edit-post-type.php:254
+#: ../ui-admin/update-post-type.php:270
 msgid "Add New"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:188 ../ui-admin/edit-post-type.php:258
+#: ../ui-admin/update-post-type.php:274
 msgid ""
 "The add new text. The default is Add New for both hierarchical and non-"
 "hierarchical types."
@@ -492,63 +538,76 @@ msgstr ""
 
 #: ../ui-admin/add-post-type.php:193 ../ui-admin/add-taxonomy.php:71
 #: ../ui-admin/edit-post-type.php:263 ../ui-admin/edit-taxonomy.php:78
-#: ../ui-admin/wip-update-taxonomy.php:92
+#: ../ui-admin/update-post-type.php:279 ../ui-admin/wip-update-taxonomy.php:92
 msgid "Add New Item"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:197 ../ui-admin/edit-post-type.php:267
+#: ../ui-admin/update-post-type.php:283
 msgid "The add new item text. Default is Add New Post/Add New Page."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:202 ../ui-admin/add-taxonomy.php:89
 #: ../ui-admin/edit-post-type.php:272 ../ui-admin/edit-taxonomy.php:96
+#: ../ui-admin/update-post-type.php:288
 #: ../ui-admin/wip-update-taxonomy.php:110
 msgid "Edit Item"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:206 ../ui-admin/edit-post-type.php:276
+#: ../ui-admin/update-post-type.php:292
 msgid "The edit item text. Default is Edit Post/Edit Page."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:211 ../ui-admin/edit-post-type.php:281
+#: ../ui-admin/update-post-type.php:297
 msgid "New Item"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:215 ../ui-admin/edit-post-type.php:285
+#: ../ui-admin/update-post-type.php:301
 msgid "The new item text. Default is New Post/New Page."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:220 ../ui-admin/edit-post-type.php:290
+#: ../ui-admin/update-post-type.php:306
 msgid "View Item"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:224 ../ui-admin/edit-post-type.php:294
+#: ../ui-admin/update-post-type.php:310
 msgid "The view item text. Default is View Post/View Page."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:229 ../ui-admin/add-taxonomy.php:107
 #: ../ui-admin/edit-post-type.php:299 ../ui-admin/edit-taxonomy.php:114
+#: ../ui-admin/update-post-type.php:315
 #: ../ui-admin/wip-update-taxonomy.php:128
 msgid "Search Items"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:233 ../ui-admin/edit-post-type.php:303
+#: ../ui-admin/update-post-type.php:319
 msgid "The search items text. Default is Search Posts/Search Pages."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:238 ../ui-admin/edit-post-type.php:308
+#: ../ui-admin/update-post-type.php:324
 msgid "Not Found"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:242 ../ui-admin/edit-post-type.php:312
+#: ../ui-admin/update-post-type.php:328
 msgid "The not found text. Default is No posts found/No pages found."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:247 ../ui-admin/edit-post-type.php:317
+#: ../ui-admin/update-post-type.php:333
 msgid "Not Found In Trash"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:251 ../ui-admin/edit-post-type.php:321
+#: ../ui-admin/update-post-type.php:337
 msgid ""
 "The not found in trash text. Default is No posts found in Trash/No pages "
 "found in Trash."
@@ -556,21 +615,25 @@ msgstr ""
 
 #: ../ui-admin/add-post-type.php:256 ../ui-admin/add-taxonomy.php:143
 #: ../ui-admin/edit-post-type.php:326 ../ui-admin/edit-taxonomy.php:150
+#: ../ui-admin/update-post-type.php:342
 #: ../ui-admin/wip-update-taxonomy.php:164
 msgid "Parent Item Colon"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:260 ../ui-admin/edit-post-type.php:330
+#: ../ui-admin/update-post-type.php:346
 msgid ""
 "The parent text. This string isn't used on non-hierarchical types. In "
 "hierarchical ones the default is Parent Page"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:265 ../ui-admin/edit-post-type.php:335
+#: ../ui-admin/update-post-type.php:351
 msgid "Custom Fields block"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:269 ../ui-admin/edit-post-type.php:339
+#: ../ui-admin/update-post-type.php:355
 msgid "Title of Custom Fields block."
 msgstr ""
 
@@ -578,19 +641,23 @@ msgstr ""
 #: ../ui-admin/custom-fields.php:50 ../ui-admin/custom-fields.php:61
 #: ../ui-admin/edit-post-type.php:346 ../ui-admin/edit-post-type.php:350
 #: ../ui-admin/post-types.php:37 ../ui-admin/post-types.php:50
+#: ../ui-admin/update-post-type.php:363 ../ui-admin/update-post-type.php:367
 msgid "Description"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:284 ../ui-admin/edit-post-type.php:354
+#: ../ui-admin/update-post-type.php:371
 msgid "A short descriptive summary of what the post type is."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:291 ../ui-admin/add-post-type.php:295
 #: ../ui-admin/edit-post-type.php:361 ../ui-admin/edit-post-type.php:365
+#: ../ui-admin/update-post-type.php:378 ../ui-admin/update-post-type.php:382
 msgid "Menu Position"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:299 ../ui-admin/edit-post-type.php:369
+#: ../ui-admin/update-post-type.php:386
 msgid ""
 "5 - below Posts; 10 - below Media; 20 - below Pages; 60 - below first "
 "separator; 100 - below second separator"
@@ -599,6 +666,7 @@ msgstr ""
 #: ../ui-admin/add-post-type.php:306 ../ui-admin/add-post-type.php:310
 #: ../ui-admin/edit-post-type.php:376 ../ui-admin/edit-post-type.php:380
 #: ../ui-admin/post-types.php:38 ../ui-admin/post-types.php:51
+#: ../ui-admin/update-post-type.php:393 ../ui-admin/update-post-type.php:397
 msgid "Menu Icon"
 msgstr ""
 
@@ -612,48 +680,58 @@ msgstr ""
 #: ../ui-admin/edit-taxonomy.php:219 ../ui-admin/edit-taxonomy.php:223
 #: ../ui-admin/post-types.php:41 ../ui-admin/post-types.php:54
 #: ../ui-admin/taxonomies.php:34 ../ui-admin/taxonomies.php:44
+#: ../ui-admin/update-post-type.php:442 ../ui-admin/update-post-type.php:446
 #: ../ui-admin/wip-update-taxonomy.php:204
 #: ../ui-admin/wip-update-taxonomy.php:208
 msgid "Public"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:330 ../ui-admin/edit-post-type.php:433
+#: ../ui-admin/update-post-type.php:449
 msgid ""
 "Meta argument used to define default values for publicly_queriable, show_ui, "
 "show_in_nav_menus and exclude_from_search."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:340 ../ui-admin/edit-post-type.php:440
+#: ../ui-admin/update-post-type.php:456
 msgid "Display a user-interface for this \"post_type\""
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:341 ../ui-admin/edit-post-type.php:441
+#: ../ui-admin/update-post-type.php:457
 msgid "Show \"post_type\" for selection in navigation menus"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:342 ../ui-admin/edit-post-type.php:442
+#: ../ui-admin/update-post-type.php:458
 msgid "\"post_type\" queries can be performed from the front-end"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:343 ../ui-admin/add-post-type.php:354
 #: ../ui-admin/edit-post-type.php:443 ../ui-admin/edit-post-type.php:456
+#: ../ui-admin/update-post-type.php:459 ../ui-admin/update-post-type.php:472
 msgid "Exclude posts with this post type from search results"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:351 ../ui-admin/edit-post-type.php:453
+#: ../ui-admin/update-post-type.php:469
 msgid "Do not display a user-interface for this \"post_type\""
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:352 ../ui-admin/edit-post-type.php:454
+#: ../ui-admin/update-post-type.php:470
 msgid "Hide \"post_type\" for selection in navigation menus"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:353 ../ui-admin/edit-post-type.php:455
+#: ../ui-admin/update-post-type.php:471
 msgid "\"post_type\" queries cannot be performed from the front-end"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:360 ../ui-admin/edit-post-type.php:462
-#: ../ui-admin/post-types.php:110 ../ui-admin/taxonomies.php:107
+#: ../ui-admin/post-types.php:134 ../ui-admin/taxonomies.php:107
+#: ../ui-admin/update-post-type.php:478
 msgid "Advanced"
 msgstr ""
 
@@ -665,6 +743,7 @@ msgstr ""
 #: ../ui-admin/add-taxonomy.php:244 ../ui-admin/add-taxonomy.php:248
 #: ../ui-admin/edit-post-type.php:472 ../ui-admin/edit-post-type.php:476
 #: ../ui-admin/edit-taxonomy.php:252 ../ui-admin/edit-taxonomy.php:256
+#: ../ui-admin/update-post-type.php:489 ../ui-admin/update-post-type.php:493
 #: ../ui-admin/wip-update-taxonomy.php:231
 #: ../ui-admin/wip-update-taxonomy.php:235
 msgid "Show UI"
@@ -675,44 +754,53 @@ msgid "Whether to generate a default UI for managing this post type."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:387 ../ui-admin/edit-post-type.php:484
+#: ../ui-admin/update-post-type.php:501
 msgid "Display a user-interface (admin panel) for this post type."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:394 ../ui-admin/edit-post-type.php:491
+#: ../ui-admin/update-post-type.php:508
 msgid "Do not display a user-interface for this post type."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:402 ../ui-admin/add-taxonomy.php:301
 #: ../ui-admin/edit-post-type.php:498 ../ui-admin/edit-taxonomy.php:310
+#: ../ui-admin/update-post-type.php:515
 #: ../ui-admin/wip-update-taxonomy.php:279
 msgid "Show In Nav Menus "
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:406 ../ui-admin/add-taxonomy.php:305
 #: ../ui-admin/edit-post-type.php:502 ../ui-admin/edit-taxonomy.php:314
+#: ../ui-admin/update-post-type.php:519
 #: ../ui-admin/wip-update-taxonomy.php:283
 msgid "Show In Nav Menus"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:409 ../ui-admin/edit-post-type.php:505
+#: ../ui-admin/update-post-type.php:522
 msgid "Whether post_type is available for selection in navigation menus."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:430 ../ui-admin/add-post-type.php:434
 #: ../ui-admin/edit-post-type.php:521 ../ui-admin/edit-post-type.php:525
+#: ../ui-admin/update-post-type.php:538 ../ui-admin/update-post-type.php:542
 msgid "Publicly Queryable"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:437 ../ui-admin/edit-post-type.php:528
+#: ../ui-admin/update-post-type.php:545
 msgid "Whether post_type queries can be performed from the front end."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:458 ../ui-admin/add-post-type.php:462
 #: ../ui-admin/edit-post-type.php:544 ../ui-admin/edit-post-type.php:548
+#: ../ui-admin/update-post-type.php:561 ../ui-admin/update-post-type.php:565
 msgid "Exclude From Search"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:465 ../ui-admin/edit-post-type.php:551
+#: ../ui-admin/update-post-type.php:568
 msgid "Whether to exclude posts with this post type from search results."
 msgstr ""
 
@@ -722,22 +810,26 @@ msgstr ""
 #: ../ui-admin/edit-taxonomy.php:338 ../ui-admin/edit-taxonomy.php:342
 #: ../ui-admin/post-types.php:42 ../ui-admin/post-types.php:55
 #: ../ui-admin/taxonomies.php:35 ../ui-admin/taxonomies.php:45
+#: ../ui-admin/update-post-type.php:584 ../ui-admin/update-post-type.php:588
 #: ../ui-admin/wip-update-taxonomy.php:303
 #: ../ui-admin/wip-update-taxonomy.php:307
 msgid "Hierarchical"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:493 ../ui-admin/edit-post-type.php:574
+#: ../ui-admin/update-post-type.php:591
 #: ../ui-admin/wip-update-taxonomy.php:310
 msgid "Whether the post type is hierarchical. Allows Parent to be specified."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:514 ../ui-admin/add-post-type.php:518
 #: ../ui-admin/edit-post-type.php:590 ../ui-admin/edit-post-type.php:594
+#: ../ui-admin/update-post-type.php:607 ../ui-admin/update-post-type.php:611
 msgid "Has Archive"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:521 ../ui-admin/edit-post-type.php:597
+#: ../ui-admin/update-post-type.php:614
 msgid ""
 "Enables post type archives. Will use string as archive slug. Will generate "
 "the proper rewrite rules if rewrite is enabled."
@@ -746,11 +838,13 @@ msgstr ""
 #: ../ui-admin/add-post-type.php:537 ../ui-admin/add-post-type.php:577
 #: ../ui-admin/add-taxonomy.php:385 ../ui-admin/edit-post-type.php:608
 #: ../ui-admin/edit-post-type.php:637 ../ui-admin/edit-taxonomy.php:394
+#: ../ui-admin/update-post-type.php:625 ../ui-admin/update-post-type.php:654
 #: ../ui-admin/wip-update-taxonomy.php:352
 msgid "Custom Slug"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:542 ../ui-admin/edit-post-type.php:612
+#: ../ui-admin/update-post-type.php:629
 msgid "Custom slug for post type archive."
 msgstr ""
 
@@ -760,12 +854,14 @@ msgstr ""
 #: ../ui-admin/edit-taxonomy.php:366 ../ui-admin/edit-taxonomy.php:370
 #: ../ui-admin/post-types.php:43 ../ui-admin/post-types.php:56
 #: ../ui-admin/taxonomies.php:36 ../ui-admin/taxonomies.php:46
+#: ../ui-admin/update-post-type.php:636 ../ui-admin/update-post-type.php:640
 #: ../ui-admin/wip-update-taxonomy.php:327
 #: ../ui-admin/wip-update-taxonomy.php:331
 msgid "Rewrite"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:556 ../ui-admin/edit-post-type.php:626
+#: ../ui-admin/update-post-type.php:643
 msgid "Rewrite permalinks with this format."
 msgstr ""
 
@@ -785,27 +881,33 @@ msgstr ""
 
 #: ../ui-admin/add-post-type.php:585 ../ui-admin/add-taxonomy.php:394
 #: ../ui-admin/edit-post-type.php:645 ../ui-admin/edit-taxonomy.php:402
+#: ../ui-admin/update-post-type.php:663
 msgid "Allow Front Base"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:588 ../ui-admin/add-taxonomy.php:397
 #: ../ui-admin/edit-post-type.php:648 ../ui-admin/edit-taxonomy.php:405
+#: ../ui-admin/update-post-type.php:666
 msgid "Allowing permalinks to be prepended with front base."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:592 ../ui-admin/edit-post-type.php:652
+#: ../ui-admin/update-post-type.php:671
 msgid "Feeds"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:595 ../ui-admin/edit-post-type.php:655
+#: ../ui-admin/update-post-type.php:674
 msgid "Default will use has_archive."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:599 ../ui-admin/edit-post-type.php:659
+#: ../ui-admin/update-post-type.php:679
 msgid "Pages"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:602 ../ui-admin/edit-post-type.php:662
+#: ../ui-admin/update-post-type.php:682
 msgid "Defaults to true."
 msgstr ""
 
@@ -813,6 +915,7 @@ msgstr ""
 #: ../ui-admin/add-taxonomy.php:412 ../ui-admin/add-taxonomy.php:416
 #: ../ui-admin/edit-post-type.php:670 ../ui-admin/edit-post-type.php:674
 #: ../ui-admin/edit-taxonomy.php:420 ../ui-admin/edit-taxonomy.php:424
+#: ../ui-admin/update-post-type.php:690 ../ui-admin/update-post-type.php:694
 msgid "EP Mask"
 msgstr ""
 
@@ -823,76 +926,91 @@ msgstr ""
 
 #: ../ui-admin/add-post-type.php:627 ../ui-admin/add-taxonomy.php:428
 #: ../ui-admin/edit-post-type.php:686 ../ui-admin/edit-taxonomy.php:437
+#: ../ui-admin/update-post-type.php:706
 msgid "EP_NONE: for default, nothing."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:633 ../ui-admin/add-taxonomy.php:434
 #: ../ui-admin/edit-post-type.php:692 ../ui-admin/edit-taxonomy.php:443
+#: ../ui-admin/update-post-type.php:712
 msgid "EP_PERMALINK: for Permalink."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:639 ../ui-admin/add-taxonomy.php:440
 #: ../ui-admin/edit-post-type.php:698 ../ui-admin/edit-taxonomy.php:449
+#: ../ui-admin/update-post-type.php:718
 msgid "EP_ATTACHMENT: for Attachment."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:645 ../ui-admin/add-taxonomy.php:446
 #: ../ui-admin/edit-post-type.php:704 ../ui-admin/edit-taxonomy.php:455
+#: ../ui-admin/update-post-type.php:724
 msgid "EP_DATE: for Date."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:651 ../ui-admin/add-taxonomy.php:452
 #: ../ui-admin/edit-post-type.php:710 ../ui-admin/edit-taxonomy.php:461
+#: ../ui-admin/update-post-type.php:730
 msgid "EP_YEAR: for Year."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:657 ../ui-admin/add-taxonomy.php:458
 #: ../ui-admin/edit-post-type.php:716 ../ui-admin/edit-taxonomy.php:467
+#: ../ui-admin/update-post-type.php:736
 msgid "EP_MONTH: for Month."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:663 ../ui-admin/add-taxonomy.php:464
 #: ../ui-admin/edit-post-type.php:722 ../ui-admin/edit-taxonomy.php:473
+#: ../ui-admin/update-post-type.php:742
 msgid "EP_DAY: for Day."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:669 ../ui-admin/add-taxonomy.php:470
 #: ../ui-admin/edit-post-type.php:728 ../ui-admin/edit-taxonomy.php:479
+#: ../ui-admin/update-post-type.php:748
 msgid "EP_ROOT: for Root."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:675 ../ui-admin/add-taxonomy.php:476
 #: ../ui-admin/edit-post-type.php:734 ../ui-admin/edit-taxonomy.php:485
+#: ../ui-admin/update-post-type.php:754
 msgid "EP_COMMENTS: for Comments."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:681 ../ui-admin/add-taxonomy.php:482
 #: ../ui-admin/edit-post-type.php:740 ../ui-admin/edit-taxonomy.php:491
+#: ../ui-admin/update-post-type.php:760
 msgid "EP_SEARCH: for Search."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:687 ../ui-admin/add-taxonomy.php:488
 #: ../ui-admin/edit-post-type.php:746 ../ui-admin/edit-taxonomy.php:497
+#: ../ui-admin/update-post-type.php:766
 msgid "EP_CATEGORIES: for Categories."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:693 ../ui-admin/add-taxonomy.php:494
 #: ../ui-admin/edit-post-type.php:752 ../ui-admin/edit-taxonomy.php:503
+#: ../ui-admin/update-post-type.php:772
 msgid "EP_TAGS: for Tags."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:699 ../ui-admin/add-taxonomy.php:500
 #: ../ui-admin/edit-post-type.php:758 ../ui-admin/edit-taxonomy.php:509
+#: ../ui-admin/update-post-type.php:778
 msgid "EP_AUTHORS: for Authors."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:705 ../ui-admin/add-taxonomy.php:506
 #: ../ui-admin/edit-post-type.php:764 ../ui-admin/edit-taxonomy.php:515
+#: ../ui-admin/update-post-type.php:784
 msgid "EP_PAGES: for Pages."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:711 ../ui-admin/add-taxonomy.php:512
 #: ../ui-admin/edit-post-type.php:770 ../ui-admin/edit-taxonomy.php:521
+#: ../ui-admin/update-post-type.php:790
 msgid "EP_ALL: for everything."
 msgstr ""
 
@@ -900,6 +1018,7 @@ msgstr ""
 #: ../ui-admin/add-taxonomy.php:521 ../ui-admin/add-taxonomy.php:525
 #: ../ui-admin/edit-post-type.php:779 ../ui-admin/edit-post-type.php:783
 #: ../ui-admin/edit-taxonomy.php:530 ../ui-admin/edit-taxonomy.php:534
+#: ../ui-admin/update-post-type.php:799 ../ui-admin/update-post-type.php:803
 #: ../ui-admin/wip-update-taxonomy.php:373
 #: ../ui-admin/wip-update-taxonomy.php:377
 msgid "Query var"
@@ -913,20 +1032,24 @@ msgstr ""
 
 #: ../ui-admin/add-post-type.php:738 ../ui-admin/add-taxonomy.php:539
 #: ../ui-admin/edit-post-type.php:797 ../ui-admin/edit-taxonomy.php:548
+#: ../ui-admin/update-post-type.php:817
 msgid "Custom Query Key"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:742 ../ui-admin/add-taxonomy.php:543
 #: ../ui-admin/edit-post-type.php:801 ../ui-admin/edit-taxonomy.php:552
+#: ../ui-admin/update-post-type.php:821
 msgid "Custom query var key."
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:752 ../ui-admin/add-post-type.php:756
 #: ../ui-admin/edit-post-type.php:808 ../ui-admin/edit-post-type.php:812
+#: ../ui-admin/update-post-type.php:828 ../ui-admin/update-post-type.php:832
 msgid "Can Export"
 msgstr ""
 
 #: ../ui-admin/add-post-type.php:759 ../ui-admin/edit-post-type.php:815
+#: ../ui-admin/update-post-type.php:835
 msgid "Can this post_type be exported."
 msgstr ""
 
@@ -1239,7 +1362,7 @@ msgstr ""
 msgid "Field and values"
 msgstr ""
 
-#: ../ui-admin/custom-fields.php:131 ../ui-admin/post-types.php:94
+#: ../ui-admin/custom-fields.php:131 ../ui-admin/post-types.php:95
 #: ../ui-admin/taxonomies.php:96
 msgid "Cancel"
 msgstr ""
@@ -1280,48 +1403,48 @@ msgstr ""
 msgid "Update Custom Field"
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:16
+#: ../ui-admin/edit-post-type.php:16 ../ui-admin/update-post-type.php:25
 msgid "Edit Post Type"
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:179
+#: ../ui-admin/edit-post-type.php:179 ../ui-admin/update-post-type.php:194
 msgid "Role Capabilities Settings"
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:183
+#: ../ui-admin/edit-post-type.php:183 ../ui-admin/update-post-type.php:198
 msgid "Assign Capabilities"
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:196
+#: ../ui-admin/edit-post-type.php:196 ../ui-admin/update-post-type.php:211
 #, php-format
 msgid "Select a role to which you want to assign %s capabilities."
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:391
+#: ../ui-admin/edit-post-type.php:391 ../ui-admin/update-post-type.php:408
 msgid "Display Custom Fields columns"
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:398
+#: ../ui-admin/edit-post-type.php:398 ../ui-admin/update-post-type.php:415
 msgid ""
 "These Custom Fields will be display as columns on the custom post type "
 "screen."
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:415
+#: ../ui-admin/edit-post-type.php:415 ../ui-admin/update-post-type.php:430
 msgid "This custom post type does not use any Custom Fields"
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:464
+#: ../ui-admin/edit-post-type.php:464 ../ui-admin/update-post-type.php:480
 msgid "You can set each component manually."
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:479
+#: ../ui-admin/edit-post-type.php:479 ../ui-admin/update-post-type.php:496
 msgid ""
 "Whether to generate a default UI for managing this post type. Note that "
 "built-in post types, such as post and page, are intentionally set to false."
 msgstr ""
 
-#: ../ui-admin/edit-post-type.php:786
+#: ../ui-admin/edit-post-type.php:786 ../ui-admin/update-post-type.php:806
 msgid ""
 "Name of the query var to use for this post type. Defaults to the post type "
 "name."
@@ -1431,18 +1554,18 @@ msgstr ""
 msgid "Edit the post type"
 msgstr ""
 
-#: ../ui-admin/post-types.php:93 ../ui-admin/taxonomies.php:95
+#: ../ui-admin/post-types.php:94 ../ui-admin/taxonomies.php:95
 msgid "Confirm"
 msgstr ""
 
-#: ../ui-admin/post-types.php:112 ../ui-admin/post-types.php:119
-#: ../ui-admin/post-types.php:126 ../ui-admin/taxonomies.php:109
+#: ../ui-admin/post-types.php:136 ../ui-admin/post-types.php:143
+#: ../ui-admin/post-types.php:150 ../ui-admin/taxonomies.php:109
 #: ../ui-admin/taxonomies.php:116 ../ui-admin/taxonomies.php:123
 msgid "True"
 msgstr ""
 
-#: ../ui-admin/post-types.php:114 ../ui-admin/post-types.php:121
-#: ../ui-admin/post-types.php:128 ../ui-admin/taxonomies.php:111
+#: ../ui-admin/post-types.php:138 ../ui-admin/post-types.php:145
+#: ../ui-admin/post-types.php:152 ../ui-admin/taxonomies.php:111
 #: ../ui-admin/taxonomies.php:118 ../ui-admin/taxonomies.php:125
 msgid "False"
 msgstr ""
@@ -1772,6 +1895,23 @@ msgstr ""
 
 #: ../ui-admin/update-message.php:5
 msgid "Content Type Updated"
+msgstr ""
+
+#: ../ui-admin/update-post-type.php:401
+msgid ""
+"The url to the icon to be used for this menu<br/>or a \"dashicons-\" class "
+"id."
+msgstr ""
+
+#: ../ui-admin/update-post-type.php:658
+msgid ""
+"Prepend posts with this slug. If empty the post name default will be used."
+msgstr ""
+
+#: ../ui-admin/update-post-type.php:697
+msgid ""
+"Endpoint mask describing the places the endpoint should be added. Disabled "
+"if Rewrite is set to FALSE"
 msgstr ""
 
 #: ../ui-admin/wip-update-taxonomy.php:32
