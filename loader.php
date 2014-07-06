@@ -3,33 +3,14 @@
 Plugin Name: CustomPress
 Plugin URI: http://premium.wpmudev.org/project/custompress
 Description: CustomPress - Custom Post, Taxonomy and Field Manager.
-Version: 1.3.5.4
-Author: WPMU DEV
+Version: 1.3.5.6
+Author: Ivan Shaovchev, Andrey Shipilov (Incsub), Arnold Bailey (Incsub)
 Author URI: http://premium.wpmudev.org
 Text Domain: custompress
 Domain Path: languages
 WDP ID: 163
 License: GNU General Public License (Version 2 - GPLv2)
 Network: false
-*/
-
-/* 
-Copyright 2007-2014 Incsub (http://incsub.com)
-Author - Arnold Bailey
-Contributors - Ivan Shaovchev, Andrey Shipilov
-  
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
-the Free Software Foundation.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 $plugin_header_translate = array(
@@ -56,7 +37,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
 /* Define plugin version */
-if( !defined('CPT_VERSION') ) define ( 'CPT_VERSION', '1.3.5.4' );
+if( !defined('CPT_VERSION') ) define ( 'CPT_VERSION', '1.3.5.6' );
 /* define the plugin folder url */
 if( !defined('CPT_PLUGIN_URL') ) define ( 'CPT_PLUGIN_URL', plugin_dir_url(__FILE__) );
 /* define the plugin folder dir */
@@ -84,4 +65,4 @@ $wpmudev_notices[] = array( 'id'=> 163,
 'toplevel_page_ct_content_types-network',
 'custompress_page_cp_main-network',
 'custompress_page_ct_export-network' ) );
-include_once 'core/wpmudev-dash-notification.php';
+include_once 'ext/wpmudev-dash-notification.php';
