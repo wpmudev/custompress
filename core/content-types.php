@@ -107,8 +107,8 @@ class CustomPress_Content_Types extends CustomPress_Core {
 		parent::__construct();
 
 		//Init early to make sure types are registers
-		add_action( 'after_setup_theme', array( &$this, 'register_taxonomies' ), 1 );
-		add_action( 'after_setup_theme', array( &$this, 'register_post_types' ), 2 );
+		add_action( 'init', array( &$this, 'register_taxonomies' ), 1 );
+		add_action( 'init', array( &$this, 'register_post_types' ), 2 );
 		add_action( 'init', array( &$this, 'flush_rewrite_rules' ), 99 ); //Give everyone else a chance to set rules, endpoints etc.
 
 		//Add custom terms and fields on media page
