@@ -737,7 +737,27 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 		//$params is the $_POST variable with slashes stripped
 		$params = array_map('stripslashes_deep',$_POST);
-
+		
+		$defaults = array(
+				'field_title'          => '',
+				'field_wp_allow'       => 0,
+				'field_type'           => '',
+				'field_sort_order'     => 0,
+				'field_options'        => '',
+				'field_date_format'    => '',
+				'field_regex'          => '',
+				'field_regex_options'  => '',
+				'field_regex_message'  => '',
+				'field_message'        => '',
+				'field_default_option' => null,
+				'field_description'    => '',
+				'object_type'          => '',
+				'hide_type'            => '',
+				'field_required'       => 0,
+				'field_id'             => '',
+		);
+		$params = apply_filters( 'handle_custom_field_requests_params', wp_parse_args( $params, $defaults ) );
+		
 		// If valid add/edit custom field request is made
 		if ( isset( $params['submit'] )
 		&& isset( $params['_wpnonce'] )
