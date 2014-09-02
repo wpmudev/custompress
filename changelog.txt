@@ -4,6 +4,8 @@ Author: Ivan Shaovchev, Andrey Shipilov (Incsub), Arnold Bailey (Incsub)
 Author URI: http://premium.wpmudev.org
 
 == Changelog ==
+= 1.3.5.8 - 2014-09-02 Fabio Jun
+* Fix warning messages "implode(): Invalid arguments passed..."
 
 = 1.3.5.7 - 2014-07-23 Fabio Jun
 * Fixed: register_taxonomies and register_post_types was hooking the after_setup_theme instead of init.
