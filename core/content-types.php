@@ -641,6 +641,7 @@ if (!class_exists('CustomPress_Content_Types')):
                         case 'upload':
                             $meta = esc_textarea(get_post_meta($post->ID, $id, true));
                             $meta = explode('|', $meta);
+                            $meta = array_filter($meta);
                             if (count($meta) == 1) {
                                 $meta[1] = 'medium';
                             }
@@ -648,7 +649,7 @@ if (!class_exists('CustomPress_Content_Types')):
                             wp_enqueue_script('ct-upload-script', CPT_PLUGIN_URL . 'ui-admin/js/ct-upload-field.js', CPT_VERSION);
                             if (count($meta)) {
                                 $image_attributes = wp_get_attachment_image_src($meta[0], 'thumbnail', true); // returns an array
-                                $result .= sprintf('<img src="%s" style="width: 150px; height: auto; clear: both; margin-bottom: 5px; display: block;max-height:150px"/>', $image_attributes[0]);
+                                $result .= sprintf('<img src="%s" style="max-width: 150px; height: auto; clear: both; margin-bottom: 5px; display: block;max-height:150px"/>', $image_attributes[0]);
                                 //check if this is image
 
                                 if (wp_attachment_is_image($meta[0])) {

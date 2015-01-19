@@ -35,7 +35,7 @@
                     img.attr('src', url);
                 } else {
                     var img = $('<img/>').attr('src', url).css({
-                        'width': '150px',
+                        'max-width': '150px',
                         'height': 'auto',
                         'max-height': '150px',
                         'clear': 'both',
