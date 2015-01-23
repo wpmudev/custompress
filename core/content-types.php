@@ -667,7 +667,7 @@ if (!class_exists('CustomPress_Content_Types')):
                                     $result .= $select;
                                 }
                             }
-                            $result .= sprintf('<button type="button" data-target="#%s" class="button button-default ct-upload-btn">%s</button>', $id, __("Upload a media", "custompress"));
+                            $result .= sprintf('<button type="button" data-target="#%s" class="button button-default ct-upload-btn">%s</button>', $id, __("Upload media", "custompress"));
                             $result .= sprintf('<input type="hidden" class="ct-field %s ct-upload-field" name="%s" id="%s" value="%s">', $class, $id, $id, esc_textarea(get_post_meta($post->ID, $id, true)));
                             break;
                     }
