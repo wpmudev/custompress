@@ -495,8 +495,13 @@ if (!class_exists('CustomPress_Content_Types')):
                                 if (count($meta) == 1) {
                                     $meta[1] = 'medium';
                                 }
-                                $image_attributes = wp_get_attachment_image_src($meta[0], $meta[1], true); // returns an array
-                                $result = '<img src="' . $image_attributes[0] . '"/>';
+                                //check if this is image
+                                $image_attributes = wp_get_attachment_image_src($meta[0], $meta[1]); // returns an array
+                                if(is_array($image_attributes)){
+                                    $result = '<img src="' . $image_attributes[0] . '"/>';
+                                }else{
+                                    $result = wp_get_attachment_url($meta[0]);
+                                }
                                 break;
                             }
                             default: {
