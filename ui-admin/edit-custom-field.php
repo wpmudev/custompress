@@ -69,6 +69,7 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 						</th>
 						<td>
 							<select name="field_type">
+								<option value="editor" <?php selected( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'editor' ); ?>><?php esc_html_e('WP Editor', $this->text_domain); ?></option>
 								<option value="text" <?php selected( isset( $custom_field['field_type']) && $custom_field['field_type'] == 'text' ); ?>>Text Box</option>
 								<option value="textarea" <?php selected( isset( $custom_field['field_type'] ) && $custom_field['field_type'] == 'textarea' ); ?>>Multi-line Text Box</option>
 								<option value="radio" <?php selected( isset( $custom_field['field_type'] ) && $custom_field['field_type'] == 'radio' ); ?>>Radio Buttons</option>

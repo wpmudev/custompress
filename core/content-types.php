@@ -673,8 +673,18 @@ if (!class_exists('CustomPress_Content_Types')):
                                 }
                             }
                             $result .= sprintf('<button type="button" data-target="#%s" class="button button-default ct-upload-btn">%s</button>', $id, __("Upload media", "custompress"));
+                            if (count($meta)) {
+                                $result .= sprintf('&nbsp;&nbsp;<button type="button" data-target="#%s" class="button button-default ct-remove-btn">%s</button>', $id, __("Remove media", "custompress"));
+                            }
                             $result .= sprintf('<input type="hidden" class="ct-field %s ct-upload-field" name="%s" id="%s" value="%s">', $class, $id, $id, esc_textarea(get_post_meta($post->ID, $id, true)));
-                            break;
+                        break;
+                    
+                        case 'editor':
+                            $content = get_post_meta( $post->ID, $id, true );
+                            $editor_id = $id;
+                            
+                            wp_editor( $content, $editor_id );
+                        break;
                     }
                 }
             }

@@ -61,6 +61,7 @@ $post_types = get_post_types('','names');
 						</th>
 						<td>
 							<select name="field_type">
+								<option value="editor" <?php selected( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'editor' ); ?>><?php esc_html_e('WP Editor', $this->text_domain); ?></option>
 								<option value="text" <?php selected( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'text' ); ?>><?php esc_html_e('Text Box', $this->text_domain); ?></option>
 								<option value="textarea" <?php selected( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'textarea' ); ?>><?php esc_html_e('Multi-line Text Box', $this->text_domain); ?></option>
 								<option value="radio" <?php selected( isset( $_POST['field_type'] ) && $_POST['field_type'] == 'radio' ); ?>><?php esc_html_e('Radio Buttons', $this->text_domain); ?></option>

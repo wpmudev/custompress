@@ -59,6 +59,7 @@
                 } else {
                     parent.find('select').remove();
                 }
+                that.after('&nbsp;&nbsp;<button class="button button-default ct-remove-btn">Remove Media</button>');
             });
 
             file_frame.on('open', function () {
@@ -73,7 +74,20 @@
             var value = input.val().split('|');
             value[1] = $(this).val();
             input.val(value.join('|'));
-        })
+        });
+        $('body').on( 'click', '.ct-remove-btn', function(e) {
+            e.preventDefault();
+            
+            var con = confirm( 'Are you sure you want to delete?' )
+            if( con ){
+                var _this = $(this);
+                _this.siblings('img').remove();
+                _this.siblings('select').remove();
+                _this.siblings('.ct-upload-field').val('');
+                _this.remove();
+            }
+        });
+        
     });
 
 })(jQuery);
