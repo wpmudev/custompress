@@ -3,7 +3,7 @@
 Plugin Name: CustomPress
 Plugin URI: http://premium.wpmudev.org/project/custompress
 Description: CustomPress - Custom Post, Taxonomy and Field Manager.
-Version: 1.3.6
+Version: 1.3.7-beta
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org
 Text Domain: custompress
