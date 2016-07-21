@@ -1028,12 +1028,20 @@ if (!class_exists('CustomPress_Content_Types')):
 			$rls = array();
 			if ($custom_field['field_required'] || !empty($custom_field['field_regex'])) { //we have validation rules
                 if (!empty($custom_field['field_required'])) $rls[] = 'required: true';
-                if (!empty($custom_field['field_regex'])) $rls[] = "regex: /{$custom_field['field_regex']}/{$regex_options}";
+                if (!empty($custom_field['field_regex'])) $rls[] = "regex: '/{$custom_field['field_regex']}/{$regex_options}'";
                 //Add more in the future
             }
 
 			if (!empty($rls)) $validation[] = "jQuery('[name={$fid}]').rules('add', { " . implode(", ", $rls) . " } );";
 		}
+            $validation[]="jQuery.validator.addMethod(
+        \"regex\",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        \"Please check your input.\"
+);";
             $validation[] = "});";
             $validation[] = '</script>';
             $validation = implode("\n", $validation);
