@@ -8,6 +8,8 @@ Author URI: http://premium.wpmudev.org
 * fix WPLANG
 * hide unnecessary options for upload field
 * fix upload field display file thumbnail instead of link
+* fix regex validation error
+* fix incompatibility issue with Domain Mapping
 
 = 1.3.5.9 - 2014-09-02 Hoang Ngo
 * Upload field
