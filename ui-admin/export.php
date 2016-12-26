@@ -148,7 +148,7 @@ $custom_fields = (empty($custom_fields))? array() : $custom_fields;
 							<?php if( defined('CT_ALLOW_IMPORT') ): ?>
 							<textarea id="ct_import" name="ct_import" rows="6" cols="80" ><?php echo esc_textarea($import); ?></textarea>
 							<?php else: ?>
-							<span class="description"><?php esc_html_e("Import is currently disabled on this site. To enable add the line<br /><code>define('CT_ALLOW_IMPORT', true);</code><br />to the wp-config.php file.", $this->text_domain); ?></span>
+							<span class="description"><?php _e("Import is currently disabled on this site. To enable add the line<br /><code>define('CT_ALLOW_IMPORT', true);</code><br />to the wp-config.php file.", $this->text_domain); ?></span>
 							<span class="description"><?php esc_html_e("Remove the line when it is no longer needed to prevent possible security problems.", $this->text_domain); ?></span>
 							<?php endif; ?>
 						</td>
