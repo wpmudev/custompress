@@ -510,17 +510,22 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 								break;
 							}
 							case 'upload': {
-								$meta = ( get_post_meta( $post->ID, $id, true ) );
+								$meta = get_post_meta( $post->ID, $id, true );
 								$meta = explode( '|', $meta );
 								if ( count( $meta ) == 1 ) {
 									$meta[1] = 'medium';
 								}
-								//check if this is image
-								$image_attributes = wp_get_attachment_image_src( $meta[0], $meta[1] ); // returns an array
+								// Get image attributes array, if it is really an image.
+								$image_attributes = wp_get_attachment_image_src( $meta[0], $meta[1] );
 								if ( is_array( $image_attributes ) ) {
 									$result = '<img src="' . $image_attributes[0] . '"/>';
 								} else {
-									$result = wp_get_attachment_url( $meta[0] );
+									// Get file attachment url.
+									$attachment_url = wp_get_attachment_url( $meta[0] );
+									// Get mime icon url for the file.
+									$icon_attributes = wp_get_attachment_image_src( $meta[0], $meta[1], true );
+									// Show them as a downloadable link with icon.
+									$result = '<a href="' . $attachment_url . '"/><img src="' . $icon_attributes[0] . '" /></a>';
 								}
 								break;
 							}
