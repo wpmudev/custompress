@@ -95,7 +95,7 @@ if ( ! class_exists( 'CustomPress_Core' ) ):
 			if ( empty( $theme ) ) {
 				$theme = 'flick';
 			} elseif ( is_array( $theme ) ) {
-				$theme = array_filter($theme);
+				$theme = array_filter( $theme );
 				$theme = array_shift( $theme );
 			}
 			// Verify it is a string value.
