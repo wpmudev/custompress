@@ -488,6 +488,8 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 					case 'description':
 						$result = $custom_field['field_description'];
 						break;
+					case 'image':
+					case 'link':
 					case 'value':
 					default: {
 						switch ( $custom_field['field_type'] ) {
@@ -510,22 +512,27 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 								break;
 							}
 							case 'upload': {
+								// Get the meta value.
 								$meta = get_post_meta( $post->ID, $id, true );
+								// If it an image, value may contain size.
 								$meta = explode( '|', $meta );
 								if ( count( $meta ) == 1 ) {
 									$meta[1] = 'medium';
 								}
-								// Get image attributes array, if it is really an image.
-								$image_attributes = wp_get_attachment_image_src( $meta[0], $meta[1] );
-								if ( is_array( $image_attributes ) ) {
-									$result = '<img src="' . $image_attributes[0] . '"/>';
-								} else {
-									// Get file attachment url.
-									$attachment_url = wp_get_attachment_url( $meta[0] );
-									// Get mime icon url for the file.
-									$icon_attributes = wp_get_attachment_image_src( $meta[0], $meta[1], true );
-									// Show them as a downloadable link with icon.
-									$result = '<a href="' . $attachment_url . '"/><img src="' . $icon_attributes[0] . '" /></a>';
+								// Since it is an upload field, get attachment link.
+								$attachment_url = wp_get_attachment_url( $meta[0] );
+								// Set default value as attachment url.
+								$result = $attachment_url;
+								// If property is link, show a clickable link.
+								if ( $property == 'link' && ! empty( $attachment_url ) ) {
+									$result = '<a href="' . $attachment_url . '"/>' . $attachment_url . '</a>';
+								} elseif ( $property == 'image' ) {
+									// If property is image, get attachment data.
+									$image_attributes = wp_get_attachment_image_src( $meta[0], $meta[1] );
+									// Verify that it is a valid image.
+									if ( is_array( $image_attributes ) ) {
+										$result = '<img src="' . $image_attributes[0] . '"/>';
+									}
 								}
 								break;
 							}
@@ -794,6 +801,7 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 
 			extract( shortcode_atts( array(
 				'wrap'        => 'ul',
+				'property'    => 'value',
 				'open'        => null,
 				'close'       => null,
 				'open_line'   => null,
@@ -845,7 +853,7 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 
 					$prefix = ( empty( $custom_field['field_wp_allow'] ) ) ? '_ct_' : 'ct_';
 					$fid    = $prefix . $custom_field['field_id'];
-					$value  = do_shortcode( '[ct id="' . $fid . '"]' );
+					$value  = do_shortcode( '[ct id="' . $fid . '" property="' . $property . '"]' );
 					if ( $value != '' ) {
 
 						$result .= $fmt['open_line'];
