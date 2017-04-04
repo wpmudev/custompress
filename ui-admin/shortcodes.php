@@ -82,7 +82,8 @@
 							</div>
 							<p>
 								<strong><?php esc_html_e('Attributes for the [custom_fields_block]', $this->text_domain); ?></strong>
-								<br /><span class="description"><?php esc_html_e( 'wrap        = Wrap the fields in either a "table", a "ul" or a "div" structure.', $this->text_domain ) ?></span>
+								<br /><span class="description"><?php esc_html_e( 'property = To format the upload field output. Accepted values are "value" (default), "link" or "image". This will be considered only for upload field values.', $this->text_domain ) ?></span>
+								<br /><span class="description"><?php esc_html_e( 'wrap = Wrap the fields in either a "table", a "ul" or a "div" structure.', $this->text_domain ) ?></span>
 								<br /><strong><?php esc_html_e( 'The default wrap attributes may be overriden using the following individual attributes:', $this->text_domain); ?></strong>
 								<br /><span class="description"><?php esc_html_e( 'open = HTML to begin the block with', $this->text_domain ) ?></span>
 								<br /><span class="description"><?php esc_html_e( 'close = HTML to end the block with', $this->text_domain ) ?></span>

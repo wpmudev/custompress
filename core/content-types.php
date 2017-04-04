@@ -488,6 +488,8 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 					case 'description':
 						$result = $custom_field['field_description'];
 						break;
+					case 'image':
+					case 'link':
 					case 'value':
 					default: {
 						switch ( $custom_field['field_type'] ) {
@@ -510,17 +512,27 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 								break;
 							}
 							case 'upload': {
-								$meta = ( get_post_meta( $post->ID, $id, true ) );
+								// Get the meta value.
+								$meta = get_post_meta( $post->ID, $id, true );
+								// If it an image, value may contain size.
 								$meta = explode( '|', $meta );
 								if ( count( $meta ) == 1 ) {
 									$meta[1] = 'medium';
 								}
-								//check if this is image
-								$image_attributes = wp_get_attachment_image_src( $meta[0], $meta[1] ); // returns an array
-								if ( is_array( $image_attributes ) ) {
-									$result = '<img src="' . $image_attributes[0] . '"/>';
-								} else {
-									$result = wp_get_attachment_url( $meta[0] );
+								// Since it is an upload field, get attachment link.
+								$attachment_url = wp_get_attachment_url( $meta[0] );
+								// Set default value as attachment url.
+								$result = $attachment_url;
+								// If property is link, show a clickable link.
+								if ( $property == 'link' && ! empty( $attachment_url ) ) {
+									$result = '<a href="' . $attachment_url . '"/>' . $attachment_url . '</a>';
+								} elseif ( $property == 'image' ) {
+									// If property is image, get attachment data.
+									$image_attributes = wp_get_attachment_image_src( $meta[0], $meta[1] );
+									// Verify that it is a valid image.
+									if ( is_array( $image_attributes ) ) {
+										$result = '<img src="' . $image_attributes[0] . '"/>';
+									}
 								}
 								break;
 							}
@@ -788,6 +800,7 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 			global $post;
 
 			extract( shortcode_atts( array(
+				'property'    => 'value',
 				'wrap'        => 'ul',
 				'open'        => null,
 				'close'       => null,
@@ -840,7 +853,7 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 
 					$prefix = ( empty( $custom_field['field_wp_allow'] ) ) ? '_ct_' : 'ct_';
 					$fid    = $prefix . $custom_field['field_id'];
-					$value  = do_shortcode( '[ct id="' . $fid . '"]' );
+					$value  = do_shortcode( '[ct id="' . $fid . '" property="' . $property . '"]' );
 					if ( $value != '' ) {
 
 						$result .= $fmt['open_line'];
