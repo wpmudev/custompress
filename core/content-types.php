@@ -800,8 +800,8 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 			global $post;
 
 			extract( shortcode_atts( array(
-				'wrap'        => 'ul',
 				'property'    => 'value',
+				'wrap'        => 'ul',
 				'open'        => null,
 				'close'       => null,
 				'open_line'   => null,
