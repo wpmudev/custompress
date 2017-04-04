@@ -145,13 +145,13 @@ $nonce = wp_create_nonce('reorder_custom_fields');
 		<tr id="embed-code-<?php echo esc_attr( $custom_field['field_id'] ); ?>" class="embed-code <?php echo ( $class ); ?>">
 			<td colspan="7">
 				<div class="embed-code-wrap">
-					<span class="description"><?php esc_html_e( 'Embed code returns the values of the custom field with the specified key from the specified post. Property may be one of "title", "description" or "value". If property is not used "value" wil be returned. Use inside the loop in templates and PHP code ', $this->text_domain ); ?></span>
+					<span class="description"><?php esc_html_e( 'Embed code returns the values of the custom field with the specified key from the specified post. Property may be one of "title", "description", "value", "link" or "image". The "link" and "image" properties can be used only for upload field types. If property is not used "value" wil be returned. Use inside the loop in templates and PHP code ', $this->text_domain ); ?></span>
 					<br />
-					<code><span style="color:red">&lt;?php</span> echo <strong>do_shortcode('[ct id="<?php echo esc_html( $prefix . $custom_field['field_id'] ); ?>" property="title | description | value"]')</strong>; <span style="color:red">?&gt;</span></code>
+					<code><span style="color:red">&lt;?php</span> echo <strong>do_shortcode('[ct id="<?php echo esc_html( $prefix . $custom_field['field_id'] ); ?>" property="title | description | value | link | image"]')</strong>; <span style="color:red">?&gt;</span></code>
 					<br /><br />
-					<span class="description"><?php esc_html_e( 'Shortcode returns the values of the custom field with the specified key from the specified post. Property may be one of "title", "description" or "value". If property is not used "value" wil be returned. Use inside the loop in Posts and Widgets', $this->text_domain ); ?></span>
+					<span class="description"><?php esc_html_e( 'Shortcode returns the values of the custom field with the specified key from the specified post. Property may be one of "title", "description", "value", "link" or "image". The "link" and "image" properties can be used only for upload field types. If property is not used "value" wil be returned. Use inside the loop in Posts and Widgets', $this->text_domain ); ?></span>
 					<br />
-					<code><strong>[ct id="<?php echo esc_html( $prefix . $custom_field['field_id'] ); ?>" property="title | description | value"]</strong></code>
+					<code><strong>[ct id="<?php echo esc_html( $prefix . $custom_field['field_id'] ); ?>" property="title | description | value | link | image"]</strong></code>
 				</div>
 			</td>
 		</tr>
