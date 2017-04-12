@@ -553,7 +553,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				),
 				'public' 		=> null,
 				'show_ui' 		=> null,
-				'show_tagcloud' => null,
+				'show_tagcloud' => null, 
 				'show_admin_column' => null,
 				'show_in_nav_menus' => false,
 				'hierarchical'		=> false,
