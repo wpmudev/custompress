@@ -428,7 +428,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				'rest_base'           => empty( $params['rest_base'] ) ? strtolower( $params['post_type'] ) : $params['rest_base'],
 				'cf_columns'          => isset( $params['cf_columns'] ) ? $params['cf_columns'] : '',
 				);
-
+				
 				$args['capabilities'] = array('create_posts' => "create_{$args['capability_type']}s" );
 
 				// Remove empty labels so we can use the defaults
