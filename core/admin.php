@@ -553,7 +553,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				),
 				'public' 		=> null,
 				'show_ui' 		=> null,
-				'show_tagcloud' => null, 
+				'show_tagcloud' => null,
 				'show_admin_column' => null,
 				'show_in_nav_menus' => false,
 				'hierarchical'		=> false,
@@ -759,7 +759,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				'field_id'             => '',
 		);
 		$params = apply_filters( 'handle_custom_field_requests_params', wp_parse_args( $params, $defaults ) );
-
+		
 		// If valid add/edit custom field request is made
 		if ( isset( $params['submit'] )
 		&& isset( $params['_wpnonce'] )
