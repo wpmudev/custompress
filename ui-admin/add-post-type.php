@@ -776,6 +776,41 @@
 			</table>
 		</div>
 
+		<div class="ct-table-wrap">
+			<div class="ct-arrow"><br></div>
+			<h3 class="ct-toggle"><?php esc_html_e('REST API', $this->text_domain) ?></h3>
+			<table class="form-table">
+				<tr>
+					<th>
+						<label><?php esc_html_e('REST API', $this->text_domain) ?></label>
+					</th>
+					<td>
+						<span class="description"><?php esc_html_e('Enable REST API support for this post type.', $this->text_domain); ?></span>
+					</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<label>
+							<input type="radio" name="show_in_rest" value="1" <?php checked( !isset($_POST['show_in_rest']) || ! empty($_POST['show_in_rest'])); ?> />
+							<span class="description"><strong><?php esc_html_e('TRUE', $this->text_domain); ?></strong></span>
+						</label>
+						<br />
+						<label>
+							<input type="radio" name="show_in_rest" value="0" <?php checked(isset($_POST['show_in_rest']) && empty($_POST['show_in_rest'])); ?> />
+							<span class="description"><strong><?php esc_html_e('FALSE', $this->text_domain); ?></strong></span>
+						</label>
+						<br /><br />
+						<span class="description"><strong><?php esc_html_e('REST API Base', $this->text_domain); ?></strong></span>
+						<br />
+						<input type="text" name="rest_base" value="<?php if ( !empty( $_POST['rest_base'] ) ) echo esc_attr( $_POST['rest_base'] ); ?>" />
+						<br />
+						<span class="description"><?php esc_html_e('Custom query var key.', $this->text_domain); ?></span>
+					</td>
+				</tr>
+			</table>
+		</div>
+
 
 	</div>
 	<p class="submit">

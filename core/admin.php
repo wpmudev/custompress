@@ -424,9 +424,11 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				'rewrite'             => (bool) $params['rewrite'],
 				'query_var'           => (bool) $params['query_var'],
 				'can_export'          => (bool) $params['can_export'],
+				'show_in_rest'        => (bool) $params['show_in_rest'],
+				'rest_base'           => empty( $params['rest_base'] ) ? strtolower( $params['post_type'] ) : $params['rest_base'],
 				'cf_columns'          => isset( $params['cf_columns'] ) ? $params['cf_columns'] : '',
 				);
-				
+
 				$args['capabilities'] = array('create_posts' => "create_{$args['capability_type']}s" );
 
 				// Remove empty labels so we can use the defaults
@@ -551,7 +553,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				),
 				'public' 		=> null,
 				'show_ui' 		=> null,
-				'show_tagcloud' => null, 
+				'show_tagcloud' => null,
 				'show_admin_column' => null,
 				'show_in_nav_menus' => false,
 				'hierarchical'		=> false,
@@ -559,7 +561,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				'query_var'			=> false,
 		);
 		$params = apply_filters( 'handle_taxonomy_requests_params', wp_parse_args( $params, $defaults ) );
-		
+
 		// If valid add/edit taxonomy request is made
 		if (   isset( $params['submit'] )
 		&& isset( $params['_wpnonce'] )
@@ -737,7 +739,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 		//$params is the $_POST variable with slashes stripped
 		$params = array_map('stripslashes_deep',$_POST);
-		
+
 		$defaults = array(
 				'field_title'          => '',
 				'field_wp_allow'       => 0,
@@ -757,7 +759,7 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 				'field_id'             => '',
 		);
 		$params = apply_filters( 'handle_custom_field_requests_params', wp_parse_args( $params, $defaults ) );
-		
+
 		// If valid add/edit custom field request is made
 		if ( isset( $params['submit'] )
 		&& isset( $params['_wpnonce'] )
