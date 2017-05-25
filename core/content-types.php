@@ -1087,7 +1087,7 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 						$rls[] = 'required: true';
 					}
 					if ( ! empty( $custom_field['field_regex'] ) ) {
-						$rls[] = "regex: '/{$custom_field['field_regex']}/{$regex_options}'";
+						$rls[] = "regex: /{$custom_field['field_regex']}/{$regex_options}";
 					}
 					//Add more in the future
 				}
