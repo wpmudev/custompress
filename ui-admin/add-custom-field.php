@@ -84,7 +84,7 @@ $post_types = get_post_types('','names');
 									<input type="text" id="field_regex_options" name="field_regex_options" size="3" value="<?php if ( isset( $_POST['field_regex_options'] ) ) echo esc_attr( $_POST['field_regex_options']); ?>" />
 									<br /><span class="description"><?php esc_html_e('i = ignore case, g = global, m = multiline', $this->text_domain) ?></span>
 									<br /><span class="description"><?php esc_html_e('Enter a regular expression to validate against or leave blank. Example for Email:', $this->text_domain) ?></span>
-									<br /><span class="description"><?php esc_html_e('<code>^[\w.%+-]+@[\w.-]+\.[A-Z]{2,4}$</code> <code>i</code>', $this->text_domain) ?></span>
+									<br /><span class="description"><?php esc_html_e('<code>^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,4}$</code> <code>i</code>', $this->text_domain) ?></span>
 								</p>
 								<p>
 									<label for="field_regex_message"><?php esc_html_e('Regular Expression Validation Error Message', $this->text_domain) ?></label><br />
