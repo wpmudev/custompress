@@ -98,6 +98,10 @@ $custom_field = $this->custom_fields[$_GET['ct_edit_custom_field']];
 									<input type="text" id="field_message" name="field_regex_message" size="55" value="<?php if ( isset( $custom_field['field_regex_message'] ) ) echo esc_attr( $custom_field['field_regex_message'] ); ?>" />
 									<br /><span class="description"><?php esc_html_e('Custom Regular Expression Validation Error message for this field or leave blank for default.', $this->text_domain) ?></span><br />
 								</p>
+								<p>
+									<?php esc_html_e('Default Value', $this->text_domain); ?>
+									<input type="text" name="field_default_option" size="3" value="<?php if ( isset( $custom_field['field_default_option'] ) ) echo esc_attr( $custom_field['field_default_option']); ?>" />
+								</p>
 							</div>
 
 							<div class="ct-date-type-options">
