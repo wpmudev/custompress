@@ -657,11 +657,13 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 							break;
 						}
 						case 'text': {
-							$result = sprintf( '<input type="text" class="ct-field ct-text %s" name="%s" id="%s" value="%s" />', $class, $id, $id, esc_attr( get_post_meta( $post->ID, $id, true ) ) );
+							$field_value = $this->get_field_value( $post->ID, $id, $custom_field );
+							$result = sprintf( '<input type="text" class="ct-field ct-text %s" name="%s" id="%s" value="%s" />', $class, $id, $id, esc_attr( $field_value ) );
 							break;
 						}
 						case 'textarea': {
-							$result = sprintf( '<textarea class="ct-field ct-textarea %s" name="%s" id="%s" rows="5" cols="40" >%s</textarea>', $class, $id, $id, esc_textarea( get_post_meta( $post->ID, $id, true ) ) );
+							$field_value = $this->get_field_value( $post->ID, $id, $custom_field );
+							$result = sprintf( '<textarea class="ct-field ct-textarea %s" name="%s" id="%s" rows="5" cols="40" >%s</textarea>', $class, $id, $id, esc_textarea( $field_value ) );
 							break;
 						}
 						case 'datepicker': {
@@ -716,7 +718,7 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 							break;
 
 						case 'editor':
-							$content   = get_post_meta( $post->ID, $id, true );
+							$content   = $this->get_field_value( $post->ID, $id, $custom_field );
 							$editor_id = $id;
 
 							wp_editor( $content, $editor_id );
@@ -727,6 +729,18 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 			$result = apply_filters( 'ct_in_shortcode', $result, $atts, $content );
 
 			return $result;;
+		}
+
+		private function get_field_value( $post_id, $id, $custom_field ) {
+			global $wpdb;
+
+			$value = $wpdb->get_col( $wpdb->prepare( "SELECT * FROM {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $post_id, $id ) );
+			if ( $value ) {
+				$field_value = $value['meta_value'];
+			} else {
+				$field_value = isset( $custom_field['field_default_option'] ) ? $custom_field['field_default_option'] : '';
+			}
+			return $field_value;
 		}
 
 
