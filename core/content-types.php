@@ -722,6 +722,16 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 							$editor_id = $id;
 
 							wp_editor( $content, $editor_id );
+
+							$result .= '
+								<script type="text/javascript">
+								jQuery(document).ready(function(){
+									jQuery("#post").on( "submit", function() {
+										tinyMCE.triggerSave();
+									});
+								});
+								</script>
+							';
 							break;
 					}
 				}
