@@ -574,38 +574,40 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 			if ( $valid_taxonomy && $valid_object_type ) {
 				// Construct args
 				$labels = array(
-				'name'                       => $params['labels']['name'],
-				'singular_name'              => $params['labels']['singular_name'],
-				'add_new_item'               => $params['labels']['add_new_item'],
-				'new_item_name'              => $params['labels']['new_item_name'],
-				'edit_item'                  => $params['labels']['edit_item'],
-				'update_item'                => $params['labels']['update_item'],
-				'search_items'               => $params['labels']['search_items'],
-				'popular_items'              => $params['labels']['popular_items'],
-				'all_items'                  => $params['labels']['all_items'],
-				'parent_item'                => $params['labels']['parent_item'],
-				'parent_item_colon'          => $params['labels']['parent_item_colon'],
-				'add_or_remove_items'        => $params['labels']['add_or_remove_items'],
-				'separate_items_with_commas' => $params['labels']['separate_items_with_commas'],
-				'choose_from_most_used'      => $params['labels']['choose_from_most_used']
+					'name'                       => $params['labels']['name'],
+					'singular_name'              => $params['labels']['singular_name'],
+					'add_new_item'               => $params['labels']['add_new_item'],
+					'new_item_name'              => $params['labels']['new_item_name'],
+					'edit_item'                  => $params['labels']['edit_item'],
+					'update_item'                => $params['labels']['update_item'],
+					'search_items'               => $params['labels']['search_items'],
+					'popular_items'              => $params['labels']['popular_items'],
+					'all_items'                  => $params['labels']['all_items'],
+					'parent_item'                => $params['labels']['parent_item'],
+					'parent_item_colon'          => $params['labels']['parent_item_colon'],
+					'add_or_remove_items'        => $params['labels']['add_or_remove_items'],
+					'separate_items_with_commas' => $params['labels']['separate_items_with_commas'],
+					'choose_from_most_used'      => $params['labels']['choose_from_most_used']
 				);
 
 				$args = array(
-				'labels'              => $labels,
-				'public'              => (bool) $params['public'] ,
-				'show_ui'             => ( isset( $params['show_ui'] ) ) ? (bool) $params['show_ui'] : null,
-				'show_tagcloud'       => ( isset( $params['show_tagcloud'] ) ) ? (bool) $params['show_tagcloud'] : null,
-				'show_admin_column'   => ( isset( $params['show_admin_column'] ) ) ? (bool) $params['show_admin_column'] : null,
-				'show_in_nav_menus'   => ( isset( $params['show_in_nav_menus'] ) ) ? (bool) $params['show_in_nav_menus'] : null,
-				'hierarchical'        => (bool) $params['hierarchical'],
-				'rewrite'             => (bool) $params['rewrite'],
-				'query_var'           => (bool) $params['query_var'],
-				'capabilities'        => array (
-				'manage_terms' => 'manage_categories',
-				'edit_terms'   => 'manage_categories',
-				'delete_terms' => 'manage_categories',
-				'assign_terms' => 'edit_posts',
-				),
+					'labels'              => $labels,
+					'public'              => (bool) $params['public'] ,
+					'show_ui'             => ( isset( $params['show_ui'] ) ) ? (bool) $params['show_ui'] : null,
+					'show_tagcloud'       => ( isset( $params['show_tagcloud'] ) ) ? (bool) $params['show_tagcloud'] : null,
+					'show_admin_column'   => ( isset( $params['show_admin_column'] ) ) ? (bool) $params['show_admin_column'] : null,
+					'show_in_nav_menus'   => ( isset( $params['show_in_nav_menus'] ) ) ? (bool) $params['show_in_nav_menus'] : null,
+					'hierarchical'        => (bool) $params['hierarchical'],
+					'rewrite'             => (bool) $params['rewrite'],
+					'query_var'           => (bool) $params['query_var'],
+					'capabilities'        => array (
+						'manage_terms' => 'manage_categories',
+						'edit_terms'   => 'manage_categories',
+						'delete_terms' => 'manage_categories',
+						'assign_terms' => 'edit_posts',
+					),
+					'show_in_rest'        => (bool) $params['show_in_rest'],
+					'rest_base'           => empty( $params['rest_base'] ) ? strtolower( $params['taxonomy'] ) : $params['rest_base']
 				);
 
 				// Remove empty values from labels so we can use the defaults
