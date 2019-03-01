@@ -769,11 +769,18 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 			return $result;;
 		}
 
+
+		/**
+		 * Retrive field value
+		 * @param  init $post_id      post id
+		 * @param  int $id           meta_Id
+		 * @param  array $custom_field
+		 * @return string               field value
+		 */
 		private function get_field_value( $post_id, $id, $custom_field ) {
 			global $wpdb;
-
-			$value = $wpdb->get_col( $wpdb->prepare( "SELECT * FROM {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $post_id, $id ) );
-			if ( $value ) {
+			$value = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $post_id, $id ), 'ARRAY_A' );
+			if ( isset( $value['meta_value'] ) ) {
 				$field_value = $value['meta_value'];
 			} else {
 				$field_value = isset( $custom_field['field_default_option'] ) ? $custom_field['field_default_option'] : '';
