@@ -816,6 +816,16 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 			// Unset if there are no options to be stored in the db
 			if ( $args['field_type'] == 'text' || $args['field_type'] == 'textarea'){
 				unset( $args['field_options'] );
+			}elseif( $args['field_type'] == 'datepicker' ){
+				if( ! empty( $args['field_date_format'] ) ){
+					$special_formats = ct_get_special_date_formats();
+					if ( isset( $special_formats[ $args['field_date_format'] ] ) ) {
+						$args['field_return_format']       = $args['field_date_format'];
+						$args['field_special_date_format'] = $special_formats[ $args['field_date_format'] ];
+					} else {
+						$args['field_return_format'] = ct_convert_date_to_php( $args['field_date_format'] );
+					}
+				}
 			} else {
 				//regex on text only
 				unset( $args['field_regex'] );
