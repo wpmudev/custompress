@@ -229,8 +229,8 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 			// Set network-wide content types
 			if ( is_multisite() && is_super_admin() && is_network_admin() ) {
-				update_site_option( 'allow_per_site_content_types', (bool) $params['enable_subsite_content_types'] );
-				update_site_option( 'display_network_content_types', (bool) $params['display_network_content_types'] );
+				update_site_option( 'allow_per_site_content_types', ! empty( $params['enable_subsite_content_types'] ) );
+				update_site_option( 'display_network_content_types', ! empty( $params['display_network_content_types'] ) );
 			}
 
 			// Create template file
