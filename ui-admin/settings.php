@@ -27,11 +27,9 @@ array(
 'search' => array('post_type' => array() )
 )
 : $options['display_post_types'];
-
 ?>
 
 <div class="wrap">
-	<?php screen_icon('options-general'); ?>
 	<h2><?php echo sprintf(__('CustomPress Settings %s', $this->text_domain), CPT_VERSION);?></h2>
 
 	<?php $this->render_admin('message'); ?>

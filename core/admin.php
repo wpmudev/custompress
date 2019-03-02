@@ -229,8 +229,8 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 
 			// Set network-wide content types
 			if ( is_multisite() && is_super_admin() && is_network_admin() ) {
-				update_site_option( 'allow_per_site_content_types', (bool) $params['enable_subsite_content_types'] );
-				update_site_option( 'display_network_content_types', (bool) $params['display_network_content_types'] );
+				update_site_option( 'allow_per_site_content_types', ! empty( $params['enable_subsite_content_types'] ) );
+				update_site_option( 'display_network_content_types', ! empty( $params['display_network_content_types'] ) );
 			}
 
 			// Create template file
@@ -816,6 +816,16 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 			// Unset if there are no options to be stored in the db
 			if ( $args['field_type'] == 'text' || $args['field_type'] == 'textarea'){
 				unset( $args['field_options'] );
+			}elseif( $args['field_type'] == 'datepicker' ){
+				if( ! empty( $args['field_date_format'] ) ){
+					$special_formats = ct_get_special_date_formats();
+					if ( isset( $special_formats[ $args['field_date_format'] ] ) ) {
+						$args['field_return_format']       = $args['field_date_format'];
+						$args['field_special_date_format'] = $special_formats[ $args['field_date_format'] ];
+					} else {
+						$args['field_return_format'] = ct_convert_date_to_php( $args['field_date_format'] );
+					}
+				}
 			} else {
 				//regex on text only
 				unset( $args['field_regex'] );
@@ -870,21 +880,26 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 			$cf_columns_update = 0;
 			foreach ( $custom_fields[$params['custom_field_id']]['object_type'] as $object_type ) {
 
-				if ( is_array( $this->network_post_types[$object_type]['cf_columns'] ) )
-				if( is_network_admin() ){
-					foreach ( $this->network_post_types[$object_type]['cf_columns'] as $key => $value )
-					if ( $params['custom_field_id'] == $key ) {
-						unset( $this->network_post_types[$object_type]['cf_columns'][$key] );
-						$cf_columns_update = 1;
-					}
-				} else {
-					if ( is_array( $this->post_types[$object_type]['cf_columns'] ) )
-					foreach ( $this->post_types[$object_type]['cf_columns'] as $key => $value )
-					if ( $params['custom_field_id'] == $key ) {
-						unset( $this->post_types[$object_type]['cf_columns'][$key] );
-						$cf_columns_update = 1;
+				if ( isset( $this->network_post_types[ $object_type ]['cf_columns'] ) && is_array( $this->network_post_types[ $object_type ]['cf_columns'] ) ) {
+					if ( is_network_admin() ) {
+						foreach ( $this->network_post_types[ $object_type ]['cf_columns'] as $key => $value ) {
+							if ( $params['custom_field_id'] == $key ) {
+								unset( $this->network_post_types[ $object_type ]['cf_columns'][ $key ] );
+								$cf_columns_update = 1;
+							}
+						}
+					} else {
+						if ( is_array( $this->post_types[ $object_type ]['cf_columns'] ) ) {
+							foreach ( $this->post_types[ $object_type ]['cf_columns'] as $key => $value ) {
+								if ( $params['custom_field_id'] == $key ) {
+									unset( $this->post_types[ $object_type ]['cf_columns'][ $key ] );
+									$cf_columns_update = 1;
+								}
+							}
+						}
 					}
 				}
+				
 			}
 
 			if ( 1 == $cf_columns_update ) {

@@ -136,6 +136,12 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 				'run_custom_shortcodes'
 			), 6 ); //Early priority so that other shortcodes can use custom values
 
+
+			add_filter( 'ct_update_value_meta_field', array(
+				$this,
+				'change_meta_value_db'
+			), 10, 4);
+
 			$this->init_vars();
 		}
 
@@ -320,7 +326,9 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 
 						//If field value save it
 						if ( isset( $params[ $prefix . $custom_field['field_id'] ] ) ) {
-							update_post_meta( $post_id, $prefix . $custom_field['field_id'], $params[ $prefix . $custom_field['field_id'] ] );
+							$field_id = $prefix . $custom_field['field_id'];
+							$value = apply_filters( 'ct_update_value_meta_field', $params[ $field_id ], $field_id, $custom_field, $params );
+							update_post_meta( $post_id, $field_id, $value );
 						}
 
 						if ( 'checkbox' == $custom_field['field_type'] ) {
@@ -508,7 +516,7 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 								break;
 							}
 							case 'datepicker': {
-								$result = strip_tags( get_post_meta( $post->ID, $id, true ) );
+								$result = ct_get_date_field( get_post_meta( $post->ID, $id, true ), $custom_field );
 								break;
 							}
 							case 'upload': {
@@ -671,14 +679,32 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 							wp_enqueue_script( 'jquery-ui-datepicker' );
 							wp_enqueue_script( 'jquery-ui-datepicker-lang' );
 							//						$result = $this->jquery_ui_css() . PHP_EOL;
-							$result = sprintf( '<input type="text" class="pickdate ct-field %s" name="%s" id="%s" value="%s" />', $class, $id, $id, esc_attr( strip_tags( get_post_meta( $post->ID, $id, true ) ) ) ) . PHP_EOL;
+							$result = '';
+
+							if ( ! empty( $custom_field['field_return_format'] ) ) {
+								$value  = get_post_meta( $post->ID, $id, true );
+								$result .= sprintf( '<input type="hidden" class="ct-date-format-db" name="%s-db" id="%s-db" value="%s" />', $id, $id, $value ) . PHP_EOL;
+
+								if ( ! empty( $value ) ) {
+									$value = ct_format_date( (int) $value, $custom_field['field_return_format'], isset( $custom_field['field_special_date_format'] ) );
+								}
+							} else {
+								$value = esc_attr( strip_tags( get_post_meta( $post->ID, $id, true ) ) );
+							}
+
+							$result .= sprintf( '<input type="text" class="pickdate ct-field %s" name="%s" id="%s" value="%s" />', $class, $id, $id, $value ) . PHP_EOL;
 							$result .= sprintf( '
-						<script type="text/javascript">
-						jQuery(document).ready(function(){
-						jQuery("#%s").datepicker({ dateFormat : "%s" });
-						});
-						</script>
-						', $id, $custom_field['field_date_format'] );
+								<script type="text/javascript">
+								jQuery(document).ready(function(){
+								jQuery("#%s").datepicker({ dateFormat : "%s", "onSelect": function( dateText, obj ){
+									var _hiden_db_field = jQuery("#%s-db");
+									if( _hiden_db_field.length ){
+										_hiden_db_field.val( obj.selectedYear + ( "0"+ (obj.selectedMonth + 1)).slice(-2) + ("0" + obj.selectedDay).slice(-2) );
+									}
+								} });
+								});
+								</script>
+							', $id, $custom_field['field_date_format'], $id );
 							break;
 						}
 						case 'upload':
@@ -741,11 +767,18 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 			return $result;;
 		}
 
+
+		/**
+		 * Retrive field value
+		 * @param  init $post_id      post id
+		 * @param  int $id           meta_Id
+		 * @param  array $custom_field
+		 * @return string               field value
+		 */
 		private function get_field_value( $post_id, $id, $custom_field ) {
 			global $wpdb;
-
-			$value = $wpdb->get_col( $wpdb->prepare( "SELECT * FROM {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $post_id, $id ) );
-			if ( $value ) {
+			$value = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->postmeta} WHERE post_id=%d AND meta_key=%s", $post_id, $id ), 'ARRAY_A' );
+			if ( isset( $value['meta_value'] ) ) {
 				$field_value = $value['meta_value'];
 			} else {
 				$field_value = isset( $custom_field['field_default_option'] ) ? $custom_field['field_default_option'] : '';
@@ -1213,6 +1246,35 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 			}
 
 			return $result;
+		}
+
+
+		/**
+		 * Format meta value before update to database
+		 * 	
+		 * @param  mix $value   meta value
+		 * @param  string $field_id
+		 * @param  array $params $_POST data
+		 * @param  array  $field   custom field object
+		 * @return mix meta value after format
+		 */
+		function change_meta_value_db( $value, $field_id, $field, $params ) {
+
+			switch ( $field['field_type'] ) {
+				case 'datepicker':
+					if ( ! empty( $params[ $field_id . '-db' ] ) ) {
+						$value = (int) $params[ $field_id . '-db' ];
+					}
+
+					break;
+
+				default:
+					# custom another field type here
+					break;
+			}
+
+
+			return $value;
 		}
 
 	}

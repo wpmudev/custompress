@@ -49,7 +49,209 @@ if ( ! class_exists( 'CustomPress_Core' ) ):
 		 */
 		function on_plugins_loaded() {
 			load_plugin_textdomain( $this->text_domain, false, plugin_basename( $this->plugin_dir . 'languages' ) );
+
+			// maybe check upgrade version here
+            $this->maybe_upgrade_version();
 		}
+
+
+		/**
+		 * Maybe upgrade to new version
+		 */
+		function maybe_upgrade_version(){
+
+			// check older
+			if ( is_multisite() ) {
+				$db_version = get_site_option( 'ct_db_version', '1.3.7' );
+			} else {
+				$db_version = get_option( 'ct_db_version', '1.3.7' );
+			}
+
+			if ( version_compare( '1.3.8', $db_version, '>=' ) ) {
+				// update format custom field date type
+
+				if ( is_multisite() ) {
+					// Retrive net work custom fields
+					$network_custom_fields          = get_site_option( 'ct_custom_fields', array() );
+					$filtered_network_custom_fields = false;
+
+					// retrive all ids blog sites
+					$blog_sites = $this->get_blog_sites( array(
+						'fields' => 'ids'
+					) );
+
+					foreach ( $blog_sites as $blog_id ) {
+						switch_to_blog( $blog_id );
+
+						// go
+						if ( ! empty( $network_custom_fields ) ) {
+							$network_custom_fields          = $this->update_db_date_format( $network_custom_fields, $filtered_network_custom_fields !== false );
+							$filtered_network_custom_fields = true;
+						}
+
+						$custom_fields = get_option( 'ct_custom_fields', array() );
+
+						if ( ! empty( $custom_fields ) ) {
+							$custom_fields = $this->update_db_date_format( $custom_fields );
+							// re-update blog site custom fields
+							update_option( 'ct_custom_fields', $custom_fields );
+						}
+
+						restore_current_blog();
+					}
+
+
+					// re-update network custom fields
+					if ( $filtered_network_custom_fields ) {
+						update_site_option( 'ct_custom_fields', $network_custom_fields );
+					}
+
+					// update new version
+					update_site_option( 'ct_db_version', '1.3.8' );
+				} else {
+					// normal wp site
+					$custom_fields = get_option( 'ct_custom_fields', array() );
+					if ( ! empty( $custom_fields ) ) {
+						$custom_fields = $this->update_db_date_format( $custom_fields );
+						// re-update blog site custom fields
+						update_option( 'ct_custom_fields', $custom_fields );
+					}
+
+					// update new version
+					update_option( 'ct_db_version', '1.3.8' );
+				}
+
+			}
+
+			// Another upgrade here...
+
+			// add hook for upgrade
+			do_action( 'ct_upgrade', $db_version, $this->plugin_version );
+
+        }
+
+        /**
+		 * Retrive all sites in the current network.
+		 *
+		 * @since  1.3.8
+		 * @return array
+		 */
+        function get_blog_sites($args=array()){
+        	// get sites only visible from 4.6.0
+        	$args = wp_parse_args( array(
+				'limit' 	=> 0,
+				'public'    => true,
+				'spam'      => false,
+				'deleted'   => false,
+				// only plubic
+				'archived' 	=> false,
+				'mature'	=> false
+			), $args );
+                        
+			$args = apply_filters(
+				'ct_get_blog_site_args',
+				$args
+			);
+
+			// get sites only visible from 4.6.0
+			if ( function_exists('get_sites') ) {
+				$sites = get_sites( $args );
+			} else {
+				$sites = wp_get_sites( $args );
+			}
+
+			return $sites;
+        }
+
+        /**
+         * Update db date formate
+         * @param  array  $custom_fields list custom fields setting
+         * @param  boolean $filtered
+         * @return array
+         */
+        function update_db_date_format($custom_fields, $filtered=false){
+	        if ( ! empty ( $custom_fields ) ) {
+		        global $wpdb;
+
+		        // retrive specific date format
+		        $special_formats = ct_get_special_date_formats();
+
+		        foreach ( $custom_fields as $key => $field ) {
+			        // pass if it's not datepicker type
+			        if ( 'datepicker' !== $field['field_type'] || empty( $field['field_date_format'] ) ) {
+				        continue;
+			        }
+
+			        if ( ! $filtered ) {
+				        if ( isset( $special_formats[ $field['field_date_format'] ] ) ) {
+					        $field['field_special_date_format'] = $special_formats[ $field['field_date_format'] ];
+					        $field['field_return_format']       = $field['field_date_format'];
+				        } else {
+					        $field['field_return_format'] = ct_convert_date_to_php( $field['field_date_format'] );
+				        }
+
+				        // update fields
+				        $custom_fields[ $key ] = $field;
+			        }
+
+			        $key = ct_get_field_id( $field );
+
+			        $date_values = $wpdb->get_results(
+				        $wpdb->prepare(
+					        "
+        					SELECT *
+        					FROM $wpdb->postmeta
+        					WHERE meta_key = %s AND meta_value <> ''
+        					",
+					        $key
+				        )
+			        );
+
+			        if ( ! empty( $date_values ) ) {
+				        $query = array();
+
+				        $is_special_date = ! empty( $field['field_special_date_format'] );
+
+				        if ( $is_special_date ) {
+					        $date_special_format = $field['field_special_date_format'];
+
+					        $arr_strformat = explode( ' ', array_shift( $date_special_format ) );
+
+				        }
+
+				        foreach ( $date_values as $meta_obj ) {
+
+					        if ( $is_special_date ) {
+						        $arr_strmeta_value = explode( ' ', $meta_obj->meta_value );
+						        $arr_strmeta_value = array_diff( $arr_strmeta_value, $arr_strformat );
+						        $date              = DateTime::createFromFormat( join( '/', $date_special_format ), join( '/', $arr_strmeta_value ) );
+					        } else {
+						        $date = DateTime::createFromFormat( $field['field_date_format'], $meta_obj->meta_value );
+					        }
+
+					        // pass if false
+					        if ( ! $date ) {
+						        continue;
+					        }
+
+					        $query[] = '(' . $meta_obj->meta_id . ',' . $meta_obj->post_id . ',"' . $meta_obj->meta_key . '",' . $date->format( 'Ymd' ) . ')';
+				        }
+
+				        if ( ! empty( $query ) ) {
+					        $query = "INSERT INTO $wpdb->postmeta (meta_id, post_id, meta_key, meta_value) VALUES " . join( ',', $query ) . ' ON DUPLICATE KEY UPDATE meta_value=VALUES(meta_value)';
+					        // re-update post meta
+					        $wpdb->query( $query );
+				        }
+
+			        }
+
+
+		        }
+	        }
+
+        	// return for re-update option
+        	return $custom_fields;
+        }
 
 		function on_enqueue_scripts() {
 			// People use both "_" and "-" versions for locale IDs en_GB en-GB
