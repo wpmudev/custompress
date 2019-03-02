@@ -328,8 +328,6 @@ if ( ! class_exists( 'CustomPress_Content_Types' ) ):
 						if ( isset( $params[ $prefix . $custom_field['field_id'] ] ) ) {
 							$field_id = $prefix . $custom_field['field_id'];
 							$value = apply_filters( 'ct_update_value_meta_field', $params[ $field_id ], $field_id, $custom_field, $params );
-
-							error_log($value);
 							update_post_meta( $post_id, $field_id, $value );
 						}
 

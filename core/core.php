@@ -61,9 +61,13 @@ if ( ! class_exists( 'CustomPress_Core' ) ):
 		function maybe_upgrade_version(){
 
 			// check older
-			$db_version = get_site_option( 'ct_db_version', '3.1.7' );
+			if ( is_multisite() ) {
+				$db_version = get_site_option( 'ct_db_version', '1.3.7' );
+			} else {
+				$db_version = get_option( 'ct_db_version', '1.3.7' );
+			}
 
-			if ( version_compare( '3.1.8', $db_version, '>=' ) ) {
+			if ( version_compare( '1.3.8', $db_version, '>=' ) ) {
 				// update format custom field date type
 
 				if ( is_multisite() ) {
@@ -101,6 +105,9 @@ if ( ! class_exists( 'CustomPress_Core' ) ):
 					if ( $filtered_network_custom_fields ) {
 						update_site_option( 'ct_custom_fields', $network_custom_fields );
 					}
+
+					// update new version
+					update_site_option( 'ct_db_version', '1.3.8' );
 				} else {
 					// normal wp site
 					$custom_fields = get_option( 'ct_custom_fields', array() );
@@ -109,14 +116,14 @@ if ( ! class_exists( 'CustomPress_Core' ) ):
 						// re-update blog site custom fields
 						update_option( 'ct_custom_fields', $custom_fields );
 					}
+
+					// update new version
+					update_option( 'ct_db_version', '1.3.8' );
 				}
 
-				// update new version
-				update_site_option( 'ct_db_version', '3.1.8' );
 			}
 
 			// Another upgrade here...
-
 
 			// add hook for upgrade
 			do_action( 'ct_upgrade', $db_version, $this->plugin_version );

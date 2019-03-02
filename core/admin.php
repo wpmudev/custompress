@@ -880,21 +880,26 @@ class CustomPress_Core_Admin extends CustomPress_Content_Types {
 			$cf_columns_update = 0;
 			foreach ( $custom_fields[$params['custom_field_id']]['object_type'] as $object_type ) {
 
-				if ( is_array( $this->network_post_types[$object_type]['cf_columns'] ) )
-				if( is_network_admin() ){
-					foreach ( $this->network_post_types[$object_type]['cf_columns'] as $key => $value )
-					if ( $params['custom_field_id'] == $key ) {
-						unset( $this->network_post_types[$object_type]['cf_columns'][$key] );
-						$cf_columns_update = 1;
-					}
-				} else {
-					if ( is_array( $this->post_types[$object_type]['cf_columns'] ) )
-					foreach ( $this->post_types[$object_type]['cf_columns'] as $key => $value )
-					if ( $params['custom_field_id'] == $key ) {
-						unset( $this->post_types[$object_type]['cf_columns'][$key] );
-						$cf_columns_update = 1;
+				if ( isset( $this->network_post_types[ $object_type ]['cf_columns'] ) && is_array( $this->network_post_types[ $object_type ]['cf_columns'] ) ) {
+					if ( is_network_admin() ) {
+						foreach ( $this->network_post_types[ $object_type ]['cf_columns'] as $key => $value ) {
+							if ( $params['custom_field_id'] == $key ) {
+								unset( $this->network_post_types[ $object_type ]['cf_columns'][ $key ] );
+								$cf_columns_update = 1;
+							}
+						}
+					} else {
+						if ( is_array( $this->post_types[ $object_type ]['cf_columns'] ) ) {
+							foreach ( $this->post_types[ $object_type ]['cf_columns'] as $key => $value ) {
+								if ( $params['custom_field_id'] == $key ) {
+									unset( $this->post_types[ $object_type ]['cf_columns'][ $key ] );
+									$cf_columns_update = 1;
+								}
+							}
+						}
 					}
 				}
+				
 			}
 
 			if ( 1 == $cf_columns_update ) {
